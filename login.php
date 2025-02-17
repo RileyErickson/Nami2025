@@ -90,7 +90,7 @@
                     }
                 ?>
                 <label for="username">Username</label>
-        		<input type="text" name="username" placeholder="Enter your username" required>
+        		<input type="text" name="username" placeholder="Enter your awesome username" required>
         		<label for="password">Password</label>
                 <input type="password" name="password" placeholder="Enter your password" required>
                 <input type="submit" name="login" value="Log in">
