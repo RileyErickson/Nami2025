@@ -26,12 +26,13 @@
     <head>
         <?php require('universal.inc'); ?>
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
-        <title>Step VA Volunteer System | Dashboard</title>
+        <title>NAMIRAPP Volunteer System | Dashboard</title>
     </head>
     <body>
         <?php require('header.php'); ?>
         <h1>Dashboard</h1>
         <main class='dashboard'>
+            
             <?php if (isset($_GET['pcSuccess'])): ?>
                 <div class="happy-toast">Password changed successfully!</div>
             <?php elseif (isset($_GET['deleteService'])): ?>
