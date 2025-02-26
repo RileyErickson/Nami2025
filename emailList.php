@@ -1,12 +1,6 @@
 <?php
 //noah stafford branching test
 
-$ages = [
-    "0", "1", "2", "3", "4", "5", "6", "7",
-    "8", "9", "10", "11", "12", "13", "14", "15", 
-    "16", "17", "18", "19", "20"
-];
-
     // Make session information accessible, allowing us to associate
     // data with the logged-in user.
     session_cache_expire(30);
@@ -32,26 +26,17 @@ $ages = [
     }
     if ($_SERVER["REQUEST_METHOD"] == "POST") {
         require_once('include/input-validation.php');
-        require_once('database/dbAnimals.php');
+        require_once('database/dbPersons.php');
         $args = sanitize($_POST, null);
         $required = array(
-			"name", "breed", "age", "gender", "spay_neuter_done", "microchip_done"
+			"admin", "volunteer","board","donator"
 		);
         if (!wereRequiredFieldsSubmitted($args, $required)) {
             echo 'bad form data';
             die();
         } else {
-            $id = create_animal($args);
-            if(!$id){
-                echo "Oopsy!";
-                die();
-            }
-            require_once('include/output.php');
             
-            $name = htmlspecialchars_decode($args['name']);
-            require_once('database/dbMessages.php');
-            header("Location: animal.php?id=$id&createSuccess");
-            die();
+    
         }
     }
     $date = null;
@@ -91,7 +76,7 @@ $ages = [
                     <option value="y">Include</option>
                     
                 </select>
-
+                <label for="s"> </label>
                
                 <input type="submit" value="Generate List">
             </form>
