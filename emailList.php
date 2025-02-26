@@ -35,7 +35,11 @@
             echo 'bad form data';
             die();
         } else {
-            
+           // //HERE IS THE SQL MAKER. FIX POST SECTIONS.
+           // if ($admin == y){}
+           // if ($volunteer == y){}
+           // if ($board == y){}
+           // if ($donators == y){}
     
         }
     }
