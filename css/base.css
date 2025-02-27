@@ -43,7 +43,7 @@ table, td, tr, th, form, fieldset, em, button, a {
 
 :root {
     /* CSS variables that will be used across the page */
-    --page-background-color: #ffffff;
+    --page-background-color: #fcfcfb;
     --page-font-color: #333333;
     --inactive-font-color: #d0d0d0;
     --inactive-background-color: #f0f0f0;
@@ -60,7 +60,7 @@ table, td, tr, th, form, fieldset, em, button, a {
 
     --shadow-and-border-color: #e8e8e8;
 
-    --main-color: #00aeef;
+    --main-color: #6a95ff;
     --accent-color: #39B54A;
     --secondary-accent-color: #a3e0f7;
 
@@ -122,7 +122,7 @@ header ul > li, header span {
 }
 
 nav {
-    width: 100%;
+    width: 110%;
 }
 
 nav ul {
