@@ -35,13 +35,44 @@
             echo 'bad form data';
             die();
         } else {
-           // //HERE IS THE SQL MAKER. FIX POST SECTIONS.
-           // if ($admin == y){}
-           // if ($volunteer == y){}
-           // if ($board == y){}
-           // if ($donators == y){}
+            //HERE IS THE SQL MAKER. FIX POST SECTIONS.
+            $query = "SELECT email FROM dbpersons WHERE email<>null";
+            $addedAny=FALSE;
+            if ($_POST['admin'] == 'y'){
+                $query = $query . " AND type='admin'";
+                echo "Add admin";
+                $addedAny=TRUE;
+            }
+            if ($_POST['volunteer'] == 'y'){
+                if ($addedAny==FALSE){
+                    $addedAny=TRUE;
+                    $query = $query . " AND type='volunteer'";
+                }
+                else{
+                    $query = $query . " OR type='volunteer'";
+                }
+            }
+            if ($_POST['board'] == 'y'){
+                if ($addedAny==FALSE){
+                    $addedAny=TRUE;
+                    $query = $query . " AND type='board'";
+                }
+                else{
+                    $query = $query . " OR type='board'";
+                }
+            }
+            if ($_POST['donator'] == 'y'){
+                if ($addedAny==FALSE){
+                    $addedAny=TRUE;
+                    $query = $query . " AND type='donator'";
+                }
+                else{
+                    $query = $query . " OR type='donator'";
+                }
+            }
     
         }
+        
     }
     $date = null;
 
