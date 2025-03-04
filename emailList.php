@@ -34,28 +34,28 @@
         if (!wereRequiredFieldsSubmitted($args, $required)) {
             echo 'bad form data';
             die();
-        } else {
-            //HERE IS THE SQL MAKER. FIX POST SECTIONS.
-            $query = "SELECT email FROM dbpersons WHERE email<>null";
+        }
+        else if ($_POST['volunteer'] == 'n' && $_POST['board'] == 'n' && $_POST['donator'] == 'n' && $_POST['admin'] == 'n'){}
+        else {
+            $query = "email IS NOT NULL";
             $addedAny=FALSE;
             if ($_POST['admin'] == 'y'){
-                $query = $query . " AND type='admin'";
-                echo "Add admin";
+                $query = $query . " AND (type='admin'";
                 $addedAny=TRUE;
             }
             if ($_POST['volunteer'] == 'y'){
                 if ($addedAny==FALSE){
                     $addedAny=TRUE;
-                    $query = $query . " AND type='volunteer'";
+                    $query = $query . " AND (type='volunteer' OR type ='v'";
                 }
                 else{
-                    $query = $query . " OR type='volunteer'";
+                    $query = $query . " OR type='volunteer' OR type ='v'";
                 }
             }
             if ($_POST['board'] == 'y'){
                 if ($addedAny==FALSE){
                     $addedAny=TRUE;
-                    $query = $query . " AND type='board'";
+                    $query = $query . " AND (type='board'";
                 }
                 else{
                     $query = $query . " OR type='board'";
@@ -64,18 +64,19 @@
             if ($_POST['donator'] == 'y'){
                 if ($addedAny==FALSE){
                     $addedAny=TRUE;
-                    $query = $query . " AND type='donator'";
+                    $query = $query . " AND (type='donator'";
                 }
                 else{
                     $query = $query . " OR type='donator'";
                 }
             }
-    
+            $query = $query . ")";
+            $row = get_email($query);
+
         }
         
     }
     $date = null;
-
 ?>
 <!DOCTYPE html>
 <html>
