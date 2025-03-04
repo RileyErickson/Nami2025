@@ -121,6 +121,16 @@
                 <?php else: ?>
                     <a class="button cancel" href="index.php" style="margin-top: -.5rem">Return to Dashboard</a>
                 <?php endif ?>
+
+                <?php
+                foreach($row as $x){
+                foreach($x as $z){
+                    echo $z ;
+                    echo  "<br/>";
+                }
+                
+            }
+                ?>
         </main>
     </body>
 </html>
