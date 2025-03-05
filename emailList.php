@@ -34,13 +34,49 @@
         if (!wereRequiredFieldsSubmitted($args, $required)) {
             echo 'bad form data';
             die();
-        } else {
-            
-    
         }
+        else if ($_POST['volunteer'] == 'n' && $_POST['board'] == 'n' && $_POST['donator'] == 'n' && $_POST['admin'] == 'n'){}
+        else {
+            $query = "email IS NOT NULL";
+            $addedAny=FALSE;
+            if ($_POST['admin'] == 'y'){
+                $query = $query . " AND (type='admin'";
+                $addedAny=TRUE;
+            }
+            if ($_POST['volunteer'] == 'y'){
+                if ($addedAny==FALSE){
+                    $addedAny=TRUE;
+                    $query = $query . " AND (type='volunteer' OR type ='v'";
+                }
+                else{
+                    $query = $query . " OR type='volunteer' OR type ='v'";
+                }
+            }
+            if ($_POST['board'] == 'y'){
+                if ($addedAny==FALSE){
+                    $addedAny=TRUE;
+                    $query = $query . " AND (type='board'";
+                }
+                else{
+                    $query = $query . " OR type='board'";
+                }
+            }
+            if ($_POST['donator'] == 'y'){
+                if ($addedAny==FALSE){
+                    $addedAny=TRUE;
+                    $query = $query . " AND (type='donator'";
+                }
+                else{
+                    $query = $query . " OR type='donator'";
+                }
+            }
+            $query = $query . ")";
+            $row = get_email($query);
+
+        }
+        
     }
     $date = null;
-
 ?>
 <!DOCTYPE html>
 <html>
@@ -85,6 +121,36 @@
                 <?php else: ?>
                     <a class="button cancel" href="index.php" style="margin-top: -.5rem">Return to Dashboard</a>
                 <?php endif ?>
+
+                <?php
+                if (isset($row)){
+                    echo '
+                    <div class="table-wrapper">
+                        <table class="general">
+                            <thead>
+                                <tr>
+                                    <th>Email List</th>
+                                </tr>
+                            </thead>
+                            <tbody class="standout">';
+                    foreach($row as $x){
+                        foreach($x as $z){
+                            echo '
+                                <tr>
+                                    <td>' . $z . '</td>
+                                </tr>';
+                            // echo $z ;
+                           // echo  "<br/>";
+                    }
+                }
+
+
+                
+            }
+            else{
+                echo "Either there are no emails with the selected parameters, or you have yet to make a selection.";
+            }
+                ?>
         </main>
     </body>
 </html>

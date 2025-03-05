@@ -1220,18 +1220,24 @@ function find_user_names($name) {
 
 
     function get_email($where) {
-        if ($id == 'vmsroot') {
-            return 'System';
-        }
-        $query = "select email from dbpersons
-            where '$where'";
-        $connection = connect();
-        $result = mysqli_query($connection, $query);
-        if (!$result) {
-            return null;
-        }
+        $con=connect();
+        $query = "SELECT email FROM dbpersons WHERE ". $where;            
+        $result = mysqli_query($con, $query);
 
-        $row = mysqli_fetch_assoc($result);
-        mysqli_close($connection);
-        return $row['email'];
+        if ($result) {
+            $row = [];
+            while ($row = mysqli_fetch_assoc($result)) {
+                $rows[] = $row; // Collect only the event IDs
+            }
+            if (isset($rows)){
+                mysqli_free_result($result);
+                mysqli_close($con);
+                return $rows;  
+            }
+            return null;
+// Return an array of event IDs
+        } else {
+            mysqli_close($con);
+            return []; // Return an empty array if no results are found
+        }
     }
