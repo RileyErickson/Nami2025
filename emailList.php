@@ -123,12 +123,32 @@
                 <?php endif ?>
 
                 <?php
-                foreach($row as $x){
-                foreach($x as $z){
-                    echo $z ;
-                    echo  "<br/>";
+                if (isset($row)){
+                    echo '
+                    <div class="table-wrapper">
+                        <table class="general">
+                            <thead>
+                                <tr>
+                                    <th>Email List</th>
+                                </tr>
+                            </thead>
+                            <tbody class="standout">';
+                    foreach($row as $x){
+                        foreach($x as $z){
+                            echo '
+                                <tr>
+                                    <td>' . $z . '</td>
+                                </tr>';
+                            // echo $z ;
+                           // echo  "<br/>";
+                    }
                 }
+
+
                 
+            }
+            else{
+                echo "Either there are no emails with the selected parameters, or you have yet to make a selection.";
             }
                 ?>
         </main>

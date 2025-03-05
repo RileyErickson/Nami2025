@@ -1229,9 +1229,13 @@ function find_user_names($name) {
             while ($row = mysqli_fetch_assoc($result)) {
                 $rows[] = $row; // Collect only the event IDs
             }
-            mysqli_free_result($result);
-            mysqli_close($con);
-            return $rows;  // Return an array of event IDs
+            if (isset($rows)){
+                mysqli_free_result($result);
+                mysqli_close($con);
+                return $rows;  
+            }
+            return null;
+// Return an array of event IDs
         } else {
             mysqli_close($con);
             return []; // Return an empty array if no results are found
