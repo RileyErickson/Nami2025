@@ -48,6 +48,7 @@
 					$zip = $args['zip'];
                     $role = $args['role'];
                     $status = $args['status'];
+                    
                     $photo_release = $args['photo_release'];
                     if (!($name || $id || $phone || $zip || $role || $status || $photo_release)) {
                         echo '<div class="error-toast">At least one search criterion is required.</div>';
@@ -74,7 +75,6 @@
                                             <th>Phone Number</th>
                                              <th>Email</th>
 											<th>Zip Code</th>
-                                           
                                             <th>Role</th>
                                             <th>Archive Status</th>
                                             <th>Profile</th>
@@ -110,10 +110,7 @@
                                     </tbody>
                                 </table>
                             </div>';
-                            echo '
-                            <label>Result Mailing List</label>
-                            <p>' . $mailingList . '</p>
-                            ';
+
                         } else {
                             echo '<div class="error-toast">Your search returned no results.</div>';
                         }
@@ -147,12 +144,7 @@
                 <option value="Inactive" <?php if (isset($status) && $status == 'Inactive') echo 'selected' ?>>Archived</option>
             </select>
 
-            <label for="photo_release">Photo Release</label>
-                <select id="photo_release" name="photo_release">
-                    <option value="">Any</option>
-                    <option value="Not Restricted" <?php if (isset($photo_release) && $photo_release == 'Not Restricted') echo 'selected' ?>>Not Restricted</option>
-                    <option value="Restricted" <?php if (isset($photo_release) && $photo_release == 'Restricted') echo 'selected' ?>>Restricted</option>
-                </select>
+                <?$photo_release = "Not Restricted"; ?>
 
             <div id="criteria-error" class="error hidden">You must provide at least one search criterion.</div>
             <input type="submit" value="Search">
