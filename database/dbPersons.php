@@ -21,6 +21,7 @@ include_once(dirname(__FILE__).'/../domain/Person.php');
  * add a person to dbPersons table: if already there, return false
  */
 
+
 function add_person($person) {
     if (!$person instanceof Person)
         die("Error: add_person type mismatch");
@@ -1214,4 +1215,29 @@ function find_user_names($name) {
         $row = mysqli_fetch_assoc($result);
         mysqli_close($connection);
         return $row['first_name'] . ' ' . $row['last_name'];
+    }
+
+
+
+    function get_email($where) {
+        $con=connect();
+        $query = "SELECT email FROM dbpersons WHERE ". $where;            
+        $result = mysqli_query($con, $query);
+
+        if ($result) {
+            $row = [];
+            while ($row = mysqli_fetch_assoc($result)) {
+                $rows[] = $row; // Collect only the event IDs
+            }
+            if (isset($rows)){
+                mysqli_free_result($result);
+                mysqli_close($con);
+                return $rows;  
+            }
+            return null;
+// Return an array of event IDs
+        } else {
+            mysqli_close($con);
+            return []; // Return an empty array if no results are found
+        }
     }

@@ -1,22 +1,26 @@
-# Setp VA Volunteer Management System
+# NAMIRAPP Management System
 ## Purpose
-This project is the result of a semester's worth of collaboration among UMW students. The goal of the project was to create a web application that Step VA could utilize to make it easier to track and manage both volunteers and events. At-a-glance features include a web-based calendar of events, event sign up, volunteer registration & login system, reporting system and basic notification system.
+This project is the result of a semester's worth of collaboration among UMW students. The goal of the project was to create a web application that NAMIRAPP could utilize to make it easier to track and manage both volunteers and events. At-a-glance features include a web-based calendar of events, event sign up, volunteer registration & login system, reporting system and basic notification system.
 
 ## Authors
-The ODHS Medicine Tracker is based on an old open source project named "Homebase". [Homebase](https://a.link.will.go.here/) was originally developed for the Ronald McDonald Houses in Maine and Rhode Island by Oliver Radwan, Maxwell Palmer, Nolan McNair, Taylor Talmage, and Allen Tucker.
+The NAMIRAPP Management System is based on an old open source project named "Homebase". [Homebase](https://a.link.will.go.here/) was originally developed for the Ronald McDonald Houses in Maine and Rhode Island by Oliver Radwan, Maxwell Palmer, Nolan McNair, Taylor Talmage, and Allen Tucker.
 
 Modifications to the original Homebase code were made by the Fall 2022 semester's group of students. That team consisted of Jeremy Buechler, Rebecca Daniel, Luke Gentry, Christopher Herriott, Ryan Persinger, and Jennifer Wells.
 
-A major overhaul to the existing system took place during the Spring 2023 semester, throwing out and restructuring many of the existing database tables. Very little original Homebase code remains. This team consisted of Lauren Knight, Zack Burnley, Matt Nguyen, Rishi Shankar, Alip Yalikun, and Tamra Arant. Every page and feature of the app was changed by this team.
+A major overhaul to the existing system took place during the Spring 2023 semester, throwing out and restructuring many of the existing database tables. Very little original Homebase code remains. This team consisted of Lauren Knight, Zack Burnley, Matt Nguyen, Rishi Shankar, Alip Yalikun, and Tamra Arant.
 
 The Gwyneth's Gifts VMS code was modified in the Fall of 2023, revamping the code into the present ODHS Medicine Tracker code. Many of the existing database tables were reused, and many other tables were added. Some portions of the software's functionality were reused from the Gwyneth's Gifts VMS code. Other functions were created to fill the needs of the ODHS Medicine Tracker. The team that made these modifications and changes consisted of Garrett Moore, Artis Hart, Riley Tugeau, Julia Barnes, Ryan Warren, and Collin Rugless.
 
-The ODHS Medicine Tracker code was modified in the Fall of 2024, changing the code to the present Step VA Volunteer Management System code. Many existing database tables were reused or renamed, and some others were added. Some files and portions of the software's functionality were reused from ODHS Medicine Tracker, while other functions were created to fill the needs of Step VA Volunteer Management. The team which made changes and new addtions consisted of Ava Donley, Thomas Held, Madison McCarty, Noah Stafford, Jayden Wynes, Gary Young, and Imaad Qureshi.
+The ODHS Medicine Tracker code was modified in the Fall of 2024, changing the code to the present NAMIRAPP Management System code. Many existing database tables were reused or renamed, and some others were added. Some files and portions of the software's functionality were reused from ODHS Medicine Tracker, while other functions were created to fill the needs of NAMIRAPP Management. The team which made changes and new addtions consisted of Colby Stone, Marie Satterly, Percy Miltier, Masen Crim, April Groce, Riley Erickson and Peter Annis.
 
 ## User Types
-There are two types of users (also referred to as 'roles') within Step VA.
+There are four types of users (also referred to as 'roles') within Step VA.
 * Admins
+* Board Members
 * Volunteers
+* Consumers
+
+## EDIT BELOW AS WE MAKE CHANGES
 
 Admins can create and edit events, view and approve sign-ups, and view sign-ups and volunteer hours.
 

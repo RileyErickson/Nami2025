@@ -100,7 +100,7 @@
         $permission_array['vieweventsignups.php'] = 2;
         $permission_array['viewalleventsignups.php'] = 2;
         $permission_array['resources.php'] = 2;
-
+        $permission_array['edithours.php'] = 2;
         $permission_array['edithours.php'] = 2;
         $permission_array['eventlist.php'] = 1;
         $permission_array['eventsignup.php'] = 1;
@@ -112,7 +112,7 @@
         $permission_array['requestfailed.php'] = 1;
         $permission_array['settimes.php'] = 1;
         $permission_array['eventfailurebaddeparturetime.php'] = 1;
-        
+        $permission_array['emaillist.php'] = 2;
         // LOWERCASE
 
 
