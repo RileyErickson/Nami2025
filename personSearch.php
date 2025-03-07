@@ -72,8 +72,9 @@
                                             <th>Last</th>
                                             <th>Username</th>
                                             <th>Phone Number</th>
+                                             <th>Email</th>
 											<th>Zip Code</th>
-                                            <th>Photo Release</th>
+                                           
                                             <th>Role</th>
                                             <th>Archive Status</th>
                                             <th>Profile</th>
@@ -96,8 +97,8 @@
                                             <td>' . $person->get_last_name() . '</td>
                                             <td><a href="mailto:' . $person->get_id() . '">' . $person->get_id() . '</a></td>
                                             <td><a href="tel:' . $person->get_phone1() . '">' . formatPhoneNumber($person->get_phone1()) .  '</td>
-											<td>' . $person->get_zip_code() . '</td>
-                                            <td>' . $person->get_photo_release() .'</td>
+                                            <td>' . $person->get_email() . '</td>
+                                            <td>' . $person->get_zip_code() . '</td>
                                             <td>' . ucfirst($person->get_type()) . '</td>
                                             <td>' . ucfirst($person->get_status()) . '</td>
                                             <td><a href="viewProfile.php?id=' . $person->get_id() . '">Profile</a></td>
