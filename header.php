@@ -28,7 +28,7 @@
             <span id="nav-top">
                 <span class="logo">
                     <img src="images/stepvalogo.png">
-                    <span id="vms-logo"> Step VA Volunteer Management </span>
+                    <span id="vms-logo"> NAMIRAPP Volunteer </span>
                 </span>
                 <img id="menu-toggle" src="images/menu.png">
             </span>
@@ -115,6 +115,10 @@
         $permission_array['emaillist.php'] = 2;
         $permission_array['viewforms.php'] = 0;
         $permission_array['editform.php'] = 0;
+        $permission_array['deletevolunteer.php'] = 2;
+        $permission_array['volunteerdenied.php'] = 2;
+        $permission_array['editvolunteer.php'] = 2;
+        $permission_array['generatereport.php'] = 2;
         // LOWERCASE
 
 
