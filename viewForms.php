@@ -43,7 +43,7 @@
 <html>
     <head>
         <?php require_once('universal.inc') ?>
-        <link rel="stylesheet" href="css/editprofile.css" type="text/css" />
+        <link rel="stylesheet" href="css/base.css" type="text/css" />
         <title>Step VA | View User</title>
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     </head>
@@ -80,23 +80,45 @@
             <?php endif ?>
 
             <fieldset class="section-box">
-				<?php if ($accessLevel == 0): ?>
-				<legend>Consumer Forms</legend>
-				<?php elseif ($accessLevel == 1): ?>
-				<legend>Volunteer Forms</legend>
-				<?php elseif ($accessLevel == 2 || $accessLevel == 3): ?>
-				<legend>Forms</legend>
-				<?php endif ?>
 				
 				<!-- Form links, administrators/superadministrators can see any forms. -->
 				<?php if ($accessLevel == 0 || $accessLevel == 2 || $accessLevel == 3): ?>
 					<!-- Links to consumer forms can be added here -->
 					<div>
 						<div class="field-pair">
-							<a href="">
-								<label>Consumer Form Name</label>
-							</a>
-							<p>Form Description</p>
+							<label>P2P Application</label>
+							<p>
+								This is a consumer form. A longer description of the form to be submitted can be added here.
+								<br>
+							</p>
+							<form action="editForm.php" method="POST">
+								<input type="hidden" id="formname" name="formname" value="P2PApplication">
+								<button style="width:16%;">Submit/Edit</button>
+							</form>
+						</div>
+						
+						<div class="field-pair">
+							<label>IOO VApplication</label>
+							<p>
+								This is a consumer form. A longer description of the form to be submitted can be added here.
+								<br>
+							</p>
+							<form action="editForm.php" method="POST">
+								<input type="hidden" id="formname" name="formname" value="IOOApplication">
+								<button style="width:16%;">Submit/Edit</button>
+							</form>
+						</div>
+						
+						<div class="field-pair">
+							<label>CSG Application</label>
+							<p>
+								This is a consumer form. A longer description of the form to be submitted can be added here.
+								<br>
+							</p>
+							<form action="editForm.php" method="POST">
+								<input type="hidden" id="formname" name="formname" value="CSGApplication">
+								<button style="width:16%;">Submit/Edit</button>
+							</form>
 						</div>
 					</div>
 				<?php endif ?>
@@ -105,10 +127,39 @@
 					<!-- Links to volunteer forms can be added here -->
 					<div>
 						<div class="field-pair">
-							<a href="">
-								<label>Volunteer Form Name</label>
-							</a>
-							<p>Form Description</p>
+							<label>F2F Application</label>
+							<p>
+								This is a consumer form. A longer description of the form to be submitted can be added here.
+								<br>
+							</p>
+							<form action="editForm.php" method="POST">
+								<input type="hidden" id="formname" name="formname" value="F2FApplication">
+								<button style="width:16%;">Submit/Edit</button>
+							</form>
+						</div>
+						
+						<div class="field-pair">
+							<label>FSG Application</label>
+							<p>
+								This is a volunteer form. A longer description of the form to be submitted can be added here.
+								<br>
+							</p>
+							<form action="editForm.php" method="POST">
+								<input type="hidden" id="formname" name="formname" value="FSGApplication">
+								<button style="width:16%;">Submit/Edit</button>
+							</form>
+						</div>
+						
+						<div class="field-pair">
+							<label>HF Application</label>
+							<p>
+								This is a volunteer form. A longer description of the form to be submitted can be added here.
+								<br>
+							</p>
+							<form action="editForm.php" method="POST">
+								<input type="hidden" id="formname" name="formname" value="HFApplication">
+								<button style="width:16%;">Submit/Edit</button>
+							</form>
 						</div>
 					</div>
 				<?php endif ?>

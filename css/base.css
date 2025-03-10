@@ -925,3 +925,19 @@ img.profile-pic {
     font-size: 55px; /* Set the desired size */
     color: #ffffff; /* Optional: set color */
 }
+
+
+/* Field pair styling to keep label and paragraph close */
+.field-pair {
+    margin-bottom: 30px; /* space between each field pair */
+}
+
+.field-pair label {
+    font-weight: bold;
+    display: block;
+    margin-bottom: 2px; /* close gap between label and paragraph */
+}
+
+.field-pair p {
+    margin: 0;
+}

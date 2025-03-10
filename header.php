@@ -113,6 +113,8 @@
         $permission_array['settimes.php'] = 1;
         $permission_array['eventfailurebaddeparturetime.php'] = 1;
         $permission_array['emaillist.php'] = 2;
+        $permission_array['viewforms.php'] = 0;
+        $permission_array['editform.php'] = 0;
         // LOWERCASE
 
 

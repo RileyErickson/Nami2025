@@ -792,7 +792,7 @@ function get_logged_hours($from, $to, $name_from, $name_to, $venue) {
         return $persons;
     }
 
-function find_user_names($name) {
+	function find_user_names($name) {
         $where = 'where ';
         if (!($name)) {
             return [];
@@ -1241,3 +1241,29 @@ function find_user_names($name) {
             return []; // Return an empty array if no results are found
         }
     }
+	
+	
+	function get_application_id($id, $application) {
+        $con=connect();
+        $query = "SELECT " . $application . "ID FROM dbpersons WHERE id='" . $id . "';";            
+        $result = mysqli_query($con, $query);
+		
+		$result = $result->fetch_array();
+		$appID = $result[0];
+		
+		mysqli_close($con);
+		
+		return $appID;
+		
+	}
+	
+	function update_application_id($id, $application, $appID) {
+		
+        $con=connect();
+        $query = "UPDATE dbpersons SET " . $application . "ID = '" . $appID . "' WHERE id='" . $id . "';";            
+        $result = mysqli_query($con, $query);
+		
+		mysqli_close($con);
+		
+		return $appID;
+	}
