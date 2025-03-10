@@ -37,7 +37,7 @@
                     require_once('include/input-validation.php');
                     require_once('database/dbPersons.php');
                     $args = sanitize($_GET);
-                    $required = ['name', 'id', 'phone', 'zip', 'role', 'status', 'photo_release'];
+                    $required = ['name', 'id', 'phone', 'zip', 'role', 'status'];
                     //var_dump($args);
                     if (!wereRequiredFieldsSubmitted($args, $required, true)) {
                         echo 'Missing expected form elements';
@@ -48,20 +48,16 @@
 					$zip = $args['zip'];
                     $role = $args['role'];
                     $status = $args['status'];
-                    
-                    $photo_release = $args['photo_release'];
-                    if (!($name || $id || $phone || $zip || $role || $status || $photo_release)) {
+                    if (!($name || $id || $phone || $zip || $role || $status || FALSE)) {
                         echo '<div class="error-toast">At least one search criterion is required.</div>';
                     } else if (!valueConstrainedTo($role, ['admin', 'participant', 'superadmin', 'volunteer', ''])) {
                         echo '<div class="error-toast">The system did not understand your request.</div>';
                     } else if (!valueConstrainedTo($status, ['Active', 'Inactive', ''])) {
                         echo '<div class="error-toast">The system did not understand your request.</div>';
-                    } else if (!valueConstrainedTo($photo_release, ['Restricted', 'Not Restricted', ''])) {
-                        echo '<div class="error-toast">The system did not understand your request.</div>';
-                    }
+                    } 
                      else {
                         echo "<h3>Search Results</h3>";
-                        $persons = find_users($name, $id, $phone, $zip, $role, $status, $photo_release);
+                        $persons = find_users($name, $id, $phone, $zip, $role, $status, FALSE);
                         require_once('include/output.php');
                         if (count($persons) > 0) {
                             echo '
