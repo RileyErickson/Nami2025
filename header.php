@@ -28,7 +28,7 @@
             <span id="nav-top">
                 <span class="logo">
                     <img src="images/stepvalogo.png">
-                    <span id="vms-logo"> Step VA Volunteer Management </span>
+                    <span id="vms-logo"> NAMIRAPP Volunteer </span>
                 </span>
                 <img id="menu-toggle" src="images/menu.png">
             </span>
@@ -113,6 +113,10 @@
         $permission_array['settimes.php'] = 1;
         $permission_array['eventfailurebaddeparturetime.php'] = 1;
         $permission_array['emaillist.php'] = 2;
+        $permission_array['deletevolunteer.php'] = 2;
+        $permission_array['volunteerdenied.php'] = 2;
+        $permission_array['editvolunteer.php'] = 2;
+        $permission_array['generatereport.php'] = 2;
         // LOWERCASE
 
 
@@ -136,7 +140,7 @@
         //they're logged in and session variables are set.
         echo('<nav>');
         echo('<span id="nav-top"><span class="logo"><a class="navbar-brand" href="' . $path . 'index.php"><img src="images/stepvalogo.png"></a>');
-        echo('<a class="navbar-brand" id="vms-logo"> Step VA Volunteer </a></span><img id="menu-toggle" src="images/menu.png"></span>');
+        echo('<a class="navbar-brand" id="vms-logo"> NAMIRAPP Volunteer </a></span><img id="menu-toggle" src="images/menu.png"></span>');
         echo('<ul>');
         //echo " <br><b>"."Gwyneth's Gift Homebase"."</b>|"; //changed: 'Homebase' to 'Gwyneth's Gift Homebase'
 
