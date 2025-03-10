@@ -70,12 +70,12 @@
 <html>
     <head>
         <?php require_once('universal.inc') ?>
-        <title>Step VA Volunteer System | Log In</title>
+        <title>NAMI Rappahannock System | Log In</title>
     </head>
     <body>
         <?php require_once('header.php') ?>
         <main class="login">
-            <h1>Step VA Volunteer System Login</h1>
+            <h1>NAMI Rappahannock System Login</h1>
             <?php if (isset($_GET['registerSuccess'])): ?>
                 <div class="happy-toast">
                     Your registration was successful! Please log in below.
@@ -98,7 +98,7 @@
             </form>
             <p></p>
             <p>Don't have an account? <a href = "/stepvarepo/register.php">Sign Up</a>!</p>
-            <p>Looking for <a href="https://www.stepva.org/">Step VA</a>?</p>
+            <p>Looking for <a href="https://www.namirapp.org/">NAMI Rappahannock</a>?</p>
         </main>
     </body>
 </html>
