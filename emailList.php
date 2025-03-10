@@ -139,13 +139,8 @@
                                 <tr>
                                     <td>' . $z . '</td>
                                 </tr>';
-                            // echo $z ;
-                           // echo  "<br/>";
                     }
                 }
-
-
-                
             }
             else{
                 echo "Either there are no emails with the selected parameters, or you have yet to make a selection.";
