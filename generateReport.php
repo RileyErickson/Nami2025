@@ -51,23 +51,39 @@
                     if (is_array($PersonHours) && count($PersonHours) > 0){
                         echo "<h5>Generated Report for User</h5>";
                         echo "<table>
-                            <tr>
-                                <th>Event ID</th>
-                                <th>Start Time</th>
-                                <th>End Time</th>
-                                <th>Total Hours</th>
-                            </tr>";
+                            <tr>";
+                            if ($eventID == 'Include'){
+                                echo "<th>Event ID</th>";
+                            }
+                            if ($startEnd == "startOnly" || $startEnd == "both"){
+                                echo "<th>Start Time</th>";
+                            }
+                            if ($startEnd == "endOnly" || $startEnd == "both"){
+                                echo "<th>End Time</th>";
+                            }
+                            if ($totalHours == "Include"){
+                                echo "<th>Total Hours</th>";
+                            }
+                            echo "</tr>";
                             foreach ($PersonHours as $p){
                                 $totTime = strtotime($p["end_time"]) - strtotime($p["start_time"]);
                                 $divTime = (int)$totTime;
                                 $divTime = $divTime / 3600;
                                 echo "
-                                <tr>
-                                    <td>" . $p['eventID'] . "</td>
-                                    <td>" . $p['start_time'] . "</td>
-                                    <td>" . $p['end_time'] . "</td>
-                                    <td>" . number_format($divTime, 2) . "</td>
-                                </tr>";
+                                <tr>";
+                                if ($eventID == 'Include'){
+                                    echo "<td>" . $p['eventID'] . "</td>";
+                                }
+                                if ($startEnd == "startOnly" || $startEnd == "both"){
+                                    echo "<td>" . $p['start_time'] . "</td>";
+                                }
+                                if ($startEnd == "endOnly" || $startEnd == "both"){
+                                    echo "<td>" . $p['end_time'] . "</td>";
+                                }
+                                if ($totalHours == "Include"){
+                                    echo "<td>" . number_format($divTime, 2) . "</td>";
+                                }
+                                echo "</tr>";
                             }
                             echo"</table>";
                     }
