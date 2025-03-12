@@ -135,6 +135,10 @@
                         <img src="images/emailList.png">
                         <span>Email List Generation</span>
                     </div>
+                    <div class="dashboard-item" data-link="blacklist/blacklist.php">
+                        <img src="images/emailList.png">
+                        <span>Blacklist</span>
+                     </div>
 
                     <div class="dashboard-item" data-link="">
                         <img src="images/csv.png">
