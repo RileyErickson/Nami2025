@@ -46,10 +46,10 @@
                     $eventID = $args['eventID'];
                     $startEnd = $args['startEnd'];
                     $totalHours = $args['totalHours'];
-                    echo "<h3>Generated Report for User</h3>";
                     $PersonHours = getPersonHours($id);
                     require_once('include/output.php');
                     if (is_array($PersonHours) && count($PersonHours) > 0){
+                        echo "<h5>Generated Report for User</h5>";
                         echo "<table>
                             <tr>
                                 <th>Event ID</th>
@@ -58,16 +58,18 @@
                                 <th>Total Hours</th>
                             </tr>";
                             foreach ($PersonHours as $p){
+                                $totTime = strtotime($p["end_time"]) - strtotime($p["start_time"]);
+                                $divTime = (int)$totTime;
+                                $divTime = $divTime / 3600;
                                 echo "
                                 <tr>
-                                    <td>" . $p['personID'] . "</td>
+                                    <td>" . $p['eventID'] . "</td>
                                     <td>" . $p['start_time'] . "</td>
                                     <td>" . $p['end_time'] . "</td>
-                                    <td>" . $p['eventID'] . "</td>
-                                </tr";
+                                    <td>" . number_format($divTime, 2) . "</td>
+                                </tr>";
                             }
                             echo"</table>";
-
                     }
                 }
             ?>
