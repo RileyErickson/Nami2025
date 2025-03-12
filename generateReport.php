@@ -49,7 +49,7 @@
                     $PersonHours = getPersonHours($id);
                     require_once('include/output.php');
                     if (is_array($PersonHours) && count($PersonHours) > 0){
-                        echo "<h5>Generated Report for User</h5>";
+                        echo "<h5>Generated Report for " . $id . "</h5>";
                         echo "<table>
                             <tr>";
                             if ($eventID == 'Include'){
