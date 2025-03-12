@@ -56,7 +56,7 @@
 <html>
     <head>
         <?php require_once('universal.inc') ?>
-        <title>Step VA | Reset Password</title>
+        <title>NAMI Rappahannock | Reset Password</title>
     </head>
     <body>
         <?php require_once('header.php') ?>

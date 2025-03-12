@@ -82,7 +82,7 @@
 <html>
     <head>
         <?php require_once('universal.inc') ?>
-        <title> NAMIRAPP | Search Emails</title>
+        <title>NAMI Rappahannock | Search Emails</title>
     </head>
     <body>
         <?php require_once('header.php') ?>

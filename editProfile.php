@@ -198,7 +198,7 @@
 <html>
 <head>
     <?php require_once('universal.inc'); ?>
-    <title>Step VA | Manage Profile</title>
+    <title>NAMI Rappahannock | Manage Profile</title>
 </head>
 <body>
     <?php

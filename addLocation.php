@@ -77,7 +77,7 @@ function displaySearchRow($location){
 <html>
     <head>
         <?php require_once('universal.inc') ?>
-        <title>Step VA | Add Location</title>
+        <title>NAMI Rappahannock | Add Location</title>
     </head>
     <body>
         <?php require_once('header.php') ?>

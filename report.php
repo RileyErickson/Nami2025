@@ -31,7 +31,7 @@
 <html>
     <head>
         <?php require_once('universal.inc') ?>
-        <title>Step VA | Reports</title>
+        <title>NAMI Rappahannock | Reports</title>
         <style>
             .report_select{
                 display: flex;
