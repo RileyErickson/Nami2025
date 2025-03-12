@@ -20,6 +20,7 @@
         header('Location: index.php');
         die();
     }
+    
 ?>
 <!DOCTYPE html>
 <html>
@@ -32,13 +33,51 @@
         <h1>Generate Volunteer Reports</h1>
         <form id="hours-report" class="general" method="get">
             <h2>Generate Volunteer Report</h2>
+            <?php
+                if (isset($_GET['id'])){
+                    require_once('include/input-validation.php');
+                    require_once('database/dbPersonHours.php');
+                    $args = sanitize($_GET);
+                    $required = ['id', 'eventID', 'startEnd', 'totalHours'];
+                    if (!wereRequiredFieldsSubmitted($args, $required, true)){
+                        echo 'Missing expected form elements';
+                    }
+                    $id = $args['id'];
+                    $eventID = $args['eventID'];
+                    $startEnd = $args['startEnd'];
+                    $totalHours = $args['totalHours'];
+                    echo "<h3>Generated Report for User</h3>";
+                    $PersonHours = getPersonHours($id);
+                    require_once('include/output.php');
+                    if (is_array($PersonHours) && count($PersonHours) > 0){
+                        echo "<table>
+                            <tr>
+                                <th>Event ID</th>
+                                <th>Start Time</th>
+                                <th>End Time</th>
+                                <th>Total Hours</th>
+                            </tr>";
+                            foreach ($PersonHours as $p){
+                                echo "
+                                <tr>
+                                    <td>" . $p['personID'] . "</td>
+                                    <td>" . $p['start_time'] . "</td>
+                                    <td>" . $p['end_time'] . "</td>
+                                    <td>" . $p['eventID'] . "</td>
+                                </tr";
+                            }
+                            echo"</table>";
+
+                    }
+                }
+            ?>
             <p>Use the form to find hour information for a volunteer. All criteria must be filled in.</p>
             <label for="id">Username</label>
             <input type="text" id="id" name="id" value="<?php if (isset($id)) echo htmlspecialchars($_GET['id']) ?>" placeholder="Enter the user's username (login ID)">
             <label for="eventID">Include Event</label>
             <select id="eventID" name="eventID">
                 <option value="">Exclude</option>
-                <option value="Include" <?php if (isset($eventID) && $eventID == 'Include') echo 'selected' ?>>Include</option>
+                <option value="Include">Include</option>
             </select>
             <label for="startEnd">Include Time</label>
             <select id="startEnd" name="startEnd">
