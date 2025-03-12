@@ -37,7 +37,7 @@
                     require_once('include/input-validation.php');
                     require_once('database/dbPersons.php');
                     $args = sanitize($_GET);
-                    $required = ['name', 'id', 'phone', 'zip', 'role', 'status', 'photo_release'];
+                    $required = ['name', 'id', 'phone', 'zip', 'role', 'status'];
                     //var_dump($args);
                     if (!wereRequiredFieldsSubmitted($args, $required, true)) {
                         echo 'Missing expected form elements';
@@ -48,19 +48,16 @@
 					$zip = $args['zip'];
                     $role = $args['role'];
                     $status = $args['status'];
-                    $photo_release = $args['photo_release'];
-                    if (!($name || $id || $phone || $zip || $role || $status || $photo_release)) {
+                    if (!($name || $id || $phone || $zip || $role || $status || FALSE)) {
                         echo '<div class="error-toast">At least one search criterion is required.</div>';
                     } else if (!valueConstrainedTo($role, ['admin', 'participant', 'superadmin', 'volunteer', ''])) {
                         echo '<div class="error-toast">The system did not understand your request.</div>';
                     } else if (!valueConstrainedTo($status, ['Active', 'Inactive', ''])) {
                         echo '<div class="error-toast">The system did not understand your request.</div>';
-                    } else if (!valueConstrainedTo($photo_release, ['Restricted', 'Not Restricted', ''])) {
-                        echo '<div class="error-toast">The system did not understand your request.</div>';
-                    }
+                    } 
                      else {
                         echo "<h3>Search Results</h3>";
-                        $persons = find_users($name, $id, $phone, $zip, $role, $status, $photo_release);
+                        $persons = find_users($name, $id, $phone, $zip, $role, $status, FALSE);
                         require_once('include/output.php');
                         if (count($persons) > 0) {
                             echo '
@@ -72,8 +69,8 @@
                                             <th>Last</th>
                                             <th>Username</th>
                                             <th>Phone Number</th>
+                                             <th>Email</th>
 											<th>Zip Code</th>
-                                            <th>Photo Release</th>
                                             <th>Role</th>
                                             <th>Archive Status</th>
                                             <th>Profile</th>
@@ -96,8 +93,8 @@
                                             <td>' . $person->get_last_name() . '</td>
                                             <td><a href="mailto:' . $person->get_id() . '">' . $person->get_id() . '</a></td>
                                             <td><a href="tel:' . $person->get_phone1() . '">' . formatPhoneNumber($person->get_phone1()) .  '</td>
-											<td>' . $person->get_zip_code() . '</td>
-                                            <td>' . $person->get_photo_release() .'</td>
+                                            <td>' . $person->get_email() . '</td>
+                                            <td>' . $person->get_zip_code() . '</td>
                                             <td>' . ucfirst($person->get_type()) . '</td>
                                             <td>' . ucfirst($person->get_status()) . '</td>
                                             <td><a href="viewProfile.php?id=' . $person->get_id() . '">Profile</a></td>
@@ -109,10 +106,7 @@
                                     </tbody>
                                 </table>
                             </div>';
-                            echo '
-                            <label>Result Mailing List</label>
-                            <p>' . $mailingList . '</p>
-                            ';
+
                         } else {
                             echo '<div class="error-toast">Your search returned no results.</div>';
                         }
@@ -146,12 +140,7 @@
                 <option value="Inactive" <?php if (isset($status) && $status == 'Inactive') echo 'selected' ?>>Archived</option>
             </select>
 
-            <label for="photo_release">Photo Release</label>
-                <select id="photo_release" name="photo_release">
-                    <option value="">Any</option>
-                    <option value="Not Restricted" <?php if (isset($photo_release) && $photo_release == 'Not Restricted') echo 'selected' ?>>Not Restricted</option>
-                    <option value="Restricted" <?php if (isset($photo_release) && $photo_release == 'Restricted') echo 'selected' ?>>Restricted</option>
-                </select>
+                <?$photo_release = "Not Restricted"; ?>
 
             <div id="criteria-error" class="error hidden">You must provide at least one search criterion.</div>
             <input type="submit" value="Search">

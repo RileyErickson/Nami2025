@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost
--- Generation Time: Mar 08, 2025 at 11:54 PM
+-- Generation Time: Mar 10, 2025 at 01:59 PM
 -- Server version: 10.4.28-MariaDB
 -- PHP Version: 8.2.4
 
@@ -569,12 +569,12 @@ CREATE TABLE `dbpersons` (
   `pathOfRecovery` tinyint(1) NOT NULL,
   `involvementInNami` text NOT NULL,
   `anyAccessibilityNeeds` text NOT NULL,
-  `f2fApplicationID` int(11) NOT NULL,
-  `p2pApplicationID` int(11) NOT NULL,
-  `ioovApplicationID` int(11) NOT NULL,
-  `fsgApplicationID` int(11) NOT NULL,
-  `csgApplicationID` int(11) NOT NULL,
-  `hfApplicationID` int(11) NOT NULL
+  `f2fApplicationID` int(11) DEFAULT NULL,
+  `p2pApplicationID` int(11) DEFAULT NULL,
+  `ioovApplicationID` int(11) DEFAULT NULL,
+  `fsgApplicationID` int(11) DEFAULT NULL,
+  `csgApplicationID` int(11) DEFAULT NULL,
+  `hfApplicationID` int(11) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
 
 --
@@ -695,7 +695,8 @@ ALTER TABLE `dbpersonhours`
 -- Indexes for table `dbpersons`
 --
 ALTER TABLE `dbpersons`
-  ADD PRIMARY KEY (`id`);
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `FKApplicationID` (`p2pApplicationID`,`ioovApplicationID`,`fsgApplicationID`,`csgApplicationID`,`hfApplicationID`,`f2fApplicationID`) USING BTREE;
 
 --
 -- AUTO_INCREMENT for dumped tables
@@ -708,6 +709,12 @@ ALTER TABLE `dbanimals`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
+-- AUTO_INCREMENT for table `dbCSGApplication`
+--
+ALTER TABLE `dbCSGApplication`
+  MODIFY `csgApplicationID` int(11) NOT NULL AUTO_INCREMENT;
+
+--
 -- AUTO_INCREMENT for table `dbeventmedia`
 --
 ALTER TABLE `dbeventmedia`
@@ -718,6 +725,36 @@ ALTER TABLE `dbeventmedia`
 --
 ALTER TABLE `dbevents`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=110;
+
+--
+-- AUTO_INCREMENT for table `dbF2FApplication`
+--
+ALTER TABLE `dbF2FApplication`
+  MODIFY `f2fApplicationID` int(11) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT for table `dbFSGApplication`
+--
+ALTER TABLE `dbFSGApplication`
+  MODIFY `fsgApplicationID` int(11) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT for table `dbHFApplication`
+--
+ALTER TABLE `dbHFApplication`
+  MODIFY `hfApplicationID` int(11) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT for table `dbIOOVApplication`
+--
+ALTER TABLE `dbIOOVApplication`
+  MODIFY `ioovApplicationID` int(11) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT for table `dbP2PApplication`
+--
+ALTER TABLE `dbP2PApplication`
+  MODIFY `p2pApplicationID` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- Constraints for dumped tables

@@ -12,7 +12,7 @@
 <html>
 <head>
     <?php require_once('universal.inc'); ?>
-    <title>Step VA | Register</title>
+    <title>NAMIRAPP | Register</title>
 </head>
 <body>
     <?php
