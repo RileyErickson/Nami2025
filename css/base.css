@@ -573,6 +573,23 @@ main.dashboard > p {
     width: 14rem;
     height: 14rem;
 }
+.dashboard-item {
+    display: inline;
+    background-color: var(--main-color);
+    transition: background-color .3s;
+    font-weight: 400;
+    border-radius: 1rem;
+    padding: 2rem;
+    color: var(--button-font-color);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 1rem;
+    width: 14rem;
+    height: 14rem;
+}
+
 
 .dashboard-item:hover {
     background-color: var(--accent-color);
