@@ -28,7 +28,9 @@
             <span id="nav-top">
                 <span class="logo">
                     <img src="images/stepvalogo.png">
-                    <span id="vms-logo"> NAMIRAPP Volunteer </span>
+
+                    <span id="vms-logo"> NAMI Rappahannock Volunteer Management </span>
+
                 </span>
                 <img id="menu-toggle" src="images/menu.png">
             </span>
@@ -142,7 +144,8 @@
         //they're logged in and session variables are set.
         echo('<nav>');
         echo('<span id="nav-top"><span class="logo"><a class="navbar-brand" href="' . $path . 'index.php"><img src="images/stepvalogo.png"></a>');
-        echo('<a class="navbar-brand" id="vms-logo"> NAMI Volunteer </a></span><img id="menu-toggle" src="images/menu.png"></span>');
+        echo('<a class="navbar-brand" id="vms-logo"> NAMI Rappahannock Volunteer </a></span><img id="menu-toggle" src="images/menu.png"></span>');
+
         echo('<ul>');
         //echo " <br><b>"."Gwyneth's Gift Homebase"."</b>|"; //changed: 'Homebase' to 'Gwyneth's Gift Homebase'
 
