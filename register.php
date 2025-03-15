@@ -13,6 +13,7 @@
 <head>
     <?php require_once('universal.inc'); ?>
     <title>NAMI Rappahannock | Register</title>
+
 </head>
 <body>
     <?php

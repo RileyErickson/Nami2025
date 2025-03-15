@@ -43,7 +43,7 @@ table, td, tr, th, form, fieldset, em, button, a {
 
 :root {
     /* CSS variables that will be used across the page */
-    --page-background-color: #ffffff;
+    --page-background-color: #fcfcfb;
     --page-font-color: #333333;
     --inactive-font-color: #d0d0d0;
     --inactive-background-color: #f0f0f0;
@@ -63,6 +63,7 @@ table, td, tr, th, form, fieldset, em, button, a {
     --main-color: #0c499c;
     --accent-color: #799900;
     --secondary-accent-color: #0099a8;
+
 
     --calendar-event-color: #808080;
     --calendar-event-color-hover: var(--main-color);
@@ -924,4 +925,20 @@ img.profile-pic {
 .dashboard-item i {
     font-size: 55px; /* Set the desired size */
     color: #ffffff; /* Optional: set color */
+}
+
+
+/* Field pair styling to keep label and paragraph close */
+.field-pair {
+    margin-bottom: 30px; /* space between each field pair */
+}
+
+.field-pair label {
+    font-weight: bold;
+    display: block;
+    margin-bottom: 2px; /* close gap between label and paragraph */
+}
+
+.field-pair p {
+    margin: 0;
 }
