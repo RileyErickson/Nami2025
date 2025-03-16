@@ -1,3 +1,5 @@
+<!-- General Volunteer Application -->
+
 <h1>Volunteer Application</h1>
 <main class="signup-form">
     <form class="signup-form" method="post">
@@ -24,6 +26,9 @@
                 <input type="radio" id="no_text" name="text" value="no_text" required><label for="no_text">No</label>
                 <input type="radio" id="text_na" name="text" value="text_na" required><label for="text_na">N/A</label>
             </div>
+
+            <label><em>* </em>Email Address</label>
+            <input type="text" id="email" name="email">
             
             <label for="street_address"><em>* </em>Street Address</label>
             <input type="text" id="street_address" name="street_address" required placeholder="Enter your street address">

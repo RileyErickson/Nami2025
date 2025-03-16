@@ -1,3 +1,5 @@
+<!-- Family Support Group -->
+
 <h1>NAMI Virginia Family Support Group Facilitator Training Application</h1>
 <main class="signup-form">
     <form class="signup-form" method="post">

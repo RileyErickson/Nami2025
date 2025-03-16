@@ -1,3 +1,5 @@
+<!-- Peer-to-Peer -->
+
 <h1>NAMI Virginia Peer-to-Peer Teacher Training Application</h1>
 <main class="signup-form">
     <form class="signup-form" method="post">
