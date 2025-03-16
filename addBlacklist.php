@@ -70,10 +70,11 @@ mysqli_close($conn);
 <head>
         <?php require_once('universal.inc') ?>
         <title>NAMI Rappahannock | Add Blacklist</title>
+       
     </head>
     <body>
         <?php require_once('header.php') ?>
-    <a href="blacklist.php" class="button">Back</a>
+        <h1>Add to Blacklist</h1>
     <div class="container">
         <h2>Add New Blacklisted Person</h2>
         <form method="POST">
@@ -94,6 +95,8 @@ mysqli_close($conn);
             
             <input type="submit" value="Blacklist">
         </form>
+        
+    <a class="button cancel" href="blacklist.php" style="margin-top: .5rem">Return to Dashboard</a>; 
     </div>
     
     <?php if (!empty($successMessage)) : ?>

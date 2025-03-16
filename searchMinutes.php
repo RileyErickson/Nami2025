@@ -5,7 +5,7 @@ ini_set("display_errors", 1);
 error_reporting(E_ALL);
 
 // Include database connection
-include_once('../database/dbinfo.php');
+include_once('database/dbinfo.php');
 $conn = connect();
 
 // Handle sorting order
@@ -39,17 +39,14 @@ mysqli_close($conn);
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Search Minutes</title>
+        <?php require_once('universal.inc') ?>
+        <title>NAMI Rappahannock | Upload Minutes</title>
+    </head>
+    <body>
+        <?php require_once('header.php') ?>  
+        <h1>Search Minutes</h1>
     <style>
-        body {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            height: 100vh;
-            background-color: #add8e6;
-            font-family: Arial, sans-serif;
-        }
+
         .container {
             background: white;
             padding: 20px;
@@ -102,13 +99,13 @@ mysqli_close($conn);
 <body>
     <a href="minutes.php" class="button" style="position: absolute; top: 10px; left: 10px;">Back</a>
     <div class="container">
-        <h2>Search Minutes</h2>
+
         <form method="GET">
             <button type="submit" name="order" value="<?php echo $newOrder; ?>" class="button">Sort by Date (<?php echo $newOrder; ?>)</button>
             <input type="submit" value="Filter" class="button">
             <div class="filter-container">
                 <div class="keyword-list">
-                    <h3>Select Keywords</h3>
+                    <b>Select Keywords</b>
                     <?php foreach ($keywords as $keyword) : ?>
                         <label>
                             <input type="checkbox" name="keywords[]" value="<?php echo htmlspecialchars($keyword); ?>" 
@@ -125,10 +122,16 @@ mysqli_close($conn);
                                 <?php echo date("m-d-Y", strtotime($minute['date'])) . " - " . htmlspecialchars($minute['name']); ?>
                             </a>
                         </div>
+                        
                     <?php endforeach; ?>
                 </div>
             </div>
         </form>
+       
+       
     </div>
+    <main class="date">
+    <a class="button cancel" href="minutes.php" style="margin-top: -.5rem">Return to Dashboard</a>; 
+    
 </body>
 </html>

@@ -5,7 +5,7 @@ ini_set("display_errors", 1);
 error_reporting(E_ALL);
 
 // Include database connection
-include_once('../database/dbinfo.php');
+include_once('database/dbinfo.php');
 $conn = connect();
 
 // Get date from URL
