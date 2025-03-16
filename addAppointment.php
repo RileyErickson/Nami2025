@@ -79,7 +79,7 @@
 <html>
     <head>
         <?php require_once('universal.inc') ?>
-        <title>Step VA | Create Appointment</title>
+        <title>NAMI Rappahannock | Create Appointment</title>
     </head>
     <body>
         <?php require_once('header.php') ?>

@@ -53,13 +53,14 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" || $accessLevel == 1) {
 <html lang="en">
 <head>
     <?php require_once('universal.inc') ?>
-    <link rel="stylesheet" href="css/editprofile.css" type="text/css" />
-    <title>Step VA | Edit Volunteer Hours</title>
+
+    <title>NAMI Rappahannock | Edit Volunteer Hours</title>
 </head>
 <body>
     <?php require_once('header.php') ?>
+    <h1>Change Hours Within an Event</h1>
     <div class="container">
-        <h1>Change Hours Within an Event</h1>
+       
         <main class="general">
             <h2>Change Hours for Event</h2>
 
@@ -68,14 +69,14 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" || $accessLevel == 1) {
                 <form id="new-event-form" method="post" class="styled-form">
                     <label for="username">* Your Account Name </label>
                     <input type="text" id="username" name="username" required placeholder="Enter account name"> 
-                    <input type="submit" value="Change Volunteer Hours" class="button primary-button">
+                    <input type="submit" value="Change Volunteer Hours" class="button">
                 </form>
             <?php else: ?>
                 <!-- Message or auto-redirect if access level is 1 -->
                 <p>Redirecting you to your event list...</p>
             <?php endif; ?>
 
-            <a class="button cancel" href="index.php" style="margin-top: -.5rem">Return to Dashboard</a>
+            <a class="button cancel" href="index.php" style="margin-top: .5rem">Return to Dashboard</a>
         </main>
     </div>
 </body>

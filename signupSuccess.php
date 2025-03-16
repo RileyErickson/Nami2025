@@ -7,7 +7,7 @@
     <html>
         <head>
             <?php require_once('universal.inc') ?>
-            <title>Step VA | Sign-Up for Event</title>
+            <title>NAMI Rappahannock | Sign-Up for Event</title>
         </head>
         <body>
             <?php require_once('header.php') ?>

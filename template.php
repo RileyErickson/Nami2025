@@ -20,7 +20,7 @@
 <html>
     <head>
         <?php require_once('universal.inc') ?>
-        <title>Step VA | Template Page</title>
+        <title>NAMI Rappahannock | Template Page</title>
     </head>
     <body>
         <?php require_once('header.php') ?>

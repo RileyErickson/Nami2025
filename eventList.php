@@ -53,8 +53,7 @@ $event_ids = get_attended_event_ids($username);
 <html lang="en">
 <head>
     <?php require_once('universal.inc'); ?>
-    <link rel="stylesheet" href="css/editprofile.css" type="text/css" />
-    <title>Step VA | User Events</title>
+    <title>NAMI Rappahannock | User Events</title>
 </head>
 <body>
     <?php require_once('header.php'); ?>

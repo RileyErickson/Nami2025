@@ -92,7 +92,7 @@
 <html>
     <head>
         <?php require_once('universal.inc') ?>
-        <title>Step VA | Edit Event</title>
+        <title>NAMI Rappahannock | Edit Event</title>
     </head>
     <body>
         <?php require_once('header.php') ?>
