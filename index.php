@@ -79,6 +79,10 @@
                 <!-- ADMIN ONLY -->
                 <?php if ($_SESSION['access_level'] >= 2): ?>
                     
+                    <div class="dashboard-item" data-link="viewForms.php">
+                    <i class="fa-solid fa-list"></i>
+                        <span>View Forms</span>
+                    </div>
                     <div class="dashboard-item" data-link="register.php">
                         <img src="images/add-person.svg">
                         <span>Register Volunteer</span>
@@ -185,6 +189,10 @@
                 <?php endif ?>
 
                 <!-- FOR VOLUNTEERS AND PARTICIPANTS ONLY -->
+                <div class="dashboard-item" data-link="viewForms.php">
+                        <img src="images/generateReports.png">
+                        <span><center>View Forms</center></span>
+                    </div>
                 <?php if ($notRoot) : ?>
                     <div class="dashboard-item" data-link="viewProfile.php">
                         <img src="images/view-profile.svg">
