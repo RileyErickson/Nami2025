@@ -74,12 +74,12 @@ mysqli_close($conn);
 <html>
 <head>
         <?php require_once('universal.inc') ?>
-        <title>NAMI Rappahannock | Search Emails</title>
+        <title>NAMI Rappahannock | Search Blacklist</title>
     </head>
     <body>
         <?php require_once('header.php') ?>
-        <h1>Generate Email List</h1>
-    <a href="blacklist.php" class="button">Back</a>
+        <h1>Search Blacklist</h1>
+    
     <div class="container">
         <h2>Search Blacklist</h2>
         <form method="POST">
@@ -87,9 +87,10 @@ mysqli_close($conn);
                 <label for="name">Name:</label>
                 <input type="text" name="name">
             </div>
-            <input type="submit" name="search" value="Search">
-            <input type="submit" name="clear" value="Clear Search">
+            <input type="submit" name="search" value="Search" >
+            <input type="submit" name="clear" value="Clear Search" style="margin-top: .5rem">
         </form>
+        <a class="button cancel" href="blacklist.php" style="margin-top: .5rem">Return to Dashboard</a>; 
     </div>
     
     <?php if (!empty($searchResults)) : ?>
@@ -102,6 +103,7 @@ mysqli_close($conn);
                     <input type="hidden" name="id" value="<?php echo $result['id']; ?>">
                     <input type="submit" name="delete" class="delete-button" value="Remove">
                 </form>
+               
             </div>
         <?php endforeach; ?>
     <?php else : ?>

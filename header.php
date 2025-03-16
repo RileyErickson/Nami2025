@@ -124,6 +124,8 @@
         $permission_array['addblacklist.php'] = 2;
         $permission_array['blacklist.php'] = 2;
         $permission_array['searchblacklist.php'] = 2;
+        $permission_array['addminutes.php'] = 1;
+        $permission_array['searchminutes.php'] = 1;
         // LOWERCASE
 
 

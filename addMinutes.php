@@ -6,7 +6,7 @@ ini_set("display_errors", 1);
 error_reporting(E_ALL);
 
 // Include database connection
-include_once('../database/dbinfo.php');
+include_once('database/dbinfo.php');
 $conn = connect();
 
 // Ensure the 'minutes' table exists
@@ -70,84 +70,23 @@ mysqli_close($conn);
 
 <!DOCTYPE html>
 <html>
-<head>
-    <title>Upload PDF</title>
-    <style>
-        body {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            height: 100vh;
-            background-color: #add8e6;
-            font-family: Arial, sans-serif;
-        }
-        .container {
-            background: white;
-            padding: 20px;
-            border-radius: 10px;
-            box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
-            width: 400px;
-            text-align: center;
-            margin-bottom: 20px;
-        }
-        .container h2 {
-            margin-bottom: 20px;
-        }
-        .message {
-            margin-top: 10px;
-            font-size: 16px;
-            color: green;
-        }
-        .error {
-            color: red;
-        }
-        input[type="file"], input[type="date"] {
-            margin-bottom: 10px;
-            width: 100%;
-            padding: 10px;
-            border: 1px solid #ccc;
-            border-radius: 5px;
-        }
-        input[type="submit"] {
-            background-color: #808080;
-            color: white;
-            border: none;
-            padding: 10px;
-            cursor: pointer;
-            border-radius: 5px;
-            font-size: 16px;
-        }
-        input[type="submit"]:hover {
-            background-color: #696969;
-        }
-        .back-button {
-            position: absolute;
-            top: 10px;
-            left: 10px;
-            background-color: #808080;
-            color: white;
-            border: none;
-            padding: 10px;
-            cursor: pointer;
-            border-radius: 5px;
-            font-size: 14px;
-            text-decoration: none;
-        }
-        .back-button:hover {
-            background-color: #696969;
-        }
-    </style>
-</head>
-<body>
-    <a href="index.php" class="back-button">Back</a>
+    <head>
+        <?php require_once('universal.inc') ?>
+        <title>NAMI Rappahannock | Upload Minutes</title>
+    </head>
+    <body>
+        <?php require_once('header.php') ?>   
+        <h1>Add Minutes</h1>
     <div class="container">
+   
         <h2>Upload PDF</h2>
         <form method="POST" enctype="multipart/form-data">
             <input type="file" name="pdfFile" required>
             <input type="date" name="date" required>
             <input type="submit" value="Upload PDF">
+            
         </form>
+        <a class="button cancel" href="minutes.php" style="margin-top: .5rem">Return to Dashboard</a>; 
     </div>
     
     <?php if (!empty($message)) : ?>
@@ -155,5 +94,7 @@ mysqli_close($conn);
             <?php echo $message; ?>
         </p>
     <?php endif; ?>
+    <main class="date">
+    
 </body>
 </html>

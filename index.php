@@ -167,7 +167,7 @@
                         <span>Email List Generation</span>
                     </div>
 
-                    <div class="dashboard-item" data-link="minutes/minutes.php">
+                    <div class="dashboard-item" data-link="minutes.php">
                         <img src="images/emailList.png">
                         <span>Minutes</span>
                      </div>
