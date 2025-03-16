@@ -86,7 +86,7 @@
 
                     <!-- add some sort of search capability to this -->
                     <!-- could use adminViewingEvents.php as base? -->
-                    <div class="dashboard-item" data-link="volunteerDenied.php">
+                    <div class="dashboard-item" data-link="blacklist/blacklist.php">
                         <img src="images/volunteerDenied.png">
                         <span><center>View Volunteer Denied List</center></span>
                     </div>
@@ -135,12 +135,8 @@
                         <img src="images/emailList.png">
                         <span>Email List Generation</span>
                     </div>
-                    <div class="dashboard-item" data-link="blacklist/blacklist.php">
-                        <img src="images/emailList.png">
-                        <span>Blacklist</span>
-                     </div>
                     <div class="dashboard-item" data-link="minutes/minutes.php">
-                        <img src="images/emailList.png">
+                        <img src="images/minutes.svg">
                         <span>Minutes</span>
                      </div>
                     <div class="dashboard-item" data-link="">

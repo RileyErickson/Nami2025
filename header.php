@@ -119,6 +119,7 @@
         $permission_array['volunteerdenied.php'] = 2;
         $permission_array['editvolunteer.php'] = 2;
         $permission_array['generatereport.php'] = 2;
+        $permission_array['volunteerapp.php'] = 0;
         // LOWERCASE
 
 
