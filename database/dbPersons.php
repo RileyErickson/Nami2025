@@ -109,6 +109,24 @@ function remove_person($id) {
     return true;
 }
 
+#participant
+function pendingPerson($id) {
+    $con=connect();
+    $query = 'SELECT * FROM dbpersons WHERE type = "participant"';
+    $result = mysqli_query($con,$query);
+
+    if (!$result) {
+        die('Query failed: ' . mysqli_error($con));
+    }
+    $signups = [];
+    while ($row = mysqli_fetch_assoc($result)) {
+        $signups[] = $row;
+    }
+
+    mysqli_close($con);
+    return $signups;
+}
+
 /*
  * @return a Person from dbPersons table matching a particular id.
  * if not in table, return false

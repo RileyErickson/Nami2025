@@ -84,6 +84,12 @@
                         <span>Register Volunteer</span>
                     </div>
 
+                    <!--Pending Volunteers-->
+                    <div class="dashboard-item" data-link="pending_volunteers.php">
+                        <img src="images/add-person.svg">
+                        <span>Pending Volunteer</span>
+                    </div>
+
                     <!-- add some sort of search capability to this -->
                     <!-- could use adminViewingEvents.php as base? -->
                     <div class="dashboard-item" data-link="volunteerDenied.php">

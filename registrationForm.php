@@ -142,7 +142,7 @@
             </div>
             -->
             <!-- Default value for volunteer_or_participant -->
-            <input type="hidden" name="volunteer_or_participant" value="v">
+            <input type="hidden" name="volunteer_or_participant" value="p">
 
             
             <label><em>* </em>T-Shirt Size</label>
