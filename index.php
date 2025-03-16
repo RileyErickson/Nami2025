@@ -114,7 +114,7 @@
                         <img src="images/volunteerDenied.png">
                         <span><center>View Volunteer Denied List</center></span>
                     </div>
-                    <div class="dashboard-item" data-link="blacklist/blacklist.php">
+                    <div class="dashboard-item" data-link="blacklist.php">
                         <img src="images/emailList.png">
                         <span>Blacklist</span>
                      </div>

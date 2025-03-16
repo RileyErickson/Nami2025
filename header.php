@@ -121,6 +121,9 @@
         $permission_array['volunteerdenied.php'] = 2;
         $permission_array['editvolunteer.php'] = 2;
         $permission_array['generatereport.php'] = 2;
+        $permission_array['addblacklist.php'] = 2;
+        $permission_array['blacklist.php'] = 2;
+        $permission_array['searchblacklist.php'] = 2;
         // LOWERCASE
 
 

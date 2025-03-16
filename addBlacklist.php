@@ -24,7 +24,7 @@ if ($accessLevel < 2) {
 }
 
 // Include database connection
-include_once('../database/dbinfo.php');
+include_once('database/dbinfo.php');
 
 // Connect to database
 $conn = connect();
@@ -68,82 +68,12 @@ mysqli_close($conn);
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Blacklist a Person</title>
-    <style>
-        body {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            height: 100vh;
-            background-color: #add8e6;
-            font-family: Arial, sans-serif;
-            position: relative;
-        }
-        .container {
-            background: white;
-            padding: 20px;
-            border-radius: 10px;
-            box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
-            width: 400px;
-            text-align: center;
-        }
-        .container h2 {
-            margin-bottom: 20px;
-        }
-        .form-group {
-            margin-bottom: 15px;
-            text-align: left;
-        }
-        label {
-            display: block;
-            font-weight: bold;
-        }
-        input, textarea {
-            width: 100%;
-            padding: 10px;
-            margin-top: 5px;
-            border: 1px solid #ccc;
-            border-radius: 5px;
-        }
-        input[type="submit"] {
-            background-color: #808080;
-            color: white;
-            border: none;
-            padding: 10px;
-            cursor: pointer;
-            border-radius: 5px;
-            font-size: 16px;
-        }
-        input[type="submit"]:hover {
-            background-color: #696969;
-        }
-        .back-button {
-            position: absolute;
-            top: 10px;
-            left: 10px;
-            background-color: #808080;
-            color: white;
-            border: none;
-            padding: 10px;
-            cursor: pointer;
-            border-radius: 5px;
-            font-size: 14px;
-            text-decoration: none;
-        }
-        .back-button:hover {
-            background-color: #696969;
-        }
-        .success-message {
-            margin-top: 20px;
-            font-size: 16px;
-            color: green;
-            text-align: center;
-        }
-    </style>
-</head>
-<body>
-    <a href="blacklist.php" class="back-button">Back</a>
+        <?php require_once('universal.inc') ?>
+        <title>NAMI Rappahannock | Add Blacklist</title>
+    </head>
+    <body>
+        <?php require_once('header.php') ?>
+    <a href="blacklist.php" class="button">Back</a>
     <div class="container">
         <h2>Add New Blacklisted Person</h2>
         <form method="POST">
