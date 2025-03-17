@@ -8,130 +8,115 @@ error_reporting(E_ALL);
 include_once('database/dbinfo.php');
 $conn = connect();
 
-// Handle sorting order
-$order = $_GET['order'] ?? 'ASC';
-$newOrder = $order === 'ASC' ? 'DESC' : 'ASC';
-
-// Fetch all keywords
+// Fetch all unique keywords for sidebar
+$keywordQuery = "SELECT DISTINCT keyword FROM minutes_keywords ORDER BY keyword ASC";
+$keywordsResult = mysqli_query($conn, $keywordQuery);
 $keywords = [];
-$result = mysqli_query($conn, "SELECT DISTINCT keyword FROM keywords ORDER BY keyword ASC");
-while ($row = mysqli_fetch_assoc($result)) {
+while ($row = mysqli_fetch_assoc($keywordsResult)) {
     $keywords[] = $row['keyword'];
 }
 
-// Fetch all minutes based on filters
+// Initialize variables
 $selectedKeywords = $_GET['keywords'] ?? [];
-$minutes = [];
-$query = "SELECT m.* FROM minutes m";
+$sortOrder = $_GET['sort'] ?? 'ASC'; // Default sort order
+
+// Start with a basic query to fetch all dates and links
+$searchQuery = "SELECT date, name AS link FROM minutes_link ORDER BY date $sortOrder";
+
 if (!empty($selectedKeywords)) {
-    $query .= " JOIN keywords k ON m.date = k.date WHERE k.keyword IN ('" . implode("','", array_map(function($keyword) use ($conn) { return mysqli_real_escape_string($conn, $keyword); }, $selectedKeywords)) . "')";
-    $query .= " GROUP BY m.date HAVING COUNT(DISTINCT k.keyword) = " . count($selectedKeywords);
-}
-$query .= " ORDER BY m.date $order";
-$result = mysqli_query($conn, $query);
-while ($row = mysqli_fetch_assoc($result)) {
-    $minutes[] = $row;
+    // Apply keyword filter if provided
+    $keywordFilter = "'" . implode("','", array_map(function($keyword) use ($conn) { 
+        return mysqli_real_escape_string($conn, $keyword); 
+    }, $selectedKeywords)) . "'";
+    $searchQuery = "SELECT minutes_link.date, minutes_link.name AS link FROM minutes_link
+                    JOIN minutes_keywords ON minutes_link.date = minutes_keywords.date
+                    WHERE minutes_keywords.keyword IN ($keywordFilter)
+                    GROUP BY minutes_link.date
+                    ORDER BY minutes_link.date $sortOrder";
 }
 
+$result = mysqli_query($conn, $searchQuery);
+$minutesResults = [];
+while ($row = mysqli_fetch_assoc($result)) {
+    $minutesResults[] = $row;
+}
+
+// Close the database connection
 mysqli_close($conn);
 ?>
-
 <!DOCTYPE html>
 <html>
 <head>
-        <?php require_once('universal.inc') ?>
-        <title>NAMI Rappahannock | Upload Minutes</title>
-    </head>
-    <body>
-        <?php require_once('header.php') ?>  
-        <h1>Search Minutes</h1>
+    <title>Search Minutes</title>
+    <?php require_once('universal.inc') ?>
     <style>
-
+        #sidebar {
+            width: 200px;
+            float: left;
+        }
+        #content {
+            margin-left: 210px;
+        }
         .container {
             background: white;
             padding: 20px;
             border-radius: 10px;
-            box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
-            width: 500px;
-            text-align: center;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
             margin-bottom: 20px;
+            cursor: pointer;
         }
-        .button {
-            display: inline-block;
-            background-color: #808080;
-            color: white;
+        .clickable {
+            display: block;
             padding: 10px;
-            margin-top: 10px;
-            border-radius: 5px;
+            border: 1px solid #ccc;
+            margin-top: 5px;
             text-decoration: none;
-            font-size: 16px;
-        }
-        .button:hover {
-            background-color: #696969;
-        }
-        .filter-container {
-            display: flex;
-            justify-content: space-between;
-            width: 80%;
-        }
-        .keyword-list {
-            display: flex;
-            flex-direction: column;
-            align-items: flex-start;
-            width: 30%;
-            padding: 10px;
-            background: #fff;
-            border-radius: 10px;
-            box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
-        }
-        .minutes-list {
-            width: 65%;
-        }
-        .minute-container {
-            background: white;
-            padding: 15px;
-            border-radius: 10px;
-            box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
-            margin-bottom: 10px;
+            color: black;
         }
     </style>
 </head>
 <body>
-    <a href="minutes.php" class="button" style="position: absolute; top: 10px; left: 10px;">Back</a>
-    <div class="container">
-
-        <form method="GET">
-            <button type="submit" name="order" value="<?php echo $newOrder; ?>" class="button">Sort by Date (<?php echo $newOrder; ?>)</button>
-            <input type="submit" value="Filter" class="button">
-            <div class="filter-container">
-                <div class="keyword-list">
-                    <b>Select Keywords</b>
-                    <?php foreach ($keywords as $keyword) : ?>
-                        <label>
-                            <input type="checkbox" name="keywords[]" value="<?php echo htmlspecialchars($keyword); ?>" 
-                                <?php echo in_array($keyword, $selectedKeywords) ? 'checked' : ''; ?>>
-                            <?php echo htmlspecialchars($keyword); ?>
-                        </label>
-                    <?php endforeach; ?>
+    <?php require_once('header.php') ?>
+    <div id="sidebar" class="container">
+        <h3>Select Keywords</h3>
+        <form action="searchMinutes.php" method="GET">
+            <?php foreach ($keywords as $keyword): ?>
+                <div>
+                    <input type="checkbox" name="keywords[]" value="<?php echo htmlspecialchars($keyword); ?>" 
+                        <?php echo in_array($keyword, $selectedKeywords) ? 'checked' : ''; ?>>
+                    <?php echo htmlspecialchars($keyword); ?>
                 </div>
-                <div class="minutes-list">
-                    <h3>Minutes</h3>
-                    <?php foreach ($minutes as $minute) : ?>
-                        <div class="minute-container">
-                            <a href="minutespdf/<?php echo str_replace('+', ' ', urlencode($minute['name'])); ?>" download>
-                                <?php echo date("m-d-Y", strtotime($minute['date'])) . " - " . htmlspecialchars($minute['name']); ?>
-                            </a>
-                        </div>
-                        
-                    <?php endforeach; ?>
-                </div>
-            </div>
+            <?php endforeach; ?>
+            <input type="submit" value="Search">
         </form>
-       
-       
     </div>
-    <main class="date">
-    <a class="button cancel" href="minutes.php" style="margin-top: -.5rem">Return to Dashboard</a>; 
-    
-</body>
-</html>
+    <div id="content">
+        <div class="container">
+            <h3>Sort Results</h3>
+            <form action="searchMinutes.php" method="GET">
+                <!-- Include keywords in the sort form to preserve filter settings -->
+                <?php foreach ($selectedKeywords as $keyword): ?>
+                    <input type="hidden" name="keywords[]" value="<?php echo htmlspecialchars($keyword); ?>">
+                <?php endforeach; ?>
+                <input type="radio" name="sort" value="ASC" <?php echo $sortOrder === 'ASC' ? 'checked' : ''; ?>> Ascending
+                <input type="radio" name="sort" value="DESC" <?php echo $sortOrder === 'DESC' ? 'checked' : ''; ?>> Descending
+                <input type="submit" value="Sort">
+            </form>
+        </div>
+        <div class="container">
+            <h3>Minutes Results</h3>
+            <?php if (!empty($minutesResults)): ?>
+                <ul style="padding-left: 0;">
+                    <?php foreach ($minutesResults as $minutes): ?>
+                        <li class="clickable">
+                            <!-- Assuming 'link' is the URL to open, and it's not empty -->
+                            <a href="<?php echo htmlspecialchars($minutes['link']); ?>" target="_blank" class="clickable">
+                                <?php echo htmlspecialchars($minutes['date']); ?>
+                            </a>
+                        </li>
+                    <?php endforeach; ?>
+                </ul>
+            <?php else: ?>
+                <p>No results found.</p>
+            <?php endif; ?>
+        
