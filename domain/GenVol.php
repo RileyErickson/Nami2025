@@ -61,4 +61,91 @@ class GenVol{
         $this->username = $username;
         $this->password = $password;
     }
+
+    // the getters for the general volunteer
+    function get_first_name(){
+        return $this->first_name;
+    }
+    
+    function get_last_name(){
+        return $this->last_name;
+    }
+    function get_phone1(){
+        return $this->phone1;
+    }
+    function get_contact_method(){
+        return $this->contact_method;
+    }
+    
+    function get_email(){
+        return $this->email;
+    }
+    
+    function get_street_address(){
+        return $this->street_address;
+    }
+    
+    function get_city(){
+        return $this->city;
+    }
+
+    function get_state(){
+        return $this->state;
+    }
+    
+    function get_zip_code(){
+        return $this->zip_code;
+    }
+    
+    function get_strengths(){
+        return $this->strengths;
+    }
+    
+    function get_primary_role(){
+        return $this->primary_role;
+    }
+    
+    function get_work_best(){
+        return $this->work_best;
+    }
+    
+    function get_learning_method(){
+        return $this->learning_method;
+    }
+    
+    function get_introOrExtro(){
+        return $this->introOrExtro;
+    }
+
+    function get_family_with_mental_illness(){
+        return $this->family_with_mental_illness;
+    }
+
+    function get_involvement_in_nami(){
+        return $this->involvement_in_nami;
+    }
+
+    function get_interest(){
+        return $this->interest;
+    }
+
+    function get_active_paying_nami_affiliate(){
+        return $this->active_paying_nami_affiliate;
+    }
+
+    function get_if_not_are_willing(){
+        return $this->if_not_are_willing;
+    }
+
+    function get_choice_nami_affiliate(){
+        return $this->choice_nami_affiliate;
+    }
+    function get_username(){
+        return $this->username;
+    }
+
+    function get_password(){
+        return $this->password;
+    }
+
 }
