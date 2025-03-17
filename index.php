@@ -88,6 +88,28 @@
                         <span>Register Volunteer</span>
                     </div>
 
+
+                    <!--Pending Volunteers-->
+                    <div class="dashboard-item" data-link="pending_volunteers.php">
+                        <img src="images/add-person.svg">
+                        <span>Pending Volunteers</span><?php
+                        require_once('database/dbEvents.php');
+                        require_once('database/dbPersons.php');
+                        $pending = pendingperson($notRoot);
+                        //$pending = all_pending_names();
+                        if (sizeof($pending) > 0) {
+                            echo ' (' . sizeof($pending) . ')';
+                        }
+                        ?>
+                    </div>
+
+                    <!-- add some sort of search capability to this -->
+                    <!-- could use adminViewingEvents.php as base? -->
+                    <div class="dashboard-item" data-link="volunteerDenied.php">
+                        <img src="images/volunteerDenied.png">
+                        <span><center>View Volunteer Denied List</center></span>
+                    </div>
+
                     <div class="dashboard-item" data-link="deleteVolunteer.php">
                         <img src="images/removeVolunteer.svg">
                         <span><center>Remove Volunteer</center></span>
