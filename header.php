@@ -129,6 +129,7 @@
         $permission_array['searchminutes.php'] = 2;
         $permission_array['minutes.php'] = 2;
 	$permission_array['selectminutes.php'] = 2;
+    $permission_array['pending_volunteers.php'] = 2;
 	// LOWERCASE
 
 
