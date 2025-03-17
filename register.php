@@ -236,7 +236,7 @@
                 /*}*/
             }
         } else {
-            require_once('registrationForm.php'); 
+            require_once('volunteerApp.php'); 
         }
     ?>
 </body>
