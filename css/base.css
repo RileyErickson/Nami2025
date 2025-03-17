@@ -60,9 +60,10 @@ table, td, tr, th, form, fieldset, em, button, a {
 
     --shadow-and-border-color: #e8e8e8;
 
-    --main-color: #185F99;
-    --accent-color: #39B54A;
-    --secondary-accent-color: #a3e0f7;
+    --main-color: #0c499c;
+    --accent-color: #799900;
+    --secondary-accent-color: #0099a8;
+
 
     --calendar-event-color: #808080;
     --calendar-event-color-hover: var(--main-color);
@@ -572,6 +573,23 @@ main.dashboard > p {
     width: 14rem;
     height: 14rem;
 }
+.dashboard-item {
+    display: inline;
+    background-color: var(--main-color);
+    transition: background-color .3s;
+    font-weight: 400;
+    border-radius: 1rem;
+    padding: 2rem;
+    color: var(--button-font-color);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 1rem;
+    width: 14rem;
+    height: 14rem;
+}
+
 
 .dashboard-item:hover {
     background-color: var(--accent-color);

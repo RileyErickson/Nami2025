@@ -12,7 +12,8 @@
 <html>
 <head>
     <?php require_once('universal.inc'); ?>
-    <title>NAMIRAPP | Register</title>
+    <title>NAMI Rappahannock | Register</title>
+
 </head>
 <body>
     <?php

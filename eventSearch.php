@@ -55,7 +55,7 @@
 <html>
     <head>
         <?php require_once('universal.inc') ?>
-        <title>Step VA | Event Search</title>
+        <title>NAMI Rappahannock | Event Search</title>
     </head>
     <body>
         <?php require_once('header.php') ?>

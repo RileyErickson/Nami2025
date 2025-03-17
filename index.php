@@ -26,7 +26,7 @@
     <head>
         <?php require('universal.inc'); ?>
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
-        <title>NAMIRAPP Volunteer System | Dashboard</title>
+        <title>NAMI Rappahannock Volunteer System | Dashboard</title>
     </head>
     <body>
         <?php require('header.php'); ?>
@@ -79,15 +79,28 @@
                 <!-- ADMIN ONLY -->
                 <?php if ($_SESSION['access_level'] >= 2): ?>
                     
+                    <div class="dashboard-item" data-link="viewForms.php">
+                    <i class="fa-solid fa-list"></i>
+                        <span>View Forms</span>
+                    </div>
                     <div class="dashboard-item" data-link="register.php">
                         <img src="images/add-person.svg">
                         <span>Register Volunteer</span>
                     </div>
 
+
                     <!--Pending Volunteers-->
                     <div class="dashboard-item" data-link="pending_volunteers.php">
                         <img src="images/add-person.svg">
-                        <span>Pending Volunteer</span>
+                        <span>Pending Volunteers</span><?php
+                        require_once('database/dbEvents.php');
+                        require_once('database/dbPersons.php');
+                        $pending = pendingperson($notRoot);
+                        //$pending = all_pending_names();
+                        if (sizeof($pending) > 0) {
+                            echo ' (' . sizeof($pending) . ')';
+                        }
+                        ?>
                     </div>
 
                     <!-- add some sort of search capability to this -->
@@ -106,25 +119,6 @@
                         <img src="images/editVolunteer.png">
                         <span><center>Edit Volunteer Profile/Hours</center></span>
                     </div>
-
-                    <!-- get link to guide -->
-                    <div class="dashboard-item" data-link="">
-                        <img src="images/staffGuide.png">
-                        <span><center>Access Staff and Affiliate Guide</center></span>
-                    </div>
-
-                    <!-- do we want to have general report page first and then choose type of report -->
-                    <div class="dashboard-item" data-link="generateReport.php">
-                        <img src="images/generateReports.png">
-                        <span><center>Generate Reports</center></span>
-                    </div>
-
-                    <div class="dashboard-item" data-link="personSearch.php">
-                        <img src="images/person-search.svg">
-                        <span><center>Search Volunteer Details</center></span>
-                    </div>
-
-                    <!-- change to pull from pending applications -->
                     <div class="dashboard-item" data-link="viewAllEventSignUps.php">
                         <i class="fa-solid fa-users"></i>
                         <span><center>View Pending Applications<?php 
@@ -136,40 +130,91 @@
                         }
                     ?></center></span>
                     </div>
-
-                    <div class="dashboard-item" data-link="emailList.php">
+                    <div class="dashboard-item" data-link="personSearch.php">
+                        <img src="images/person-search.svg">
+                        <span><center>Search Volunteer Details</center></span>
+                    </div>
+                    <!-- add some sort of search capability to this -->
+                    <!-- could use adminViewingEvents.php as base? -->
+                    <div class="dashboard-item" data-link="volunteerDenied.php">
+                        <img src="images/volunteerDenied.png">
+                        <span><center>View Volunteer Denied List</center></span>
+                    </div>
+                    <div class="dashboard-item" data-link="blacklist.php">
                         <img src="images/emailList.png">
-                        <span>Email List Generation</span>
-                    </div>
-
+                        <span>Blacklist</span>
+                     </div>
+ 
+                        
+                                         <!-- get link to guide -->
                     <div class="dashboard-item" data-link="">
-                        <img src="images/csv.png">
-                        <span><center>Download CSV Data File</center></span>
+                        <img src="images/staffGuide.png">
+                        <span><center>Access Staff and Affiliate Guide</center></span>
                     </div>
-
-                    <div class="dashboard-item" data-link="addEvent.php">
+                    
+                     <div class="dashboard-item" data-link="addEvent.php">
                         <i class="fa-solid fa-plus" font-size: 70px;></i>
                         <span>Create Event</span>
-                    </div>
-
-                    <div class="dashboard-item" data-link="calendar.php">
-                        <img src="images/view-calendar.svg">
-                        <span>View Calendar</span>
                     </div>
 
                     <div class="dashboard-item" data-link="adminViewingEvents.php">
                         <i class="fa-solid fa-list"></i>
                         <span>View Events</span>
                     </div>
-                    
+
                     <div class="dashboard-item" data-link="editHours.php">
                         <i class="fa-regular fa-clock"></i>
                         <span><center>View & Change Event Hours</center></span>
                     </div>
+                    
+                    <div class="dashboard-item" data-link="calendar.php">
+                        <img src="images/view-calendar.svg">
+                        <span>View Calendar</span>
+                    </div>
+
+
+
+
+                    <!-- change to pull from pending applications -->
+
+
+
+
+                    <!-- do we want to have general report page first and then choose type of report -->
+                    <div class="dashboard-item" data-link="generateReport.php">
+                        <img src="images/generateReports.png">
+                        <span><center>Generate Reports</center></span>
+                    </div>
+
+
+
+                    <div class="dashboard-item" data-link="emailList.php">
+                        <img src="images/emailList.png">
+                        <span>Email List Generation</span>
+                    </div>
+
+                    <div class="dashboard-item" data-link="minutes.php">
+                        <img src="images/emailList.png">
+                        <span>Minutes</span>
+                     </div>
+                    <div class="dashboard-item" data-link="">
+                        <img src="images/csv.png">
+                        <span><center>Download CSV Data File</center></span>
+                    </div>
+
+
+
+
+                    
+
 
                 <?php endif ?>
 
                 <!-- FOR VOLUNTEERS AND PARTICIPANTS ONLY -->
+                <div class="dashboard-item" data-link="viewForms.php">
+                        <img src="images/generateReports.png">
+                        <span><center>View Forms</center></span>
+                    </div>
                 <?php if ($notRoot) : ?>
                     <div class="dashboard-item" data-link="viewProfile.php">
                         <img src="images/view-profile.svg">
