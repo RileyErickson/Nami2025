@@ -27,7 +27,7 @@ error_reporting(E_ALL);
 
 require_once('database/dbPersons.php');
 
-$pending = pendingperson($userID);
+$pending = pendingPerson($userID);
 $access_level = $_SESSION['access_level']; ?>
 
 <!DOCTYPE html>
@@ -59,6 +59,26 @@ $access_level = $_SESSION['access_level']; ?>
             return false;
         }
     </script>
+
+<!--    <script>-->
+<!--        function showOtherConfirmation(ei, ui) {-->
+<!--            document.getElementById('resolution-confirmation-wrapper-' + ei + '-' + ui).classList.remove('hidden');-->
+<!---->
+<!--            return false;-->
+<!--        }-->
+<!--        function showViewProfile(ei, ui) {-->
+<!--            document.getElementById('resolution-confirmation-wrapper-' + ei + '-' + ui).classList.add('hidden');-->
+<!--            document.getElementById('reject-confirmation-wrapper-' + ei + '-' + ui).classList.add('hidden');-->
+<!--            document.getElementById('approve-confirmation-wrapper-' + ei + '-' + ui).classList.remove('hidden');-->
+<!--            return false;-->
+<!--        }-->
+<!--        function showReject(ei, ui) {-->
+<!--            document.getElementById('resolution-confirmation-wrapper-' + ei + '-' + ui).classList.add('hidden');-->
+<!--            document.getElementById('approve-confirmation-wrapper-' + ei + '-' + ui).classList.add('hidden');-->
+<!--            document.getElementById('reject-confirmation-wrapper-' + ei + '-' + ui).classList.remove('hidden');-->
+<!--            return false;-->
+<!--        }-->
+<!--    </script>-->
 
 </head>
 
@@ -93,6 +113,9 @@ $access_level = $_SESSION['access_level']; ?>
                     <th>Last Name</th>
                     <th>Start Date</th>
                     <?php if ($access_level >= 2): ?>
+                        <th>Demographic</th>
+                    <?php endif; ?>
+                    <?php if ($access_level >= 2): ?>
                         <th>Action</th>
                     <?php endif; ?>
                 </tr>
@@ -119,7 +142,11 @@ $access_level = $_SESSION['access_level']; ?>
                                     <?php echo htmlspecialchars($pending[$x]['start_date']); ?>
                         </td>
 <!--                        <td>--><?php //echo htmlspecialchars($position_label); ?><!--</td>-->
-
+                        <!-- Demographic -->
+                        <td><a
+                                    href="viewProfile.php?id=<?php echo urlencode($user_id); ?>"><?php echo htmlspecialchars($user_id); ?></a>
+                        </td>
+                        <!--Actions-->
                         <?php if ($access_level >= 2): ?>
                             <td>
                                 <form method="POST" style="display:inline;">
@@ -129,7 +156,7 @@ $access_level = $_SESSION['access_level']; ?>
                                 </form>
                                 <?php $ei = $user_id;
                                 $ui = $name; ?>
-                                <button onclick="showResolutionConfirmation('<?=$ei?>', '<?=$ui?>')" class="button">Resolve</button>
+                                <button onclick="showResolutionConfirmation('<?=$ei?>', '<?=$ui?>')" class="button">Decision</button>
                             </td>
                         <?php endif; ?>
                     </tr>
