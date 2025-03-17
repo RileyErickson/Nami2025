@@ -1276,12 +1276,34 @@ function get_logged_hours($from, $to, $name_from, $name_to, $venue) {
 	}
 	
 	function update_application_id($id, $application, $appID) {
-		
+
         $con=connect();
-        $query = "UPDATE dbpersons SET " . $application . "ID = '" . $appID . "' WHERE id='" . $id . "';";            
+        $query = "UPDATE dbpersons SET " . $application . "ID = '" . $appID . "' WHERE id='" . $id . "';";
         $result = mysqli_query($con, $query);
-		
+
 		mysqli_close($con);
-		
+
 		return $appID;
 	}
+
+    function approved_volunteer_application($id){
+        $connection = connect();
+
+        //$query = 'UPDATE dbPersons SET profile_pic="" WHERE id="'.$id.'"';
+        $query = 'UPDATE dbPersons SET type="volunteer" WHERE id="'.$id.'"';
+        $result = mysqli_query($connection, $query);
+        $result = boolval($result);
+        mysqli_close($connection);
+        return $result;
+    }
+
+    function denied_volunteer_application($id){
+        $connection = connect();
+
+        $query = 'DELETE FROM dbPersons WHERE id="'.$id.'"';
+        $result = mysqli_query($connection, $query);
+        $result = boolval($result);
+        mysqli_close($connection);
+        return $result;
+
+    }

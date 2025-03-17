@@ -59,27 +59,6 @@ $access_level = $_SESSION['access_level']; ?>
             return false;
         }
     </script>
-
-<!--    <script>-->
-<!--        function showOtherConfirmation(ei, ui) {-->
-<!--            document.getElementById('resolution-confirmation-wrapper-' + ei + '-' + ui).classList.remove('hidden');-->
-<!---->
-<!--            return false;-->
-<!--        }-->
-<!--        function showViewProfile(ei, ui) {-->
-<!--            document.getElementById('resolution-confirmation-wrapper-' + ei + '-' + ui).classList.add('hidden');-->
-<!--            document.getElementById('reject-confirmation-wrapper-' + ei + '-' + ui).classList.add('hidden');-->
-<!--            document.getElementById('approve-confirmation-wrapper-' + ei + '-' + ui).classList.remove('hidden');-->
-<!--            return false;-->
-<!--        }-->
-<!--        function showReject(ei, ui) {-->
-<!--            document.getElementById('resolution-confirmation-wrapper-' + ei + '-' + ui).classList.add('hidden');-->
-<!--            document.getElementById('approve-confirmation-wrapper-' + ei + '-' + ui).classList.add('hidden');-->
-<!--            document.getElementById('reject-confirmation-wrapper-' + ei + '-' + ui).classList.remove('hidden');-->
-<!--            return false;-->
-<!--        }-->
-<!--    </script>-->
-
 </head>
 
 <body>
@@ -133,9 +112,7 @@ $access_level = $_SESSION['access_level']; ?>
                     $position_label = 'p';
                     ?>
                     <tr>
-                        <td><a
-                                    href="event.php?id=<?php echo urlencode($user_id); ?>"><?php echo htmlspecialchars($user_id); ?></a>
-                        </td>
+                        <td><?php echo htmlspecialchars($user_id); ?></td>
                         <td><?php echo htmlspecialchars($name); ?></td>
                         <td><?php echo htmlspecialchars($pending[$x]['last_name']); ?></td>
                         <td>
@@ -143,8 +120,11 @@ $access_level = $_SESSION['access_level']; ?>
                         </td>
 <!--                        <td>--><?php //echo htmlspecialchars($position_label); ?><!--</td>-->
                         <!-- Demographic -->
-                        <td><a
-                                    href="viewProfile.php?id=<?php echo urlencode($user_id); ?>"><?php echo htmlspecialchars($user_id); ?></a>
+                        <td>
+
+                            <a
+                                    href="viewProfile.php?id=<?php echo urlencode($user_id); ?>"><button class="button"><?php echo 'View ',htmlspecialchars($user_id); ?></button>
+                            </a>
                         </td>
                         <!--Actions-->
                         <?php if ($access_level >= 2): ?>
@@ -165,8 +145,8 @@ $access_level = $_SESSION['access_level']; ?>
                             <?php $en = $user_id;
                             $un = $name; ?>
                             <p>Would you like to approve or reject this sign-up request?</p>
-                            <button onclick="showApprove(<?=$en?>, '<?=$un?>')" class="button success">Approve</button>
-                            <button onclick="showReject(<?=$en?>, '<?=$un?>')" class="button danger">Reject</button>
+                            <button onclick="showApprove('<?=$en?>', '<?=$un?>')" class="button success">Approve</button>
+                            <button onclick="showReject('<?=$en?>', '<?=$un?>')" class="button danger">Reject</button>
                             <button
                                     onclick="document.getElementById('resolution-confirmation-wrapper-<?= $user_id ?>-<?= $name ?>').classList.add('hidden')"
                                     id="cancel-cancel" class="button cancel">Cancel</button>
@@ -176,12 +156,12 @@ $access_level = $_SESSION['access_level']; ?>
                         <div class="modal-content">
                             <p>Are you sure you want to approve this sign-up request?</p>
                             <p>This action cannot be undone</p>
-                            <form method="post" action="fromPendingApproveSignup.php">
+                            <form method="post" action="approvedPendingVolunteer.php">
                                 <input type="submit" value="Approve" class="button success">
                                 <input type="hidden" name="id" value="<?= $user_id ?>">
                                 <input type="hidden" name="user_id" value="<?= $name ?>">
-                                <input type="hidden" name="position" value="<?= $position_label ?>">
-                                <input type="hidden" name="notes" value="<?= $pending['notes'] ?>">
+<!--                                <input type="hidden" name="position" value="--><?php //= $position_label ?><!--">-->
+<!--                                <input type="hidden" name="notes" value="--><?php //= $pending['notes'] ?><!--">-->
                             </form>
                             <button
                                     onclick="document.getElementById('approve-confirmation-wrapper-<?= $user_id ?>-<?= $name ?>').classList.add('hidden')"
@@ -192,12 +172,12 @@ $access_level = $_SESSION['access_level']; ?>
                         <div class="modal-content">
                             <p>Are you sure you want to reject this sign-up request?</p>
                             <p>This action cannot be undone </p>
-                            <form method="post" action="fromPendingRejectSignup.php">
+                            <form method="post" action="deniedPendingVolunteer.php">
                                 <input type="submit" value="Reject" class="button danger">
                                 <input type="hidden" name="id" value="<?= $user_id ?>">
                                 <input type="hidden" name="user_id" value="<?= $name ?>">
-                                <input type="hidden" name="position" value="<?= $position_label ?>">
-                                <input type="hidden" name="notes" value="<?= $pending['notes'] ?>">
+<!--                                <input type="hidden" name="position" value="--><?php //= $position_label ?><!--">-->
+<!--                                <input type="hidden" name="notes" value="--><?php //= $pending['notes'] ?><!--">-->
                             </form>
                             <button
                                     onclick="document.getElementById('reject-confirmation-wrapper-<?= $user_id ?>-<?= $name ?>').classList.add('hidden')"
