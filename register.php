@@ -20,6 +20,7 @@
         require_once('header.php');
         require_once('domain/Person.php');
         require_once('database/dbPersons.php');
+        require_once('domain/GenVol.php');
         if ($_SERVER["REQUEST_METHOD"] == "POST") {
             // make every submitted field SQL-safe except for password
             $ignoreList = array('password');
@@ -95,15 +96,12 @@
             
             
             $newVol = new GenVol(
-                                    $first_name, $last_name, $phone1,
-                                    $contact_method, $email, $street_address,
-                                    $city, $state, $zip_code,
-                                    $strengths, $primary_role, $work_best,
-                                    $learning_method, $introOrExtro,
-                                    $family_with_mental_illness, $involvement_in_nami,
-                                    $interest, $active_paying_nami_affiliate,
-                                    $if_not_are_willing, $choice_nami_affiliate,
-                                    $username, $password
+                $first_name, $last_name, $phone1, $contact_method, $email, 
+                $street_address, $city, $state, $zip_code, $strengths, 
+                $primary_role, $work_best, $learning_method, $introOrExtro,
+                $family_with_mental_illness, $involvement_in_nami,
+                $interest, $active_paying_nami_affiliate, $if_not_are_willing,
+                $choice_nami_affiliate, $username, $password
             );
 
             $result = add_genVol($newVol);

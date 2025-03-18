@@ -51,13 +51,15 @@ function add_genVol($genVol){
              involvementInNami, strengths, workBest, learningMethod, 
              introOrExtro, interest) 
              VALUES (
-                "jimhim", NULL, NULL, "Jim", "jim", "1234 jimlane", 
+                "entirelyNew", NULL, NULL, "Jim", "jim", "1234 jimlane", 
                 "jimbridge", "VA", "22401", "5555555555", NULL, NULL, NULL, NULL, 
                 "jim@jimmail.com", "", "", "", "call", NULL, NULL, NULL, 
                 "123pass", "", "", "", "", "", "", "", "", "", "", "", 
                 "0", "", "", "", "0", "", "0", "", "0", "", NULL, NULL, NULL, NULL, 
                 NULL, NULL, "1", "1", "the best one", NULL, NULL, NULL, NULL, NULL, 
                 NULL, "0", "", "honest\r\nhardworking\r\nthe best", "", "", "", "1");');
+                mysqli_close($con);
+                return true;
     }
 
 }
