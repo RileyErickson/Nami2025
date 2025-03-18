@@ -18,6 +18,75 @@ include_once('dbinfo.php');
 include_once(dirname(__FILE__).'/../domain/Person.php');
 
 /*
+* add a general volunteer
+*/
+function add_genVol($genVol){
+    if (!$genVol instanceof GenVol){
+        die('Error: add_genVol type mismatch');
+    }
+    $con=connect();
+    $query = "SELECT * FROM dbpersons WHERE id = '" . $genVol->get_username() . "'";
+    $result = mysqli_query($con, $query);
+    if($result == null || mysqli_num_rows($result) == 0){
+        if($genVol->get_active_paying_nami_affiliate() == 'yes'){
+            $active = 1;
+        }
+        else{
+            $active = 0;
+        }
+        if($genVol->get_if_not_are_willing() == 'yes'){
+            $willing = 1;
+        }
+        else{
+            $willing = 0;
+        }
+        if($genVol->get_interest() == 'yes'){
+            $interest = 1;
+        }
+        else{
+            $interest = 0;
+        }
+        mysqli_query($con, 'INSERT INTO dbpersons (
+            id, start_date, venue, first_name,
+             last_name, street_address, city, state,
+             zip_code, phone1, phone1type, emergency_contact_phone, 
+             emergency_contact_phone_type, birthday, email, 
+             emergency_contact_first_name, contact_num, emergency_contact_relation, 
+             contact_method, type, status, notes, password, 
+             profile_pic, gender, tshirt_size, how_you_heard_of_stepva, 
+             sensory_sensitivities, disability_accomodation_needs, 
+             school_affiliation, race, preferred_feedback_method, 
+             hobbies, professional_experience, archived, 
+             emergency_contact_last_name, photo_release, photo_release_notes, 
+             training_complete, training_date, orientation_complete, 
+             orientation_date, background_complete, background_date, 
+             f2fApplicationID, p2pApplicationID, ioovApplicationID, 
+             fsgApplicationID, csgApplicationID, hfApplicationID, 
+             activePayingNamiAffiliate, ifNotAreWilling, choiceNamiAffiliate, 
+             familyWithMentalIllness, comfortableReadingAloud, 
+             willingToCompleteTraining, staminaToCompleteCourse, 
+             supportSystemToHelp, computerAccess, acknowledgement_commitment, 
+             involvementInNami, strengths, workBest, learningMethod, 
+             introOrExtro, interest) 
+             VALUES (
+                "'. $genVol->get_username() .'", NULL, NULL, 
+                "'. $genVol->get_first_name() .'", "'. $genVol->get_last_name() .'", 
+                "'. $genVol->get_street_address() .'", 
+                "'. $genVol->get_city() .'", "'. $genVol->get_state() .'", 
+                "'. $genVol->get_zip_code() .'", "'. $genVol->get_phone1() .'", NULL, 
+                NULL, NULL, NULL, "'. $genVol->get_email() .'", "", "", "", "email", 
+                "participant", NULL, NULL, "'. $genVol->get_password() .'", "", "", "", "", "", "", "", "", "", "", "", 
+                "0", "", "", "", "0", "", "0", "", "0", "", NULL, NULL, NULL, NULL, 
+                NULL, NULL, "'. $active .'", "'. $willing .'", 
+                "'. $genVol->get_choice_nami_affiliate() .'", NULL, NULL, NULL, NULL, NULL, 
+                NULL, "0", "", "'. $genVol->get_strengths() .'", "", "", "", "'. $interest .'");');
+                mysqli_close($con);
+                return true;
+    }
+
+}
+
+/*
  * add a person to dbPersons table: if already there, return false
  */
 
