@@ -18,6 +18,51 @@ include_once('dbinfo.php');
 include_once(dirname(__FILE__).'/../domain/Person.php');
 
 /*
+* add a general volunteer
+*/
+function add_genVol($genVol){
+    if (!$genVol instanceof GenVol){
+        die('Error: add_genVol type mismatch');
+    }
+    $con=connect();
+    $query = "SELECT * FROM dbpersons WHERE id = '" . $genVol->get_username() . "'";
+    $result = mysqli_query($con, $query);
+    if($result == null || mysqli_num_rows($result) == 0){
+        mysqli_query($con, 'INSERT INTO dbpersons (
+            id, start_date, venue, first_name,
+             last_name, street_address, city, state,
+             zip_code, phone1, phone1type, emergency_contact_phone, 
+             emergency_contact_phone_type, birthday, email, 
+             emergency_contact_first_name, contact_num, emergency_contact_relation, 
+             contact_method, type, status, notes, password, 
+             profile_pic, gender, tshirt_size, how_you_heard_of_stepva, 
+             sensory_sensitivities, disability_accomodation_needs, 
+             school_affiliation, race, preferred_feedback_method, 
+             hobbies, professional_experience, archived, 
+             emergency_contact_last_name, photo_release, photo_release_notes, 
+             training_complete, training_date, orientation_complete, 
+             orientation_date, background_complete, background_date, 
+             f2fApplicationID, p2pApplicationID, ioovApplicationID, 
+             fsgApplicationID, csgApplicationID, hfApplicationID, 
+             activePayingNamiAffiliate, ifNotAreWilling, choiceNamiAffiliate, 
+             familyWithMentalIllness, comfortableReadingAloud, 
+             willingToCompleteTraining, staminaToCompleteCourse, 
+             supportSystemToHelp, computerAccess, acknowledgement_commitment, 
+             involvementInNami, strengths, workBest, learningMethod, 
+             introOrExtro, interest) 
+             VALUES (
+                "jimhim", NULL, NULL, "Jim", "jim", "1234 jimlane", 
+                "jimbridge", "VA", "22401", "5555555555", NULL, NULL, NULL, NULL, 
+                "jim@jimmail.com", "", "", "", "call", NULL, NULL, NULL, 
+                "123pass", "", "", "", "", "", "", "", "", "", "", "", 
+                "0", "", "", "", "0", "", "0", "", "0", "", NULL, NULL, NULL, NULL, 
+                NULL, NULL, "1", "1", "the best one", NULL, NULL, NULL, NULL, NULL, 
+                NULL, "0", "", "honest\r\nhardworking\r\nthe best", "", "", "", "1");');
+    }
+
+}
+
+/*
  * add a person to dbPersons table: if already there, return false
  */
 
