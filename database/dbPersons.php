@@ -28,6 +28,24 @@ function add_genVol($genVol){
     $query = "SELECT * FROM dbpersons WHERE id = '" . $genVol->get_username() . "'";
     $result = mysqli_query($con, $query);
     if($result == null || mysqli_num_rows($result) == 0){
+        if($genVol->get_active_paying_nami_affiliate() == 'yes'){
+            $active = 1;
+        }
+        else{
+            $active = 0;
+        }
+        if($genVol->get_if_not_are_willing() == 'yes'){
+            $willing = 1;
+        }
+        else{
+            $willing = 0;
+        }
+        if($genVol->get_interest() == 'yes'){
+            $interest = 1;
+        }
+        else{
+            $interest = 0;
+        }
         mysqli_query($con, 'INSERT INTO dbpersons (
             id, start_date, venue, first_name,
              last_name, street_address, city, state,
@@ -51,13 +69,17 @@ function add_genVol($genVol){
              involvementInNami, strengths, workBest, learningMethod, 
              introOrExtro, interest) 
              VALUES (
-                "entirelyNew", NULL, NULL, "Jim", "jim", "1234 jimlane", 
-                "jimbridge", "VA", "22401", "5555555555", NULL, NULL, NULL, NULL, 
-                "jim@jimmail.com", "", "", "", "call", NULL, NULL, NULL, 
-                "123pass", "", "", "", "", "", "", "", "", "", "", "", 
+                "'. $genVol->get_username() .'", NULL, NULL, 
+                "'. $genVol->get_first_name() .'", "'. $genVol->get_last_name() .'", 
+                "'. $genVol->get_street_address() .'", 
+                "'. $genVol->get_city() .'", "'. $genVol->get_state() .'", 
+                "'. $genVol->get_zip_code() .'", "'. $genVol->get_phone1() .'", NULL, 
+                NULL, NULL, NULL, "'. $genVol->get_email() .'", "", "", "", "email", 
+                "participant", NULL, NULL, "'. $genVol->get_password() .'", "", "", "", "", "", "", "", "", "", "", "", 
                 "0", "", "", "", "0", "", "0", "", "0", "", NULL, NULL, NULL, NULL, 
-                NULL, NULL, "1", "1", "the best one", NULL, NULL, NULL, NULL, NULL, 
-                NULL, "0", "", "honest\r\nhardworking\r\nthe best", "", "", "", "1");');
+                NULL, NULL, "'. $active .'", "'. $willing .'", 
+                "'. $genVol->get_choice_nami_affiliate() .'", NULL, NULL, NULL, NULL, NULL, 
+                NULL, "0", "", "'. $genVol->get_strengths() .'", "", "", "", "'. $interest .'");');
                 mysqli_close($con);
                 return true;
     }
