@@ -17,7 +17,7 @@ function create_application($application, $personID, $reasontobecome, $whyisnowr
 	$query = "SELECT " . $application . "ID FROM db" . $application . " ORDER BY " . $application . "ID LIMIT 1;";
     $result = mysqli_query($con,$query);
 	$result = $result->fetch_array();
-	if ($result[0] == NULL) {
+	if (isset($result[0])) {
 		$appID = 1;
 	} else {
 		$appID = $result[0];
@@ -58,29 +58,40 @@ function get_reasontobecome($id, $application) {
 	switch ($application) {
 		case "F2FApplication":
 			$formattedName = "F2F";
+			$tableName = "dbf2fapplication";
 			break;
 		case "P2PApplication":
 			$formattedName = "P2P";
+			$tableName = "dbp2papplication";
 			break;
 		case "IOOApplication":
-			$formattedName = "IOO";
+			$formattedName = "IOOV";
+			$tableName = "dbiooapplication";
 			break;
 		case "CSGApplication":
 			$formattedName = "CSG";
+			$tableName = "dbcsgapplication";
 			break;
 		case "FSGApplication":
 			$formattedName = "FSG";
+			$tableName = "dbfsgapplication";
 			break;
 		case "HFApplication":
 			$formattedName = "HF";
+			$tableName = "dbhfapplication";
 			break;
 	}
 	
 	$con=connect();
-	$query="SELECT reasonToBecome" . $formattedName . " FROM db" . $application . " WHERE id='" . $id . "';";
+	$query="SELECT reasonToBecome" . $formattedName . " FROM " . $tableName . " WHERE id='" . $id . "';";
 	
 	$result = $result->fetch_array();
-	$reason = $result[0];
+	
+	if (isset($result[0])) {
+		$reason = $result[0];
+	} else {
+		$reason = null;
+	}
 	
 	mysqli_close($con);
 	
@@ -97,7 +108,12 @@ function get_whyisnowrighttime($id, $application) {
 	$query="SELECT whyIsNowRightTime FROM db" . $application . " WHERE id='" . $id . "';";
 	
 	$result = $result->fetch_array();
-	$why = $result[0];
+	
+	if (isset($result[0])) {
+		$why = $result[0];
+	} else {
+		$why = "";
+	}
 	
 	mysqli_close($con);
 	
@@ -114,7 +130,12 @@ function get_statusinrecoveryjourney($id, $application) {
 	$query="SELECT statusInRecoveryJourney FROM db" . $application . " WHERE id='" . $id . "';";
 	
 	$result = $result->fetch_array();
-	$status = $result[0];
+	
+	if (isset($result[0])) {
+		$status = $result[0];
+	} else {
+		$status = "";
+	}
 	
 	mysqli_close($con);
 	
@@ -131,7 +152,12 @@ function get_screenername($id, $application) {
 	$query="SELECT screenerName FROM db" . $application . " WHERE id='" . $id . "';";
 	
 	$result = $result->fetch_array();
-	$name = $result[0];
+	
+	if (isset($result[0])) {
+		$name = $result[0];
+	} else {
+		$name = "";
+	}
 	
 	mysqli_close($con);
 	
@@ -148,7 +174,12 @@ function get_screeningdate($id, $application) {
 	$query="SELECT screeningDate FROM db" . $application . " WHERE id='" . $id . "';";
 	
 	$result = $result->fetch_array();
-	$date = $result[0];
+	
+	if (isset($result[0])) {
+		$date = $result[0];
+	} else {
+		$date = "";
+	}
 	
 	mysqli_close($con);
 	

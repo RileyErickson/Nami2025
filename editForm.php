@@ -48,8 +48,8 @@
 		case "P2PApplication":
 			$formattedName = "P2P";
 			break;
-		case "IOOApplication":
-			$formattedName = "IOO";
+		case "IOOVApplication":
+			$formattedName = "IOOV";
 			break;
 		case "CSGApplication":
 			$formattedName = "CSG";
@@ -143,7 +143,7 @@
 						?>
 						
 						<label>Screener name?</label>
-						<select name="screenername" id="screenername" value="<?php echo get_screenername($appID, $formname); ?>">
+						<select name="screenername" id="screenername" value="<?php echo get_screenername($appID, $formname); ?>" style="margin-bottom:10px;">
 							<option value="name1">Name 1</option>
 							<option value="name2">Name 2</option>
 							<option value="name3">Name 3</option>
