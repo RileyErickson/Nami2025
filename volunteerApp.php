@@ -162,14 +162,14 @@
             <fieldset class="section-box" id="additional_info_section" style="display: none;">
             <label for="activePayingNamiAffiliate"><em>* </em>Are you an active, dues-paying member of a local NAMI affiliate?</label>
             <div class="radio-group">
-                <input type="radio" id="activePayingNamiAffiliate_yes" name="activePayingNamiAffiliate" value="yes" required><label for="activePayingNamiAffiliate_yes">Yes</label>
-                <input type="radio" id="activePayingNamiAffiliate_no" name="activePayingNamiAffiliate" value="no" required><label for="activePayingNamiAffiliate_no">No</label>
+                <input type="radio" id="activePayingNamiAffiliate_yes" name="activePayingNamiAffiliate" value="yes"><label for="activePayingNamiAffiliate_yes">Yes</label>
+                <input type="radio" id="activePayingNamiAffiliate_no" name="activePayingNamiAffiliate" value="no"><label for="activePayingNamiAffiliate_no">No</label>
             </div>
 
             <label for="ifNotAreWilling"><em>* </em>If not, are you willing to join?</label>
             <div class="radio-group">
-                <input type="radio" id="ifNotAreWilling_yes" name="ifNotAreWilling" value="yes" required><label for="ifNotAreWilling_yes">Yes</label>
-                <input type="radio" id="ifNotAreWilling_no" name="ifNotAreWilling" value="no" required><label for="ifNotAreWilling_no">No</label>
+                <input type="radio" id="ifNotAreWilling_yes" name="ifNotAreWilling" value="yes"><label for="ifNotAreWilling_yes">Yes</label>
+                <input type="radio" id="ifNotAreWilling_no" name="ifNotAreWilling" value="no"><label for="ifNotAreWilling_no">No</label>
             </div>
 
             <label for="choiceNamiAffiliate"><em>* </em>Which NAMI affiliate are you a member of (or planning to join)?</p>
