@@ -83,6 +83,7 @@
                     <i class="fa-solid fa-list"></i>
                         <span>View Forms</span>
                     </div>
+
                     <div class="dashboard-item" data-link="register.php">
                         <img src="images/add-person.svg">
                         <span>Register Volunteer</span>
@@ -101,13 +102,6 @@
                             echo ' (' . sizeof($pending) . ')';
                         }
                         ?>
-                    </div>
-
-                    <!-- add some sort of search capability to this -->
-                    <!-- could use adminViewingEvents.php as base? -->
-                    <div class="dashboard-item" data-link="volunteerDenied.php">
-                        <img src="images/volunteerDenied.png">
-                        <span><center>View Volunteer Denied List</center></span>
                     </div>
 
                     <div class="dashboard-item" data-link="deleteVolunteer.php">
@@ -136,49 +130,21 @@
                     </div>
                     <!-- add some sort of search capability to this -->
                     <!-- could use adminViewingEvents.php as base? -->
-                    <div class="dashboard-item" data-link="volunteerDenied.php">
+                    <div class="dashboard-item" data-link="blacklist.php">
                         <img src="images/volunteerDenied.png">
                         <span><center>View Volunteer Denied List</center></span>
                     </div>
-                    <div class="dashboard-item" data-link="blacklist.php">
-                        <img src="images/emailList.png">
-                        <span>Blacklist</span>
-                     </div>
- 
-                        
+
                                          <!-- get link to guide -->
-                    <div class="dashboard-item" data-link="">
+                    <div class="dashboard-item" data-link="https://docs.google.com/document/d/1WmSks4xxZgkmTgTRkqziBNb2G9J8lz1brWqgWSS0Nps/edit?tab=t.0">
                         <img src="images/staffGuide.png">
                         <span><center>Access Staff and Affiliate Guide</center></span>
                     </div>
                     
-                     <div class="dashboard-item" data-link="addEvent.php">
-                        <i class="fa-solid fa-plus" font-size: 70px;></i>
-                        <span>Create Event</span>
-                    </div>
-
-                    <div class="dashboard-item" data-link="adminViewingEvents.php">
-                        <i class="fa-solid fa-list"></i>
-                        <span>View Events</span>
-                    </div>
-
-                    <div class="dashboard-item" data-link="editHours.php">
-                        <i class="fa-regular fa-clock"></i>
-                        <span><center>View & Change Event Hours</center></span>
-                    </div>
-                    
-                    <div class="dashboard-item" data-link="calendar.php">
+                    <div class="dashboard-item" data-link="https://www.namirapp.org/#calendar">
                         <img src="images/view-calendar.svg">
                         <span>View Calendar</span>
                     </div>
-
-
-
-
-                    <!-- change to pull from pending applications -->
-
-
-
 
                     <!-- do we want to have general report page first and then choose type of report -->
                     <div class="dashboard-item" data-link="generateReport.php">
@@ -203,19 +169,14 @@
                     </div>
 
 
-
-
-                    
-
-
                 <?php endif ?>
 
                 <!-- FOR VOLUNTEERS AND PARTICIPANTS ONLY -->
-                <div class="dashboard-item" data-link="viewForms.php">
+                <?php if ($notRoot) : ?>
+                    <div class="dashboard-item" data-link="viewForms.php">
                         <img src="images/generateReports.png">
                         <span><center>View Forms</center></span>
                     </div>
-                <?php if ($notRoot) : ?>
                     <div class="dashboard-item" data-link="viewProfile.php">
                         <img src="images/view-profile.svg">
                         <span>View Profile</span>
