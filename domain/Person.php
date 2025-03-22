@@ -119,10 +119,21 @@ class Person {
         $this->background_date = $background_date;
 
 		// access_level = 1 for users, and = 3 for admin
-		if ($id == 'vmsroot') {
+		if ($type == 'admin' ) {
 			$this->access_level = 3;
-		} else {
-			$this->access_level = 1;
+		}
+
+        elseif ($type == 'board'){
+            $this->access_level = 2;
+        }
+
+        elseif ($type == 'volunteer' || $type == 'v'){
+            $this->access_level = 1;
+        }
+
+
+        else {
+			$this->access_level = 0;
 		}
 	}
 

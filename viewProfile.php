@@ -48,6 +48,8 @@
         }
       }
     }
+
+
 ?>
 <!DOCTYPE html>
 <html>
@@ -120,12 +122,28 @@
 
                 <div class="field-pair">
                     <label>Date of Birth</label>
-                    <p><?php echo date('d/m/Y', strtotime($user->get_birthday())) ?></p>
+                    <p><?php
+//                        if (is_null($user->get_birthday() ) ){
+//                            echo ('Empty');
+//                        }else{
+                            //echo date('d/m/Y', strtotime($user->get_birthday()))
+                            if ($user->get_birthday() == null) {
+                                echo '<strong>Empty</strong>';
+                            }else{
+                                echo  ($user->get_birthday());
+                            }
+                        ?>
+                    </p>
                 </div>
 
                 <div class="field-pair">
                     <label>Address</label>
-                    <p><?php echo $user->get_street_address() . ', ' . $user->get_city() . ', ' . $user->get_state() . ' ' . $user->get_zip_code() ?></p>
+                    <p><?php
+                        if ($user->get_street_address() == null) {
+                            echo '<strong>Empty</strong>';
+                        }else{
+                        echo $user->get_street_address() . ', ' . $user->get_city() . ', ' . $user->get_state() . ' ' . $user->get_zip_code();
+                        } ?></p>
                 </div>
 
             </fieldset>
@@ -140,7 +158,7 @@
 
                 <div class="field-pair">
                     <label>Phone Number</label>
-                    <p><a href="tel:<?php echo $user->get_phone1() ?>"><?php echo formatPhoneNumber($user->get_phone1()) ?></a> (<?php echo ucfirst($user->get_phone1type()) ?>)</p>
+                    <p><a href="tel:<?php echo $user->get_phone1() ?>"><?php echo formatPhoneNumber($user->get_phone1()) ?></a> <!--(<?php echo ucfirst($user->get_phone1type()) ?>)--></p>
                 </div>
 
                 <div class="field-pair">
@@ -164,7 +182,7 @@
 
                 <div class="field-pair">
                     <label>Phone Number</label>
-                    <p><a href="tel:<?php echo $user->get_emergency_contact_phone() ?>"><?php echo formatPhoneNumber($user->get_emergency_contact_phone()) ?></a> (<?php echo ucfirst($user->get_emergency_contact_phone_type()) ?>)</p>
+                    <p><a href="tel:<?php echo $user->get_emergency_contact_phone() ?>"><?php echo formatPhoneNumber($user->get_emergency_contact_phone()) ?></a> <!--(<?php echo ucfirst($user->get_emergency_contact_phone_type()) ?>)--></p>
                 </div>
             </fieldset>
 
@@ -311,13 +329,13 @@
 
                 <div class="field-pair">
                     <label>Emergency Contact Phone</label>
-                    <p><?php echo $user->get_emergency_contact_phone() ?></p>
+                    <p><?php echo formatPhoneNumber($user->get_emergency_contact_phone()) ?></p>
                 </div>
 
-                <div class="field-pair">
-                    <label>Emergency Contact Phone Type</label>
-                    <p><?php echo ucfirst($user->get_emergency_contact_phone_type()) ?></p>
-                </div>
+<!--                <div class="field-pair">-->
+<!--                    <label>Emergency Contact Phone Type</label>-->
+<!--                    <p>--><?php //echo ucfirst($user->get_emergency_contact_phone_type()) ?><!--</p>-->
+<!--                </div>-->
 
                 <div class="field-pair">
                     <label>Emergency Contact Relation</label>

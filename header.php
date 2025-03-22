@@ -124,9 +124,13 @@
         $permission_array['addblacklist.php'] = 2;
         $permission_array['blacklist.php'] = 2;
         $permission_array['searchblacklist.php'] = 2;
-        $permission_array['addminutes.php'] = 1;
-        $permission_array['searchminutes.php'] = 1;
-        // LOWERCASE
+        $permission_array['addminutes.php'] = 2;
+	$permission_array['editminutes.php'] = 2;
+        $permission_array['searchminutes.php'] = 2;
+        $permission_array['minutes.php'] = 2;
+	$permission_array['selectminutes.php'] = 2;
+    $permission_array['pending_volunteers.php'] = 2;
+	// LOWERCASE
 
 
 

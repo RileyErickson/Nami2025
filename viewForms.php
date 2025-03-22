@@ -98,13 +98,13 @@
 						</div>
 						
 						<div class="field-pair">
-							<label>IOO VApplication</label>
+							<label>IOOV Application</label>
 							<p>
 								This is a consumer form. A longer description of the form to be submitted can be added here.
 								<br>
 							</p>
 							<form action="editForm.php" method="POST">
-								<input type="hidden" id="formname" name="formname" value="IOOApplication">
+								<input type="hidden" id="formname" name="formname" value="IOOVApplication">
 								<button style="width:16%;">Submit/Edit</button>
 							</form>
 						</div>

@@ -98,7 +98,7 @@
             </form>
             <p></p>
 
-            <p>Don't have an account? <a href = "/stepvarepo/register.php">Sign Up</a>!</p>
+            <p>Don't have an account? <a href = "register.php">Sign Up</a>!</p>
             <p>Looking for <a href="https://www.namirapp.org/">NAMI Rappahannock</a>?</p>
 
         </main>
