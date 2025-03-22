@@ -282,15 +282,14 @@
                 </div>
                 -->
 
-                <div class="field-pair">
-                    <label>School Affiliation</label>
-                    <p><?php echo $user->get_school_affiliation() ?></p>
-                </div>
+
 
                 <div class="field-pair">
-                    <label>T-Shirt Size</label>
-                    <p><?php echo ucfirst($user->get_tshirt_size() ?: "Not specified") ?></p>
+                <label>Permissions Level</label>
+                    <p><?php echo ucfirst($user->get_type() ?: "Not specified") ?></p>
                 </div>
+                
+
 
                 <div class="field-pair">
                     <label>Accommodations</label>
@@ -312,16 +311,7 @@
                     <p><?php echo ucfirst($user->get_how_you_heard_of_stepva() ?: "Not specified") ?></p>
                 </div>
 
-                <!-- Adding Photo Release Information -->
-                <div class="field-pair">
-                    <label>Photo Release Restrictions</label>
-                    <p><?php echo ucfirst($user->get_photo_release()) ?></p>
-                </div>
 
-                <div class="field-pair">
-                    <label>Photo Release Notes</label>
-                    <p><?php echo ucfirst($user->get_photo_release_notes() ?: "Not specified") ?></p>
-                </div>
             </fieldset>
 
             <fieldset class="section-box">
