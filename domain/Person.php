@@ -61,13 +61,6 @@ class Person {
     private $professional_experience;
     private $disability_accomodation_needs;
 	
-	// FORMS
-	private $f2fApplicationID;
-	private $p2pApplicationID;
-	private $ioovApplicationID;
-	private $fsgApplicationID;
-	private $csgApplicationID;
-	private $hfApplicationID;
 
 	/*
 	 * This is a temporary mini constructor for testing purposes. It will be expanded later.
@@ -285,30 +278,6 @@ class Person {
 	
 	function get_background_date() {
 		return $this->background_date;
-	}
-	
-	function get_f2fApplicationID_id() {
-		return $this->f2fApplicationID;
-	}
-	
-	function get_p2pApplicationID_id() {
-		return $this->p2pApplicationID;
-	}
-	
-	function get_ioovApplicationID_id() {
-		return $this->ioovApplicationID;
-	}
-	
-	function get_fsgApplicationID_id() {
-		return $this->fsgApplicationID;
-	}
-	
-	function get_csgApplicationID_id() {
-		return $this->csgApplicationID;
-	}
-	
-	function get_hfApplicationID_id() {
-		return $this->hfApplicationID;
 	}
 
 }

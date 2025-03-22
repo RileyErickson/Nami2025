@@ -65,17 +65,17 @@
     $user = retrieve_person($id);
     $viewingOwnForms = $id == $userID;
 	
-	$appID = get_application_id($id, $formname);
+	$appID = get_appID($userID, $formname);
 	
 	/* setting values for editing */
 	if ($appID != 0 && isset($_POST['submitted'])) {
-		update_reasontobecome($id, $formname, $_POST['reasontobecome']);
-		update_whyisnowrighttime($id, $formname, $_POST['whyisnowrighttime']);
+		update_reasontobecome($appID, $formname, $_POST['reasontobecome']);
+		update_whyisnowrighttime($appID, $formname, $_POST['whyisnowrighttime']);
 		if (isset($_POST['statusinrecoveryjourney'])) {
-			update_statusinrecoveryjourney($id, $formname, $_POST['statusinrecoveryjourney']);
+			update_statusinrecoveryjourney($appID, $formname, $_POST['statusinrecoveryjourney']);
 		}
-		update_screenername($id, $formname, $_POST['screenername']);
-		update_screeningdate($id, $formname, $_POST['screeningdate']);
+		update_screenername($appID, $formname, $_POST['screenername']);
+		update_screeningdate($appID, $formname, $_POST['screeningdate']);
 		
 		unset($_POST['submitted']);
 		unset($_POST['reasontobecome']);
@@ -83,16 +83,18 @@
 		unset($_POST['statusinrecoveryjourney']);
 		unset($_POST['screenername']);
 		unset($_POST['screeningdate']);
+		
+		$message = "Application updated!";
 	}
 	
 	/* setting values for a new application */
-	if ($appID == 0 && isset($_POST['submitted'])) {
+	if (isset($_POST['submitted'])) {
 		
 		if (!(isset($_POST['statusinrecoveryjourney']))) {
 			$_POST['statusinrecoveryjourney'] = NULL;
 		}
 		
-		create_application($formname, $id, $_POST['reasontobecome'], $_POST['whyisnowrighttime'], $_POST['statusinrecoveryjourney'], $_POST['screenername'], $_POST['screeningdate']);
+		create_application($formname, $userID, $_POST['reasontobecome'], $_POST['whyisnowrighttime'], $_POST['statusinrecoveryjourney'], $_POST['screenername'], $_POST['screeningdate']);
 		
 		unset($_POST['submitted']);
 		unset($_POST['reasontobecome']);
@@ -100,6 +102,8 @@
 		unset($_POST['statusinrecoveryjourney']);
 		unset($_POST['screenername']);
 		unset($_POST['screeningdate']);
+		
+		$message = "Application created!";
 	}
 	
 ?>
@@ -121,6 +125,13 @@
 		<h1>
 			Form Submission
 		</h1>
+		
+		<?php 
+			if (isset($message)) {
+				echo "<div class=\"happy-toast\">" . $message . "</div>";
+			}
+		?>
+		
 				
         <main class="general">
 			

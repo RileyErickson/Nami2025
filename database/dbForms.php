@@ -13,45 +13,31 @@ function create_application($application, $personID, $reasontobecome, $whyisnowr
 	
     $con=connect();
 	
-	/* temp */
-	$query = "SELECT " . $application . "ID FROM db" . $application . " ORDER BY " . $application . "ID LIMIT 1;";
-    $result = mysqli_query($con,$query);
-	$result = $result->fetch_array();
-	if (isset($result[0])) {
-		$appID = 1;
-	} else {
-		$appID = $result[0];
-		$appID++;
-	}
-	
-	
 	if ($statusinrecoveryjourney != NULL) {
-		$query = "INSERT INTO db" . $application . " VALUES ('"
-			. $appID . "', '"
+		$query = "INSERT INTO db" . $application . "(reasonToBecomeP2P, whyIsNowRightTime, statusInRecoveryJourney, screenerName, screeningDate, id) VALUES ('"
 			. $reasontobecome . "', '"
 			. $whyisnowrighttime . "', '"
 			. $statusinrecoveryjourney . "', '"
 			. $screenername . "', '"
-			. $screeningdate . "');";
+			. $screeningdate . "', '"
+			. $personID . "');";
 	} else {
-		$query = "INSERT INTO db" . $application . " VALUES ('"
-			. $appID . "', '"
+		$query = "INSERT INTO db" . $application . "(reasonToBecomeP2P, whyIsNowRightTime, screenerName, screeningDate, id)  VALUES ('"
 			. $reasontobecome . "', '"
 			. $whyisnowrighttime . "', '"
 			. $screenername . "', '"
-			. $screeningdate . "');";
+			. $screeningdate . "', '"
+			. $personID . "');";
 	}
 	
     $result = mysqli_query($con,$query);
 	
-	update_application_id($personID, $application, $appID);
-	
     mysqli_close($con);
 }
 
-function get_reasontobecome($id, $application) {
+function get_reasontobecome($appID, $application) {
 	
-	if ($id == 0) {
+	if ($appID == "") {
 		return "";
 	}
 	
@@ -83,11 +69,12 @@ function get_reasontobecome($id, $application) {
 	}
 	
 	$con=connect();
-	$query="SELECT reasonToBecome" . $formattedName . " FROM " . $tableName . " WHERE id='" . $id . "';";
+	$query="SELECT reasonToBecome" . $formattedName . " FROM " . $tableName . " WHERE ". $application . "ID='" . $appID . "';";
 	
-	$result = $result->fetch_array();
+    $result = mysqli_query($con,$query);
 	
-	if (isset($result[0])) {
+	if (!(is_null($result))) {
+		$result = $result->fetch_array();
 		$reason = $result[0];
 	} else {
 		$reason = null;
@@ -98,18 +85,38 @@ function get_reasontobecome($id, $application) {
 	return $reason;
 }
 
+function get_appID($pid, $application) {
+	
+	$con=connect();
+	$query="SELECT " . $application . "ID FROM db" . $application . " WHERE id='" . $pid . "';";
+	
+    $result = mysqli_query($con,$query);
+	
+	if (!(is_null($result))) {
+		$result = $result->fetch_array();
+		$appid = $result[0];
+	} else {
+		$appid = 0;
+	}
+	
+	mysqli_close($con);
+	
+	return $appid;
+}
+
 function get_whyisnowrighttime($id, $application) {
 	
-	if ($id == 0) {
+	if ($id == "") {
 		return "";
 	}
 	
 	$con=connect();
-	$query="SELECT whyIsNowRightTime FROM db" . $application . " WHERE id='" . $id . "';";
+	$query="SELECT whyIsNowRightTime FROM db" . $application . " WHERE ". $application . "ID='" . $id . "';";
 	
-	$result = $result->fetch_array();
+    $result = mysqli_query($con,$query);
 	
-	if (isset($result[0])) {
+	if (!(is_null($result))) {
+		$result = $result->fetch_array();
 		$why = $result[0];
 	} else {
 		$why = "";
@@ -122,16 +129,17 @@ function get_whyisnowrighttime($id, $application) {
 
 function get_statusinrecoveryjourney($id, $application) {
 	
-	if ($id == 0) {
+	if ($id == "") {
 		return "";
 	}
 	
 	$con=connect();
-	$query="SELECT statusInRecoveryJourney FROM db" . $application . " WHERE id='" . $id . "';";
+	$query="SELECT statusInRecoveryJourney FROM db" . $application . " WHERE ". $application . "ID='" . $id . "';";
 	
-	$result = $result->fetch_array();
+    $result = mysqli_query($con,$query);
 	
-	if (isset($result[0])) {
+	if (!(is_null($result))) {
+		$result = $result->fetch_array();
 		$status = $result[0];
 	} else {
 		$status = "";
@@ -144,16 +152,17 @@ function get_statusinrecoveryjourney($id, $application) {
 
 function get_screenername($id, $application) {
 	
-	if ($id == 0) {
+	if ($id == "") {
 		return "";
 	}
 	
 	$con=connect();
-	$query="SELECT screenerName FROM db" . $application . " WHERE id='" . $id . "';";
+	$query="SELECT screenerName FROM db" . $application . " WHERE ". $application . "ID='" . $id . "';";
 	
-	$result = $result->fetch_array();
+    $result = mysqli_query($con,$query);
 	
-	if (isset($result[0])) {
+	if (!(is_null($result))) {
+		$result = $result->fetch_array();
 		$name = $result[0];
 	} else {
 		$name = "";
@@ -166,16 +175,17 @@ function get_screenername($id, $application) {
 
 function get_screeningdate($id, $application) {
 	
-	if ($id == 0) {
+	if ($id == "") {
 		return " ";
 	}
 	
 	$con=connect();
-	$query="SELECT screeningDate FROM db" . $application . " WHERE id='" . $id . "';";
+	$query="SELECT screeningDate FROM db" . $application . " WHERE ". $application . "ID='" . $id . "';";
 	
-	$result = $result->fetch_array();
+    $result = mysqli_query($con,$query);
 	
-	if (isset($result[0])) {
+	if (!(is_null($result))) {
+		$result = $result->fetch_array();
 		$date = $result[0];
 	} else {
 		$date = "";
@@ -184,6 +194,26 @@ function get_screeningdate($id, $application) {
 	mysqli_close($con);
 	
 	return $date;
+}
+
+function get_personID($appID, $application) {
+	
+	$con=connect();
+	$query="SELECT id FROM db" . $application . " WHERE ". $application . "ID='" . $appID . "';";
+	
+    $result = mysqli_query($con,$query);
+	
+	if (!(is_null($result))) {
+		$result = $result->fetch_array();
+		$pid = $result[0];
+	} else {
+		$pid = "";
+	}
+	
+	mysqli_close($con);
+	
+	return $pid;
+	
 }
 
 function update_reasontobecome($id, $application, $reason) {
@@ -210,7 +240,9 @@ function update_reasontobecome($id, $application, $reason) {
 	}
 	
 	$con=connect();
-	$query="UPDATE db" . $application . " SET reasonToBecome" . $formattedName . "= '" . $reason . "' WHERE id='" . $id . "';";
+	$query="UPDATE db" . $application . " SET reasonToBecome" . $formattedName . "= '" . $reason . "' WHERE ". $application . "ID='" . $id . "';";
+	
+    $result = mysqli_query($con,$query);
 	
 	mysqli_close($con);
 	
@@ -220,7 +252,9 @@ function update_reasontobecome($id, $application, $reason) {
 function update_whyisnowrighttime($id, $application, $time) {
 	
 	$con=connect();
-	$query="UPDATE db" . $application . " SET whyIsNowRightTime = '" . $time . "' WHERE id='" . $id . "';";
+	$query="UPDATE db" . $application . " SET whyIsNowRightTime = '" . $time . "' WHERE ". $application . "ID='" . $id . "';";
+	
+    $result = mysqli_query($con,$query);
 	
 	mysqli_close($con);
 	
@@ -230,7 +264,9 @@ function update_whyisnowrighttime($id, $application, $time) {
 function update_statusinrecoveryjourney($id, $application, $status) {
 	
 	$con=connect();
-	$query="UPDATE db" . $application . " SET statusInRecoveryJourney = '" . $status . "' WHERE id='" . $id . "';";
+	$query="UPDATE db" . $application . " SET statusInRecoveryJourney = '" . $status . "' WHERE ". $application . "ID='" . $id . "';";
+	
+    $result = mysqli_query($con,$query);
 	
 	mysqli_close($con);
 	
@@ -240,7 +276,9 @@ function update_statusinrecoveryjourney($id, $application, $status) {
 function update_screenername($id, $application, $name) {
 	
 	$con=connect();
-	$query="UPDATE db" . $application . " SET screenerName = '" . $name . "' WHERE id='" . $id . "';";
+	$query="UPDATE db" . $application . " SET screenerName = '" . $name . "' WHERE ". $application . "ID='" . $id . "';";
+	
+    $result = mysqli_query($con,$query);
 	
 	mysqli_close($con);
 	
@@ -250,7 +288,9 @@ function update_screenername($id, $application, $name) {
 function update_screeningdate($id, $application, $date) {
 	
 	$con=connect();
-	$query="UPDATE db" . $application . " SET screeningDate = '" . $date . "' WHERE id='" . $id . "';";
+	$query="UPDATE db" . $application . " SET screeningDate = '" . $date . "' WHERE ". $application . "ID='" . $id . "';";
+	
+    $result = mysqli_query($con,$query);
 	
 	mysqli_close($con);
 	
