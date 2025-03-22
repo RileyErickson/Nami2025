@@ -50,7 +50,7 @@
                     $status = $args['status'];
                     if (!($name || $id || $phone || $zip || $role || $status || FALSE)) {
                         echo '<div class="error-toast">At least one search criterion is required.</div>';
-                    } else if (!valueConstrainedTo($role, ['admin', 'participant', 'superadmin', 'volunteer', ''])) {
+                    } else if (!valueConstrainedTo($role, ['admin', 'participant', 'superadmin', 'volunteer', 'board', 'donator', ''])) {
                         echo '<div class="error-toast">The system did not understand your request.</div>';
                     } else if (!valueConstrainedTo($status, ['Active', 'Inactive', ''])) {
                         echo '<div class="error-toast">The system did not understand your request.</div>';
@@ -132,7 +132,9 @@
                 <option value="volunteer" <?php if (isset($role) && $role == 'volunteer') echo 'selected' ?>>Volunteer</option>
                 <option value="participant" <?php if (isset($role) && $role == 'participant') echo 'participant' ?>>Participant</option>
                 <option value="admin" <?php if (isset($role) && $role == 'admin') echo 'admin' ?>>Admin</option>
-
+                <option value="board" <?php if (isset($role) && $role == 'board') echo 'board' ?>>Board Member</option>
+                
+                <option value="donator" <?php if (isset($role) && $role == 'donator') echo 'donator' ?>>Donator</option>
             </select>
   
           <label for="status">Archive Status</label>
