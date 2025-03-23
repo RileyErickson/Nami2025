@@ -104,9 +104,11 @@
                         <span><center>Remove Volunteer</center></span>
                     </div>
 
+
+
                     <div class="dashboard-item" data-link="editVolunteer.php">
                         <img src="images/editVolunteer.png">
-                        <span><center>Edit Volunteer Profile/Hours</center></span>
+                        <span><center>Edit Volunteer Profile</center></span>
                     </div>
                     <div class="dashboard-item" data-link="viewAllEventSignUps.php">
                         <i class="fa-solid fa-users"></i>
@@ -130,6 +132,11 @@
                         <span><center>View Volunteer Denied List</center></span>
                     </div>
 
+                    <div class="dashboard-item" data-link="hours.php">
+                        <img src="images/volunteer-history.svg">
+                        <span><center>Hours Management</center></span>
+                    </div>
+                    
                                          <!-- get link to guide -->
                     <div class="dashboard-item" data-link="https://docs.google.com/document/d/1WmSks4xxZgkmTgTRkqziBNb2G9J8lz1brWqgWSS0Nps/edit?tab=t.0">
                         <img src="images/staffGuide.png">

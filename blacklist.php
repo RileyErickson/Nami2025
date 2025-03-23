@@ -34,7 +34,7 @@ $conn = connect();
             </div>
 
             <div class="dashboard-item" onclick="location.href='index.php'">
-                <img src="images/view-calendar.svg" alt="Return Home">
+                <img src="images/logout.svg" alt="Return Home">
                 <span>Return Home</span>
             </div>
         </div>

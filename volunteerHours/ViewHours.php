@@ -7,7 +7,7 @@ ini_set("display_errors", 1);
 error_reporting(E_ALL);
 
 // Include database connection
-require_once('../database/dbinfo.php');
+require_once('database/dbinfo.php');
 $conn = connect();
 
 // Fetch all volunteer hours
