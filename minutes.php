@@ -25,19 +25,19 @@ $conn = connect();
 
     <div id="dashboard">
         <div class="dashboard-item" onclick="location.href='addMinutes.php'">
-            <img src="images/add-person.svg" alt="Add Minutes">
+            <img src="images/create-report.svg" alt="Add Minutes">
             <span>Add Minutes</span>
         </div>
         <div class="dashboard-item" onclick="location.href='editMinutes.php'">
-            <img src="images/add-person.svg" alt="Edit Minutes">
+            <img src="images/volunteer-history.svg" alt="Edit Minutes">
             <span>Edit Minutes</span>
         </div>
         <div class="dashboard-item" onclick="location.href='searchMinutes.php'">
-            <img src="images/add-person.svg" alt="Search Minutes">
+            <img src="images/search.svg" alt="Search Minutes">
             <span>Search Minutes</span>
         </div>
         <div class="dashboard-item" onclick="location.href='index.php'">
-            <img src="images/add-person.svg" alt="Return Home">
+            <img src="images/logout.svg" alt="Return Home">
             <span>Return Home</span>
         </div>
     </div>
