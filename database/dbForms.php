@@ -88,7 +88,7 @@ function get_reasontobecome($appID, $application) {
 function get_appID($pid, $application) {
 	
 	$con=connect();
-	$query="SELECT " . $application . "ID FROM db" . $application . " WHERE id='" . $pid . "';";
+	$query="SELECT " . $application . "ID FROM db" . $application . " WHERE ". $application . "ID='" . $pid . "';";
 	
     $result = mysqli_query($con,$query);
 	
