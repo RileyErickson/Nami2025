@@ -87,7 +87,7 @@
 
                     <!--Pending Volunteers-->
                     <div class="dashboard-item" data-link="pending_volunteers.php">
-                        <img src="images/add-person.svg">
+                        <i class="fa-solid fa-users"></i>
                         <span>Pending Volunteers</span><?php
                         require_once('database/dbEvents.php');
                         require_once('database/dbPersons.php');
@@ -110,17 +110,7 @@
                         <img src="images/editVolunteer.png">
                         <span><center>Edit Volunteer Profile</center></span>
                     </div>
-                    <div class="dashboard-item" data-link="viewAllEventSignUps.php">
-                        <i class="fa-solid fa-users"></i>
-                        <span><center>View Pending Applications<?php 
-                        require_once('database/dbEvents.php');
-                        require_once('database/dbPersons.php');
-                        $pendingsignups = all_pending_names();
-                        if (sizeof($pendingsignups) > 0) {
-                            echo ' (' . sizeof($pendingsignups) . ')';
-                        }
-                    ?></center></span>
-                    </div>
+
                     <div class="dashboard-item" data-link="personSearch.php">
                         <img src="images/person-search.svg">
                         <span><center>Search Volunteer Details</center></span>
@@ -162,7 +152,7 @@
                     </div>
 
                     <div class="dashboard-item" data-link="minutes.php">
-                        <img src="images/emailList.png">
+                        <img src="images/minutes.svg">
                         <span>Minutes</span>
                      </div>
                     <div class="dashboard-item" data-link="">
@@ -176,7 +166,7 @@
                 <!-- FOR VOLUNTEERS AND PARTICIPANTS ONLY -->
                 <?php if ($notRoot) : ?>
                     <div class="dashboard-item" data-link="viewForms.php">
-                        <img src="images/generateReports.png">
+                        <img src="images/viewforms.png">
                         <span><center>View Forms</center></span>
                     </div>
                     <div class="dashboard-item" data-link="https://docs.google.com/document/d/18IXHfsIesFVmo1fnPSZmimUZqvEymKUG1xr3fhEaa_k/edit?tab=t.0">
