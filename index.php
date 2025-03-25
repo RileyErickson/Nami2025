@@ -179,6 +179,10 @@
                         <img src="images/generateReports.png">
                         <span><center>View Forms</center></span>
                     </div>
+                    <div class="dashboard-item" data-link="https://docs.google.com/document/d/18IXHfsIesFVmo1fnPSZmimUZqvEymKUG1xr3fhEaa_k/edit?tab=t.0">
+                        <img src="images/staffGuide.png">
+                        <span><center>Access Volunteer Handbook</center></span>
+                    </div>
                     <div class="dashboard-item" data-link="viewProfile.php">
                         <img src="images/view-profile.svg">
                         <span>View Profile</span>
