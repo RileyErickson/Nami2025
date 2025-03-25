@@ -81,48 +81,6 @@
 
             <fieldset class="section-box">
 				
-				<!-- Form links, administrators/superadministrators can see any forms. -->
-				<?php if ($accessLevel == 0 || $accessLevel == 2 || $accessLevel == 3): ?>
-					<!-- Links to consumer forms can be added here -->
-					<div>
-						<div class="field-pair">
-							<label>P2P Application</label>
-							<p>
-								This is a consumer form. A longer description of the form to be submitted can be added here.
-								<br>
-							</p>
-							<form action="editForm.php" method="POST">
-								<input type="hidden" id="formname" name="formname" value="P2PApplication">
-								<button style="width:16%;">Submit/Edit</button>
-							</form>
-						</div>
-						
-						<div class="field-pair">
-							<label>IOOV Application</label>
-							<p>
-								This is a consumer form. A longer description of the form to be submitted can be added here.
-								<br>
-							</p>
-							<form action="editForm.php" method="POST">
-								<input type="hidden" id="formname" name="formname" value="IOOVApplication">
-								<button style="width:16%;">Submit/Edit</button>
-							</form>
-						</div>
-						
-						<div class="field-pair">
-							<label>CSG Application</label>
-							<p>
-								This is a consumer form. A longer description of the form to be submitted can be added here.
-								<br>
-							</p>
-							<form action="editForm.php" method="POST">
-								<input type="hidden" id="formname" name="formname" value="CSGApplication">
-								<button style="width:16%;">Submit/Edit</button>
-							</form>
-						</div>
-					</div>
-				<?php endif ?>
-				
 				<?php if($accessLevel == 1 || $accessLevel == 2 || $accessLevel == 3): ?>
 					<!-- Links to volunteer forms can be added here -->
 					<div>
@@ -158,6 +116,42 @@
 							</p>
 							<form action="editForm.php" method="POST">
 								<input type="hidden" id="formname" name="formname" value="HFApplication">
+								<button style="width:16%;">Submit/Edit</button>
+							</form>
+						</div>
+
+						<div class="field-pair">
+							<label>P2P Application</label>
+							<p>
+								This is a consumer form. A longer description of the form to be submitted can be added here.
+								<br>
+							</p>
+							<form action="editForm.php" method="POST">
+								<input type="hidden" id="formname" name="formname" value="P2PApplication">
+								<button style="width:16%;">Submit/Edit</button>
+							</form>
+						</div>
+						
+						<div class="field-pair">
+							<label>IOOV Application</label>
+							<p>
+								This is a consumer form. A longer description of the form to be submitted can be added here.
+								<br>
+							</p>
+							<form action="editForm.php" method="POST">
+								<input type="hidden" id="formname" name="formname" value="IOOVApplication">
+								<button style="width:16%;">Submit/Edit</button>
+							</form>
+						</div>
+						
+						<div class="field-pair">
+							<label>CSG Application</label>
+							<p>
+								This is a consumer form. A longer description of the form to be submitted can be added here.
+								<br>
+							</p>
+							<form action="editForm.php" method="POST">
+								<input type="hidden" id="formname" name="formname" value="CSGApplication">
 								<button style="width:16%;">Submit/Edit</button>
 							</form>
 						</div>
