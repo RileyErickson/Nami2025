@@ -91,6 +91,11 @@
                 
                 <!-- ADMIN ONLY -->
                 <?php if ($_SESSION['access_level'] >= 2): ?>
+                    
+                    <div class="dashboard-item" data-link="viewForms.php">
+                    <i class="fa-solid fa-list"></i>
+                        <span>View Forms</span>
+                    </div>
 
                     <div class="dashboard-item" data-link="register.php">
                         <img src="images/add-person.svg">

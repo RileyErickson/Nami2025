@@ -35,6 +35,7 @@
         remove_profile_picture($id);
       }
     }
+    require_once('database/dbForms.php');
 
     $user = retrieve_person($id);
     $viewingOwnForms = $id == $userID;
@@ -92,7 +93,16 @@
 							</p>
 							<form action="editForm.php" method="POST">
 								<input type="hidden" id="formname" name="formname" value="F2FApplication">
-								<button style="width:16%;">Submit/Edit</button>
+								<?php 
+									echo "<button style=\"width:";
+									$appID = get_appID($userID, 'F2FApplication');
+									if ($appID == 0) {
+										echo "24%;\">Submit New Form";
+									} else {
+										echo "22%;\">Edit Submission";
+									}
+									echo "</button>";
+								?>
 							</form>
 						</div>
 						
@@ -104,7 +114,16 @@
 							</p>
 							<form action="editForm.php" method="POST">
 								<input type="hidden" id="formname" name="formname" value="FSGApplication">
-								<button style="width:16%;">Submit/Edit</button>
+								<?php 
+									echo "<button style=\"width:";
+									$appID = get_appID($userID, 'FSGApplication');
+									if ($appID == 0) {
+										echo "24%;\">Submit New Form";
+									} else {
+										echo "22%;\">Edit Submission";
+									}
+									echo "</button>";
+								?>
 							</form>
 						</div>
 						
@@ -116,7 +135,16 @@
 							</p>
 							<form action="editForm.php" method="POST">
 								<input type="hidden" id="formname" name="formname" value="HFApplication">
-								<button style="width:16%;">Submit/Edit</button>
+								<?php 
+									echo "<button style=\"width:";
+									$appID = get_appID($userID, 'HFApplication');
+									if ($appID == 0) {
+										echo "24%;\">Submit New Form";
+									} else {
+										echo "22%;\">Edit Submission";
+									}
+									echo "</button>";
+								?>
 							</form>
 						</div>
 
@@ -128,7 +156,16 @@
 							</p>
 							<form action="editForm.php" method="POST">
 								<input type="hidden" id="formname" name="formname" value="P2PApplication">
-								<button style="width:16%;">Submit/Edit</button>
+								<?php 
+									echo "<button style=\"width:";
+									$appID = get_appID($userID, 'P2PApplication');
+									if ($appID == 0) {
+										echo "24%;\">Submit New Form";
+									} else {
+										echo "22%;\">Edit Submission";
+									}
+									echo "</button>";
+								?>
 							</form>
 						</div>
 						
@@ -140,7 +177,16 @@
 							</p>
 							<form action="editForm.php" method="POST">
 								<input type="hidden" id="formname" name="formname" value="IOOVApplication">
-								<button style="width:16%;">Submit/Edit</button>
+								<?php 
+									echo "<button style=\"width:";
+									$appID = get_appID($userID, 'IOOVApplication');
+									if ($appID == 0) {
+										echo "24%;\">Submit New Form";
+									} else {
+										echo "22%;\">Edit Submission";
+									}
+									echo "</button>";
+								?>
 							</form>
 						</div>
 						
@@ -152,7 +198,16 @@
 							</p>
 							<form action="editForm.php" method="POST">
 								<input type="hidden" id="formname" name="formname" value="CSGApplication">
-								<button style="width:16%;">Submit/Edit</button>
+								<?php 
+									echo "<button style=\"width:";
+									$appID = get_appID($userID, 'CSGApplication');
+									if ($appID == 0) {
+										echo "24%;\">Submit New Form";
+									} else {
+										echo "22%;\">Edit Submission";
+									}
+									echo "</button>";
+								?>
 							</form>
 						</div>
 					</div>

@@ -13,8 +13,35 @@ function create_application($application, $personID, $reasontobecome, $whyisnowr
 	
     $con=connect();
 	
+	switch ($application) {
+		case "F2FApplication":
+			$formattedName = "F2F";
+			$tableName = "dbf2fapplication";
+			break;
+		case "P2PApplication":
+			$formattedName = "P2P";
+			$tableName = "dbp2papplication";
+			break;
+		case "IOOApplication":
+			$formattedName = "IOOV";
+			$tableName = "dbiooapplication";
+			break;
+		case "CSGApplication":
+			$formattedName = "CSG";
+			$tableName = "dbcsgapplication";
+			break;
+		case "FSGApplication":
+			$formattedName = "FSG";
+			$tableName = "dbfsgapplication";
+			break;
+		case "HFApplication":
+			$formattedName = "HF";
+			$tableName = "dbhfapplication";
+			break;
+	}
+	
 	if ($statusinrecoveryjourney != NULL) {
-		$query = "INSERT INTO db" . $application . "(reasonToBecomeP2P, whyIsNowRightTime, statusInRecoveryJourney, screenerName, screeningDate, id) VALUES ('"
+		$query = "INSERT INTO db" . $application . "(reasonToBecome" . $formattedName . ", whyIsNowRightTime, statusInRecoveryJourney, screenerName, screeningDate, id) VALUES ('"
 			. $reasontobecome . "', '"
 			. $whyisnowrighttime . "', '"
 			. $statusinrecoveryjourney . "', '"
@@ -22,7 +49,7 @@ function create_application($application, $personID, $reasontobecome, $whyisnowr
 			. $screeningdate . "', '"
 			. $personID . "');";
 	} else {
-		$query = "INSERT INTO db" . $application . "(reasonToBecomeP2P, whyIsNowRightTime, screenerName, screeningDate, id)  VALUES ('"
+		$query = "INSERT INTO db" . $application . "(reasonToBecome" . $formattedName . ", whyIsNowRightTime, screenerName, screeningDate, id)  VALUES ('"
 			. $reasontobecome . "', '"
 			. $whyisnowrighttime . "', '"
 			. $screenername . "', '"
@@ -73,7 +100,7 @@ function get_reasontobecome($appID, $application) {
 	
     $result = mysqli_query($con,$query);
 	
-	if (!(is_null($result))) {
+	if (!(mysqli_num_rows($result) === 0)) {
 		$result = $result->fetch_array();
 		$reason = $result[0];
 	} else {
@@ -88,11 +115,11 @@ function get_reasontobecome($appID, $application) {
 function get_appID($pid, $application) {
 	
 	$con=connect();
-	$query="SELECT " . $application . "ID FROM db" . $application . " WHERE ". $application . "ID='" . $pid . "';";
+	$query="SELECT " . $application . "ID FROM db" . $application . " WHERE id='" . $pid . "';";
 	
     $result = mysqli_query($con,$query);
 	
-	if (!(is_null($result))) {
+	if (!(mysqli_num_rows($result) === 0)) {
 		$result = $result->fetch_array();
 		$appid = $result[0];
 	} else {
@@ -115,7 +142,7 @@ function get_whyisnowrighttime($id, $application) {
 	
     $result = mysqli_query($con,$query);
 	
-	if (!(is_null($result))) {
+	if (!(mysqli_num_rows($result) === 0)) {
 		$result = $result->fetch_array();
 		$why = $result[0];
 	} else {
@@ -138,7 +165,7 @@ function get_statusinrecoveryjourney($id, $application) {
 	
     $result = mysqli_query($con,$query);
 	
-	if (!(is_null($result))) {
+	if (!(mysqli_num_rows($result) === 0)) {
 		$result = $result->fetch_array();
 		$status = $result[0];
 	} else {
@@ -161,7 +188,7 @@ function get_screenername($id, $application) {
 	
     $result = mysqli_query($con,$query);
 	
-	if (!(is_null($result))) {
+	if (!(mysqli_num_rows($result) === 0)) {
 		$result = $result->fetch_array();
 		$name = $result[0];
 	} else {
@@ -184,7 +211,7 @@ function get_screeningdate($id, $application) {
 	
     $result = mysqli_query($con,$query);
 	
-	if (!(is_null($result))) {
+	if (!(mysqli_num_rows($result) === 0)) {
 		$result = $result->fetch_array();
 		$date = $result[0];
 	} else {
@@ -203,7 +230,7 @@ function get_personID($appID, $application) {
 	
     $result = mysqli_query($con,$query);
 	
-	if (!(is_null($result))) {
+	if (!(mysqli_num_rows($result) === 0)) {
 		$result = $result->fetch_array();
 		$pid = $result[0];
 	} else {

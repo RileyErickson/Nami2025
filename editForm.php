@@ -41,6 +41,7 @@
 	}
 
     require_once('database/dbForms.php');
+	
 	switch ($formname) {
 		case "F2FApplication":
 			$formattedName = "F2F";
