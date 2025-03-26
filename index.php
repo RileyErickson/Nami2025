@@ -30,6 +30,19 @@
     </head>
     <body>
         <?php require('header.php'); ?>
+        
+        <?php
+        
+    $announcementFile = 'announcement.txt';
+    if (file_exists($announcementFile)) {
+        $announcementText = trim(file_get_contents($announcementFile));
+        if (!empty($announcementText)) {
+          echo "<div style='background-color: #ffdddd; color: #a33; border: 1px solid #a33; padding: 10px 20px; margin: 10px 20px; font-weight: bold;'>
+                 <strong>Announcement:</strong><br>" . nl2br(htmlspecialchars($announcementText)) . "
+               </div>";
+        }
+}
+?>
         <h1>Dashboard</h1>
         <main class='dashboard'>
             
@@ -159,7 +172,11 @@
                         <img src="images/csv.png">
                         <span><center>Download CSV Data File</center></span>
                     </div>
-
+		    
+		    <div class="dashboard-item" data-link="announcement.php">
+                        <img src="images/volunteer-history.svg">
+                        <span><center>Announcements</center></span>
+                    </div>
 
                 <?php endif ?>
 

@@ -1,15 +1,12 @@
 <?php
 // Start session to access stored user information
 session_start();
-
 // Enable error reporting for debugging
 ini_set("display_errors", 1);
 error_reporting(E_ALL);
-
 // Include database connection
-require_once('database/dbinfo.php');
+require_once('../database/dbinfo.php');
 $conn = connect();
-
 // Fetch all volunteer hours
 $query = "SELECT f_name, l_name, date, hours FROM volunteerHours ORDER BY l_name, f_name, date ASC";
 $result = mysqli_query($conn, $query);
@@ -19,10 +16,8 @@ while ($row = mysqli_fetch_assoc($result)) {
     $volunteerHours[] = $row;
     $totalHours += $row['hours'];
 }
-
 mysqli_close($conn);
 ?>
-
 <!DOCTYPE html>
 <html>
 <head>
@@ -65,6 +60,16 @@ mysqli_close($conn);
             text-decoration: none;
             font-size: 14px;
         }
+        .download-button {
+            background-color: #4CAF50;
+            color: white;
+            padding: 10px 20px;
+            text-decoration: none;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+        }
     </style>
 </head>
 <body>
@@ -78,7 +83,8 @@ mysqli_close($conn);
                 <p><strong>Hours:</strong> <?php echo htmlspecialchars($entry['hours']); ?></p>
             </div>
         <?php endforeach; ?>
-        
+        <!-- Download Report Button -->
+        <a href="../generateHourReport.php" target="_blank" class="download-button">Download Report</a>
     </div>
 </body>
 </html>
