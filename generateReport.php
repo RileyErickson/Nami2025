@@ -49,66 +49,41 @@
                     $PersonHours = getPersonHours($id);
                     require_once('include/output.php');
                     if (is_array($PersonHours) && count($PersonHours) > 0){
-                        echo "<h5>Generated Report for " . $id . "</h5>";
-                        echo "<table>
-                            <tr>";
-                            if ($eventID == 'Include'){
-                                echo "<th>Event ID</th>";
-                            }
-                            if ($startEnd == "startOnly" || $startEnd == "both"){
-                                echo "<th>Start Time</th>";
-                            }
-                            if ($startEnd == "endOnly" || $startEnd == "both"){
-                                echo "<th>End Time</th>";
-                            }
-                            if ($totalHours == "Include"){
-                                echo "<th>Total Hours</th>";
-                            }
-                            echo "</tr>";
-                            foreach ($PersonHours as $p){
-                                $totTime = strtotime($p["end_time"]) - strtotime($p["start_time"]);
-                                $divTime = (int)$totTime;
-                                $divTime = $divTime / 3600;
-                                echo "
-                                <tr>";
-                                if ($eventID == 'Include'){
-                                    echo "<td>" . $p['eventID'] . "</td>";
-                                }
-                                if ($startEnd == "startOnly" || $startEnd == "both"){
-                                    echo "<td>" . $p['start_time'] . "</td>";
-                                }
-                                if ($startEnd == "endOnly" || $startEnd == "both"){
-                                    echo "<td>" . $p['end_time'] . "</td>";
-                                }
-                                if ($totalHours == "Include"){
-                                    echo "<td>" . number_format($divTime, 2) . "</td>";
-                                }
-                                echo "</tr>";
-                            }
-                            echo"</table>";
+                        require('fpdf.php');
+                        ob_start();
+                        $pdf = new FPDF();
+                        $pdf->SetFont('times','B',30);
+                        $pdf->AddPage();
+                        $pdf->Cell(60, 20, $id);
+                        $pdf->Ln();
+                        $pdf->SetFont('times','B',15);
+                        $pdf->Cell(35, 10, 'Event ID');
+                        $pdf->Cell(60, 10, 'Start Time');
+                        $pdf->Cell(60, 10, 'End Time');
+                        $pdf->Cell(45, 10, 'Total Hours');
+                        $pdf->Ln();
+                        $entire = 0;
+                        foreach($PersonHours as $p){
+                            $totTime = strtotime($p["end_time"]) - strtotime($p["start_time"]);
+                            $divTime = (int)$totTime;
+                            $divTime = $divTime / 3600;
+                            $entire += $divTime;
+                            $pdf->Cell(35, 10, $p['eventID']);
+                            $pdf->Cell(60, 10, $p['start_time']);
+                            $pdf->Cell(60, 10, $p['end_time']);
+                            $pdf->Cell(45, 10, number_format($divTime, 2));
+                            $pdf->Ln();
+                        }
+                        $pdf->Cell(140, 10, '');
+                        $pdf->Cell(15, 10, 'total: ');
+                        $pdf->Cell(45, 10, number_format($entire, 2)); 
+                        $pdf->Output();
                     }
                 }
             ?>
             <p>Use the form to find hour information for a volunteer. All criteria must be filled in.</p>
             <label for="id">Username</label>
             <input type="text" id="id" name="id" value="<?php if (isset($id)) echo htmlspecialchars($_GET['id']) ?>" placeholder="Enter the user's username (login ID)">
-            <label for="eventID">Include Event</label>
-            <select id="eventID" name="eventID">
-                <option value="">Exclude</option>
-                <option value="Include">Include</option>
-            </select>
-            <label for="startEnd">Include Time</label>
-            <select id="startEnd" name="startEnd">
-                <option value="">Exclude</option>
-                <option value="startOnly">Start Time Only</option>
-                <option value="endOnly">End Time Only</option>
-                <option value="both">Both</option>
-            </select>
-            <label for="totalHours">Total Hours</label>
-            <select id="totalHours" name="totalHours">
-                <option value="">Exclude</option>
-                <option value="Include">Include</option>
-            </select>
             <input type="submit" value="Generate Report">
             <a class="button cancel" href="index.php">Return to Dashboard</a>
         </form>
