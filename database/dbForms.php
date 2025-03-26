@@ -9,11 +9,14 @@
 include_once('dbinfo.php');
 include_once('dbPersons.php');
 
+
+// Creates a new application for any of the 6 form tables.
+// $application MUST be formatted like "P2PApplication", "FSGApplication", "F2FApplication", "HFApplication", "IOOVApplication", and "CSGApplication"
 function create_application($application, $personID, $reasontobecome, $whyisnowrighttime, $statusinrecoveryjourney, $screenername, $screeningdate) {
 	
     $con=connect();
 	
-	switch ($application) {
+	switch ($application) { //necessary to query the reasontobecome variable
 		case "F2FApplication":
 			$formattedName = "F2F";
 			$tableName = "dbf2fapplication";
@@ -22,9 +25,9 @@ function create_application($application, $personID, $reasontobecome, $whyisnowr
 			$formattedName = "P2P";
 			$tableName = "dbp2papplication";
 			break;
-		case "IOOApplication":
+		case "IOOVApplication":
 			$formattedName = "IOOV";
-			$tableName = "dbiooapplication";
+			$tableName = "dbioovapplication";
 			break;
 		case "CSGApplication":
 			$formattedName = "CSG";
@@ -62,13 +65,14 @@ function create_application($application, $personID, $reasontobecome, $whyisnowr
     mysqli_close($con);
 }
 
+// returns a user's reason from the corresponding form
 function get_reasontobecome($appID, $application) {
 	
 	if ($appID == "") {
 		return "";
 	}
 	
-	switch ($application) {
+	switch ($application) { //necessary to query the reasontobecome variable
 		case "F2FApplication":
 			$formattedName = "F2F";
 			$tableName = "dbf2fapplication";
@@ -77,9 +81,9 @@ function get_reasontobecome($appID, $application) {
 			$formattedName = "P2P";
 			$tableName = "dbp2papplication";
 			break;
-		case "IOOApplication":
+		case "IOOVApplication":
 			$formattedName = "IOOV";
-			$tableName = "dbiooapplication";
+			$tableName = "dbioovapplication";
 			break;
 		case "CSGApplication":
 			$formattedName = "CSG";
@@ -112,6 +116,7 @@ function get_reasontobecome($appID, $application) {
 	return $reason;
 }
 
+// returns a user's application ID from the corresponding form
 function get_appID($pid, $application) {
 	
 	$con=connect();
@@ -131,6 +136,7 @@ function get_appID($pid, $application) {
 	return $appid;
 }
 
+// returns a user's time reason from the corresponding form
 function get_whyisnowrighttime($id, $application) {
 	
 	if ($id == "") {
@@ -154,6 +160,7 @@ function get_whyisnowrighttime($id, $application) {
 	return $why;
 }
 
+// returns a user's recovery status from the corresponding form
 function get_statusinrecoveryjourney($id, $application) {
 	
 	if ($id == "") {
@@ -177,6 +184,7 @@ function get_statusinrecoveryjourney($id, $application) {
 	return $status;
 }
 
+// returns a user's screener name from the corresponding form
 function get_screenername($id, $application) {
 	
 	if ($id == "") {
@@ -200,6 +208,7 @@ function get_screenername($id, $application) {
 	return $name;
 }
 
+// returns a user's screening date from the corresponding form
 function get_screeningdate($id, $application) {
 	
 	if ($id == "") {
@@ -223,6 +232,7 @@ function get_screeningdate($id, $application) {
 	return $date;
 }
 
+// returns the userID of the person who filled out the corresponding application
 function get_personID($appID, $application) {
 	
 	$con=connect();
@@ -243,6 +253,7 @@ function get_personID($appID, $application) {
 	
 }
 
+// updates a user's reason in the corresponding form, returns the reason 
 function update_reasontobecome($id, $application, $reason) {
 	
 	switch ($application) {
@@ -252,8 +263,8 @@ function update_reasontobecome($id, $application, $reason) {
 		case "P2PApplication":
 			$formattedName = "P2P";
 			break;
-		case "IOOApplication":
-			$formattedName = "IOO";
+		case "IOOVApplication":
+			$formattedName = "IOOV";
 			break;
 		case "CSGApplication":
 			$formattedName = "CSG";
@@ -276,6 +287,7 @@ function update_reasontobecome($id, $application, $reason) {
 	return $reason;
 }
 
+// updates a user's time reason in the corresponding form, returns the time reason 
 function update_whyisnowrighttime($id, $application, $time) {
 	
 	$con=connect();
@@ -288,6 +300,7 @@ function update_whyisnowrighttime($id, $application, $time) {
 	return $time;
 }
 
+// updates a user's recovery status in the corresponding form, returns the recovery status 
 function update_statusinrecoveryjourney($id, $application, $status) {
 	
 	$con=connect();
@@ -300,6 +313,7 @@ function update_statusinrecoveryjourney($id, $application, $status) {
 	return $status;
 }
 
+// updates a user's screener name in the corresponding form, returns the screener name 
 function update_screenername($id, $application, $name) {
 	
 	$con=connect();
@@ -312,6 +326,7 @@ function update_screenername($id, $application, $name) {
 	return $name;
 }
 
+// updates a user's screening date in the corresponding form, returns the screening date 
 function update_screeningdate($id, $application, $date) {
 	
 	$con=connect();
