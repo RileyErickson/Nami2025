@@ -7,9 +7,9 @@ ini_set("display_errors", 1);
 error_reporting(E_ALL);
 
 // Include the necessary user class
-require_once('../domain/Person.php');
-require_once('../database/dbPersons.php');
-require_once('../database/dbinfo.php');
+require_once('domain/Person.php');
+require_once('database/dbPersons.php');
+require_once('database/dbinfo.php');
 
 $conn = connect();
 
@@ -71,57 +71,19 @@ mysqli_close($conn);
 ?>
 
 <!DOCTYPE html>
-<html>
-<head>
-    <title>Log Volunteer Hours</title>
-    <style>
-        body {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            height: 100vh;
-            background-color: #add8e6;
-            font-family: Arial, sans-serif;
-        }
-        .container {
-            background: white;
-            padding: 20px;
-            border-radius: 10px;
-            box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
-            width: 400px;
-            text-align: center;
-            margin-bottom: 20px;
-        }
-        .container h2 {
-            margin-bottom: 20px;
-        }
-        .button {
-            background-color: #808080;
-            color: white;
-            padding: 10px;
-            border-radius: 5px;
-            text-decoration: none;
-            font-size: 16px;
-            display: block;
-            margin: 10px auto;
-        }
-        .button:hover {
-            background-color: #696969;
-        }
-        input, textarea {
-            width: 100%;
-            padding: 10px;
-            margin-top: 10px;
-            border: 1px solid #ccc;
-            border-radius: 5px;
-        }
-    </style>
+
+    <html>
+    <head>
+        <?php require_once('universal.inc') ?>
+        <title>Log Volunteer Hours</title>
+    </head>
+    <body>
+        <?php require_once('header.php') ?>
 </head>
 <body>
-    <a href="../index.php" class="button" style="position: absolute; top: 10px; left: 10px;">Back</a>
+<h1>Log Volunteer Hours</h1>
     <div class="container">
-        <h2>Log Volunteer Hours</h2>
+        
         <p><strong>Logged in as:</strong> <?php echo htmlspecialchars($firstName . ' ' . $lastName); ?></p>
         <form method="POST">
             <label for="date">Date</label>
@@ -135,9 +97,11 @@ mysqli_close($conn);
             
             <input type="submit" value="Submit Log" class="button">
         </form>
+        <a class="button cancel" href="hours.php" style="margin-top: .5rem">Return to Dashboard</a>
         <?php if (!empty($message)) : ?>
             <p><?php echo htmlspecialchars($message); ?></p>
         <?php endif; ?>
+        
     </div>
 </body>
 </html>

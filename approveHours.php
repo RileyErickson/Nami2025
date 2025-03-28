@@ -7,7 +7,7 @@ ini_set("display_errors", 1);
 error_reporting(E_ALL);
 
 // Include database connection
-require_once('../database/dbinfo.php');
+require_once('database/dbinfo.php');
 $conn = connect();
 
 // Ensure the 'volunteerHours' table exists
@@ -82,68 +82,22 @@ mysqli_close($conn);
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Approve Volunteer Hours</title>
-    <style>
-        body {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            background-color: #add8e6;
-            font-family: Arial, sans-serif;
-            padding: 20px;
-        }
-        .container {
-            background: white;
-            padding: 20px;
-            border-radius: 10px;
-            box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
-            width: 500px;
-            text-align: center;
-            margin-bottom: 20px;
-        }
-        .log-container {
-            background: white;
-            padding: 15px;
-            border-radius: 10px;
-            box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
-            margin-bottom: 10px;
-            text-align: left;
-        }
-        .button {
-            padding: 10px;
-            border-radius: 5px;
-            font-size: 16px;
-            border: none;
-            cursor: pointer;
-        }
-        .approve-button {
-            background-color: green;
-            color: white;
-        }
-        .deny-button {
-            background-color: red;
-            color: white;
-        }
-        .back-button {
-            position: absolute;
-            top: 10px;
-            left: 10px;
-            background-color: #808080;
-            color: white;
-            padding: 10px;
-            border-radius: 5px;
-            text-decoration: none;
-            font-size: 14px;
-        }
-    </style>
-</head>
+        <?php require_once('universal.inc') ?>
+        <link rel="stylesheet" href="css/editprofile.css" type="text/css" />
+        <title>NAMI Rappahannock | Approve Volunteer Hours</title>
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    </head>
+    <body>
+        <?php 
+            require_once('header.php'); 
+            require_once('include/output.php');
+        ?>
 <body>
-    <a href="../index.php" class="back-button">Back</a>
+<h1>Approve Volunteer Hours</h1>
     <div class="container">
-        <h2>Approve Volunteer Hours</h2>
+
         <?php foreach ($pendingLogs as $log) : ?>
-            <div class="log-container">
+            <div class="container" style="margin-top: .5rem">
                 <p><strong><?php echo htmlspecialchars($log['first_name'] . ' ' . $log['last_name']); ?></strong></p>
                 <p><strong>Date:</strong> <?php echo htmlspecialchars($log['date']); ?></p>
                 <p><strong>Hours:</strong> <?php echo htmlspecialchars($log['hours']); ?></p>
@@ -154,10 +108,12 @@ mysqli_close($conn);
                 <form method="POST">
                     <input type="hidden" name="log_id" value="<?php echo $log['id']; ?>">
                     <button type="submit" name="approve" class="button approve-button">Approve</button>
-                    <button type="submit" name="deny" class="button deny-button">Deny</button>
+                    <button type="submit" name="deny" style="margin-top: .5rem" class="button cancel">Deny</button>
                 </form>
+               
             </div>
         <?php endforeach; ?>
+        <a class="button cancel" href="hours.php" style="margin-top: .5rem">Return to Dashboard</a>
     </div>
 </body>
 </html>

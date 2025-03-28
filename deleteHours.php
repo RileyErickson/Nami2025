@@ -7,7 +7,7 @@ ini_set("display_errors", 1);
 error_reporting(E_ALL);
 
 // Include database connection
-require_once('../database/dbinfo.php');
+require_once('database/dbinfo.php');
 $conn = connect();
 
 // Handle deletion
@@ -36,65 +36,20 @@ mysqli_close($conn);
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Manage Volunteer Hours</title>
-    <style>
-        body {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            background-color: #add8e6;
-            font-family: Arial, sans-serif;
-            padding: 20px;
-        }
-        .container {
-            background: white;
-            padding: 20px;
-            border-radius: 10px;
-            box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
-            width: 500px;
-            text-align: center;
-            margin-bottom: 20px;
-        }
-        .log-container {
-            background: white;
-            padding: 15px;
-            border-radius: 10px;
-            box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
-            margin-bottom: 10px;
-            text-align: left;
-            position: relative;
-        }
-        .delete-button {
-            background-color: red;
-            color: white;
-            border: none;
-            padding: 5px 10px;
-            border-radius: 5px;
-            cursor: pointer;
-            position: absolute;
-            right: 10px;
-            top: 10px;
-        }
-        .back-button {
-            position: absolute;
-            top: 10px;
-            left: 10px;
-            background-color: #808080;
-            color: white;
-            padding: 10px;
-            border-radius: 5px;
-            text-decoration: none;
-            font-size: 14px;
-        }
-    </style>
-</head>
-<body>
-    <a href="../index.php" class="back-button">Back</a>
+        <?php require_once('universal.inc') ?>
+        <link rel="stylesheet" href="css/editprofile.css" type="text/css" />
+        <title>NAMI Rappahannock | Manage Volunteer Hours</title>
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    </head>
+    <body>
+        <?php 
+            require_once('header.php'); 
+            require_once('include/output.php');
+        ?>
+    <h1>Manage Volunteer Hours</h1>
     <div class="container">
-        <h2>Manage Volunteer Hours</h2>
         <?php foreach ($volunteerHours as $entry) : ?>
-            <div class="log-container">
+            <div class="container" style="margin-top: .5rem">
                 <p><strong>Date:</strong> <?php echo htmlspecialchars($entry['date']); ?></p>
                 <p><strong>Name:</strong> <?php echo htmlspecialchars($entry['f_name'] . ' ' . $entry['l_name']); ?></p>
                 <p><strong>Hours:</strong> <?php echo htmlspecialchars($entry['hours']); ?></p>
@@ -104,6 +59,8 @@ mysqli_close($conn);
                 </form>
             </div>
         <?php endforeach; ?>
+        
+        <a class="button cancel" href="hours.php" style="margin-top: .5rem">Return to Dashboard</a>
     </div>
 </body>
 </html>
