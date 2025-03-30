@@ -1,3 +1,4 @@
+<?php
 
 session_start();
 
@@ -104,8 +105,7 @@ mysqli_close($conn);
                 </div>
             <?php endforeach; ?>
         <?php endif; ?>
-
+        <a class="button cancel" href="hours.php" style="margin-top: .5rem">Return to Dashboard</a>
     </div>
-  <a class="button cancel" href="hours.php" style="margin-top: .5rem">Return to Dashboard</a>
 </body>
 </html>

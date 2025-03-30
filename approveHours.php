@@ -81,7 +81,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         header("Location: approveHours.php");
         exit();
     }
-}
+
 
 // Fetch all pending hour logs
 $query = "SELECT * FROM pendingHourLogs ORDER BY date DESC";
