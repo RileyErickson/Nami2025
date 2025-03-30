@@ -1,4 +1,4 @@
-<?php
+
 session_start();
 
 ini_set("display_errors", 1);
@@ -7,6 +7,7 @@ error_reporting(E_ALL);
 require_once('header.php');
 require_once('universal.inc');
 require_once('database/dbinfo.php');
+
 
 $conn = connect();
 
@@ -19,23 +20,25 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['delete'])) {
     $stmt->execute();
     $stmt->close();
 
-    header("Location: deleteHours.php");
+    header("Location: manageVolunteerHours.php");
     exit();
 }
 
-// Fetch all volunteer hours
+// Fetch all volunteer hours, sorted by date (most recent first), then by first name alphabetically
+
 $query = "SELECT id, f_name, l_name, date, hours FROM volunteerHours ORDER BY date DESC, f_name ASC";
 $result = mysqli_query($conn, $query);
 $volunteerHours = [];
 while ($row = mysqli_fetch_assoc($result)) {
     $volunteerHours[] = $row;
 }
+
 mysqli_close($conn);
 ?>
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Delete Volunteer Hours</title>
+    <title>NAMI Rappahannock | Manage Volunteer Hours</title>
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -101,6 +104,8 @@ mysqli_close($conn);
                 </div>
             <?php endforeach; ?>
         <?php endif; ?>
+
     </div>
+  <a class="button cancel" href="hours.php" style="margin-top: .5rem">Return to Dashboard</a>
 </body>
 </html>

@@ -1,4 +1,5 @@
 <?php
+
 session_start();
 
 ini_set("display_errors", 1);
@@ -7,6 +8,7 @@ error_reporting(E_ALL);
 require_once('header.php');
 require_once('universal.inc');
 require_once('database/dbinfo.php');
+
 
 $conn = connect();
 
@@ -18,6 +20,7 @@ $createTableQuery = "CREATE TABLE IF NOT EXISTS volunteerHours (
     date DATE NOT NULL,
     hours INT NOT NULL
 )";
+
 if (!mysqli_query($conn, $createTableQuery)) {
     die("Error creating table: " . mysqli_error($conn));
 }
@@ -25,6 +28,7 @@ if (!mysqli_query($conn, $createTableQuery)) {
 // Handle approval and denial
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $log_id = intval($_POST['log_id']);
+
 
     if (isset($_POST['approve'])) {
         $fetchQuery = "SELECT * FROM pendingHourLogs WHERE id = ?";
@@ -35,12 +39,18 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         $log = $result->fetch_assoc();
         $stmt->close();
 
+        
         if ($log) {
+            // Insert approved hours into volunteerHours
+
             $insertQuery = "INSERT INTO volunteerHours (f_name, l_name, date, hours) VALUES (?, ?, ?, ?)";
             $stmt = $conn->prepare($insertQuery);
             $stmt->bind_param("sssi", $log['first_name'], $log['last_name'], $log['date'], $log['hours']);
             $stmt->execute();
             $stmt->close();
+
+            
+            // Remove the log from pendingHourLogs
 
             $deleteQuery = "DELETE FROM pendingHourLogs WHERE id = ?";
             $stmt = $conn->prepare($deleteQuery);
@@ -49,9 +59,17 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             $stmt->close();
         }
 
+        
         header("Location: approveHours.php");
         exit();
     }
+    
+
+
+        header("Location: approveHours.php");
+        exit();
+    }
+
 
     if (isset($_POST['deny'])) {
         $deleteQuery = "DELETE FROM pendingHourLogs WHERE id = ?";
@@ -72,12 +90,13 @@ $pendingLogs = [];
 while ($row = mysqli_fetch_assoc($result)) {
     $pendingLogs[] = $row;
 }
+
 mysqli_close($conn);
 ?>
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Approve Volunteer Hours</title>
+    <title>NAMI Rappahannock | Approve Volunteer Hours</title>
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -159,6 +178,8 @@ mysqli_close($conn);
                 </div>
             <?php endforeach; ?>
         <?php endif; ?>
+
+       <a class="button cancel" href="hours.php" style="margin-top: .5rem">Return to Dashboard</a>
     </div>
 </body>
 </html>

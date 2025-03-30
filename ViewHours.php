@@ -1,4 +1,5 @@
 <?php
+
 session_start();
 
 ini_set("display_errors", 1);
@@ -7,6 +8,7 @@ error_reporting(E_ALL);
 require_once('header.php');
 require_once('universal.inc');
 require_once('database/dbinfo.php');
+
 
 $conn = connect();
 
@@ -23,6 +25,7 @@ while ($row = mysqli_fetch_assoc($result)) {
 
 mysqli_close($conn);
 ?>
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -126,6 +129,7 @@ mysqli_close($conn);
 
             <a href="generateHourReport.php" target="_blank" class="download-button">Download Report</a>
         </div>
+        <a class="button cancel" href="hours.php" style="margin-top: .5rem">Return to Dashboard</a>
     </div>
 </body>
 </html>

@@ -1,4 +1,5 @@
 <?php
+
 session_start();
 
 ini_set("display_errors", 1);
@@ -21,6 +22,7 @@ $createTableQuery = "CREATE TABLE IF NOT EXISTS pendingHourLogs (
     what TEXT NOT NULL,
     hours INT NOT NULL
 )";
+
 if (!mysqli_query($conn, $createTableQuery)) {
     echo json_encode(["error" => "Error creating table: " . mysqli_error($conn)]);
     exit();
@@ -51,6 +53,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $what = $_POST['what'] ?? '';
     $hours = $_POST['hours'] ?? '';
 
+    
     if (!empty($date) && !empty($what) && !empty($hours)) {
         $stmt = $conn->prepare("INSERT INTO pendingHourLogs (first_name, last_name, date, what, hours) VALUES (?, ?, ?, ?, ?)");
         $stmt->bind_param("ssssi", $firstName, $lastName, $date, $what, $hours);
@@ -69,10 +72,46 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
 mysqli_close($conn);
 ?>
+
+
+<!DOCTYPE html>
+
+    <html>
+    <head>
+        <?php require_once('universal.inc') ?>
+        <title>Log Volunteer Hours</title>
+    </head>
+    <body>
+        <?php require_once('header.php') ?>
+</head>
+<body>
+<h1>Log Volunteer Hours</h1>
+    <div class="container">
+        
+        <p><strong>Logged in as:</strong> <?php echo htmlspecialchars($firstName . ' ' . $lastName); ?></p>
+        <form method="POST">
+            <label for="date">Date</label>
+            <input type="date" name="date" required>
+            
+            <label for="what">What did you do?</label>
+            <textarea name="what" required></textarea>
+            
+            <label for="hours">Hours Worked</label>
+            <input type="number" name="hours" min="1" required>
+            
+            <input type="submit" value="Submit Log" class="button">
+        </form>
+        <a class="button cancel" href="hours.php" style="margin-top: .5rem">Return to Dashboard</a>
+        <?php if (!empty($message)) : ?>
+            <p><?php echo htmlspecialchars($message); ?></p>
+        <?php endif; ?>
+        
+    </div>
+
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Log Volunteer Hours</title>
+     <title>Log Volunteer Hours</title>
 </head>
 <body>
     <h1>Log Volunteer Hours</h1>
@@ -91,10 +130,12 @@ mysqli_close($conn);
 
                 <input type="submit" value="Submit Log">
             </form>
+          <a class="button cancel" href="hours.php" style="margin-top: .5rem">Return to Dashboard</a>
             <?php if (!empty($message)) : ?>
                 <p><?php echo htmlspecialchars($message); ?></p>
             <?php endif; ?>
         </div>
     </main>
+
 </body>
 </html>
