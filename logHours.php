@@ -74,39 +74,7 @@ mysqli_close($conn);
 ?>
 
 
-<!DOCTYPE html>
 
-    <html>
-    <head>
-        <?php require_once('universal.inc') ?>
-        <title>Log Volunteer Hours</title>
-    </head>
-    <body>
-        <?php require_once('header.php') ?>
-</head>
-<body>
-<h1>Log Volunteer Hours</h1>
-    <div class="container">
-        
-        <p><strong>Logged in as:</strong> <?php echo htmlspecialchars($firstName . ' ' . $lastName); ?></p>
-        <form method="POST">
-            <label for="date">Date</label>
-            <input type="date" name="date" required>
-            
-            <label for="what">What did you do?</label>
-            <textarea name="what" required></textarea>
-            
-            <label for="hours">Hours Worked</label>
-            <input type="number" name="hours" min="1" required>
-            
-            <input type="submit" value="Submit Log" class="button">
-        </form>
-        <a class="button cancel" href="hours.php" style="margin-top: .5rem">Return to Dashboard</a>
-        <?php if (!empty($message)) : ?>
-            <p><?php echo htmlspecialchars($message); ?></p>
-        <?php endif; ?>
-        
-    </div>
 
 <!DOCTYPE html>
 <html>
