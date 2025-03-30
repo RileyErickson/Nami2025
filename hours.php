@@ -24,19 +24,19 @@ $conn = connect();
     <h1>Hours Management</h1>
 
     <div id="dashboard">
-        <div class="dashboard-item" onclick="location.href='volunteerHours/logHours.php'">
+        <div class="dashboard-item" onclick="location.href='logHours.php'">
             <img src="images/create-report.svg" alt="Log Hours">
             <span>Log Hours</span>
         </div>
-        <div class="dashboard-item" onclick="location.href='volunteerHours/deleteHours.php'">
+        <div class="dashboard-item" onclick="location.href='deleteHours.php'">
             <img src="images/delete.svg" alt="Delete Hours">
             <span>Delete Hours</span>
         </div>
-        <div class="dashboard-item" onclick="location.href='volunteerHours/approveHours.php'">
+        <div class="dashboard-item" onclick="location.href='approveHours.php'">
             <img src="images/volunteer-history.svg" alt="Approve Hours">
             <span>Approve Hours</span>
         </div>
-        <div class="dashboard-item" onclick="location.href='volunteerHours/viewHours.php'">
+        <div class="dashboard-item" onclick="location.href='viewHours.php'">
             <img src="images/search.svg" alt="View Hours">
             <span>View Hours</span>
         </div>

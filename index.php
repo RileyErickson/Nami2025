@@ -234,4 +234,5 @@
             </div>
         </main>
     </body>
+	<?php require('footer.php'); ?>
 </html>
