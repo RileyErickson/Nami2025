@@ -9,53 +9,14 @@
 include_once('dbinfo.php');
 include_once('dbPersons.php');
 
+
+// Creates a new application for any of the 6 form tables.
+// $application MUST be formatted like "P2PApplication", "FSGApplication", "F2FApplication", "HFApplication", "IOOVApplication", and "CSGApplication"
 function create_application($application, $personID, $reasontobecome, $whyisnowrighttime, $statusinrecoveryjourney, $screenername, $screeningdate) {
 	
     $con=connect();
 	
-	/* temp */
-	$query = "SELECT " . $application . "ID FROM db" . $application . " ORDER BY " . $application . "ID LIMIT 1;";
-    $result = mysqli_query($con,$query);
-	$result = $result->fetch_array();
-	if (isset($result[0])) {
-		$appID = 1;
-	} else {
-		$appID = $result[0];
-		$appID++;
-	}
-	
-	
-	if ($statusinrecoveryjourney != NULL) {
-		$query = "INSERT INTO db" . $application . " VALUES ('"
-			. $appID . "', '"
-			. $reasontobecome . "', '"
-			. $whyisnowrighttime . "', '"
-			. $statusinrecoveryjourney . "', '"
-			. $screenername . "', '"
-			. $screeningdate . "');";
-	} else {
-		$query = "INSERT INTO db" . $application . " VALUES ('"
-			. $appID . "', '"
-			. $reasontobecome . "', '"
-			. $whyisnowrighttime . "', '"
-			. $screenername . "', '"
-			. $screeningdate . "');";
-	}
-	
-    $result = mysqli_query($con,$query);
-	
-	update_application_id($personID, $application, $appID);
-	
-    mysqli_close($con);
-}
-
-function get_reasontobecome($id, $application) {
-	
-	if ($id == 0) {
-		return "";
-	}
-	
-	switch ($application) {
+	switch ($application) { //necessary to query the reasontobecome variable
 		case "F2FApplication":
 			$formattedName = "F2F";
 			$tableName = "dbf2fapplication";
@@ -64,9 +25,65 @@ function get_reasontobecome($id, $application) {
 			$formattedName = "P2P";
 			$tableName = "dbp2papplication";
 			break;
-		case "IOOApplication":
+		case "IOOVApplication":
 			$formattedName = "IOOV";
-			$tableName = "dbiooapplication";
+			$tableName = "dbioovapplication";
+			break;
+		case "CSGApplication":
+			$formattedName = "CSG";
+			$tableName = "dbcsgapplication";
+			break;
+		case "FSGApplication":
+			$formattedName = "FSG";
+			$tableName = "dbfsgapplication";
+			break;
+		case "HFApplication":
+			$formattedName = "HF";
+			$tableName = "dbhfapplication";
+			break;
+	}
+	
+	if ($statusinrecoveryjourney != NULL) {
+		$query = "INSERT INTO db" . $application . "(reasonToBecome" . $formattedName . ", whyIsNowRightTime, statusInRecoveryJourney, screenerName, screeningDate, id) VALUES ('"
+			. $reasontobecome . "', '"
+			. $whyisnowrighttime . "', '"
+			. $statusinrecoveryjourney . "', '"
+			. $screenername . "', '"
+			. $screeningdate . "', '"
+			. $personID . "');";
+	} else {
+		$query = "INSERT INTO db" . $application . "(reasonToBecome" . $formattedName . ", whyIsNowRightTime, screenerName, screeningDate, id)  VALUES ('"
+			. $reasontobecome . "', '"
+			. $whyisnowrighttime . "', '"
+			. $screenername . "', '"
+			. $screeningdate . "', '"
+			. $personID . "');";
+	}
+	
+    $result = mysqli_query($con,$query);
+	
+    mysqli_close($con);
+}
+
+// returns a user's reason from the corresponding form
+function get_reasontobecome($appID, $application) {
+	
+	if ($appID == "") {
+		return "";
+	}
+	
+	switch ($application) { //necessary to query the reasontobecome variable
+		case "F2FApplication":
+			$formattedName = "F2F";
+			$tableName = "dbf2fapplication";
+			break;
+		case "P2PApplication":
+			$formattedName = "P2P";
+			$tableName = "dbp2papplication";
+			break;
+		case "IOOVApplication":
+			$formattedName = "IOOV";
+			$tableName = "dbioovapplication";
 			break;
 		case "CSGApplication":
 			$formattedName = "CSG";
@@ -83,11 +100,12 @@ function get_reasontobecome($id, $application) {
 	}
 	
 	$con=connect();
-	$query="SELECT reasonToBecome" . $formattedName . " FROM " . $tableName . " WHERE id='" . $id . "';";
+	$query="SELECT reasonToBecome" . $formattedName . " FROM " . $tableName . " WHERE ". $application . "ID='" . $appID . "';";
 	
-	$result = $result->fetch_array();
+    $result = mysqli_query($con,$query);
 	
-	if (isset($result[0])) {
+	if (!(mysqli_num_rows($result) === 0)) {
+		$result = $result->fetch_array();
 		$reason = $result[0];
 	} else {
 		$reason = null;
@@ -98,18 +116,40 @@ function get_reasontobecome($id, $application) {
 	return $reason;
 }
 
+// returns a user's application ID from the corresponding form
+function get_appID($pid, $application) {
+	
+	$con=connect();
+	$query="SELECT " . $application . "ID FROM db" . $application . " WHERE id='" . $pid . "';";
+	
+    $result = mysqli_query($con,$query);
+	
+	if (!(mysqli_num_rows($result) === 0)) {
+		$result = $result->fetch_array();
+		$appid = $result[0];
+	} else {
+		$appid = 0;
+	}
+	
+	mysqli_close($con);
+	
+	return $appid;
+}
+
+// returns a user's time reason from the corresponding form
 function get_whyisnowrighttime($id, $application) {
 	
-	if ($id == 0) {
+	if ($id == "") {
 		return "";
 	}
 	
 	$con=connect();
-	$query="SELECT whyIsNowRightTime FROM db" . $application . " WHERE id='" . $id . "';";
+	$query="SELECT whyIsNowRightTime FROM db" . $application . " WHERE ". $application . "ID='" . $id . "';";
 	
-	$result = $result->fetch_array();
+    $result = mysqli_query($con,$query);
 	
-	if (isset($result[0])) {
+	if (!(mysqli_num_rows($result) === 0)) {
+		$result = $result->fetch_array();
 		$why = $result[0];
 	} else {
 		$why = "";
@@ -120,18 +160,20 @@ function get_whyisnowrighttime($id, $application) {
 	return $why;
 }
 
+// returns a user's recovery status from the corresponding form
 function get_statusinrecoveryjourney($id, $application) {
 	
-	if ($id == 0) {
+	if ($id == "") {
 		return "";
 	}
 	
 	$con=connect();
-	$query="SELECT statusInRecoveryJourney FROM db" . $application . " WHERE id='" . $id . "';";
+	$query="SELECT statusInRecoveryJourney FROM db" . $application . " WHERE ". $application . "ID='" . $id . "';";
 	
-	$result = $result->fetch_array();
+    $result = mysqli_query($con,$query);
 	
-	if (isset($result[0])) {
+	if (!(mysqli_num_rows($result) === 0)) {
+		$result = $result->fetch_array();
 		$status = $result[0];
 	} else {
 		$status = "";
@@ -142,18 +184,20 @@ function get_statusinrecoveryjourney($id, $application) {
 	return $status;
 }
 
+// returns a user's screener name from the corresponding form
 function get_screenername($id, $application) {
 	
-	if ($id == 0) {
+	if ($id == "") {
 		return "";
 	}
 	
 	$con=connect();
-	$query="SELECT screenerName FROM db" . $application . " WHERE id='" . $id . "';";
+	$query="SELECT screenerName FROM db" . $application . " WHERE ". $application . "ID='" . $id . "';";
 	
-	$result = $result->fetch_array();
+    $result = mysqli_query($con,$query);
 	
-	if (isset($result[0])) {
+	if (!(mysqli_num_rows($result) === 0)) {
+		$result = $result->fetch_array();
 		$name = $result[0];
 	} else {
 		$name = "";
@@ -164,18 +208,20 @@ function get_screenername($id, $application) {
 	return $name;
 }
 
+// returns a user's screening date from the corresponding form
 function get_screeningdate($id, $application) {
 	
-	if ($id == 0) {
+	if ($id == "") {
 		return " ";
 	}
 	
 	$con=connect();
-	$query="SELECT screeningDate FROM db" . $application . " WHERE id='" . $id . "';";
+	$query="SELECT screeningDate FROM db" . $application . " WHERE ". $application . "ID='" . $id . "';";
 	
-	$result = $result->fetch_array();
+    $result = mysqli_query($con,$query);
 	
-	if (isset($result[0])) {
+	if (!(mysqli_num_rows($result) === 0)) {
+		$result = $result->fetch_array();
 		$date = $result[0];
 	} else {
 		$date = "";
@@ -186,6 +232,28 @@ function get_screeningdate($id, $application) {
 	return $date;
 }
 
+// returns the userID of the person who filled out the corresponding application
+function get_personID($appID, $application) {
+	
+	$con=connect();
+	$query="SELECT id FROM db" . $application . " WHERE ". $application . "ID='" . $appID . "';";
+	
+    $result = mysqli_query($con,$query);
+	
+	if (!(mysqli_num_rows($result) === 0)) {
+		$result = $result->fetch_array();
+		$pid = $result[0];
+	} else {
+		$pid = "";
+	}
+	
+	mysqli_close($con);
+	
+	return $pid;
+	
+}
+
+// updates a user's reason in the corresponding form, returns the reason 
 function update_reasontobecome($id, $application, $reason) {
 	
 	switch ($application) {
@@ -195,8 +263,8 @@ function update_reasontobecome($id, $application, $reason) {
 		case "P2PApplication":
 			$formattedName = "P2P";
 			break;
-		case "IOOApplication":
-			$formattedName = "IOO";
+		case "IOOVApplication":
+			$formattedName = "IOOV";
 			break;
 		case "CSGApplication":
 			$formattedName = "CSG";
@@ -210,47 +278,61 @@ function update_reasontobecome($id, $application, $reason) {
 	}
 	
 	$con=connect();
-	$query="UPDATE db" . $application . " SET reasonToBecome" . $formattedName . "= '" . $reason . "' WHERE id='" . $id . "';";
+	$query="UPDATE db" . $application . " SET reasonToBecome" . $formattedName . "= '" . $reason . "' WHERE ". $application . "ID='" . $id . "';";
+	
+    $result = mysqli_query($con,$query);
 	
 	mysqli_close($con);
 	
 	return $reason;
 }
 
+// updates a user's time reason in the corresponding form, returns the time reason 
 function update_whyisnowrighttime($id, $application, $time) {
 	
 	$con=connect();
-	$query="UPDATE db" . $application . " SET whyIsNowRightTime = '" . $time . "' WHERE id='" . $id . "';";
+	$query="UPDATE db" . $application . " SET whyIsNowRightTime = '" . $time . "' WHERE ". $application . "ID='" . $id . "';";
+	
+    $result = mysqli_query($con,$query);
 	
 	mysqli_close($con);
 	
 	return $time;
 }
 
+// updates a user's recovery status in the corresponding form, returns the recovery status 
 function update_statusinrecoveryjourney($id, $application, $status) {
 	
 	$con=connect();
-	$query="UPDATE db" . $application . " SET statusInRecoveryJourney = '" . $status . "' WHERE id='" . $id . "';";
+	$query="UPDATE db" . $application . " SET statusInRecoveryJourney = '" . $status . "' WHERE ". $application . "ID='" . $id . "';";
+	
+    $result = mysqli_query($con,$query);
 	
 	mysqli_close($con);
 	
 	return $status;
 }
 
+// updates a user's screener name in the corresponding form, returns the screener name 
 function update_screenername($id, $application, $name) {
 	
 	$con=connect();
-	$query="UPDATE db" . $application . " SET screenerName = '" . $name . "' WHERE id='" . $id . "';";
+	$query="UPDATE db" . $application . " SET screenerName = '" . $name . "' WHERE ". $application . "ID='" . $id . "';";
+	
+    $result = mysqli_query($con,$query);
 	
 	mysqli_close($con);
 	
 	return $name;
 }
 
+// updates a user's screening date in the corresponding form, returns the screening date 
 function update_screeningdate($id, $application, $date) {
 	
 	$con=connect();
-	$query="UPDATE db" . $application . " SET screeningDate = '" . $date . "' WHERE id='" . $id . "';";
+	$query="UPDATE db" . $application . " SET screeningDate = '" . $date . "' WHERE ". $application . "ID='" . $id . "';";
+	
+    $result = mysqli_query($con,$query);
 	
 	mysqli_close($con);
 	

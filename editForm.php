@@ -41,6 +41,7 @@
 	}
 
     require_once('database/dbForms.php');
+	
 	switch ($formname) {
 		case "F2FApplication":
 			$formattedName = "F2F";
@@ -65,17 +66,17 @@
     $user = retrieve_person($id);
     $viewingOwnForms = $id == $userID;
 	
-	$appID = get_application_id($id, $formname);
+	$appID = get_appID($userID, $formname);
 	
 	/* setting values for editing */
 	if ($appID != 0 && isset($_POST['submitted'])) {
-		update_reasontobecome($id, $formname, $_POST['reasontobecome']);
-		update_whyisnowrighttime($id, $formname, $_POST['whyisnowrighttime']);
+		update_reasontobecome($appID, $formname, $_POST['reasontobecome']);
+		update_whyisnowrighttime($appID, $formname, $_POST['whyisnowrighttime']);
 		if (isset($_POST['statusinrecoveryjourney'])) {
-			update_statusinrecoveryjourney($id, $formname, $_POST['statusinrecoveryjourney']);
+			update_statusinrecoveryjourney($appID, $formname, $_POST['statusinrecoveryjourney']);
 		}
-		update_screenername($id, $formname, $_POST['screenername']);
-		update_screeningdate($id, $formname, $_POST['screeningdate']);
+		update_screenername($appID, $formname, $_POST['screenername']);
+		update_screeningdate($appID, $formname, $_POST['screeningdate']);
 		
 		unset($_POST['submitted']);
 		unset($_POST['reasontobecome']);
@@ -83,16 +84,18 @@
 		unset($_POST['statusinrecoveryjourney']);
 		unset($_POST['screenername']);
 		unset($_POST['screeningdate']);
+		
+		$message = "Application updated!";
 	}
 	
 	/* setting values for a new application */
-	if ($appID == 0 && isset($_POST['submitted'])) {
+	if (isset($_POST['submitted'])) {
 		
 		if (!(isset($_POST['statusinrecoveryjourney']))) {
 			$_POST['statusinrecoveryjourney'] = NULL;
 		}
 		
-		create_application($formname, $id, $_POST['reasontobecome'], $_POST['whyisnowrighttime'], $_POST['statusinrecoveryjourney'], $_POST['screenername'], $_POST['screeningdate']);
+		create_application($formname, $userID, $_POST['reasontobecome'], $_POST['whyisnowrighttime'], $_POST['statusinrecoveryjourney'], $_POST['screenername'], $_POST['screeningdate']);
 		
 		unset($_POST['submitted']);
 		unset($_POST['reasontobecome']);
@@ -100,6 +103,8 @@
 		unset($_POST['statusinrecoveryjourney']);
 		unset($_POST['screenername']);
 		unset($_POST['screeningdate']);
+		
+		$message = "Application created!";
 	}
 	
 ?>
@@ -121,6 +126,13 @@
 		<h1>
 			Form Submission
 		</h1>
+		
+		<?php 
+			if (isset($message)) {
+				echo "<div class=\"happy-toast\">" . $message . "</div>";
+			}
+		?>
+		
 				
         <main class="general">
 			
@@ -155,6 +167,108 @@
 						<input type="hidden" name="submitted" id="submitted" value="true">
 						
 						<input type="hidden" name="formname" id="formname" value="<?php echo $formname; ?>">
+
+						<?php 
+						
+						if ($formname == 'FSGApplication') {
+
+							echo "<br>";
+							echo "<legend>NAMI Family Support Group Program Eligibility Checklist</legend>";
+							echo "<p><i>Please confirm you meet the guidelines by checking each requirement.</i></p>";
+							echo "<p><input type=\"checkbox\" class=\"check-item\" name=\"eligibility\" required> I am a family member, close friend, or someone with a &quot;like family&quot; relationship with a loved one living with mental illness.</p>";
+							echo "<p><input type=\"checkbox\" class=\"check-item\" name=\"eligibility\" required> I am willing to complete training and uphold the fidelity of the NAMI Family Support Group model.</p>";
+							echo "<p><input type=\"checkbox\" class=\"check-item\" name=\"eligibility\" required> I am open to identifying and encouraging potential new facilitators from the support group.</p>";
+							echo "<p><input type=\"checkbox\" class=\"check-item\" name=\"eligibility\" required> I am willing to provide participant data as required.</p>";
+							echo "<p><input type=\"checkbox\" class=\"check-item\" name=\"eligibility\" required> I have experience with or a positive regard for mutual support groups.</p>";
+							echo "<p><input type=\"checkbox\" class=\"check-item\" name=\"eligibility\" required> I have a support system (friends, peers, family, support groups, etc.) to help me succeed in this role and other areas of my life.</p>";
+							echo "<p><input type=\"checkbox\" class=\"check-item\" name=\"eligibility\" required> I have access to a computer and the internet to complete online training and maintain communication with my affiliate, NAMI Virginia, and NAMI.</p>";
+							echo "<br>";
+
+						}
+
+						if ($formname == 'HFApplication') {
+
+							echo "<br>";
+							echo "<legend>NAMI Homefront Program Eligibility Checklist</legend>";
+							echo "<p><i>Please confirm you meet the guidelines by checking each requirement.</i></p>";
+							echo "<p><input type=\"checkbox\" class=\"check-item\" name=\"eligibility\" required> I am a family member, close friend, or someone with a &quot;like family&quot; relationship with a veteran living with mental illness.</p>";
+							echo "<p><input type=\"checkbox\" class=\"check-item\" name=\"eligibility\" required> I am comfortable reading aloud, as parts of the course must be read to the class.</p>";
+							echo "<p><input type=\"checkbox\" class=\"check-item\" name=\"eligibility\" required> I am willing to complete training and uphold the fidelity of the NAMI Homefront class.</p>";
+							echo "<p><input type=\"checkbox\" class=\"check-item\" name=\"eligibility\" required> I have the stamina and stability to carry out course duties (logistics, data entry, and co-facilitating the 8-week course).</p>";
+							echo "<p><input type=\"checkbox\" class=\"check-item\" name=\"eligibility\" required> I have a support system (friends, peers, family, support groups, etc.) to help me succeed in this role and other areas of my life.</p>";
+							echo "<p><input type=\"checkbox\" class=\"check-item\" name=\"eligibility\" required> I have access to a computer and the internet to complete online training and maintain communication with my affiliate, NAMI Virginia, and NAMI.</p>";
+							echo "<br>";
+
+						}
+
+						if ($formname == 'CSGApplication') {
+
+							echo "<br>";
+							echo "<legend>NAMI Connection Support Group Program Eligibility Checklist</legend>";
+							echo "<p><i>Please confirm you meet the guidelines by checking each requirement.</i></p>";
+							echo "<p><input type=\"checkbox\" class=\"check-item\" name=\"eligibility\" required> I have lived experience with mental health symptoms.</p>";
+							echo "<p><input type=\"checkbox\" class=\"check-item\" name=\"eligibility\" required> I am willing to complete training and uphold the fidelity of the NAMI Connection Support Group model.</p>";
+							echo "<p><input type=\"checkbox\" class=\"check-item\" name=\"eligibility\" required> I am on the path of recovery.</p>";
+							echo "<p><i>Recovery is defined as a process through which individuals improve their health and wellness, live a self-directed life, and strive to reach their full potential.</i></p>";
+							echo "<p><input type=\"checkbox\" class=\"check-item\" name=\"eligibility\" required> I am open to identifying and encouraging potential new facilitators from the support group.</p>";
+							echo "<p><input type=\"checkbox\" class=\"check-item\" name=\"eligibility\" required> I am willing to provide participant data as required.</p>";
+							echo "<p><input type=\"checkbox\" class=\"check-item\" name=\"eligibility\" required> I have experience with or a positive regard for mutual support groups.</p>";
+							echo "<p><input type=\"checkbox\" class=\"check-item\" name=\"eligibility\" required> I have a support system (friends, peers, family, support groups, etc.) to help me succeed in this role and other areas of my life.</p>";
+							echo "<p><input type=\"checkbox\" class=\"check-item\" name=\"eligibility\" required> I have access to a computer and the internet to complete online training and maintain communication with my affiliate, NAMI Virginia, and NAMI.</p>";
+							echo "<br>";
+
+						}
+
+						if ($formname == 'P2PApplication') {
+
+							echo "<br>";
+							echo "<legend>NAMI Peer-to-Peer Program Eligibility Checklist</legend>";
+							echo "<p><i>Please confirm you meet the guidelines by checking each requirement.</i></p>";
+							echo "<p><input type=\"checkbox\" class=\"check-item\" name=\"eligibility\" required> I have lived experience with mental health symptoms.</p>";
+							echo "<p><input type=\"checkbox\" class=\"check-item\" name=\"eligibility\" required> I am comfortable reading aloud, as parts of the course must be read to the class.</p>";
+							echo "<p><input type=\"checkbox\" class=\"check-item\" name=\"eligibility\" required> I am willing to complete training and uphold the fidelity of the NAMI Peer-to-Peer class.</p>";
+							echo "<p><input type=\"checkbox\" class=\"check-item\" name=\"eligibility\" required> I am on the path of recovery.</p>";
+							echo "<p><i>Recovery is defined as a process through which individuals improve their health and wellness, live a self-directed life, and strive to reach their full potential.</i></p>";
+							echo "<p><input type=\"checkbox\" class=\"check-item\" name=\"eligibility\" required> I have the stamina and stability to carry out course duties (logistics, data entry, and co-facilitating the 8-week course).</p>";
+							echo "<p><input type=\"checkbox\" class=\"check-item\" name=\"eligibility\" required> I have a support system (friends, peers, family, support groups, etc.) to help me succeed in this role and other areas of my life.</p>";
+							echo "<p><input type=\"checkbox\" class=\"check-item\" name=\"eligibility\" required> I have access to a computer and the internet to complete online training and maintain communication with my affiliate, NAMI Virginia, and NAMI.</p>";
+							echo "<br>";
+
+						}
+
+						if ($formname == 'IOOVApplication') {
+
+							echo "<br>";
+							echo "<legend>NAMI In Our Own Voice Program Eligibility Checklist</legend>";
+							echo "<p><i>Please confirm you meet the guidelines by checking each requirement.</i></p>";
+							echo "<p><input type=\"checkbox\" class=\"check-item\" name=\"eligibility\" required> I am willing to undergo training and adhere to the NAMI In Our Own Voice program model.</p>";
+							echo "<p><input type=\"checkbox\" class=\"check-item\" name=\"eligibility\" required> I have lived experience with mental health symptoms.</p>";
+							echo "<p><input type=\"checkbox\" class=\"check-item\" name=\"eligibility\" required> I am on the path of recovery.</p>";
+							echo "<p><i>Recovery is defined as a process through which individuals improve their health and wellness, live a self-directed life, and strive to reach their full potential.</i></p>";
+							echo "<p><input type=\"checkbox\" class=\"check-item\" name=\"eligibility\" required> I will report presentation data.</p>";
+							echo "<p><input type=\"checkbox\" class=\"check-item\" name=\"eligibility\" required> I have a support system (friends, peers, family, support groups, etc.) to help me succeed in this role and other areas of my life.</p>";
+							echo "<p><input type=\"checkbox\" class=\"check-item\" name=\"eligibility\" required> I am willing to share my experience with mental illness in front of a group.</p>";
+							echo "<br>";
+
+						}
+
+						if ($formname == 'F2FApplication') {
+
+							echo "<br>";
+							echo "<legend>NAMI Family-to-Family Program Eligibility Checklist</legend>";
+							echo "<p><i>Please confirm you meet the guidelines by checking each requirement.</i></p>";
+							echo "<p><input type=\"checkbox\" class=\"check-item\" name=\"eligibility\" required> I am a family member, close friend, or someone with a &quot;like family&quot; relationship with a loved one living with mental illness.</p>";
+							echo "<p><input type=\"checkbox\" class=\"check-item\" name=\"eligibility\" required> I am comfortable reading aloud, as parts of the course must be read to the class.</p>";
+							echo "<p><input type=\"checkbox\" class=\"check-item\" name=\"eligibility\" required> I am willing to complete training and uphold the fidelity of the NAMI Family-to-Family class.</p>";
+							echo "<p><input type=\"checkbox\" class=\"check-item\" name=\"eligibility\" required> I have the stamina and stability to carry out course duties (logistics, data entry, and co-facilitating the 8-week course).</p>";
+							echo "<p><input type=\"checkbox\" class=\"check-item\" name=\"eligibility\" required> I have a support system (friends, peers, family, support groups, etc.) to help me succeed in this role and other areas of my life.</p>";
+							echo "<p><input type=\"checkbox\" class=\"check-item\" name=\"eligibility\" required> I have access to a computer and the internet to complete online training and maintain communication with my affiliate, NAMI Virginia, and NAMI.</p>";
+							echo "<br>";
+
+						}
+
+
+						?>
 						
 						<input type="submit">
 					</form>

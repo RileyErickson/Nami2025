@@ -35,6 +35,7 @@
         remove_profile_picture($id);
       }
     }
+    require_once('database/dbForms.php');
 
     $user = retrieve_person($id);
     $viewingOwnForms = $id == $userID;
@@ -81,48 +82,6 @@
 
             <fieldset class="section-box">
 				
-				<!-- Form links, administrators/superadministrators can see any forms. -->
-				<?php if ($accessLevel == 0 || $accessLevel == 2 || $accessLevel == 3): ?>
-					<!-- Links to consumer forms can be added here -->
-					<div>
-						<div class="field-pair">
-							<label>P2P Application</label>
-							<p>
-								This is a consumer form. A longer description of the form to be submitted can be added here.
-								<br>
-							</p>
-							<form action="editForm.php" method="POST">
-								<input type="hidden" id="formname" name="formname" value="P2PApplication">
-								<button style="width:16%;">Submit/Edit</button>
-							</form>
-						</div>
-						
-						<div class="field-pair">
-							<label>IOOV Application</label>
-							<p>
-								This is a consumer form. A longer description of the form to be submitted can be added here.
-								<br>
-							</p>
-							<form action="editForm.php" method="POST">
-								<input type="hidden" id="formname" name="formname" value="IOOVApplication">
-								<button style="width:16%;">Submit/Edit</button>
-							</form>
-						</div>
-						
-						<div class="field-pair">
-							<label>CSG Application</label>
-							<p>
-								This is a consumer form. A longer description of the form to be submitted can be added here.
-								<br>
-							</p>
-							<form action="editForm.php" method="POST">
-								<input type="hidden" id="formname" name="formname" value="CSGApplication">
-								<button style="width:16%;">Submit/Edit</button>
-							</form>
-						</div>
-					</div>
-				<?php endif ?>
-				
 				<?php if($accessLevel == 1 || $accessLevel == 2 || $accessLevel == 3): ?>
 					<!-- Links to volunteer forms can be added here -->
 					<div>
@@ -134,7 +93,16 @@
 							</p>
 							<form action="editForm.php" method="POST">
 								<input type="hidden" id="formname" name="formname" value="F2FApplication">
-								<button style="width:16%;">Submit/Edit</button>
+								<?php 
+									echo "<button style=\"width:";
+									$appID = get_appID($userID, 'F2FApplication');
+									if ($appID == 0) {
+										echo "24%;\">Submit New Form";
+									} else {
+										echo "22%;\">Edit Submission";
+									}
+									echo "</button>";
+								?>
 							</form>
 						</div>
 						
@@ -146,7 +114,16 @@
 							</p>
 							<form action="editForm.php" method="POST">
 								<input type="hidden" id="formname" name="formname" value="FSGApplication">
-								<button style="width:16%;">Submit/Edit</button>
+								<?php 
+									echo "<button style=\"width:";
+									$appID = get_appID($userID, 'FSGApplication');
+									if ($appID == 0) {
+										echo "24%;\">Submit New Form";
+									} else {
+										echo "22%;\">Edit Submission";
+									}
+									echo "</button>";
+								?>
 							</form>
 						</div>
 						
@@ -158,7 +135,79 @@
 							</p>
 							<form action="editForm.php" method="POST">
 								<input type="hidden" id="formname" name="formname" value="HFApplication">
-								<button style="width:16%;">Submit/Edit</button>
+								<?php 
+									echo "<button style=\"width:";
+									$appID = get_appID($userID, 'HFApplication');
+									if ($appID == 0) {
+										echo "24%;\">Submit New Form";
+									} else {
+										echo "22%;\">Edit Submission";
+									}
+									echo "</button>";
+								?>
+							</form>
+						</div>
+
+						<div class="field-pair">
+							<label>P2P Application</label>
+							<p>
+								This is a consumer form. A longer description of the form to be submitted can be added here.
+								<br>
+							</p>
+							<form action="editForm.php" method="POST">
+								<input type="hidden" id="formname" name="formname" value="P2PApplication">
+								<?php 
+									echo "<button style=\"width:";
+									$appID = get_appID($userID, 'P2PApplication');
+									if ($appID == 0) {
+										echo "24%;\">Submit New Form";
+									} else {
+										echo "22%;\">Edit Submission";
+									}
+									echo "</button>";
+								?>
+							</form>
+						</div>
+						
+						<div class="field-pair">
+							<label>IOOV Application</label>
+							<p>
+								This is a consumer form. A longer description of the form to be submitted can be added here.
+								<br>
+							</p>
+							<form action="editForm.php" method="POST">
+								<input type="hidden" id="formname" name="formname" value="IOOVApplication">
+								<?php 
+									echo "<button style=\"width:";
+									$appID = get_appID($userID, 'IOOVApplication');
+									if ($appID == 0) {
+										echo "24%;\">Submit New Form";
+									} else {
+										echo "22%;\">Edit Submission";
+									}
+									echo "</button>";
+								?>
+							</form>
+						</div>
+						
+						<div class="field-pair">
+							<label>CSG Application</label>
+							<p>
+								This is a consumer form. A longer description of the form to be submitted can be added here.
+								<br>
+							</p>
+							<form action="editForm.php" method="POST">
+								<input type="hidden" id="formname" name="formname" value="CSGApplication">
+								<?php 
+									echo "<button style=\"width:";
+									$appID = get_appID($userID, 'CSGApplication');
+									if ($appID == 0) {
+										echo "24%;\">Submit New Form";
+									} else {
+										echo "22%;\">Edit Submission";
+									}
+									echo "</button>";
+								?>
 							</form>
 						</div>
 					</div>

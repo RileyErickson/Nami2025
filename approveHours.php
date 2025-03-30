@@ -1,13 +1,15 @@
 <?php
-// Start session to access stored user information
+
 session_start();
 
-// Enable error reporting for debugging
 ini_set("display_errors", 1);
 error_reporting(E_ALL);
 
-// Include database connection
+require_once('header.php');
+require_once('universal.inc');
 require_once('database/dbinfo.php');
+
+
 $conn = connect();
 
 // Ensure the 'volunteerHours' table exists
@@ -26,9 +28,9 @@ if (!mysqli_query($conn, $createTableQuery)) {
 // Handle approval and denial
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $log_id = intval($_POST['log_id']);
-    
+
+
     if (isset($_POST['approve'])) {
-        // Fetch pending log details
         $fetchQuery = "SELECT * FROM pendingHourLogs WHERE id = ?";
         $stmt = $conn->prepare($fetchQuery);
         $stmt->bind_param("i", $log_id);
@@ -36,33 +38,46 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         $result = $stmt->get_result();
         $log = $result->fetch_assoc();
         $stmt->close();
+
         
         if ($log) {
             // Insert approved hours into volunteerHours
+
             $insertQuery = "INSERT INTO volunteerHours (f_name, l_name, date, hours) VALUES (?, ?, ?, ?)";
             $stmt = $conn->prepare($insertQuery);
             $stmt->bind_param("sssi", $log['first_name'], $log['last_name'], $log['date'], $log['hours']);
             $stmt->execute();
             $stmt->close();
+
             
             // Remove the log from pendingHourLogs
+
             $deleteQuery = "DELETE FROM pendingHourLogs WHERE id = ?";
             $stmt = $conn->prepare($deleteQuery);
             $stmt->bind_param("i", $log_id);
             $stmt->execute();
             $stmt->close();
         }
+
         
         header("Location: approveHours.php");
         exit();
     }
     
+
+
+        header("Location: approveHours.php");
+        exit();
+    }
+
+
     if (isset($_POST['deny'])) {
         $deleteQuery = "DELETE FROM pendingHourLogs WHERE id = ?";
         $stmt = $conn->prepare($deleteQuery);
         $stmt->bind_param("i", $log_id);
         $stmt->execute();
         $stmt->close();
+
         header("Location: approveHours.php");
         exit();
     }
@@ -78,42 +93,93 @@ while ($row = mysqli_fetch_assoc($result)) {
 
 mysqli_close($conn);
 ?>
-
 <!DOCTYPE html>
 <html>
 <head>
-        <?php require_once('universal.inc') ?>
-        <link rel="stylesheet" href="css/editprofile.css" type="text/css" />
-        <title>NAMI Rappahannock | Approve Volunteer Hours</title>
-        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
-    </head>
-    <body>
-        <?php 
-            require_once('header.php'); 
-            require_once('include/output.php');
-        ?>
-<body>
-<h1>Approve Volunteer Hours</h1>
-    <div class="container">
+    <title>NAMI Rappahannock | Approve Volunteer Hours</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+        }
 
-        <?php foreach ($pendingLogs as $log) : ?>
-            <div class="container" style="margin-top: .5rem">
-                <p><strong><?php echo htmlspecialchars($log['first_name'] . ' ' . $log['last_name']); ?></strong></p>
-                <p><strong>Date:</strong> <?php echo htmlspecialchars($log['date']); ?></p>
-                <p><strong>Hours:</strong> <?php echo htmlspecialchars($log['hours']); ?></p>
-                <div class="log-description">                    
-                    <p><strong>What:</strong></p>
-                    <p><?php echo nl2br(htmlspecialchars($log['what'])); ?></p>
+        .container {
+            max-width: 700px;
+            margin: 40px auto;
+            padding: 20px;
+        }
+
+        h1 {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        .log-container {
+            background: #fff;
+            padding: 15px;
+            border-radius: 10px;
+            box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+            margin-bottom: 20px;
+        }
+
+        .log-container p {
+            margin: 5px 0;
+        }
+
+        .action-buttons {
+            display: flex;
+            gap: 10px;
+            margin-top: 10px;
+        }
+
+        .approve-button {
+            background-color: #4CAF50;
+            color: white;
+            padding: 8px 16px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        .deny-button {
+            background-color: #e53935;
+            color: white;
+            padding: 8px 16px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        .no-logs {
+            text-align: center;
+            font-style: italic;
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Approve Volunteer Hours</h1>
+
+        <?php if (empty($pendingLogs)) : ?>
+            <p class="no-logs">No pending logs to review.</p>
+        <?php else : ?>
+            <?php foreach ($pendingLogs as $log) : ?>
+                <div class="log-container">
+                    <p><strong><?php echo htmlspecialchars($log['first_name'] . ' ' . $log['last_name']); ?></strong></p>
+                    <p><strong>Date:</strong> <?php echo htmlspecialchars($log['date']); ?></p>
+                    <p><strong>Hours:</strong> <?php echo htmlspecialchars($log['hours']); ?></p>
+                    <p><strong>What:</strong><br><?php echo nl2br(htmlspecialchars($log['what'])); ?></p>
+
+                    <form method="POST" class="action-buttons">
+                        <input type="hidden" name="log_id" value="<?php echo $log['id']; ?>">
+                        <button type="submit" name="approve" class="approve-button">Approve</button>
+                        <button type="submit" name="deny" class="deny-button">Deny</button>
+                    </form>
                 </div>
-                <form method="POST">
-                    <input type="hidden" name="log_id" value="<?php echo $log['id']; ?>">
-                    <button type="submit" name="approve" class="button approve-button">Approve</button>
-                    <button type="submit" name="deny" style="margin-top: .5rem" class="button cancel">Deny</button>
-                </form>
-               
-            </div>
-        <?php endforeach; ?>
-        <a class="button cancel" href="hours.php" style="margin-top: .5rem">Return to Dashboard</a>
+            <?php endforeach; ?>
+        <?php endif; ?>
+
+       <a class="button cancel" href="hours.php" style="margin-top: .5rem">Return to Dashboard</a>
     </div>
 </body>
 </html>

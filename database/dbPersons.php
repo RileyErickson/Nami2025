@@ -60,8 +60,6 @@ function add_genVol($genVol){
              emergency_contact_last_name, photo_release, photo_release_notes, 
              training_complete, training_date, orientation_complete, 
              orientation_date, background_complete, background_date, 
-             f2fApplicationID, p2pApplicationID, ioovApplicationID, 
-             fsgApplicationID, csgApplicationID, hfApplicationID, 
              activePayingNamiAffiliate, ifNotAreWilling, choiceNamiAffiliate, 
              familyWithMentalIllness, comfortableReadingAloud, 
              willingToCompleteTraining, staminaToCompleteCourse, 
@@ -1342,17 +1340,6 @@ function get_logged_hours($from, $to, $name_from, $name_to, $venue) {
 		
 		return $appID;
 		
-	}
-	
-	function update_application_id($id, $application, $appID) {
-
-        $con=connect();
-        $query = "UPDATE dbpersons SET " . $application . "ID = '" . $appID . "' WHERE id='" . $id . "';";
-        $result = mysqli_query($con, $query);
-
-		mysqli_close($con);
-
-		return $appID;
 	}
 
     function approved_volunteer_application($id){
