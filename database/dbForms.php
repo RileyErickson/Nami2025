@@ -115,6 +115,55 @@ function get_reasontobecome($appID, $application) {
 	
 	return $reason;
 }
+function get_forms_id($type){
+	//We should be passed the abbreviation of one of the forms. If it is one of them, add it to the Database variable. All of the databases have their own
+	//name for the id variable, so save that to Select.
+	if ($type == "F2F"){
+		$database = "dbf2fapplication";
+		$select = "f2fApplicationID";
+	}
+	if ($type == "P2P"){
+		$database = "dbp2papplication";
+		$select = "p2pApplicationID";
+	}
+	if ($type == "IOOV"){
+		$database = "dbioovapplication";
+		$select = "ioovApplicationID";
+	}
+	if ($type == "CSG"){
+		$database = "dbcsgapplication";
+		$select = "csgApplicationID";
+	}
+	if ($type == "FSG"){
+		$database = "dbfsgapplication";
+		$select = "fsgApplicationID";
+	}
+	if ($type == "HF"){
+		$database = "dbhfapplication";
+		$select = "hfApplicationID";
+	}
+	//Pull from the database using connect() and mysqli_query(). Should be all ints.
+	$query="SELECT * FROM ". $database;
+	$con=connect();
+	$result = mysqli_query($con,$query);
+	//Make the results a list. If there is a size of 0, return null.
+
+	if (!$result) {
+		mysqli_close($connection);
+		return [];
+	}
+	$raw = mysqli_fetch_all($result, MYSQLI_ASSOC);
+	$count = mysqli_query($con, "SELECT COUNT(*) FROM ".$database);
+	$forms = [$count];
+	$x = 0;
+	foreach ($raw as $row) {
+				$forms []= $row;
+		$x = $x+1;
+	}
+	mysqli_close($con);
+	
+	return $raw;
+}
 
 // returns a user's application ID from the corresponding form
 function get_appID($pid, $application) {

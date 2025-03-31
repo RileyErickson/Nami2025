@@ -137,6 +137,7 @@
 	$permission_array['viewhours.php'] = 1;
 	$permission_array['announcement.php'] = 2;
 	$permission_array['deletehours.php'] = 2;
+    $permission_array9['formsearch.php'] = 2;
     $permission_array['volunteerdirectory.php'] = 2;
     $permission_array['displaycurrentvolunteers.php'] = 2;
 

@@ -354,6 +354,7 @@
                 <?php endif ?>
                 <a class="button" href="volunteerReport.php?id=<?php echo htmlspecialchars($_GET['id']) ?>">View Volunteer Hours</a>
                 <a class="button cancel" href="personSearch.php">Return to User Search</a>
+                <a class="button cancel" href="index.php">Return to Dashboard</a>
             <?php else: ?>
                 <a class="button" href="changePassword.php">Change Password</a>
                 <a class="button" href="volunteerReport.php">View Volunteer Hours</a>
