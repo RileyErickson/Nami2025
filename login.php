@@ -72,35 +72,42 @@
         <?php require_once('universal.inc') ?>
         <title>NAMI Rappahannock System | Log In</title>
     </head>
-    <body>
-        <?php require_once('header.php') ?>
-        <main class="login">
-            <h1>NAMI Rappahannock System Login</h1>
-            <?php if (isset($_GET['registerSuccess'])): ?>
-                <div class="happy-toast">
-                    Your registration was successful! Please log in below.
-                </div>
-            <?php else: ?>
-            <p>Welcome! Please log in below.</p>
-            <?php endif ?>
-            <form method="post">
-                <?php
-                    if ($badLogin) {
-                        echo '<span class="error">No login with that username and password combination currently exists.</span>';
-                    }
-                ?>
-                <label for="username">Username</label>
-        		<input type="text" name="username" placeholder="Enter your awesome username" required>
-        		<label for="password">Password</label>
-                <input type="password" name="password" placeholder="Enter your password" required>
-                <input type="submit" name="login" value="Log in">
-
-            </form>
-            <p></p>
-
-            <p>Don't have an account? <a href = "register.php">Sign Up</a>!</p>
-            <p>Looking for <a href="https://www.namirapp.org/">NAMI Rappahannock</a>?</p>
-
-        </main>
+    <body style="width: 100%; padding: 0px; margin-left: 0px">
+        <table style="width: 100%; height: 100vh; background-image: url('images/loginbackground.png'); background-size: cover; background-position: center; border-collapse: collapse; color: white;">
+            <tr>
+                <td style="padding: 10px;"><img src="images/whitenamilogo.png" alt="logo" style="width: 10%;"/></td>
+            </tr>
+            <tr>
+                <td style="width: 100%; height: 100%; display: flex; justify-content: center; align-items: center; padding: 20px;">
+                    <div style="background-color: rgba(255, 255, 255, 0.9); border-radius: 15px; padding: 40px; box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); width: 100%; max-width: 500px; min-height: 625px;">
+                        <main class="login">
+                            <p style="font-size: 45px; color: #0c499c;"><b>Login</b></p>
+                            <?php if (isset($_GET['registerSuccess'])): ?>
+                                <div class="happy-toast">
+                                    Your registration was successful! Please log in below.
+                                </div>
+                            <?php else: ?>
+                                <p style="font-size: 20px;  color: #0c499c; text-align: center">Welcome to the NAMI Rappahannock Volunteer Management System!<br>Please log in below.</p>
+                            <?php endif ?>
+                            <form method="post">
+                                <?php
+                                    if ($badLogin) {
+                                        echo '<span class="error">No login with that username and password combination currently exists.</span>';
+                                    }
+                                ?>
+                                <label for="username" style="font-size: 22px;">Username</label>
+        		                <input type="text" name="username" placeholder="Enter your username" style="font-size: 22px; background-color: white; border: 1px;" required>
+        		                <label for="password" style="font-size: 22px;">Password</label>
+                                <input type="password" name="password" placeholder="Enter your password" style="font-size: 22px; background-color: white; border: 1px;" required>
+                                <input type="submit" name="login" value="Login" style="font-size: 22px;">
+                            </form>
+                            <p></p>
+                            <p style="color: #0c499c;">Don't have an account? <a href = "register.php">Sign Up</a>!</p>
+                            <p style="color: #0c499c;">Looking for <a href="https://www.namirapp.org/">NAMI Rappahannock</a>?</p>
+                        </main>
+                    </div>
+                </td>
+            </tr>
+        </table>
     </body>
 </html>
