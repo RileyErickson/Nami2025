@@ -58,7 +58,7 @@ table, td, tr, th, form, fieldset, em, button, a {
     --error-toast-background-color: #701a1a;
     --error-toast-font-color: white;
 
-    --shadow-and-border-color: #e8e8e8;
+    --shadow-and-border-color: #9c9c9c;
 
     --main-color: #0c499c;
     --accent-color: #799900;
@@ -367,7 +367,7 @@ h3:not(:first-of-type) {
     color: var(--happy-toast-font-color);
     padding: 1rem;
     border-radius: 0.5rem;
-    margin-bottom: 1rem;
+	margin: 1rem;
     /*thomas*/
     text-align: center;
     /**/
@@ -378,7 +378,7 @@ h3:not(:first-of-type) {
     color: var(--info-toast-font-color);
     padding: 1rem;
     border-radius: 0.5rem;
-    margin-bottom: 1rem;
+	margin: 1rem;
 }
 
 .error-toast {
@@ -386,7 +386,7 @@ h3:not(:first-of-type) {
     color: var(--error-toast-font-color);
     padding: 1rem;
     border-radius: 0.5rem;
-    margin-bottom: 1rem;
+	margin: 1rem;
     /* border: 1px solid var(--error-toast-font-color);
     outline: 3px solid var(--error-toast-background-color) */
 }
