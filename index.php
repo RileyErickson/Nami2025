@@ -97,47 +97,53 @@
                         <span>View Forms</span>
                     </div>
 
-                    <div class="dashboard-item" data-link="register.php">
-                        <img src="images/add-person.svg">
-                        <span>Register Volunteer</span>
-                    </div>
-
-
+<!--                    <div class="dashboard-item" data-link="register.php">-->
+<!--                        <img src="images/add-person.svg">-->
+<!--                        <span>Register Volunteer</span>-->
+<!--                    </div>-->
+<!---->
+<!---->
                     <!--Pending Volunteers-->
-                    <div class="dashboard-item" data-link="pending_volunteers.php">
-                        <i class="fa-solid fa-users"></i>
-                        <span>Pending Volunteers</span><?php
-                        require_once('database/dbEvents.php');
-                        require_once('database/dbPersons.php');
-                        $pending = pendingperson($notRoot);
-                        //$pending = all_pending_names();
-                        if (sizeof($pending) > 0) {
-                            echo ' (' . sizeof($pending) . ')';
-                        }
-                        ?>
-                    </div>
-
-                    <div class="dashboard-item" data-link="deleteVolunteer.php">
-                        <img src="images/removeVolunteer.svg">
-                        <span><center>Remove Volunteer</center></span>
-                    </div>
-
-
-
-                    <div class="dashboard-item" data-link="editVolunteer.php">
-                        <img src="images/editVolunteer.png">
-                        <span><center>Edit Volunteer Profile</center></span>
-                    </div>
-
-                    <div class="dashboard-item" data-link="personSearch.php">
-                        <img src="images/person-search.svg">
-                        <span><center>Search Volunteer Details</center></span>
-                    </div>
+<!--                    <div class="dashboard-item" data-link="pending_volunteers.php">-->
+<!--                        <i class="fa-solid fa-users"></i>-->
+<!--                        <span>Pending Volunteers</span>--><?php
+//                        require_once('database/dbEvents.php');
+//                        require_once('database/dbPersons.php');
+//                        $pending = pendingperson($notRoot);
+//                        //$pending = all_pending_names();
+//                        if (sizeof($pending) > 0) {
+//                            echo ' (' . sizeof($pending) . ')';
+//                        }
+//                        ?>
+<!--                    </div>-->
+<!---->
+<!--                    <div class="dashboard-item" data-link="deleteVolunteer.php">-->
+<!--                        <img src="images/removeVolunteer.svg">-->
+<!--                        <span><center>Remove Volunteer</center></span>-->
+<!--                    </div>-->
+<!---->
+<!---->
+<!---->
+<!--                    <div class="dashboard-item" data-link="editVolunteer.php">-->
+<!--                        <img src="images/editVolunteer.png">-->
+<!--                        <span><center>Edit Volunteer Profile</center></span>-->
+<!--                    </div>-->
+<!---->
+<!--                    <div class="dashboard-item" data-link="personSearch.php">-->
+<!--                        <img src="images/person-search.svg">-->
+<!--                        <span><center>Search Volunteer Details</center></span>-->
+<!--                    </div>-->
                     <!-- add some sort of search capability to this -->
                     <!-- could use adminViewingEvents.php as base? -->
-                    <div class="dashboard-item" data-link="blacklist.php">
-                        <img src="images/volunteerDenied.png">
-                        <span><center>View Volunteer Denied List</center></span>
+<!--                    <div class="dashboard-item" data-link="blacklist.php">-->
+<!--                        <img src="images/volunteerDenied.png">-->
+<!--                        <span><center>View Volunteer Denied List</center></span>-->
+<!--                    </div>-->
+
+
+                    <div class="dashboard-item" data-link="volunteerDirectory.php">
+                        <img src="images/volunteer-history.svg">
+                        <span><center>Volunteer Management</center></span>
                     </div>
 
                     <div class="dashboard-item" data-link="hours.php">

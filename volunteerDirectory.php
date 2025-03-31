@@ -26,7 +26,7 @@ $notRoot = $person->get_id() != 'vmsroot';
 <head>
     <?php require('universal.inc'); ?>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
-    <title>NAMI Rappahannock Volunteer System | Dashboard</title>
+    <title>Volunteer Dashboard</title>
 </head>
 <body>
 <?php require('header.php'); ?>
@@ -43,7 +43,7 @@ if (file_exists($announcementFile)) {
     }
 }
 ?>
-<h1>Dashboard</h1>
+<h1>Volunteer Management Dashboard</h1>
 <main class='dashboard'>
 
     <?php if (isset($_GET['pcSuccess'])): ?>
@@ -61,8 +61,8 @@ if (file_exists($announcementFile)) {
     <?php elseif (isset($_GET['registerSuccess'])): ?>
         <div class="happy-toast">Volunteer registered successfully!</div>
     <?php endif ?>
-    <p>Welcome back, <?php echo $person->get_first_name() ?>!</p>
-    <p>Today is <?php echo date('l, F j, Y'); ?>.</p>
+<!--    <p>Welcome back, --><?php //echo $person->get_first_name() ?><!--!</p>-->
+<!--    <p>Today is --><?php //echo date('l, F j, Y'); ?><!--.</p>-->
     <div id="dashboard">
 
         <!--                  <?php
@@ -92,10 +92,10 @@ if (file_exists($announcementFile)) {
         <!-- ADMIN ONLY -->
         <?php if ($_SESSION['access_level'] >= 2): ?>
 
-            <div class="dashboard-item" data-link="viewForms.php">
-                <i class="fa-solid fa-list"></i>
-                <span>View Forms</span>
-            </div>
+<!--            <div class="dashboard-item" data-link="viewForms.php">-->
+<!--                <i class="fa-solid fa-list"></i>-->
+<!--                <span>View Forms</span>-->
+<!--            </div>-->
 
             <div class="dashboard-item" data-link="register.php">
                 <img src="images/add-person.svg">
@@ -140,92 +140,92 @@ if (file_exists($announcementFile)) {
                 <span><center>View Volunteer Denied List</center></span>
             </div>
 
-            <div class="dashboard-item" data-link="hours.php">
-                <img src="images/volunteer-history.svg">
-                <span><center>Hours Management</center></span>
-            </div>
-
+<!--            <div class="dashboard-item" data-link="hours.php">-->
+<!--                <img src="images/volunteer-history.svg">-->
+<!--                <span><center>Hours Management</center></span>-->
+<!--            </div>-->
+<!---->
             <!-- get link to guide -->
-            <div class="dashboard-item" data-link="https://docs.google.com/document/d/1WmSks4xxZgkmTgTRkqziBNb2G9J8lz1brWqgWSS0Nps/edit?tab=t.0">
-                <img src="images/staffGuide.png">
-                <span><center>Access Staff and Affiliate Guide</center></span>
-            </div>
-
-            <div class="dashboard-item" data-link="https://www.namirapp.org/#calendar">
-                <img src="images/view-calendar.svg">
-                <span>View Calendar</span>
-            </div>
-
+<!--            <div class="dashboard-item" data-link="https://docs.google.com/document/d/1WmSks4xxZgkmTgTRkqziBNb2G9J8lz1brWqgWSS0Nps/edit?tab=t.0">-->
+<!--                <img src="images/staffGuide.png">-->
+<!--                <span><center>Access Staff and Affiliate Guide</center></span>-->
+<!--            </div>-->
+<!---->
+<!--            <div class="dashboard-item" data-link="https://www.namirapp.org/#calendar">-->
+<!--                <img src="images/view-calendar.svg">-->
+<!--                <span>View Calendar</span>-->
+<!--            </div>-->
+<!---->
             <!-- do we want to have general report page first and then choose type of report -->
-            <div class="dashboard-item" data-link="generateReport.php">
-                <img src="images/generateReports.png">
-                <span><center>Generate Reports</center></span>
-            </div>
+<!--            <div class="dashboard-item" data-link="generateReport.php">-->
+<!--                <img src="images/generateReports.png">-->
+<!--                <span><center>Generate Reports</center></span>-->
+<!--            </div>-->
 
 
 
-            <div class="dashboard-item" data-link="emailList.php">
-                <img src="images/emailList.png">
-                <span>Email List Generation</span>
-            </div>
-
-            <div class="dashboard-item" data-link="minutes.php">
-                <img src="images/minutes.svg">
-                <span>Minutes</span>
-            </div>
-            <div class="dashboard-item" data-link="">
-                <img src="images/csv.png">
-                <span><center>Download CSV Data File</center></span>
-            </div>
-
-            <div class="dashboard-item" data-link="announcement.php">
-                <img src="images/volunteer-history.svg">
-                <span><center>Announcements</center></span>
-            </div>
+<!--            <div class="dashboard-item" data-link="emailList.php">-->
+<!--                <img src="images/emailList.png">-->
+<!--                <span>Email List Generation</span>-->
+<!--            </div>-->
+<!---->
+<!--            <div class="dashboard-item" data-link="minutes.php">-->
+<!--                <img src="images/minutes.svg">-->
+<!--                <span>Minutes</span>-->
+<!--            </div>-->
+<!--            <div class="dashboard-item" data-link="">-->
+<!--                <img src="images/csv.png">-->
+<!--                <span><center>Download CSV Data File</center></span>-->
+<!--            </div>-->
+<!---->
+<!--            <div class="dashboard-item" data-link="announcement.php">-->
+<!--                <img src="images/volunteer-history.svg">-->
+<!--                <span><center>Announcements</center></span>-->
+<!--            </div>-->
 
         <?php endif ?>
 
         <!-- FOR VOLUNTEERS AND PARTICIPANTS ONLY -->
-        <?php if ($notRoot) : ?>
-            <div class="dashboard-item" data-link="viewForms.php">
-                <img src="images/viewforms.png">
-                <span><center>View Forms</center></span>
-            </div>
-            <div class="dashboard-item" data-link="https://docs.google.com/document/d/18IXHfsIesFVmo1fnPSZmimUZqvEymKUG1xr3fhEaa_k/edit?tab=t.0">
-                <img src="images/staffGuide.png">
-                <span><center>Access Volunteer Handbook</center></span>
-            </div>
-            <div class="dashboard-item" data-link="viewProfile.php">
-                <img src="images/view-profile.svg">
-                <span>View Profile</span>
-            </div>
-            <div class="dashboard-item" data-link="editProfile.php">
-                <img src="images/manage-account.svg">
-                <span>Edit Profile</span>
-            </div>
-            <div class="dashboard-item" data-link="viewMyUpcomingEvents.php">
-                <i class="fa-solid fa-list"></i>
-                <span>My Upcoming Events</span>
-            </div>
-        <?php endif ?>
-        <?php if ($notRoot) : ?>
-            <div class="dashboard-item" data-link="volunteerReport.php">
-                <img src="images/volunteer-history.svg">
-                <span><center>View Volunteering Report</center></span>
-            </div>
-            <div class="dashboard-item" data-link="editHours.php">
-                <img src="images/add-person.svg">
-                <span><center>View & Change My Event Hours</center></span>
-            </div>
-        <?php endif ?>
-        <div class="dashboard-item" data-link="changePassword.php">
-            <img src="images/change-password.svg">
-            <span>Change Password</span>
-        </div>
-        <div class="dashboard-item" data-link="logout.php">
-            <img src="images/logout.svg">
-            <span>Log out</span>
-        </div>
+<!--        --><?php //if ($notRoot) : ?>
+<!--            <div class="dashboard-item" data-link="viewForms.php">-->
+<!--                <img src="images/viewforms.png">-->
+<!--                <span><center>View Forms</center></span>-->
+<!--            </div>-->
+<!--            <div class="dashboard-item" data-link="https://docs.google.com/document/d/18IXHfsIesFVmo1fnPSZmimUZqvEymKUG1xr3fhEaa_k/edit?tab=t.0">-->
+<!--                <img src="images/staffGuide.png">-->
+<!--                <span><center>Access Volunteer Handbook</center></span>-->
+<!--            </div>-->
+<!--            <div class="dashboard-item" data-link="viewProfile.php">-->
+<!--                <img src="images/view-profile.svg">-->
+<!--                <span>View Profile</span>-->
+<!--            </div>-->
+<!--            <div class="dashboard-item" data-link="editProfile.php">-->
+<!--                <img src="images/manage-account.svg">-->
+<!--                <span>Edit Profile</span>-->
+<!--            </div>-->
+<!--            <div class="dashboard-item" data-link="viewMyUpcomingEvents.php">-->
+<!--                <i class="fa-solid fa-list"></i>-->
+<!--                <span>My Upcoming Events</span>-->
+<!--            </div>-->
+<!--        --><?php //endif ?>
+<!--        --><?php //if ($notRoot) : ?>
+<!--            <div class="dashboard-item" data-link="volunteerReport.php">-->
+<!--                <img src="images/volunteer-history.svg">-->
+<!--                <span><center>View Volunteering Report</center></span>-->
+<!--            </div>-->
+<!--            <div class="dashboard-item" data-link="editHours.php">-->
+<!--                <img src="images/add-person.svg">-->
+<!--                <span><center>View & Change My Event Hours</center></span>-->
+<!--            </div>-->
+<!--        --><?php //endif ?>
+<!--        <div class="dashboard-item" data-link="changePassword.php">-->
+<!--            <img src="images/change-password.svg">-->
+<!--            <span>Change Password</span>-->
+<!--        </div>-->
+<!--        <div class="dashboard-item" data-link="logout.php">-->
+<!--            <img src="images/logout.svg">-->
+<!--            <span>Log out</span>-->
+<!--        </div>-->
         <!-- autoredirects home as volunteer currently -->
         <!-- <div class="dashboard-item" data-link="editHours.php">
                 <img src="images/add-person.svg">
