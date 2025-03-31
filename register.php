@@ -41,8 +41,10 @@
                 echo 'bad phone';
             }
 
+            $may_text = $args['text'];
+
             //put contact method here
-            $contact_method = 'email';
+            $contact_method = $args['communication'];
 
             $email = strtolower($args['email']);
             $email = validateEmail($email);
@@ -74,9 +76,24 @@
             $introOrExtro = $args['personality'];
             $family_with_mental_illness = $args['mental_illness'];
             $involvement_in_nami = $args['why_volunteer'];
-            $interest = $args['additional_interest'];
-            $active_paying_nami_affiliate = $args['activePayingNamiAffiliate'];
-            $if_not_are_willing = $args['ifNotAreWilling'];
+            if (array_key_exists('additional_interest', $args)){
+                $interest = $args['additional_interest'];
+            }
+            else{
+                $interest = 'no';
+            }
+            if (array_key_exists('activePayingNamiAffiliate', $args)){
+                $active_paying_nami_affiliate = $args['activePayingNamiAffiliate'];
+            }
+            else{
+                $active_paying_nami_affiliate = 'no';
+            }
+            if (array_key_exists('ifNotAreWilling', $args)){
+                $if_not_are_willing = $args['ifNotAreWilling'];
+            }
+            else{
+                $if_not_are_willing = 'no';
+            }
             $choice_nami_affiliate = $args['choiceNamiAffiliate'];
 
             $username = $args['username'];
@@ -89,11 +106,11 @@
                 $password = password_hash($args['password'], PASSWORD_BCRYPT);
             } 
 
+
             if ($errors) {
                 echo '<p>Your form submission contained unexpected input.</p>';
                 die();
             }
-            
             
             $newVol = new GenVol(
                 $first_name, $last_name, $phone1, $contact_method, $email, 
@@ -101,9 +118,8 @@
                 $primary_role, $work_best, $learning_method, $introOrExtro,
                 $family_with_mental_illness, $involvement_in_nami,
                 $interest, $active_paying_nami_affiliate, $if_not_are_willing,
-                $choice_nami_affiliate, $username, $password
+                $choice_nami_affiliate, $username, $password, $may_text
             );
-
             $result = add_genVol($newVol);
             if (!$result) {
                 echo '<p>That username is already in use.</p>';

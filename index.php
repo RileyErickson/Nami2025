@@ -3,13 +3,16 @@
     session_start();
 
     date_default_timezone_set("America/New_York");
-    
     if (!isset($_SESSION['access_level']) || $_SESSION['access_level'] < 1) {
         if (isset($_SESSION['change-password'])) {
             header('Location: changePassword.php');
-        } else {
-            header('Location: login.php');
+        } 
+        elseif(isset($_SESSION['_id'])){
+            header('Location: pending.php');
         }
+        else {
+            header('Location: login.php');
+        } 
         die();
     }
         
@@ -29,8 +32,8 @@
         <title>NAMI Rappahannock Volunteer System | Dashboard</title>
     </head>
     <body>
-        <?php require('header.php'); ?>
-        
+        <?php 
+        require('header.php'); ?>
         <?php
         
     $announcementFile = 'announcement.txt';
