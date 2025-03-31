@@ -182,7 +182,9 @@
 
                 <div class="field-pair">
                     <label>Phone Number</label>
-                    <p><a href="tel:<?php echo $user->get_emergency_contact_phone() ?>"><?php echo formatPhoneNumber($user->get_emergency_contact_phone()) ?></a> <!--(<?php echo ucfirst($user->get_emergency_contact_phone_type()) ?>)--></p>
+                    <p><a href="tel:<?php 
+                    echo $user->get_emergency_contact_phone()
+                     ?>"><?php echo formatPhoneNumber($user->get_emergency_contact_phone()) ?></a> <!--(<?php echo ucfirst($user->get_emergency_contact_phone_type()) ?>)--></p>
                 </div>
             </fieldset>
 

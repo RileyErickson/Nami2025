@@ -58,6 +58,7 @@
         $permission_array['logout.php'] = 0;
         $permission_array['register.php'] = 0;
         $permission_array['findanimal.php'] = 0;
+        $permission_array['pending.php'] = 0;
         //pages volunteers can view
         $permission_array['help.php'] = 1;
         $permission_array['dashboard.php'] = 1;
@@ -137,6 +138,8 @@
 	$permission_array['announcement.php'] = 2;
 	$permission_array['deletehours.php'] = 2;
     $permission_array9['formsearch.php'] = 2;
+    $permission_array['volunteerdirectory.php'] = 2;
+    $permission_array['displaycurrentvolunteers.php'] = 2;
 
 	// LOWERCASE
 
@@ -145,7 +148,7 @@
         //Check if they're at a valid page for their access level.
         $current_page = strtolower(substr($_SERVER['PHP_SELF'], strrpos($_SERVER['PHP_SELF'], '/') + 1));
         $current_page = substr($current_page, strpos($current_page,"/"));
-        
+
         if($permission_array[$current_page]>$_SESSION['access_level']){
             //in this case, the user doesn't have permission to view this page.
             //we redirect them to the index page.
