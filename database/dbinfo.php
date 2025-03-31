@@ -20,10 +20,10 @@ function connect() {
     $database = "stepvadb";
     $user = "stepvadb";
     $pass = "stepvadb";
-    if ($_SERVER['SERVER_NAME'] == 'jenniferp130.sg-host.com') {
-        $user = 'uphzj2ozla5mg';
-        $database = 'dbeq5aamznytup';
-        $pass = "djsernrkrcuf";
+    if ($_SERVER['SERVER_NAME'] == 'jenniferp161.sg-host.com') {
+        $user = 'uhxi7ly4lmfqq';
+        $database = 'dbahtngmaidjgd';
+        $pass = "]{vTdt33(17|";
     } else if ($_SERVER['SERVER_NAME'] == 'gwynethsgiftvms.org') {
         $user = "uybhc603shfl5";
         $pass = "f11kwvhy4yic";
