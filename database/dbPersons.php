@@ -41,7 +41,7 @@ function add_genVol($genVol){
             strengths, 
             primaryRole,
             workBest, 
-            contact_method,
+            preferred_feedback_method,
             learningMethod, 
             introOrExtro, 
             familyWithMentalIllness, 
