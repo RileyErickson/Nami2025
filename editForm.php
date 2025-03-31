@@ -69,7 +69,11 @@
 	$appID = get_appID($userID, $formname);
 	
 	/* setting values for editing */
-	if ($appID != 0 && isset($_POST['submitted'])) {
+	if (isset($_POST['submitted']) && ($_POST['reasontobecome'] == "" || $_POST['whyisnowrighttime'] == "" || $_POST['statusinrecoveryjourney'] == "" || $_POST['screeningdate'] == "" || )) {
+		$message = "Application created!";
+		$toast = "error";
+	} else if ($appID != 0 && isset($_POST['submitted'])) {
+		/* update old application */
 		update_reasontobecome($appID, $formname, $_POST['reasontobecome']);
 		update_whyisnowrighttime($appID, $formname, $_POST['whyisnowrighttime']);
 		if (isset($_POST['statusinrecoveryjourney'])) {
@@ -86,11 +90,9 @@
 		unset($_POST['screeningdate']);
 		
 		$message = "Application updated!";
-	}
-	
-	/* setting values for a new application */
-	if (isset($_POST['submitted'])) {
-		
+		$toast = "happy";
+	} else if (isset($_POST['submitted'])) {
+		/* new application creation */
 		if (!(isset($_POST['statusinrecoveryjourney']))) {
 			$_POST['statusinrecoveryjourney'] = NULL;
 		}
@@ -105,6 +107,7 @@
 		unset($_POST['screeningdate']);
 		
 		$message = "Application created!";
+		$toast = "happy";
 	}
 	
 ?>
@@ -129,7 +132,7 @@
 		
 		<?php 
 			if (isset($message)) {
-				echo "<div class=\"happy-toast\">" . $message . "</div>";
+				echo "<div class=\"" . $toast ."-toast\">" . $message . "</div>";
 			}
 		?>
 		
