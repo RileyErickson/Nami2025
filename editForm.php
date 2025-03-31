@@ -69,8 +69,8 @@
 	$appID = get_appID($userID, $formname);
 	
 	/* setting values for editing */
-	if (isset($_POST['submitted']) && ($_POST['reasontobecome'] == "" || $_POST['whyisnowrighttime'] == "" || $_POST['statusinrecoveryjourney'] == "" || $_POST['screeningdate'] == "" || )) {
-		$message = "Application created!";
+	if (isset($_POST['submitted']) && ($_POST['reasontobecome'] == "" || $_POST['whyisnowrighttime'] == "" || $_POST['statusinrecoveryjourney'] == "" || $_POST['screeningdate'] == "")) {
+		$message = "All fields are required.";
 		$toast = "error";
 	} else if ($appID != 0 && isset($_POST['submitted'])) {
 		/* update old application */
