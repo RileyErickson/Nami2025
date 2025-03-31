@@ -207,7 +207,7 @@ table {
 }
 
 td {
-    padding: 0.25rem;
+    /*padding: 0.25rem;*/
     white-space: nowrap;
 }
 
@@ -218,9 +218,9 @@ th {
     color: var(--main-color)
 }
 
-td:first-of-type {
-    width: 1%;
-}
+/*td:first-of-type {*/
+/*    width: 1%;*/
+/*}*/
 
 td.label {
     font-weight: 500;
@@ -417,7 +417,7 @@ h2 {
 
 table {
     width: 100%;
-    border-collapse: collapse;
+    border-collapse: separate;
     font-size: 16px;
 }
 
@@ -578,7 +578,7 @@ td.label {
 td {
     padding-left: 10px; /* Reduced left padding */
     text-align: left; /* Aligns information to the right */
-    vertical-align: top;
+    vertical-align: middle;
 }
 
 

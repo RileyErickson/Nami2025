@@ -129,6 +129,14 @@ if (file_exists($announcementFile)) {
                 <span><center>Edit Volunteer Profile</center></span>
             </div>
 
+
+            <div class="dashboard-item" data-link="displayCurrentVolunteers.php">
+                <img src="images/person-search.svg">
+                <span><center>Display Current Volunteers</center></span>
+            </div>
+
+
+
             <div class="dashboard-item" data-link="personSearch.php">
                 <img src="images/person-search.svg">
                 <span><center>Search Volunteer Details</center></span>
