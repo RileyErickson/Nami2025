@@ -100,6 +100,13 @@
                         <span>View Forms</span>
                     </div>
 
+
+
+                    <div class="dashboard-item" data-link="formSearch.php">
+                        <img src="images/emailList.png">
+                        <span>Search Forms</span>
+                    </div>
+
 <!--                    <div class="dashboard-item" data-link="register.php">-->
 <!--                        <img src="images/add-person.svg">-->
 <!--                        <span>Register Volunteer</span>-->
@@ -148,7 +155,6 @@
                         <img src="images/volunteer-history.svg">
                         <span><center>Volunteer Management</center></span>
                     </div>
-
                     <div class="dashboard-item" data-link="hours.php">
                         <img src="images/volunteer-history.svg">
                         <span><center>Hours Management</center></span>
