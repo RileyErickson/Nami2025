@@ -1,0 +1,5 @@
+Date: 3333-03-31
+Time: 22:22
+What you were doing: stuff
+What happened: other stuff
+What you expected to have happened: things
