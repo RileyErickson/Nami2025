@@ -96,7 +96,7 @@
 
                 
                 <!-- ADMIN ONLY -->
-                <?php if ($_SESSION['access_level'] >= 2): ?>
+                <?php if ($_SESSION['access_level'] >= 3): ?>
 
                 <div class="top-bar">
 
@@ -221,10 +221,10 @@
                 
                 </main>
 
-                <?php endif ?>
+<!--                --><?php //endif ?>
 
                 <!-- FOR VOLUNTEERS AND PARTICIPANTS ONLY -->
-                <?php if ($notRoot) : ?>
+                <?php elseif ($notRoot) : ?>
                     <main class='dashboard'>
                         <div id="dashboard">
                             <div class="dashboard-item" data-link="viewForms.php">
@@ -234,6 +234,10 @@
                             <div class="dashboard-item" data-link="https://docs.google.com/document/d/18IXHfsIesFVmo1fnPSZmimUZqvEymKUG1xr3fhEaa_k/edit?tab=t.0">
                                 <img src="images/staffGuide.png">
                                 <span><center>Access Volunteer Handbook</center></span>
+                            </div>
+                            <div class="dashboard-item" data-link="minutes.php">
+                                <img src="images/minutes.svg">
+                                <span><center>Minutes</center></span>
                             </div>
                             <div class="dashboard-item" data-link="viewProfile.php">
                                 <img src="images/view-profile.svg">

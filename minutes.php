@@ -21,26 +21,30 @@ $conn = connect();
 <body>
     <?php require_once('header.php'); ?>
 
-    <h1>Minutes Management</h1>
+        <h1>Minutes Management</h1>
 
-    <div id="dashboard">
-        <div class="dashboard-item" onclick="location.href='addMinutes.php'">
-            <img src="images/create-report.svg" alt="Add Minutes">
-            <span>Add Minutes</span>
+        <div id="dashboard">
+    <?php if ($_SESSION['access_level'] >= 3): ?>
+            <div class="dashboard-item" onclick="location.href='addMinutes.php'">
+                <img src="images/create-report.svg" alt="Add Minutes">
+                <span>Add Minutes</span>
+            </div>
+            <div class="dashboard-item" onclick="location.href='editMinutes.php'">
+                <img src="images/volunteer-history.svg" alt="Edit Minutes">
+                <span>Edit Minutes</span>
+            </div>
+    <?php endif?>
+    <?php if ($_SESSION['access_level'] >= 2): ?>
+            <div class="dashboard-item" onclick="location.href='searchMinutes.php'">
+                <img src="images/search.svg" alt="Search Minutes">
+                <span>Search Minutes</span>
+            </div>
+            <div class="dashboard-item" onclick="location.href='index.php'">
+                <img src="images/logout.svg" alt="Return Home">
+                <span>Return Home</span>
+            </div>
         </div>
-        <div class="dashboard-item" onclick="location.href='editMinutes.php'">
-            <img src="images/volunteer-history.svg" alt="Edit Minutes">
-            <span>Edit Minutes</span>
-        </div>
-        <div class="dashboard-item" onclick="location.href='searchMinutes.php'">
-            <img src="images/search.svg" alt="Search Minutes">
-            <span>Search Minutes</span>
-        </div>
-        <div class="dashboard-item" onclick="location.href='index.php'">
-            <img src="images/logout.svg" alt="Return Home">
-            <span>Return Home</span>
-        </div>
-    </div>
+    <?php endif?>
 
 </body>
 </html>

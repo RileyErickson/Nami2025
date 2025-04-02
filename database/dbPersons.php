@@ -1366,7 +1366,7 @@ function get_logged_hours($from, $to, $name_from, $name_to, $venue) {
 
     function approved_volunteer_application($id){
         $connection = connect();
-        $query = 'UPDATE dpersons SET type="volunteer" WHERE id="'.$id.'"';
+        $query = 'UPDATE dbpersons SET type="volunteer" WHERE id="'.$id.'"';
         $result = mysqli_query($connection, $query);
         $result = boolval($result);
         mysqli_close($connection);
