@@ -13,6 +13,7 @@
 
 <head>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="css/base.css">
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.bundle.min.js"></script>
 </head>
 
@@ -24,20 +25,22 @@
     $showing_login = false;
     if (!isset($_SESSION['logged_in'])) {
         echo '
-        <nav>
-            <span id="nav-top">
-                <span class="logo">
-                    <img src="images/stepvalogo.png">
+            <nav>
+                <div class="nav-left">
+                    <span id="nav-top"><span class="logo"><img class="nami-logo" src="images/logoLong.jpg"></span>
+                </div>
+                <div class="nav-right">
+                    <ul>
+                        <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><img class="logout-logo" src="images/logout.svg" alt="logout"></a>
+                        <div class="dropdown-menu">
+                            <a class="dropdown-item" href="login.php">Log in</a>
+                        </div>
+                        </li>
+                    </ul>
+                </div>
+            </nav>';
 
-                    <span id="vms-logo"> NAMI Rappahannock Volunteer Management </span>
-
-                </span>
-                <img id="menu-toggle" src="images/menu.png">
-            </span>
-            <ul>
-                <li><a href="login.php">Log in</a></li>
-            </ul>
-        </nav>';
         //      <li><a href="register.php">Register</a></li>     was at line 35
 
     } else if ($_SESSION['logged_in']) {
@@ -58,6 +61,7 @@
         $permission_array['logout.php'] = 0;
         $permission_array['register.php'] = 0;
         $permission_array['findanimal.php'] = 0;
+        $permission_array['pending.php'] = 0;
         //pages volunteers can view
         $permission_array['help.php'] = 1;
         $permission_array['dashboard.php'] = 1;
@@ -136,6 +140,7 @@
 	$permission_array['viewhours.php'] = 1;
 	$permission_array['announcement.php'] = 2;
 	$permission_array['deletehours.php'] = 2;
+    $permission_array['formsearch.php'] = 2;
     $permission_array['volunteerdirectory.php'] = 2;
     $permission_array['displaycurrentvolunteers.php'] = 2;
 
@@ -146,7 +151,7 @@
         //Check if they're at a valid page for their access level.
         $current_page = strtolower(substr($_SERVER['PHP_SELF'], strrpos($_SERVER['PHP_SELF'], '/') + 1));
         $current_page = substr($current_page, strpos($current_page,"/"));
-        
+
         if($permission_array[$current_page]>$_SESSION['access_level']){
             //in this case, the user doesn't have permission to view this page.
             //we redirect them to the index page.
@@ -161,38 +166,40 @@
         
         //they're logged in and session variables are set.
         echo('<nav>');
-        echo('<span id="nav-top"><span class="logo"><a class="navbar-brand" href="' . $path . 'index.php"><img src="images/stepvalogo.png"></a>');
-        echo('<a class="navbar-brand" id="vms-logo"> NAMI Rappahannock Volunteer </a></span><img id="menu-toggle" src="images/menu.png"></span>');
+        echo('<div class="nav-left">');
+        echo('<span id="nav-top"><span class="logo"><a class="navbar-brand" href="' . $path . 'index.php"><img class="nami-logo" src="images/logoLong.jpg"></a>');
+        //echo('<a class="navbar-brand" id="vms-logo"> NAMI Rappahannock Volunteer </a></span><img id="menu-toggle" src="images/menu.png"></span>');
 
         echo('<ul>');
         //echo " <br><b>"."Gwyneth's Gift Homebase"."</b>|"; //changed: 'Homebase' to 'Gwyneth's Gift Homebase'
 
-        echo('<li><a class="nav-link active" aria-current="page" href="' . $path . 'index.php">Home</a></li>');
+        echo('<li><a class="nav-link active" aria-current="page" href="' . $path . 'index.php"><img class="home-logo" src="images/home.svg" alt="home"></a></li>');
+        echo('</div>');
         //echo('<span class="nav-divider">|</span>');
 
-        echo('<li class="nav-item dropdown">');
-        echo('<a class="nav-link dropdown-toggle" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Events</a>');
-        echo('<div class="dropdown-menu" aria-labelledby="navbarDropdown">');
-        echo('<a class="dropdown-item" href="' . $path . 'calendar.php">Calendar</a>');
-        echo('<a class="dropdown-item" href="' . $path . 'inbox.php">Notifications</a>');
-        if ($_SESSION['access_level'] >= 2) {
-            echo('<a class="dropdown-item" href="' . $path . 'addevent.php">Add</a>');
-            echo('<a class="dropdown-item" href="' . $path . 'viewAllEvents.php">View All</a>');
-            echo('<a class="dropdown-item" href="' . $path . 'viewAllEventSignUps.php">Pending Sign-Ups</a>');
-        }
-        echo('</div>');
-        echo('</li>');
+        // echo('<li class="nav-item dropdown">');
+        // echo('<a class="nav-link dropdown-toggle" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Events</a>');
+        // echo('<div class="dropdown-menu" aria-labelledby="navbarDropdown">');
+        // echo('<a class="dropdown-item" href="' . $path . 'calendar.php">Calendar</a>');
+        // echo('<a class="dropdown-item" href="' . $path . 'inbox.php">Notifications</a>');
+        // if ($_SESSION['access_level'] >= 2) {
+        //     echo('<a class="dropdown-item" href="' . $path . 'addevent.php">Add</a>');
+        //     echo('<a class="dropdown-item" href="' . $path . 'viewAllEvents.php">View All</a>');
+        //     echo('<a class="dropdown-item" href="' . $path . 'viewAllEventSignUps.php">Pending Sign-Ups</a>');
+        // }
+        // echo('</div>');
+        // echo('</li>');
 
         //echo('<span class="nav-divider">|</span>');
-        if ($_SESSION['access_level'] >= 2) {
-        echo('<li class="nav-item dropdown">');
-        echo('<a class="nav-link dropdown-toggle" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Volunteers</a>');
-        echo('<div class="dropdown-menu">');
-        echo('<a class="dropdown-item" href="' . $path . 'personSearch.php">Search</a>
-            <a class="dropdown-item" href="register.php">Add</a>');
-        echo('</div>');
-        echo('</li>');
-        }
+        // if ($_SESSION['access_level'] >= 2) {
+        // echo('<li class="nav-item dropdown">');
+        // echo('<a class="nav-link dropdown-toggle" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Volunteers</a>');
+        // echo('<div class="dropdown-menu">');
+        // echo('<a class="dropdown-item" href="' . $path . 'personSearch.php">Search</a>
+        //     <a class="dropdown-item" href="register.php">Add</a>');
+        // echo('</div>');
+        // echo('</li>');
+        // }
 
 
         //echo('<span class="nav-divider">|</span>');
@@ -209,33 +216,45 @@
         echo('</li>');
         */
 
+        echo('<div class="nav-right">');
          //echo('<span class="nav-divider">|</span>');
-         if ($_SESSION['access_level'] <= 2) {
+         if ($_SESSION['access_level'] <= 3) {
          echo('<li class="nav-item dropdown">');
-         echo('<a class="nav-link dropdown-toggle" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">My Profile</a>');
+         echo('<a class="nav-link dropdown-toggle" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><img class="person-logo" src="images/account.svg" alt="account"></a>');
          echo('<div class="dropdown-menu">');
-         echo('<a class="dropdown-item" href="' . $path . 'viewProfile.php">View</a>');
-         echo('<a class="dropdown-item" href="' . $path . 'editProfile.php">Edit</a>');
-         }
- 
+         echo('<a class="dropdown-item" href="' . $path . 'viewProfile.php">View Profile</a>');
+         echo('<a class="dropdown-item" href="' . $path . 'editProfile.php">Edit Profile</a>');
+         echo('<a class="dropdown-item" href="' . $path . 'changePassword.php">Change Password</a>');
          echo('</div>');
          echo('</li>'); 
 
+
+         }
+
+         echo('<li class="nav-item dropdown">');
+         echo('<a class="nav-link dropdown-toggle" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><img class="logout-logo" src="images/logout.svg" alt="logout"></a>');
+         echo('<div class="dropdown-menu">');
+         echo('<a class="dropdown-item" href="' . $path . 'logout.php">Log out</a>');
+         echo('</div>');
+         echo('</li>'); 
+         echo '</ul></nav>';
+         echo('</div>');
+
         //echo('<span class="nav-divider">|</span>');
-        echo('<li class="nav-item dropdown">');
-        echo('<a class="nav-link dropdown-toggle" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Others</a>');
-        echo('<div class="dropdown-menu">');
-        //if ($_SESSION['access_level'] >= 2) {
-        //echo('<a class="dropdown-item" href="' . $path . 'addService.php">Add Service</a>');
-        //echo('<a class="dropdown-item" href="' . $path . 'addLocation.php">Add Location</a>');
-        //}
-        if ($_SESSION['access_level'] <= 1) {
-            echo('<a class="dropdown-item" href="' . $path . 'volunteerReport.php">View Hours</a>');
-        }
-        echo('<a class="dropdown-item" href="' . $path . 'changePassword.php">Change Password</a>');
-        echo('<a class="dropdown-item" href="' . $path . 'resources.php">Upload Resources</a>');
-        echo('</div>');
-        echo('</li>');
+        // echo('<li class="nav-item dropdown">');
+        // echo('<a class="nav-link dropdown-toggle" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Others</a>');
+        // echo('<div class="dropdown-menu">');
+        // //if ($_SESSION['access_level'] >= 2) {
+        // //echo('<a class="dropdown-item" href="' . $path . 'addService.php">Add Service</a>');
+        // //echo('<a class="dropdown-item" href="' . $path . 'addLocation.php">Add Location</a>');
+        // //}
+        // if ($_SESSION['access_level'] <= 1) {
+        //     echo('<a class="dropdown-item" href="' . $path . 'volunteerReport.php">View Hours</a>');
+        // }
+        // echo('<a class="dropdown-item" href="' . $path . 'changePassword.php">Change Password</a>');
+        // echo('<a class="dropdown-item" href="' . $path . 'resources.php">Upload Resources</a>');
+        // echo('</div>');
+        // echo('</li>');
 
         //if ($_SESSION['access_level'] >= 1) {
             
@@ -256,8 +275,7 @@
             
         //}
         //echo('<span class="nav-divider">|</span>');
-        echo('<li><a class="nav-link active" aria-current="page" href="' . $path . 'logout.php">Log out</a></li>');
-        echo '</ul></nav>';
+
         
     }
     ?>

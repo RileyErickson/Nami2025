@@ -27,8 +27,8 @@ session_start();
 
         <?php require('universal.inc') ?>
     </head>
-    <body>
-        <nav>
+    <body style="width: 100%; margin-left: 0px;">
+        <!-- <nav>
             <span id="nav-top">
                 <span class="logo">
                     <img src="images/stepvalogo.png">
@@ -37,7 +37,7 @@ session_start();
                     <img id="menu-toggle" src="images/menu.png">
                 </span>
             </span>
-        </nav>
+        </nav> -->
         <main>
                 <?PHP
                 session_unset();

@@ -25,6 +25,7 @@ class GenVol{
     private $choice_nami_affiliate;
     private $username;
     private $password;
+    private $may_text;
     private $access_level;
 
 
@@ -35,7 +36,7 @@ class GenVol{
                     $primary_role, $work_best, $learning_method, $introOrExtro,
                     $family_with_mental_illness, $involvement_in_nami,
                     $interest, $active_paying_nami_affiliate, $if_not_are_willing,
-                    $choice_nami_affiliate, $username, $password
+                    $choice_nami_affiliate, $username, $password, $may_text
                     ){
         $this->access_level = 0;
         $this->first_name = $first_name;
@@ -60,6 +61,7 @@ class GenVol{
         $this->choice_nami_affiliate = $choice_nami_affiliate;
         $this->username = $username;
         $this->password = $password;
+        $this->may_text = $may_text;
     }
 
     // the getters for the general volunteer
@@ -146,6 +148,10 @@ class GenVol{
 
     function get_password(){
         return $this->password;
+    }
+
+    function get_may_text(){
+        return $this->may_text;
     }
 
 }

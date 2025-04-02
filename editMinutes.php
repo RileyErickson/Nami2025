@@ -32,7 +32,7 @@ $formattedDate = date("m-d-Y", strtotime($date));
 
 // Fetch minutes name
 $minutesName = "";
-$result = mysqli_query($conn, "SELECT name FROM minutes WHERE date = '$date' LIMIT 1");
+$result = mysqli_query($conn, "SELECT name FROM minutes_link WHERE date = '$date' LIMIT 1");
 if ($row = mysqli_fetch_assoc($result)) {
     $minutesName = $row['name'];
 }
@@ -66,7 +66,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['deleteKeyword'])) {
 // Delete everything associated with the date
 if ($_SERVER['REQUEST_METHOD'] == 'POST' and isset($_POST['deleteAll'])) {
     mysqli_query($conn, "DELETE FROM minutes_keywords WHERE date = '$date'");
-    mysqli_query($conn, "DELETE FROM minutes WHERE date = '$date'");
+    mysqli_query($conn, "DELETE FROM minutes_link WHERE date = '$date'");
     header("Location: index.php");
     exit();
 }

@@ -28,56 +28,61 @@ function add_genVol($genVol){
     $query = "SELECT * FROM dbpersons WHERE id = '" . $genVol->get_username() . "'";
     $result = mysqli_query($con, $query);
     if($result == null || mysqli_num_rows($result) == 0){
-        if($genVol->get_active_paying_nami_affiliate() == 'yes'){
-            $active = 1;
-        }
-        else{
-            $active = 0;
-        }
-        if($genVol->get_if_not_are_willing() == 'yes'){
-            $willing = 1;
-        }
-        else{
-            $willing = 0;
-        }
-        if($genVol->get_interest() == 'yes'){
-            $interest = 1;
-        }
-        else{
-            $interest = 0;
-        }
         mysqli_query($con, 'INSERT INTO dbpersons (
-            id, start_date, venue, first_name,
-             last_name, street_address, city, state,
-             zip_code, phone1, phone1type, emergency_contact_phone, 
-             emergency_contact_phone_type, birthday, email, 
-             emergency_contact_first_name, contact_num, emergency_contact_relation, 
-             contact_method, type, status, notes, password, 
-             profile_pic, gender, tshirt_size, how_you_heard_of_stepva, 
-             sensory_sensitivities, disability_accomodation_needs, 
-             school_affiliation, race, preferred_feedback_method, 
-             hobbies, professional_experience, archived, 
-             emergency_contact_last_name, photo_release, photo_release_notes, 
-             training_complete, training_date, orientation_complete, 
-             orientation_date, background_complete, background_date, 
-             activePayingNamiAffiliate, ifNotAreWilling, choiceNamiAffiliate, 
-             familyWithMentalIllness, comfortableReadingAloud, 
-             willingToCompleteTraining, staminaToCompleteCourse, 
-             supportSystemToHelp, computerAccess, acknowledgement_commitment, 
-             involvementInNami, strengths, workBest, learningMethod, 
-             introOrExtro, interest) 
+            first_name,
+            last_name,
+            phone1,
+            mayText,
+            email,
+            street_address, 
+            city, 
+            state,
+            zip_code,
+            strengths, 
+            primaryRole,
+            workBest, 
+            preferred_feedback_method,
+            learningMethod, 
+            introOrExtro, 
+            familyWithMentalIllness, 
+            involvementInNami, 
+            interest,
+            activePayingNamiAffiliate, 
+            ifNotAreWilling, 
+            choiceNamiAffiliate, 
+            id, 
+            password, 
+            type, 
+            status, 
+            archived) 
              VALUES (
-                "'. $genVol->get_username() .'", NULL, NULL, 
-                "'. $genVol->get_first_name() .'", "'. $genVol->get_last_name() .'", 
-                "'. $genVol->get_street_address() .'", 
-                "'. $genVol->get_city() .'", "'. $genVol->get_state() .'", 
-                "'. $genVol->get_zip_code() .'", "'. $genVol->get_phone1() .'", NULL, 
-                NULL, NULL, NULL, "'. $genVol->get_email() .'", "", "", "", "email", 
-                "participant", NULL, NULL, "'. $genVol->get_password() .'", "", "", "", "", "", "", "", "", "", "", "", 
-                "0", "", "", "", "0", "", "0", "", "0", "", NULL, NULL, NULL, NULL, 
-                NULL, NULL, "'. $active .'", "'. $willing .'", 
-                "'. $genVol->get_choice_nami_affiliate() .'", NULL, NULL, NULL, NULL, NULL, 
-                NULL, "0", "", "'. $genVol->get_strengths() .'", "", "", "", "'. $interest .'");');
+                "'. $genVol->get_first_name() .'", 
+                "'. $genVol->get_last_name() .'",
+                "'. $genVol->get_phone1() .'",
+                "'. $genVol->get_may_text() .'",
+                "'. $genVol->get_email() .'",
+                "'. $genVol->get_street_address() .'",
+                "'. $genVol->get_city() .'",
+                "'. $genVol->get_state() .'",
+                "'. $genVol->get_zip_code() .'",
+                "'. $genVol->get_strengths() .'",
+                "'. $genVol->get_primary_role() .'",
+                "'. $genVol->get_work_best() .'",
+                "'. $genVol->get_contact_method() .'",
+                "'. $genVol->get_learning_method() .'",
+                "'. $genVol->get_introOrExtro() .'",
+                "'. $genVol->get_family_with_mental_illness() .'",
+                "'. $genVol->get_involvement_in_nami() .'",
+                "'. $genVol->get_interest() .'",
+                "'. $genVol->get_active_paying_nami_affiliate() .'",
+                "'. $genVol->get_if_not_are_willing() .'",
+                "'. $genVol->get_choice_nami_affiliate() .'",
+                "'. $genVol->get_username() .'",
+                "'. $genVol->get_password() .'",
+                "participant",
+                "pending",
+                "0"
+                );');
                 mysqli_close($con);
                 return true;
     }
@@ -97,7 +102,7 @@ function add_person($person) {
     $result = mysqli_query($con,$query);
     //if there's no entry for this id, add it
     if ($result == null || mysqli_num_rows($result) == 0) {
-        /*mysqli_query($con,'INSERT INTO dbPersons (id, first_name, last_name, birthday, email, password) VALUES("' .
+        /*mysqli_query($con,'INSERT INTO dbpersons (id, first_name, last_name, birthday, email, password) VALUES("' .
             $person->get_id() . '","' .
             $person->get_first_name() . '","' .
             $person->get_last_name() . '","' .
@@ -1262,19 +1267,19 @@ function get_logged_hours($from, $to, $name_from, $name_to, $venue) {
             }
             elseif(($type == "general_volunteer_report" ||$type == "total_vol_hours") && ($dateFrom == NULL && $dateTo ==NULL && $lastFrom && $lastTo)){
 	    if ($stats == 'Active' || $stats == 'Inactive') 
-		$query = "SELECT dbPersons.id,dbPersons.first_name,dbPersons.last_name, SUM(HOUR(TIMEDIFF(dbEvents.endTime, dbEvents.startTime))) as Dur
-                FROM dbPersons JOIN dbEventVolunteers ON dbPersons.id = dbEventVolunteers.userID
+		$query = "SELECT dbpersons.id,dbPersons.first_name,dbPersons.last_name, SUM(HOUR(TIMEDIFF(dbEvents.endTime, dbEvents.startTime))) as Dur
+                FROM dbpersons JOIN dbEventVolunteers ON dbPersons.id = dbEventVolunteers.userID
                 JOIN dbEvents ON dbEventVolunteers.eventID = dbEvents.id
-                WHERE dbPersons.status='$stats'
-		GROUP BY dbPersons.first_name,dbPersons.last_name
+                WHERE dbpersons.status='$stats'
+		GROUP BY dbpersons.first_name,dbpersons.last_name
                 ORDER BY Dur";
 	    else
-		$query = "SELECT dbPersons.id,dbPersons.first_name,dbPersons.last_name, SUM(HOUR(TIMEDIFF(dbEvents.endTime, dbEvents.startTime))) as Dur
-                FROM dbPersons JOIN dbEventVolunteers ON dbPersons.id = dbEventVolunteers.userID
+		$query = "SELECT dbpersons.id,dbpersons.first_name,dbpersons.last_name, SUM(HOUR(TIMEDIFF(dbEvents.endTime, dbEvents.startTime))) as Dur
+                FROM dbpersons JOIN dbeventvolunteers ON dbpersons.id = dbeventvolunteers.userID
                 JOIN dbEvents ON dbEventVolunteers.eventID = dbEvents.id
-                GROUP BY dbPersons.first_name,dbPersons.last_name
+                GROUP BY dbpersons.first_name,dbpersons.last_name
                 ORDER BY Dur";
-                //$query = "SELECT * FROM dbPersons WHERE dbPersons.status='$stats'";
+                //$query = "SELECT * FROM dbpersons WHERE dbpersons.status='$stats'";
                 $result = mysqli_query($con,$query);
                 $nameRange = range($lastFrom,$lastTo);
                 $totHours = array();
@@ -1296,7 +1301,7 @@ function get_logged_hours($from, $to, $name_from, $name_to, $venue) {
 
     function remove_profile_picture($id) {
         $con=connect();
-        $query = 'UPDATE dbPersons SET profile_pic="" WHERE id="'.$id.'"';
+        $query = 'UPDATE dbpersons SET profile_pic="" WHERE id="'.$id.'"';
         $result = mysqli_query($con,$query);
         mysqli_close($con);
         return True;
@@ -1361,10 +1366,7 @@ function get_logged_hours($from, $to, $name_from, $name_to, $venue) {
 
     function approved_volunteer_application($id){
         $connection = connect();
-
-        //$query = 'UPDATE dbPersons SET profile_pic="" WHERE id="'.$id.'"';
-//        $query = 'UPDATE dbPersons SET type="volunteer" WHERE id="'.$id.'"';
-        $query = 'UPDATE dbPersons SET type="volunteer" WHERE id="'.$id.'"';
+        $query = 'UPDATE dpersons SET type="volunteer" WHERE id="'.$id.'"';
         $result = mysqli_query($connection, $query);
         $result = boolval($result);
         mysqli_close($connection);
@@ -1374,7 +1376,7 @@ function get_logged_hours($from, $to, $name_from, $name_to, $venue) {
     function denied_volunteer_application($id){
         $connection = connect();
 
-        $query = 'DELETE FROM dbPersons WHERE id="'.$id.'"';
+        $query = 'DELETE FROM dbpersons WHERE id="'.$id.'"';
         $result = mysqli_query($connection, $query);
         $result = boolval($result);
         mysqli_close($connection);
