@@ -1,9 +1,11 @@
 <?php
+
     session_cache_expire(30);
     session_start();
 
     date_default_timezone_set("America/New_York");
     if (!isset($_SESSION['access_level']) || $_SESSION['access_level'] < 1) {
+
         if (isset($_SESSION['change-password'])) {
             header('Location: changePassword.php');
         } 
@@ -15,12 +17,14 @@
         } 
         die();
     }
-        
+
+
     include_once('database/dbPersons.php');
     include_once('domain/Person.php');
     // Get date?
     if (isset($_SESSION['_id'])) {
         $person = retrieve_person($_SESSION['_id']);
+
     }
     $notRoot = $person->get_id() != 'vmsroot';
 ?>
@@ -32,7 +36,7 @@
         <title>NAMI Rappahannock Volunteer System | Dashboard</title>
     </head>
     <body>
-        <?php 
+        <?php
         require('header.php'); ?>
         <?php
         
@@ -47,8 +51,9 @@
 }
 ?>
         <br>
-        <p style="font-size: 45px; color: #0c499c; text-align: left; padding-left: 50px"><b>Welcome back, <?php echo $person->get_first_name() ?>!</b></p>
-        <p  style="font-size: 20px;  color: #0c499c; text-align: left; padding-left: 50px">Today is <?php echo date('l, F j, Y'); ?>.</p>
+        <p style="font-size: 45px; color: #0c499c; text-align: center; padding-left: 50px"><b>Welcome back, <?php echo $person->get_first_name() ?>!</b></p>
+        <p  style="font-size: 20px;  color: #0c499c; text-align: center; padding-left: 50px">Today is <?php echo date('l, F j, Y'); ?>.</p>
+
         <br>
 
             
@@ -202,10 +207,10 @@
                             <img src="images/minutes.svg">
                             <span><center>Minutes</center></span>
                         </div>
-                        <div class="dashboard-item" data-link="">
-                            <img src="images/csv.png">
-                            <span><center>Download CSV Data File</center></span>
-                        </div>
+<!--                        <div class="dashboard-item" data-link="">-->
+<!--                            <img src="images/csv.png">-->
+<!--                            <span><center>Download CSV Data File</center></span>-->
+<!--                        </div>-->
 		    
 		                <div class="dashboard-item" data-link="announcement.php">
                             <img src="images/volunteer-history.svg">
@@ -223,7 +228,57 @@
 
 <!--                --><?php //endif ?>
 
-                <!-- FOR VOLUNTEERS AND PARTICIPANTS ONLY -->
+                <!-- FOR BOARD ONLY -->
+                <?php elseif ($_SESSION['access_level'] == 2) : ?>
+
+                    <main class='dashboard'>
+                        <div id="dashboard">
+                            <div class="dashboard-item" data-link="minutes.php">
+                                <img src="images/minutes.svg">
+                                <span><center>Minutes</center></span>
+                            </div>
+                            <div class="dashboard-item" data-link="viewForms.php">
+                                <img src="images/viewforms.png">
+                                <span><center>View Forms</center></span>
+                            </div>
+                            <div class="dashboard-item" data-link="https://docs.google.com/document/d/18IXHfsIesFVmo1fnPSZmimUZqvEymKUG1xr3fhEaa_k/edit?tab=t.0">
+                                <img src="images/staffGuide.png">
+                                <span><center>Access Volunteer Handbook</center></span>
+                            </div>
+
+                            <div class="dashboard-item" data-link="viewProfile.php">
+                                <img src="images/view-profile.svg">
+                                <span><center>View Profile</center></span>
+                            </div>
+                            <div class="dashboard-item" data-link="editProfile.php">
+                                <img src="images/manage-account.svg">
+                                <span><center>Edit Profile</center></span>
+                            </div>
+                            <!--                            <div class="dashboard-item" data-link="viewMyUpcomingEvents.php">-->
+                            <!--                                <i class="fa-solid fa-list"></i>-->
+                            <!--                                <span><center>My Upcoming Events</center></span>-->
+                            <!--                            </div>-->
+                            <div class="dashboard-item" data-link="volunteerReport.php">
+                                <img src="images/volunteer-history.svg">
+                                <span><center>View Volunteering Report</center></span>
+                            </div>
+                            <!--                            <div class="dashboard-item" data-link="editHours.php">-->
+                            <!--                                <img src="images/add-person.svg">-->
+                            <!--                                <span><center>View & Change My Event Hours</center></span>-->
+                            <!--                            </div>-->
+                            <div class="dashboard-item" data-link="https://www.namirapp.org/#calendar">
+                                <img src="images/view-calendar.svg">
+                                <span><center>View Calendar</center></span>
+                            </div>
+                            <div class="dashboard-item" data-link="changePassword.php">
+                                <img src="images/change-password.svg">
+                                <span><center>Change Password</center></span>
+                            </div>
+                        </div>
+                    </main>
+
+                <!-- Volunteer -->
+
                 <?php elseif ($notRoot) : ?>
                     <main class='dashboard'>
                         <div id="dashboard">
@@ -235,10 +290,7 @@
                                 <img src="images/staffGuide.png">
                                 <span><center>Access Volunteer Handbook</center></span>
                             </div>
-                            <div class="dashboard-item" data-link="minutes.php">
-                                <img src="images/minutes.svg">
-                                <span><center>Minutes</center></span>
-                            </div>
+
                             <div class="dashboard-item" data-link="viewProfile.php">
                                 <img src="images/view-profile.svg">
                                 <span><center>View Profile</center></span>
@@ -247,22 +299,27 @@
                                 <img src="images/manage-account.svg">
                                 <span><center>Edit Profile</center></span>
                             </div>
-                            <div class="dashboard-item" data-link="viewMyUpcomingEvents.php">
-                                <i class="fa-solid fa-list"></i>
-                                <span><center>My Upcoming Events</center></span>
-                            </div>
+                            <!--                            <div class="dashboard-item" data-link="viewMyUpcomingEvents.php">-->
+                            <!--                                <i class="fa-solid fa-list"></i>-->
+                            <!--                                <span><center>My Upcoming Events</center></span>-->
+                            <!--                            </div>-->
                             <div class="dashboard-item" data-link="volunteerReport.php">
                                 <img src="images/volunteer-history.svg">
                                 <span><center>View Volunteering Report</center></span>
                             </div>
-                            <div class="dashboard-item" data-link="editHours.php">
-                                <img src="images/add-person.svg">
-                                <span><center>View & Change My Event Hours</center></span>
+                            <!--                            <div class="dashboard-item" data-link="editHours.php">-->
+                            <!--                                <img src="images/add-person.svg">-->
+                            <!--                                <span><center>View & Change My Event Hours</center></span>-->
+                            <!--                            </div>-->
+                            <div class="dashboard-item" data-link="https://www.namirapp.org/#calendar">
+                                <img src="images/view-calendar.svg">
+                                <span><center>View Calendar</center></span>
                             </div>
                             <div class="dashboard-item" data-link="changePassword.php">
                                 <img src="images/change-password.svg">
                                 <span><center>Change Password</center></span>
                             </div>
+
                         </div>
                     </main>
                 <?php endif ?>
