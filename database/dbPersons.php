@@ -1363,6 +1363,7 @@ function get_logged_hours($from, $to, $name_from, $name_to, $venue) {
         $connection = connect();
 
         //$query = 'UPDATE dbPersons SET profile_pic="" WHERE id="'.$id.'"';
+//        $query = 'UPDATE dbPersons SET type="volunteer" WHERE id="'.$id.'"';
         $query = 'UPDATE dbPersons SET type="volunteer" WHERE id="'.$id.'"';
         $result = mysqli_query($connection, $query);
         $result = boolval($result);
