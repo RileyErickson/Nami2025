@@ -48,7 +48,16 @@ $access_level = $_SESSION['access_level']; ?>
 <h1>Current Volunteers List</h1>
 
 <main class="general">
-
+    <p>
+        <?php if (sizeof($pending) === 0):
+            echo "There are currently no volunteers.";
+            ?>
+        <?php elseif (sizeof($pending) === 1):
+            echo "There is 1 volunteer."; ?>
+        <?php else: ?>
+            <center><b><?php echo "There are currently " . htmlspecialchars(string: sizeof($pending)) . " volunteers."; ?></b></center>
+        <?php endif; ?>
+    </p>
 <!--    <p>-->
 <!--        --><?php //if (sizeof($pending) === 0):
 //            echo "There are 0 pending signups awaiting resolution.";
@@ -70,7 +79,7 @@ $access_level = $_SESSION['access_level']; ?>
                     <th>Last Name</th>
 <!--                    <th>Start Date</th>-->
                     <?php if ($access_level >= 2): ?>
-                        <th>View Profile</th>
+                        <th><center>View Profile</center></th>
                     <?php endif; ?>
 <!--                    --><?php //if ($access_level >= 2): ?>
 <!--                        <th>Change Role</th>-->
