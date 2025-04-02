@@ -126,7 +126,7 @@ if (file_exists($announcementFile)) {
 
             <div class="dashboard-item" data-link="editVolunteer.php">
                 <img src="images/editVolunteer.png">
-                <span><center>Edit Volunteer Profile</center></span>
+                <span><center>Edit Volunteer Profile (WIP)</center></span>
             </div>
 
 
