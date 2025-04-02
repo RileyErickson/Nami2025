@@ -102,7 +102,7 @@ function add_person($person) {
     $result = mysqli_query($con,$query);
     //if there's no entry for this id, add it
     if ($result == null || mysqli_num_rows($result) == 0) {
-        /*mysqli_query($con,'INSERT INTO dbPersons (id, first_name, last_name, birthday, email, password) VALUES("' .
+        /*mysqli_query($con,'INSERT INTO dbpersons (id, first_name, last_name, birthday, email, password) VALUES("' .
             $person->get_id() . '","' .
             $person->get_first_name() . '","' .
             $person->get_last_name() . '","' .
@@ -1267,19 +1267,19 @@ function get_logged_hours($from, $to, $name_from, $name_to, $venue) {
             }
             elseif(($type == "general_volunteer_report" ||$type == "total_vol_hours") && ($dateFrom == NULL && $dateTo ==NULL && $lastFrom && $lastTo)){
 	    if ($stats == 'Active' || $stats == 'Inactive') 
-		$query = "SELECT dbPersons.id,dbPersons.first_name,dbPersons.last_name, SUM(HOUR(TIMEDIFF(dbEvents.endTime, dbEvents.startTime))) as Dur
-                FROM dbPersons JOIN dbEventVolunteers ON dbPersons.id = dbEventVolunteers.userID
+		$query = "SELECT dbpersons.id,dbPersons.first_name,dbPersons.last_name, SUM(HOUR(TIMEDIFF(dbEvents.endTime, dbEvents.startTime))) as Dur
+                FROM dbpersons JOIN dbEventVolunteers ON dbPersons.id = dbEventVolunteers.userID
                 JOIN dbEvents ON dbEventVolunteers.eventID = dbEvents.id
-                WHERE dbPersons.status='$stats'
-		GROUP BY dbPersons.first_name,dbPersons.last_name
+                WHERE dbpersons.status='$stats'
+		GROUP BY dbpersons.first_name,dbpersons.last_name
                 ORDER BY Dur";
 	    else
-		$query = "SELECT dbPersons.id,dbPersons.first_name,dbPersons.last_name, SUM(HOUR(TIMEDIFF(dbEvents.endTime, dbEvents.startTime))) as Dur
-                FROM dbPersons JOIN dbEventVolunteers ON dbPersons.id = dbEventVolunteers.userID
+		$query = "SELECT dbpersons.id,dbpersons.first_name,dbpersons.last_name, SUM(HOUR(TIMEDIFF(dbEvents.endTime, dbEvents.startTime))) as Dur
+                FROM dbpersons JOIN dbeventvolunteers ON dbpersons.id = dbeventvolunteers.userID
                 JOIN dbEvents ON dbEventVolunteers.eventID = dbEvents.id
-                GROUP BY dbPersons.first_name,dbPersons.last_name
+                GROUP BY dbpersons.first_name,dbpersons.last_name
                 ORDER BY Dur";
-                //$query = "SELECT * FROM dbPersons WHERE dbPersons.status='$stats'";
+                //$query = "SELECT * FROM dbpersons WHERE dbpersons.status='$stats'";
                 $result = mysqli_query($con,$query);
                 $nameRange = range($lastFrom,$lastTo);
                 $totHours = array();
@@ -1301,7 +1301,7 @@ function get_logged_hours($from, $to, $name_from, $name_to, $venue) {
 
     function remove_profile_picture($id) {
         $con=connect();
-        $query = 'UPDATE dbPersons SET profile_pic="" WHERE id="'.$id.'"';
+        $query = 'UPDATE dbpersons SET profile_pic="" WHERE id="'.$id.'"';
         $result = mysqli_query($con,$query);
         mysqli_close($con);
         return True;
@@ -1367,8 +1367,8 @@ function get_logged_hours($from, $to, $name_from, $name_to, $venue) {
     function approved_volunteer_application($id){
         $connection = connect();
 
-        //$query = 'UPDATE dbPersons SET profile_pic="" WHERE id="'.$id.'"';
-        $query = 'UPDATE dbPersons SET type="volunteer" WHERE id="'.$id.'"';
+        //$query = 'UPDATE dbpersons SET profile_pic="" WHERE id="'.$id.'"';
+        $query = 'UPDATE dpersons SET type="volunteer" WHERE id="'.$id.'"';
         $result = mysqli_query($connection, $query);
         $result = boolval($result);
         mysqli_close($connection);
@@ -1378,7 +1378,7 @@ function get_logged_hours($from, $to, $name_from, $name_to, $venue) {
     function denied_volunteer_application($id){
         $connection = connect();
 
-        $query = 'DELETE FROM dbPersons WHERE id="'.$id.'"';
+        $query = 'DELETE FROM dbpersons WHERE id="'.$id.'"';
         $result = mysqli_query($connection, $query);
         $result = boolval($result);
         mysqli_close($connection);
