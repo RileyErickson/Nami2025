@@ -148,12 +148,12 @@
             <label for="phone1"><em>* </em>Phone Number</label>
             <input type="tel" id="phone1" name="phone1" value="<?php echo formatPhoneNumber($person->get_phone1()); ?>" pattern="\([0-9]{3}\) [0-9]{3}-[0-9]{4}" required placeholder="Ex. (555) 555-5555">
 
-            <label><em>* </em>Phone Type</label>
+            <label><em>* </em>Preferred Feedback Method</label>
             <div class="radio-group">
-                <?php $type = $person->get_phone1type(); ?>
-                <input type="radio" id="phone-type-cellphone" name="phone1type" value="cellphone" <?php if ($type == 'cellphone') echo 'checked'; ?> required><label for="phone-type-cellphone">Cell</label>
-                <input type="radio" id="phone-type-home" name="phone1type" value="home" <?php if ($type == 'home') echo 'checked'; ?> required><label for="phone-type-home">Home</label>
-                <input type="radio" id="phone-type-work" name="phone1type" value="work" <?php if ($type == 'work') echo 'checked'; ?> required><label for="phone-type-work">Work</label>
+            <?php $type = $person->get_preferred_feedback_method(); ?>
+                <input type="radio" id="text" name="preferred_feedback_method" value="text" <?php if ($type == 'text') echo 'checked'; ?> required><label for="text">Text</label>
+                <input type="radio" id="call" name="preferred_feedback_method" value="call" <?php if ($type == 'call') echo 'checked'; ?> required><label for="call">Call</label>
+                <input type="radio" id="email" name="preferred_feedback_method" value="email" <?php if ($type == 'email') echo 'checked'; ?> required><label for="email">Email</label>
             </div>
 
         </fieldset>
@@ -184,44 +184,6 @@
         
         </fieldset>
 
-        <fieldset class="section-box">
-            <legend>Volunteer Information</legend>
-
-            <label>Account Type</label>
-            
-            <!--
-            <?php $account_type = $person->get_type()?>
-            <div class="radio-group">
-                <input type="radio" id="volunteer" name="type" value="volunteer" <?php if ($account_type == 'volunteer') echo 'checked'; ?> required><label for="type">Volunteer</label>
-                <input type="radio" id="participant" name="type" value="participant" <?php if ($account_type == 'participant') echo 'checked'; ?> required><label for="type">Participant</label>
-            </div>
-            -->
-            <input type="hidden" name="type" value="v">
-
-
-            <label for="school_affiliation"><em>* </em>School Affiliation</label>
-            <input type="text" id="school_affiliation" name="school_affiliation" value="<?php echo hsc($person->get_school_affiliation()); ?>" required placeholder="Enter your affiliated school.">
-
-            <label><em>* </em>Tshirt Size</label>
-            <div class="radio-group">
-                <?php $size = $person->get_tshirt_size(); ?>
-                <input type="radio" id="tshirt-size-xs" name="tshirt_size" value="xs" <?php if ($size == 'xs') echo 'checked'; ?> required><label for="tshirt-size-xs">XS</label>
-                <input type="radio" id="tshirt-size-s" name="tshirt_size" value="s" <?php if ($size == 's') echo 'checked'; ?> required><label for="tshirt-size-s">S</label>
-                <input type="radio" id="tshirt-size-m" name="tshirt_size" value="m" <?php if ($size == 'm') echo 'checked'; ?> required><label for="tshirt-size-m">M</label>
-                <input type="radio" id="tshirt-size-l" name="tshirt_size" value="l" <?php if ($size == 'l') echo 'checked'; ?> required><label for="tshirt-size-l">L</label>
-                <input type="radio" id="tshirt-size-xl" name="tshirt_size" value="xl" <?php if ($size == 'xl') echo 'checked'; ?> required><label for="tshirt-size-xl">XL</label>
-            </div>
-
-            <label for="photo_release"><em>* </em>Photo Release Restrictions: Can your photo be taken and used on our website and social media?</label>
-            <div class="radio-group">
-                <?php $photo_release = $person->get_photo_release()?>
-                <input type="radio" id="Restricted" name="photo_release" value="Restricted" <?php if ($photo_release == 'Restricted') echo 'checked'; ?> required><label for="photo_release">Restricted</label>
-                <input type="radio" id="Not Restricted" name="photo_release" value="Not Restricted" <?php if ($photo_release == 'Not Restricted') echo 'checked'; ?> required><label for="photo_release">Not Restricted</label>
-            </div>
-
-            <label for="photo_release_notes"><em>* </em>Photo Release Restriction Notes (or N/A)</label>
-            <input type="text" id="photo_release_notes" name="photo_release_notes" value="<?php echo hsc($person->get_photo_release_notes()); ?>" required placeholder="Do you have any specific notes about your photo release status?">
-        </fieldset>
 
         <fieldset class="section-box">
             <legend>Volunteer Training</legend>
