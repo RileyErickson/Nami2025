@@ -29,21 +29,21 @@
         require_once('database/dbPersons.php');
         $args = sanitize($_POST, null);
         $required = array(
-			"admin", "volunteer","board","donator"
+
 		);
         if (!wereRequiredFieldsSubmitted($args, $required)) {
             echo 'bad form data';
             die();
         }
-        else if ($_POST['volunteer'] == 'n' && $_POST['board'] == 'n' && $_POST['donator'] == 'n' && $_POST['admin'] == 'n'){}
+        else if (!isset($_POST['volunteer']) && !isset($_POST['board']) && !isset($_POST['donator']) && !isset($_POST['admin'])){}
         else {
             $query = "email IS NOT NULL";
             $addedAny=FALSE;
-            if ($_POST['admin'] == 'y'){
+            if (isset($_POST['admin'])){
                 $query = $query . " AND (type='admin'";
                 $addedAny=TRUE;
             }
-            if ($_POST['volunteer'] == 'y'){
+            if (isset($_POST['volunteer'])){
                 if ($addedAny==FALSE){
                     $addedAny=TRUE;
                     $query = $query . " AND (type='volunteer' OR type ='v'";
@@ -52,7 +52,7 @@
                     $query = $query . " OR type='volunteer' OR type ='v'";
                 }
             }
-            if ($_POST['board'] == 'y'){
+            if (isset($_POST['board'])){
                 if ($addedAny==FALSE){
                     $addedAny=TRUE;
                     $query = $query . " AND (type='board'";
@@ -61,7 +61,7 @@
                     $query = $query . " OR type='board'";
                 }
             }
-            if ($_POST['donator'] == 'y'){
+            if (isset($_POST['donator'])){
                 if ($addedAny==FALSE){
                     $addedAny=TRUE;
                     $query = $query . " AND (type='donator'";
@@ -91,27 +91,14 @@
             <h2>Generate Email List</h2>
             <form id="new-animal-form" method="post">
 
-                <label for="admin">Admin *</label>
-                <select id="admin" name="admin" required>
-                <option value="n">Exclude</option>
-                    <option value="y">Include</option>
-                </select>
-                <label for="volunteer">Volunteer *</label>
-                <select id="volunteer" name="volunteer" required>
-                <option value="n">Exclude</option>
-                    <option value="y">Include</option>
-                </select>
-                <label for="board">Board Member *</label>
-                <select id="board" name="board" required>
-                <option value="n">Exclude</option>
-                    <option value="y">Include</option>
-                </select>
-                <label for="donator">Donator *</label>
-                <select id="donator" name="donator" required>
-                    <option value="n">Exclude</option>
-                    <option value="y">Include</option>
-                    
-                </select>
+                 <label><input type="checkbox" name = "admin" value = "y">  ADMIN   </label>
+
+                 <label><input type="checkbox" name = "volunteer" value = "y">  VOLUNTEER   </label>
+
+                 <label> <input type="checkbox" name = "board" value = "y">  BOARD MEMBER  </label>
+
+                 <label><input type="checkbox" name = "donator" value = "y"> DONAR    </label>
+
                 <label for="s"> </label>
                
                 <input type="submit" value="Generate List">
