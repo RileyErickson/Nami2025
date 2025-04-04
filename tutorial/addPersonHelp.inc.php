@@ -36,7 +36,7 @@
 		rel="popover" data-img="tutorial/screenshots/addPersonStep1.JPG"
 		border="1px" align="center"> </a>
 <p>
-	<B>Step 2:</B> You should now see a long form that says <strong>Volunteer Service Application</strong>
+	<B>Step 2:</B> You should now see a long form that says <strong>Volunteer Service application</strong>
 	at the top and has fields like "Date", "First Name" and "Last Name".
 	The first couple lines of the form should look like this:<BR> <BR> <a
 		href="tutorial/screenshots/addPersonStep2.JPG" class="image"

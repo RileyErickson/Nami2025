@@ -483,9 +483,34 @@ INSERT INTO `dbpendingsignups` (`username`, `eventname`, `role`, `notes`) VALUES
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `dbformmanagement`
+--
+CREATE TABLE `dbformmanagement` (
+	`formid` int AUTO_INCREMENT NOT NULL,
+	`application` varchar(30) COLLATE utf8mb4_unicode_ci NOT NULL,
+	`isOpen` int NOT NULL,
+	
+	PRIMARY KEY (formid)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `dbformmanagement`
+-- 1 for open, 0 for closed.
+--
+INSERT INTO `dbformmanagement` (`application`, `isopen`) VALUES
+('f2f', 1),
+('fsg', 1),
+('hf', 1),
+('p2p', 1),
+('ioov', 1),
+('csg', 1);
+	
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `dbpersonhours`
 --
-
 CREATE TABLE `dbpersonhours` (
   `personID` varchar(256) COLLATE utf8mb4_unicode_ci NOT NULL,
   `eventID` int NOT NULL,

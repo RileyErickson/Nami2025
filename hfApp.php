@@ -1,9 +1,9 @@
 <!-- Homefront -->
 
-<h1>NAMI Virginia Homefront Teacher Training Application</h1>
+<h1>NAMI Virginia Homefront Teacher Training application</h1>
 <main class="signup-form">
     <form class="signup-form" method="post">
-        <h2>Application</h2>
+        <h2>application</h2>
         <p>Training is provided at no cost thanks to a grant by DBHDS</p>
         <p>An asterisk (<em>*</em>) indicates a required field.</p>
 
@@ -40,8 +40,8 @@
 
             <p><i>For each question, share your motivations for this volunteer role in at least two sentences.</i></p>
 
-            <label for="reasonToBecomeHF">Why do you want to be a NAMI Homefront Teacher?</label>
-            <input type="text" id="reasonToBecomeHF" name="reasonToBecomeHF" required>
+            <label for="reasonToBecomehf">Why do you want to be a NAMI Homefront Teacher?</label>
+            <input type="text" id="reasonToBecomehf" name="reasonToBecomehf" required>
 
             <label for="whyIsNowRightTime">Why is now the right time for you to volunteer in this role?</label>
             <input type="text" id="whyIsNowRightTime" name="whyIsNowRightTime" required>
