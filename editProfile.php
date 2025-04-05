@@ -149,7 +149,7 @@
             $errors = true;
             // echo 'bad orientation date';
         }
-
+        $how_you_heard_of_stepva = isset($args['how_you_heard_of_stepva']) ? $args['how_you_heard_of_stepva'] :0;
         $background_complete = isset($args['background_complete']) ? $args['background_complete'] : 0;
         $background_date = validateDate($args['background_date']);
         if (!$background_date) {
