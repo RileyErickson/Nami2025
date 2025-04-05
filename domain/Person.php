@@ -13,7 +13,13 @@
  * @author Oliver Radwan <oradwan@bowdoin.edu>, Sam Roberts, Allen Tucker
  * @version 3/28/2008, revised 7/1/2015
  */
+function debug_to_console($data) {
+    $output = $data;
+    if (is_array($output))
+        $output = implode(',', $output);
 
+    echo "<script>console.log('Debug Objects: " . $output . "' );</script>";
+}
 // ONLY REQUIRED FIELDS HAVE BEEN ADDED SO FAR.
 class Person {
 
@@ -114,19 +120,23 @@ class Person {
 		// access_level = 1 for users, and = 3 for admin
 		if ($type == 'admin' ) {
 			$this->access_level = 3;
+            //debug_to_console('admin test');
 		}
 
         elseif ($type == 'board'){
             $this->access_level = 2;
+            //debug_to_console('board test');
         }
 
         elseif ($type == 'volunteer' || $type == 'v'){
             $this->access_level = 1;
+            //debug_to_console('vol test');
         }
 
 
         else {
 			$this->access_level = 0;
+            //debug_to_console('else test');
 		}
 	}
 

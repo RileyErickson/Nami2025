@@ -126,7 +126,7 @@ if (file_exists($announcementFile)) {
 
             <div class="dashboard-item" data-link="editVolunteer.php">
                 <img src="images/editVolunteer.png">
-                <span><center>Edit Volunteer Profile</center></span>
+                <span><center>Edit Volunteer Profile (WIP)</center></span>
             </div>
 
 
@@ -199,7 +199,7 @@ if (file_exists($announcementFile)) {
 <!--                <img src="images/viewforms.png">-->
 <!--                <span><center>View Forms</center></span>-->
 <!--            </div>-->
-<!--            <div class="dashboard-item" data-link="https://docs.google.com/document/d/18IXHfsIesFVmo1fnPSZmimUZqvEymKUG1xr3fhEaa_k/edit?tab=t.0">-->
+<!--            <div class="dashboard-item" data-link="https://docs.google.com/document/d/18IXhfsIesFVmo1fnPSZmimUZqvEymKUG1xr3fhEaa_k/edit?tab=t.0">-->
 <!--                <img src="images/staffGuide.png">-->
 <!--                <span><center>Access Volunteer Handbook</center></span>-->
 <!--            </div>-->

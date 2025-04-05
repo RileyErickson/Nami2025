@@ -13,6 +13,16 @@
         $id = $_SESSION['_id'];
     }
 
+    if (isset($_SESSION['_id'])) {
+        $loggedIn = true;
+        // 0 = not logged in, 1 = standard user, 2 = manager (Admin), 3 super admin (TBI)
+        $accessLevel = $_SESSION['access_level'];
+        $isAdmin = $accessLevel >= 2;
+        $userID = $_SESSION['_id'];
+    } else {
+        header('Location: login.php');
+        die();
+    }
     $person = retrieve_person($id);
     if (!$person) {
         echo '<main class="signup-form"><p class="error-toast">That user does not exist.</p></main></body></html>';
@@ -185,6 +195,7 @@
         </fieldset>
 
 
+        <?php if ($accessLevel >= 3) : ?>
         <fieldset class="section-box">
             <legend>Volunteer Training</legend>
 
@@ -259,7 +270,7 @@
                     placeholder="Enter background check date">
             </div>
         </fieldset>
-
+        <?php endif;?>
         <script>
             // Function to toggle the visibility and required attribute of the date inputs based on the radio buttons
             function toggleStatusDateVisibility(statusType) {

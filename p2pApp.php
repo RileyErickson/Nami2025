@@ -1,9 +1,9 @@
 <!-- Peer-to-Peer -->
 
-<h1>NAMI Virginia Peer-to-Peer Teacher Training Application</h1>
+<h1>NAMI Virginia Peer-to-Peer Teacher Training application</h1>
 <main class="signup-form">
     <form class="signup-form" method="post">
-        <h2>Application</h2>
+        <h2>application</h2>
         <p>Training is provided at no cost thanks to a grant by DBHDS</p>
         <p>An asterisk (<em>*</em>) indicates a required field.</p>
 
@@ -41,8 +41,8 @@
 
             <p><i>For each question, share your motivations for this volunteer role in at least two sentences.</i></p>
 
-            <label for="reasonToBecomeP2P">Why do you want to be a NAMI Peer-to-Peer Teacher?</label>
-            <input type="text" id="reasonToBecomeP2P" name="reasonToBecomeP2P" required>
+            <label for="reasonToBecomep2p">Why do you want to be a NAMI Peer-to-Peer Teacher?</label>
+            <input type="text" id="reasonToBecomep2p" name="reasonToBecomep2p" required>
 
             <label for="whyIsNowRightTime">Why is now the right time for you to volunteer in this role?</label>
             <input type="text" id="whyIsNowRightTime" name="whyIsNowRightTime" required>
