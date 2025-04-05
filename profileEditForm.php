@@ -158,13 +158,6 @@
             <label for="phone1"><em>* </em>Phone Number</label>
             <input type="tel" id="phone1" name="phone1" value="<?php echo formatPhoneNumber($person->get_phone1()); ?>" pattern="\([0-9]{3}\) [0-9]{3}-[0-9]{4}" required placeholder="Ex. (555) 555-5555">
 
-            <label><em>* </em>Preferred Feedback Method</label>
-            <div class="radio-group">
-            <?php $type = $person->get_preferred_feedback_method(); ?>
-                <input type="radio" id="text" name="preferred_feedback_method" value="text" <?php if ($type == 'text') echo 'checked'; ?> required><label for="text">Text</label>
-                <input type="radio" id="call" name="preferred_feedback_method" value="call" <?php if ($type == 'call') echo 'checked'; ?> required><label for="call">Call</label>
-                <input type="radio" id="email" name="preferred_feedback_method" value="email" <?php if ($type == 'email') echo 'checked'; ?> required><label for="email">Email</label>
-            </div>
 
         </fieldset>
 
