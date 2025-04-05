@@ -30,8 +30,11 @@
     <body>
         <?php require_once('header.php') ?>
         <h1>Edit Volunteer</h1>
+        <main>
         <form>
-            <a class="button cancel" href="index.php">Return to Dashboard</a>
+            <a class="button cancel" href="volunteerDirectory.php">Return to Volunteer Management Dashboard</a>
         </form>
+        </main>
     </body>
+    <?php require('footer.php'); ?>
 </html>

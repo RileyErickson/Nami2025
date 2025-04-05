@@ -148,7 +148,8 @@
 
             <div id="criteria-error" class="error hidden">You must provide at least one search criterion.</div>
             <input type="submit" value="Search">
-            <a class="button cancel" href="index.php">Return to Dashboard</a>
+            <a class="button cancel" href="volunteerDirectory.php">Return to Volunteer Management Dashboard</a>
         </form>
     </body>
+    <?php require('footer.php'); ?>
 </html>

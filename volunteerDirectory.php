@@ -145,7 +145,12 @@ if (file_exists($announcementFile)) {
             <!-- could use adminViewingEvents.php as base? -->
             <div class="dashboard-item" data-link="blacklist.php">
                 <img src="images/volunteerDenied.png">
-                <span><center>View Volunteer Denied List</center></span>
+                <span><center>View Volunteer Blacklist</center></span>
+            </div>
+            <div style="flex-basis: 100%; height: 0;"></div>
+            <div class="dashboard-item" onclick="location.href='index.php'" style="background-color: grey;">
+                <img src="images/logout.svg" alt="Return Home">
+                <span><center>Return to Home Dashboard</center></span>
             </div>
 
 <!--            <div class="dashboard-item" data-link="hours.php">-->
@@ -241,6 +246,6 @@ if (file_exists($announcementFile)) {
         </div> -->
     </div>
 </main>
-</body>
 <?php require('footer.php'); ?>
+</body>
 </html>

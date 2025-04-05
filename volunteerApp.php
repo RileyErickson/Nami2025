@@ -1,10 +1,10 @@
 
 <!-- General Volunteer application -->
 
-<h1>Volunteer application</h1>
+<h1>Volunteer Application</h1>
 <main class="signup-form">
     <form class="signup-form" method="post">
-        <h2>application</h2>
+        <h2>Application</h2>
         <p>Please fill out each section of the following form if you would like to volunteer for NAMI Rappahannock.</p>
         <p>An asterisk (<em>*</em>) indicates a required field.</p>
         
@@ -221,3 +221,4 @@
     </form>
     
 </main>
+
