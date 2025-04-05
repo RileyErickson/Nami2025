@@ -83,8 +83,15 @@
                                             <th>Name</th>
                                             <th>Username</th>
                                             <th>Form Number</th>
-                                            <th>Form</th>
-                                        </tr>
+                                            <th>Form</th>';
+                                            if ($role=="F2F" OR  $role=="FSG" OR  $role=="HF"){
+                                                echo '<th>Reason</th> <th>Why Now</th> <th>Screener Name</th> <th>Screener Date</th>';
+                                            }
+                                            else {
+                                                echo '<th>Reason</th> <th>Why Now</th> <th>Recovery Status</th> <th>Screener Name</th> <th>Screener Date</th>';
+                                            }
+
+                                        echo '    </tr>
                                     </thead>
                                     <tbody class="standout">';
                             $mailingList = '';
@@ -94,8 +101,50 @@
                                         <tr>
                                             <td>'.get_name_from_id($person['id']).'</td>
                                             <td>' . $person['id'] . '</td>
-                                            <td>' . $person[$formVariable] . '</td>
-                                            <td>'. $formName .'</td>
+                                            <td>' . $person[$formVariable] . '</td> <td>' . $formName . '</td>'
+                                            ;
+
+                                            
+                                            if ($role=="F2F"){
+                                                echo  '<td>' . $person['reasonToBecomeF2F'] . '</td>';
+                                                echo  '<td>' . $person['whyIsNowRightTime'] . '</td>';
+                                                echo  '<td>' . $person['screenerName'] . '</td>';
+                                                echo  '<td>' . $person['screeningDate'] . '</td>';
+                                            }
+                                            else if ($role=="FSG"){
+                                                echo  '<td>' . $person['reasonToBecomeFSG'] . '</td>';
+                                                echo  '<td>' . $person['whyIsNowRightTime'] . '</td>';
+                                                echo  '<td>' . $person['screenerName'] . '</td>';
+                                                echo  '<td>' . $person['screeningDate'] . '</td>';
+                                            }
+                                            else if ($role=="HF"){
+                                                echo  '<td>' . $person['reasonToBecomeHF'] . '</td>';
+                                                echo  '<td>' . $person['whyIsNowRightTime'] . '</td>';
+                                                echo  '<td>' . $person['screenerName'] . '</td>';
+                                                echo  '<td>' . $person['screeningDate'] . '</td>';
+                                            }
+                                            else if ($role=="P2P"){
+                                                echo  '<td>' . $person['reasonToBecomeP2P'] . '</td>';
+                                                echo  '<td>' . $person['whyIsNowRightTime'] . '</td>';
+                                                echo  '<td>' . $person['statusInRecoveryJourney'] . '</td>';
+                                                echo  '<td>' . $person['screenerName'] . '</td>';
+                                                echo  '<td>' . $person['screeningDate'] . '</td>';
+                                            }
+                                            else if ($role=="IOOV"){
+                                                echo  '<td>' . $person['reasonToBecomeIOOV'] . '</td>';
+                                                echo  '<td>' . $person['whyIsNowRightTime'] . '</td>';
+                                                echo  '<td>' . $person['statusInRecoveryJourney'] . '</td>';
+                                                echo  '<td>' . $person['screenerName'] . '</td>';
+                                                echo  '<td>' . $person['screeningDate'] . '</td>';
+                                            }
+                                            else if ($role=="CSG"){	
+                                                echo  '<td>' . $person['reasonToBecomeCSG'] . '</td>';
+                                                echo  '<td>' . $person['whyIsNowRightTime'] . '</td>';
+                                                echo  '<td>' . $person['statusInRecoveryJourney'] . '</td>';
+                                                echo  '<td>' . $person['screenerName'] . '</td>';
+                                                echo  '<td>' . $person['screeningDate'] . '</td>';
+                                            }
+                                            echo '
                                            </a></tr>';
                             }}
                             echo '

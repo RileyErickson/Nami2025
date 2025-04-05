@@ -115,6 +115,31 @@ function get_reasontobecome($appID, $application) {
 	
 	return $reason;
 }
+
+function get_all($type){
+	if ($type == "F2F"){
+		$database = "dbf2fapplication";
+	}
+	if ($type == "P2P"){
+		$database = "dbp2papplication";
+	}
+	if ($type == "IOOV"){
+		$database = "dbioovapplication";
+	}
+	if ($type == "CSG"){
+		$database = "dbcsgapplication";
+	}
+	if ($type == "FSG"){
+		$database = "dbfsgapplication";
+	}
+	if ($type == "HF"){
+		$database = "dbhfapplication";
+	}
+	$query="SELECT * FROM ". $database;
+	$con=connect();
+	$result = mysqli_query($con,$query);
+	return $result;
+}
 function get_forms_id($type){
 	//We should be passed the abbreviation of one of the forms. If it is one of them, add it to the Database variable. All of the databases have their own
 	//name for the id variable, so save that to Select.
