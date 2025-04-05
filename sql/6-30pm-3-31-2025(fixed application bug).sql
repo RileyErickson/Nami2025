@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 5.1.4
+-- version 5.2.1
 -- https://www.phpmyadmin.net/
 --
--- Host: localhost
--- Generation Time: Mar 31, 2025 at 10:30 PM
--- Server version: 8.0.39-30
--- PHP Version: 8.2.28
+-- Host: 127.0.0.1
+-- Generation Time: Apr 05, 2025 at 11:14 PM
+-- Server version: 10.4.32-MariaDB
+-- PHP Version: 8.2.12
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -18,7 +18,7 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8mb4 */;
 
 --
--- Database: `dbahtngmaidjgd`
+-- Database: `stepvadb`
 --
 
 -- --------------------------------------------------------
@@ -28,14 +28,14 @@ SET time_zone = "+00:00";
 --
 
 CREATE TABLE `dbanimals` (
-  `id` int NOT NULL,
-  `odhs_id` varchar(11) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `name` varchar(256) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `breed` varchar(256) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `age` int NOT NULL,
-  `gender` varchar(6) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `notes` text COLLATE utf8mb4_unicode_ci,
-  `spay_neuter_done` varchar(3) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `id` int(11) NOT NULL,
+  `odhs_id` varchar(11) NOT NULL,
+  `name` varchar(256) NOT NULL,
+  `breed` varchar(256) DEFAULT NULL,
+  `age` int(11) NOT NULL,
+  `gender` varchar(6) DEFAULT NULL,
+  `notes` text DEFAULT NULL,
+  `spay_neuter_done` varchar(3) NOT NULL,
   `spay_neuter_date` date DEFAULT NULL,
   `rabies_given_date` date NOT NULL,
   `rabies_due_date` date DEFAULT NULL,
@@ -47,8 +47,8 @@ CREATE TABLE `dbanimals` (
   `distemper2_due_date` date DEFAULT NULL,
   `distemper3_given_date` date NOT NULL,
   `distemper3_due_date` date DEFAULT NULL,
-  `microchip_done` varchar(3) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `archived` varchar(3) COLLATE utf8mb4_unicode_ci NOT NULL
+  `microchip_done` varchar(3) NOT NULL,
+  `archived` varchar(3) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
@@ -68,12 +68,13 @@ INSERT INTO `dbanimals` (`id`, `odhs_id`, `name`, `breed`, `age`, `gender`, `not
 --
 
 CREATE TABLE `dbcsgapplication` (
-  `csgApplicationID` int NOT NULL,
-  `reasonToBecomeCSG` text COLLATE utf8mb4_general_ci NOT NULL,
-  `whyIsNowRightTime` text COLLATE utf8mb4_general_ci NOT NULL,
-  `statusInRecoveryJourney` text COLLATE utf8mb4_general_ci NOT NULL,
-  `screenerName` text COLLATE utf8mb4_general_ci NOT NULL,
+  `csgApplicationID` int(11) NOT NULL,
+  `reasonToBecomeCSG` text NOT NULL,
+  `whyIsNowRightTime` text NOT NULL,
+  `statusInRecoveryJourney` text NOT NULL,
+  `screenerName` text NOT NULL,
   `screeningDate` date NOT NULL,
+  `approved` tinyint(1) NOT NULL DEFAULT 0,
   `id` varchar(256) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
@@ -84,14 +85,14 @@ CREATE TABLE `dbcsgapplication` (
 --
 
 CREATE TABLE `dbeventmedia` (
-  `id` int NOT NULL,
-  `eventID` int NOT NULL,
-  `file_name` text COLLATE utf8mb4_unicode_ci NOT NULL,
-  `type` text COLLATE utf8mb4_unicode_ci NOT NULL,
-  `file_format` text COLLATE utf8mb4_unicode_ci NOT NULL,
-  `description` text COLLATE utf8mb4_unicode_ci NOT NULL,
-  `altername_name` text COLLATE utf8mb4_unicode_ci NOT NULL,
-  `time_created` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
+  `id` int(11) NOT NULL,
+  `eventID` int(11) NOT NULL,
+  `file_name` text NOT NULL,
+  `type` text NOT NULL,
+  `file_format` text NOT NULL,
+  `description` text NOT NULL,
+  `altername_name` text NOT NULL,
+  `time_created` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 -- --------------------------------------------------------
@@ -101,10 +102,10 @@ CREATE TABLE `dbeventmedia` (
 --
 
 CREATE TABLE `dbeventpersons` (
-  `eventID` int NOT NULL,
-  `userID` varchar(256) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `position` text COLLATE utf8mb4_unicode_ci NOT NULL,
-  `notes` text COLLATE utf8mb4_unicode_ci NOT NULL
+  `eventID` int(11) NOT NULL,
+  `userID` varchar(256) NOT NULL,
+  `position` text NOT NULL,
+  `notes` text NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
@@ -155,17 +156,17 @@ INSERT INTO `dbeventpersons` (`eventID`, `userID`, `position`, `notes`) VALUES
 --
 
 CREATE TABLE `dbevents` (
-  `id` int NOT NULL,
-  `name` text COLLATE utf8mb4_unicode_ci NOT NULL,
-  `date` char(10) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `startTime` char(5) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `endTime` char(5) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `description` text COLLATE utf8mb4_unicode_ci NOT NULL,
-  `capacity` int NOT NULL,
-  `completed` text COLLATE utf8mb4_unicode_ci NOT NULL,
-  `event_type` text COLLATE utf8mb4_unicode_ci NOT NULL,
+  `id` int(11) NOT NULL,
+  `name` text NOT NULL,
+  `date` char(10) NOT NULL,
+  `startTime` char(5) NOT NULL,
+  `endTime` char(5) NOT NULL,
+  `description` text NOT NULL,
+  `capacity` int(11) NOT NULL,
+  `completed` text NOT NULL,
+  `event_type` text NOT NULL,
   `restricted_signup` tinyint(1) NOT NULL,
-  `location` text COLLATE utf8mb4_unicode_ci
+  `location` text DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
@@ -217,13 +218,38 @@ INSERT INTO `dbevents` (`id`, `name`, `date`, `startTime`, `endTime`, `descripti
 --
 
 CREATE TABLE `dbf2fapplication` (
-  `f2fApplicationID` int NOT NULL,
-  `reasonToBecomeF2F` text COLLATE utf8mb4_general_ci NOT NULL,
-  `whyIsNowRightTime` text COLLATE utf8mb4_general_ci NOT NULL,
-  `screenerName` text COLLATE utf8mb4_general_ci NOT NULL,
+  `f2fApplicationID` int(11) NOT NULL,
+  `reasonToBecomeF2F` text NOT NULL,
+  `whyIsNowRightTime` text NOT NULL,
+  `screenerName` text NOT NULL,
   `screeningDate` date NOT NULL,
+  `approved` tinyint(1) NOT NULL DEFAULT 0,
   `id` varchar(256) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `dbformmanagement`
+--
+
+CREATE TABLE `dbformmanagement` (
+  `formid` int(11) NOT NULL,
+  `application` varchar(30) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+  `isOpen` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `dbformmanagement`
+--
+
+INSERT INTO `dbformmanagement` (`formid`, `application`, `isOpen`) VALUES
+(1, 'f2f', 1),
+(2, 'fsg', 1),
+(3, 'hf', 1),
+(4, 'p2p', 1),
+(5, 'ioov', 1),
+(6, 'csg', 1);
 
 -- --------------------------------------------------------
 
@@ -232,11 +258,12 @@ CREATE TABLE `dbf2fapplication` (
 --
 
 CREATE TABLE `dbfsgapplication` (
-  `fsgApplicationID` int NOT NULL,
-  `reasonToBecomeFSG` text COLLATE utf8mb4_general_ci NOT NULL,
-  `whyIsNowRightTime` text COLLATE utf8mb4_general_ci NOT NULL,
-  `screenerName` text COLLATE utf8mb4_general_ci NOT NULL,
+  `fsgApplicationID` int(11) NOT NULL,
+  `reasonToBecomeFSG` text NOT NULL,
+  `whyIsNowRightTime` text NOT NULL,
+  `screenerName` text NOT NULL,
   `screeningDate` date NOT NULL,
+  `approved` tinyint(1) NOT NULL DEFAULT 0,
   `id` varchar(256) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
@@ -247,11 +274,12 @@ CREATE TABLE `dbfsgapplication` (
 --
 
 CREATE TABLE `dbhfapplication` (
-  `hfApplicationID` int NOT NULL,
-  `reasonToBecomeHF` text COLLATE utf8mb4_general_ci NOT NULL,
-  `whyIsNowRightTime` text COLLATE utf8mb4_general_ci NOT NULL,
-  `screenerName` text COLLATE utf8mb4_general_ci NOT NULL,
+  `hfApplicationID` int(11) NOT NULL,
+  `reasonToBecomeHF` text NOT NULL,
+  `whyIsNowRightTime` text NOT NULL,
+  `screenerName` text NOT NULL,
   `screeningDate` date NOT NULL,
+  `approved` tinyint(1) NOT NULL DEFAULT 0,
   `id` varchar(256) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
@@ -262,12 +290,13 @@ CREATE TABLE `dbhfapplication` (
 --
 
 CREATE TABLE `dbioovapplication` (
-  `ioovApplicationID` int NOT NULL,
-  `reasonToBecomeIOOV` text COLLATE utf8mb4_general_ci NOT NULL,
-  `whyIsNowRightTime` text COLLATE utf8mb4_general_ci NOT NULL,
-  `statusInRecoveryJourney` text COLLATE utf8mb4_general_ci NOT NULL,
-  `screenerName` text COLLATE utf8mb4_general_ci NOT NULL,
+  `ioovApplicationID` int(11) NOT NULL,
+  `reasonToBecomeIOOV` text NOT NULL,
+  `whyIsNowRightTime` text NOT NULL,
+  `statusInRecoveryJourney` text NOT NULL,
+  `screenerName` text NOT NULL,
   `screeningDate` date NOT NULL,
+  `approved` tinyint(1) NOT NULL DEFAULT 0,
   `id` varchar(256) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
@@ -278,14 +307,14 @@ CREATE TABLE `dbioovapplication` (
 --
 
 CREATE TABLE `dbmessages` (
-  `id` int NOT NULL,
-  `senderID` varchar(256) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `recipientID` varchar(256) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `title` varchar(256) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `body` text COLLATE utf8mb4_unicode_ci NOT NULL,
-  `time` varchar(16) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `wasRead` tinyint(1) NOT NULL DEFAULT '0',
-  `prioritylevel` tinyint NOT NULL DEFAULT '0'
+  `id` int(11) NOT NULL,
+  `senderID` varchar(256) NOT NULL,
+  `recipientID` varchar(256) NOT NULL,
+  `title` varchar(256) NOT NULL,
+  `body` text NOT NULL,
+  `time` varchar(16) NOT NULL,
+  `wasRead` tinyint(1) NOT NULL DEFAULT 0,
+  `prioritylevel` tinyint(4) NOT NULL DEFAULT 0
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
@@ -450,14 +479,22 @@ INSERT INTO `dbmessages` (`id`, `senderID`, `recipientID`, `title`, `body`, `tim
 --
 
 CREATE TABLE `dbp2papplication` (
-  `p2pApplicationID` int NOT NULL,
-  `reasonToBecomeP2P` text COLLATE utf8mb4_general_ci NOT NULL,
-  `whyIsNowRightTime` text COLLATE utf8mb4_general_ci NOT NULL,
-  `statusInRecoveryJourney` text COLLATE utf8mb4_general_ci NOT NULL,
-  `screenerName` text COLLATE utf8mb4_general_ci NOT NULL,
+  `p2pApplicationID` int(11) NOT NULL,
+  `reasonToBecomeP2P` text NOT NULL,
+  `whyIsNowRightTime` text NOT NULL,
+  `statusInRecoveryJourney` text NOT NULL,
+  `screenerName` text NOT NULL,
   `screeningDate` date NOT NULL,
-  `id` varchar(256) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL
+  `id` varchar(256) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+  `approved` tinyint(1) NOT NULL DEFAULT 0
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `dbp2papplication`
+--
+
+INSERT INTO `dbp2papplication` (`p2pApplicationID`, `reasonToBecomeP2P`, `whyIsNowRightTime`, `statusInRecoveryJourney`, `screenerName`, `screeningDate`, `id`, `approved`) VALUES
+(1, 'My reason', 'my time', 'Recovered', 'name2', '2020-02-22', 'vmsroot', 0);
 
 -- --------------------------------------------------------
 
@@ -466,10 +503,10 @@ CREATE TABLE `dbp2papplication` (
 --
 
 CREATE TABLE `dbpendingsignups` (
-  `username` varchar(25) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `eventname` varchar(100) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `role` varchar(5) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `notes` varchar(100) COLLATE utf8mb4_unicode_ci NOT NULL
+  `username` varchar(25) NOT NULL,
+  `eventname` varchar(100) NOT NULL,
+  `role` varchar(5) NOT NULL,
+  `notes` varchar(100) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
@@ -483,38 +520,13 @@ INSERT INTO `dbpendingsignups` (`username`, `eventname`, `role`, `notes`) VALUES
 -- --------------------------------------------------------
 
 --
--- Table structure for table `dbformmanagement`
---
-CREATE TABLE `dbformmanagement` (
-	`formid` int AUTO_INCREMENT NOT NULL,
-	`application` varchar(30) COLLATE utf8mb4_unicode_ci NOT NULL,
-	`isOpen` int NOT NULL,
-	
-	PRIMARY KEY (formid)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-
---
--- Dumping data for table `dbformmanagement`
--- 1 for open, 0 for closed.
---
-INSERT INTO `dbformmanagement` (`application`, `isopen`) VALUES
-('f2f', 1),
-('fsg', 1),
-('hf', 1),
-('p2p', 1),
-('ioov', 1),
-('csg', 1);
-	
-
--- --------------------------------------------------------
-
---
 -- Table structure for table `dbpersonhours`
 --
+
 CREATE TABLE `dbpersonhours` (
-  `personID` varchar(256) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `eventID` int NOT NULL,
-  `start_time` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `personID` varchar(256) NOT NULL,
+  `eventID` int(11) NOT NULL,
+  `start_time` timestamp NOT NULL DEFAULT current_timestamp(),
   `end_time` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
@@ -545,48 +557,48 @@ INSERT INTO `dbpersonhours` (`personID`, `eventID`, `start_time`, `end_time`) VA
 CREATE TABLE `dbpersons` (
   `id` varchar(256) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
   `start_date` date DEFAULT NULL,
-  `venue` text,
+  `venue` text DEFAULT NULL,
   `first_name` text NOT NULL,
-  `last_name` text,
-  `street_address` text,
-  `city` text,
+  `last_name` text DEFAULT NULL,
+  `street_address` text DEFAULT NULL,
+  `city` text DEFAULT NULL,
   `state` varchar(2) DEFAULT NULL,
-  `zip_code` text,
+  `zip_code` text DEFAULT NULL,
   `phone1` varchar(12) NOT NULL,
-  `phone1type` text,
+  `phone1type` text DEFAULT NULL,
   `emergency_contact_phone` varchar(12) DEFAULT NULL,
-  `emergency_contact_phone_type` text,
-  `birthday` text,
-  `email` text,
-  `emergency_contact_first_name` text,
+  `emergency_contact_phone_type` text DEFAULT NULL,
+  `birthday` text DEFAULT NULL,
+  `email` text DEFAULT NULL,
+  `emergency_contact_first_name` text DEFAULT NULL,
   `contact_num` varchar(12) DEFAULT NULL,
-  `emergency_contact_relation` text,
-  `type` text,
-  `status` text,
-  `notes` text,
-  `password` text,
-  `profile_pic` text,
+  `emergency_contact_relation` text DEFAULT NULL,
+  `type` text DEFAULT NULL,
+  `status` text DEFAULT NULL,
+  `notes` text DEFAULT NULL,
+  `password` text DEFAULT NULL,
+  `profile_pic` text DEFAULT NULL,
   `gender` varchar(6) DEFAULT NULL,
-  `tshirt_size` text,
-  `how_you_heard_of_stepva` text,
-  `sensory_sensitivities` text,
-  `disability_accomodation_needs` text,
-  `school_affiliation` text,
-  `race` text,
-  `preferred_feedback_method` text,
-  `hobbies` text,
-  `professional_experience` text,
+  `tshirt_size` text DEFAULT NULL,
+  `how_you_heard_of_stepva` text DEFAULT NULL,
+  `sensory_sensitivities` text DEFAULT NULL,
+  `disability_accomodation_needs` text DEFAULT NULL,
+  `school_affiliation` text DEFAULT NULL,
+  `race` text DEFAULT NULL,
+  `preferred_feedback_method` text DEFAULT NULL,
+  `hobbies` text DEFAULT NULL,
+  `professional_experience` text DEFAULT NULL,
   `archived` tinyint(1) NOT NULL,
-  `emergency_contact_last_name` text,
-  `photo_release` text,
-  `photo_release_notes` text,
-  `training_complete` int NOT NULL DEFAULT '0',
-  `training_date` text,
-  `orientation_complete` int NOT NULL DEFAULT '0',
-  `orientation_date` text,
-  `background_complete` int NOT NULL DEFAULT '0',
-  `background_date` text,
-  `choiceNamiAffiliate` text,
+  `emergency_contact_last_name` text DEFAULT NULL,
+  `photo_release` text DEFAULT NULL,
+  `photo_release_notes` text DEFAULT NULL,
+  `training_complete` int(11) NOT NULL DEFAULT 0,
+  `training_date` text DEFAULT NULL,
+  `orientation_complete` int(11) NOT NULL DEFAULT 0,
+  `orientation_date` text DEFAULT NULL,
+  `background_complete` int(11) NOT NULL DEFAULT 0,
+  `background_date` text DEFAULT NULL,
+  `choiceNamiAffiliate` text DEFAULT NULL,
   `comfortableReadingAloud` tinyint(1) DEFAULT NULL,
   `willingToCompleteTraining` tinyint(1) DEFAULT NULL,
   `staminaToCompleteCourse` tinyint(1) DEFAULT NULL,
@@ -595,18 +607,18 @@ CREATE TABLE `dbpersons` (
   `acknowledge_commitment` tinyint(1) DEFAULT NULL,
   `pathOfRecovery` tinyint(1) DEFAULT NULL,
   `involvementInNami` text NOT NULL,
-  `anyAccessibilityNeeds` text,
-  `mayText` text,
-  `strengths` text,
-  `primaryRole` text,
-  `workBest` text,
-  `learningMethod` text,
-  `introOrExtro` text,
-  `interest` text,
-  `activePayingNamiAffiliate` text,
-  `ifNotAreWilling` text,
-  `familyWithMentalIllness` text
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+  `anyAccessibilityNeeds` text DEFAULT NULL,
+  `mayText` text DEFAULT NULL,
+  `strengths` text DEFAULT NULL,
+  `primaryRole` text DEFAULT NULL,
+  `workBest` text DEFAULT NULL,
+  `learningMethod` text DEFAULT NULL,
+  `introOrExtro` text DEFAULT NULL,
+  `interest` text DEFAULT NULL,
+  `activePayingNamiAffiliate` text DEFAULT NULL,
+  `ifNotAreWilling` text DEFAULT NULL,
+  `familyWithMentalIllness` text DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
 
 --
 -- Dumping data for table `dbpersons`
@@ -697,6 +709,12 @@ ALTER TABLE `dbf2fapplication`
   ADD KEY `id` (`id`);
 
 --
+-- Indexes for table `dbformmanagement`
+--
+ALTER TABLE `dbformmanagement`
+  ADD PRIMARY KEY (`formid`);
+
+--
 -- Indexes for table `dbfsgapplication`
 --
 ALTER TABLE `dbfsgapplication`
@@ -745,55 +763,61 @@ ALTER TABLE `dbpersons`
 -- AUTO_INCREMENT for table `dbanimals`
 --
 ALTER TABLE `dbanimals`
-  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT for table `dbcsgapplication`
 --
 ALTER TABLE `dbcsgapplication`
-  MODIFY `csgApplicationID` int NOT NULL AUTO_INCREMENT;
+  MODIFY `csgApplicationID` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `dbeventmedia`
 --
 ALTER TABLE `dbeventmedia`
-  MODIFY `id` int NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `dbevents`
 --
 ALTER TABLE `dbevents`
-  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=110;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=110;
 
 --
 -- AUTO_INCREMENT for table `dbf2fapplication`
 --
 ALTER TABLE `dbf2fapplication`
-  MODIFY `f2fApplicationID` int NOT NULL AUTO_INCREMENT;
+  MODIFY `f2fApplicationID` int(11) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT for table `dbformmanagement`
+--
+ALTER TABLE `dbformmanagement`
+  MODIFY `formid` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
 -- AUTO_INCREMENT for table `dbfsgapplication`
 --
 ALTER TABLE `dbfsgapplication`
-  MODIFY `fsgApplicationID` int NOT NULL AUTO_INCREMENT;
+  MODIFY `fsgApplicationID` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `dbhfapplication`
 --
 ALTER TABLE `dbhfapplication`
-  MODIFY `hfApplicationID` int NOT NULL AUTO_INCREMENT;
+  MODIFY `hfApplicationID` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `dbioovapplication`
 --
 ALTER TABLE `dbioovapplication`
-  MODIFY `ioovApplicationID` int NOT NULL AUTO_INCREMENT;
+  MODIFY `ioovApplicationID` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `dbp2papplication`
 --
 ALTER TABLE `dbp2papplication`
-  MODIFY `p2pApplicationID` int NOT NULL AUTO_INCREMENT;
+  MODIFY `p2pApplicationID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- Constraints for dumped tables
