@@ -41,8 +41,7 @@
             'first_name', 'last_name', 'birthday', 'street_address', 'city', 'state',
             'zip_code', 'email', 'phone1', 'phone1type', 'emergency_contact_first_name',
             'emergency_contact_last_name', 'emergency_contact_phone',
-            'emergency_contact_phone_type', 'emergency_contact_relation',
-            'school_affiliation', 'tshirt_size'
+            'emergency_contact_phone_type', 'emergency_contact_relation'
         );
         $errors = false;
         if (!wereRequiredFieldsSubmitted($args, $required)) {
@@ -90,10 +89,10 @@
             // echo 'bad phone';
         }
 
-        $phone1type = $args['phone1type'];
-        if (!valueConstrainedTo($phone1type, array('cellphone', 'home', 'work'))) {
+        $preferred_feedback_method = $args['preferred_feedback_method'];
+        if (!valueConstrainedTo($preferred_feedback_method, array('Text', 'Call', 'Email'))) {
             $errors = true;
-            // echo 'bad phone type';
+            // echo 'bad feedback type';
         }
         
         /*@
@@ -133,17 +132,6 @@
 
         $type = $args['type'];
 
-        $school_affiliation = $args['school_affiliation'];
-        $photo_release = $args['photo_release'];
-            if (!valueConstrainedTo($photo_release, array('Restricted', 'Not Restricted'))) {
-                $errors = true;
-                echo 'bad photo release type';
-            }
-            $photo_release_notes = $args['photo_release_notes'];
-
-        $tshirt_size = $args['tshirt_size'];
-
-        $how_you_heard_of_stepva = $args['how_you_heard_of_stepva'];
         $preferred_feedback_method = $args['preferred_feedback_method'];
         $hobbies = $args['hobbies'];
         $professional_experience = $args['professional_experience'];
@@ -182,7 +170,7 @@
             $disability_accomodation_needs, $training_complete, $training_date,
             $orientation_complete, $orientation_date, $background_complete,
             $background_date, $photo_release, $photo_release_notes
-        );
+        ); 
         if ($result) {
             if ($editingSelf) {
                 header('Location: viewProfile.php?editSuccess');
