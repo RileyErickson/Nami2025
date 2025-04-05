@@ -190,10 +190,10 @@ $access_level = $_SESSION['access_level']; ?>
         </div>
     <?php endif ?>
 
-    <a class="button cancel" href="index.php">Return to Dashboard</a>
+    <a class="button cancel" href="volunteerDirectory.php">Return to Volunteer Management Dashboard</a>
 </main>
 
 
 </body>
-
+<?php require('footer.php'); ?>
 </html>

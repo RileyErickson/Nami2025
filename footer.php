@@ -24,6 +24,7 @@
     padding: 20px 40px;
     font-size: 16px;
     color: #fff;
+    flex-shrink: 0;
 }
 
 .footer .left {
