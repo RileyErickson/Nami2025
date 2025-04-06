@@ -107,9 +107,9 @@ mysqli_close($conn);
     </style>
 </head>
 <body>
+<h1>Volunteer Hours</h1>
+<main>
     <div class="container">
-        <h1>Volunteer Hours</h1>
-
         <div class="content-box">
             <div class="total-hours">
                 <span class="total-hours-label">Total Hours</span>
@@ -129,7 +129,9 @@ mysqli_close($conn);
 
             <a href="generateHourReport.php" target="_blank" class="download-button">Download Report</a>
         </div>
-        <a class="button cancel" href="hours.php" style="margin-top: .5rem">Return to Dashboard</a>
+        <a class="button cancel" href="hours.php" style="margin-top: .5rem">Return to Hours Management Dashboard</a>
     </div>
+</main>
 </body>
+<?php require('footer.php'); ?>
 </html>

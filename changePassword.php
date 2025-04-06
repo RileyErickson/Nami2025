@@ -105,6 +105,8 @@
                     <a class="button cancel" href="index.php">Cancel</a>
                 <?php endif ?>
             </form>
+            <a class="button cancel" href="index.php" style="margin-top: .5rem">Return to Home Dashboard</a>
         </main>
     </body>
+    <?php require('footer.php'); ?>
 </html>

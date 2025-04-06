@@ -63,6 +63,7 @@ mysqli_close($conn);
     <body>
         <?php require_once('header.php') ?>
         <h1>Add Minutes</h1>
+        <main>
         <div class="container">
             <h2>Upload Link</h2>
             <form method="POST" enctype="multipart/form-data">
@@ -77,6 +78,8 @@ mysqli_close($conn);
                 <?php echo $message; ?>
             </p>
         <?php endif; ?>
-        <main class="date">
+        </main>
+        <main class="date"></main>
     </body>
+    <?php require('footer.php'); ?>
 </html>

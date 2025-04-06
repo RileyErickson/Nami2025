@@ -73,8 +73,9 @@ mysqli_close($conn);
     </style>
 </head>
 <body>
+<h1>Approve Volunteer Hours</h1>
     <div class="container">
-        <h1>Approve Volunteer Hours</h1>
+    <main>
         <?php if (empty($pendingLogs)) : ?>
             <p class="no-logs">No pending logs to review.</p>
         <?php else : ?>
@@ -92,7 +93,8 @@ mysqli_close($conn);
                 </div>
             <?php endforeach; ?>
         <?php endif; ?>
-        <a class="button cancel" href="hours.php" style="margin-top: .5rem">Return to Dashboard</a>
+        <a class="button cancel" href="hours.php" style="margin-top: .5rem">Return to Hours Management Dashboard</a>
     </div>
 </body>
+<?php require('footer.php'); ?>
 </html>

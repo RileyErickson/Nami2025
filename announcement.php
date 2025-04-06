@@ -106,6 +106,8 @@ if (isset($_POST['add_announcement'])) {
                 <button type="submit" name="clear_announcement">Clear Announcement</button>
             </form>
         </div>
+        <a class="button cancel" href="index.php">Return to Home Dashboard</a>
     </main>
 </body>
+<?php require('footer.php'); ?>
 </html>

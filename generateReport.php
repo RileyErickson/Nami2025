@@ -31,6 +31,7 @@
     <body>
         <?php require_once('header.php') ?>
         <h1>Generate Volunteer Reports</h1>
+        <main>
         <form id="hours-report" class="general" method="get">
             <h2>Generate Volunteer Report</h2>
             <?php
@@ -85,7 +86,9 @@
             <label for="id">Username</label>
             <input type="text" id="id" name="id" value="<?php if (isset($id)) echo htmlspecialchars($_GET['id']) ?>" placeholder="Enter the user's username (login ID)">
             <input type="submit" value="Generate Report">
-            <a class="button cancel" href="index.php">Return to Dashboard</a>
+            <a class="button cancel" href="index.php">Return to Home Dashboard</a>
         </form>
+            </main>
     </body>
+<?php require('footer.php'); ?>
 </html>
