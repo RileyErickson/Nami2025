@@ -4,7 +4,7 @@ session_cache_expire(30);
 session_start();
 ini_set("display_errors", 1);
 error_reporting(E_ALL);
-
+//this commit is nothing am just going through the steps again so i dont erase all my changes like I just did
 // Include database connection
 include_once('database/dbinfo.php');
 $conn = connect();
