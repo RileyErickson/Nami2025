@@ -195,4 +195,5 @@
         require_once('profileEditForm.php');
     ?>
 </body>
+<?php require('footer.php'); ?>
 </html>

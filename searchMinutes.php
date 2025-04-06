@@ -77,6 +77,7 @@ mysqli_close($conn);
 </head>
 <body>
     <?php require_once('header.php') ?>
+    <h1>Search Minutes</h1>
     <div id="sidebar" class="container">
         <h3>Select Keywords</h3>
         <form action="searchMinutes.php" method="GET">
@@ -119,4 +120,10 @@ mysqli_close($conn);
             <?php else: ?>
                 <p>No results found.</p>
             <?php endif; ?>
+        </div>
+    </div>
+</body>
+<?php require('footer.php'); ?>
+</html>
+
         

@@ -281,7 +281,7 @@
 						
 						<input type="submit">
 						
-						<a class="button cancel" href="viewForms.php" style="margin-top: .5rem">Return to Dashboard Without Saving</a>
+						<a class="button cancel" href="viewForms.php" style="margin-top: .5rem">Return to Forms Dashboard Without Saving</a>
 					</form>
 					
 				</fieldset>
@@ -289,4 +289,5 @@
 			<?php //endif ?>
         </main>
     </body>
+	<?php require('footer.php'); ?>
 </html>

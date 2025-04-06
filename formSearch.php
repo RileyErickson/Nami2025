@@ -30,6 +30,7 @@
     <body>
         <?php require_once('header.php') ?>
         <h1>Submitted Form Search</h1>
+    <main>
         <form id="person-search" class="general" method="get">
             <h2>Find Volunteer/Participant</h2>
             <?php 
@@ -177,7 +178,9 @@
 
             <div id="criteria-error" class="error hidden">You must provide at least one search criterion.</div>
             <input type="submit" value="Search">
-            <a class="button cancel" href="index.php">Return to Dashboard</a>
+            <a class="button cancel" href="index.php">Return to Home Dashboard</a>
         </form>
+    </main>
     </body>
+    <?php require('footer.php'); ?>
 </html>
