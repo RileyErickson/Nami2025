@@ -14,7 +14,7 @@
     }
     if (isset($_SESSION['_id'])) {
         $loggedIn = true;
-        // 0 = not logged in, 1 = standard user, 2 = manager (Admin), 3 super admin (TBI)
+        // 0 = not logged in, 1 = standard user, 3 = manager (Admin), 4 super admin/boardmeber 
         $accessLevel = $_SESSION['access_level'];
         $isAdmin = $accessLevel >= 2;
         $userID = $_SESSION['_id'];
@@ -59,7 +59,7 @@
         <h1>Consumer Forms</h1>
 		<?php elseif ($accessLevel == 1): ?>
         <h1>Volunteer Forms</h1>
-		<?php elseif ($accessLevel == 2 || $accessLevel == 3): ?>
+		<?php elseif ($accessLevel == 2 || $accessLevel >= 3): ?>
         <h1>Forms</h1>
 		<?php endif ?>
 				
@@ -82,7 +82,7 @@
 
             <fieldset class="section-box">
 				
-				<?php if($accessLevel == 1 || $accessLevel == 2 || $accessLevel == 3): ?>
+				<?php if($accessLevel == 1 || $accessLevel == 2 || $accessLevel >= 3): ?>
 					<!-- Links to volunteer forms can be added here -->
 					<div>
 						<div class="field-pair">

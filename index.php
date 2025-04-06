@@ -229,7 +229,7 @@
 <!--                --><?php //endif ?>
 
                 <!-- FOR BOARD ONLY -->
-                <?php elseif ($_SESSION['access_level'] == 2) : ?>
+                <?php elseif ($_SESSION['access_level'] >= 4) : ?>
 
                     <main class='dashboard'>
                         <div id="dashboard">

@@ -116,7 +116,8 @@ $access_level = $_SESSION['access_level']; ?>
                         <td><?php echo htmlspecialchars($name); ?></td>
                         <td><?php echo htmlspecialchars($pending[$x]['last_name']); ?></td>
                         <td>
-                                    <?php echo htmlspecialchars($pending[$x]['start_date']); ?>
+                                  <!--  <?php echo htmlspecialchars($pending[$x]['start_date']); ?> -->
+                                  <? php echo htmlspecialchars((string)$variable, ENT_QUOTES, 'UTF-8'); ?>
                         </td>
 <!--                        <td>--><?php //echo htmlspecialchars($position_label); ?><!--</td>-->
                         <!-- Demographic -->

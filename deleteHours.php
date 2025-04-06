@@ -21,7 +21,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['delete'])) {
     $stmt->execute();
     $stmt->close();
 
-    header("Location: manageVolunteerHours.php");
+    header("Location: hours.php");
     exit();
 }
 
