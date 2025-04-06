@@ -1366,7 +1366,10 @@ function get_logged_hours($from, $to, $name_from, $name_to, $venue) {
 
     function approved_volunteer_application($id){
         $connection = connect();
-        $query = 'UPDATE dbpersons SET type="volunteer" WHERE id="'.$id.'"';
+        //$query = 'UPDATE dbpersons SET type="volunteer" WHERE id="'.$id.'"';
+        //modify account does not like status not being set already 
+        //should be safe to assume a new account is active
+        $query = 'UPDATE dbpersons SET type="volunteer", status="Active" WHERE id="' . $id . '"';
         $result = mysqli_query($connection, $query);
         $result = boolval($result);
         mysqli_close($connection);
