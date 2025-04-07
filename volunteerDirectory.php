@@ -117,17 +117,17 @@ if (file_exists($announcementFile)) {
                 ?>
             </div>
 
-            <div class="dashboard-item" data-link="deleteVolunteer.php">
-                <img src="images/removeVolunteer.svg">
-                <span><center>Remove Volunteer</center></span>
-            </div>
+<!--            <div class="dashboard-item" data-link="deleteVolunteer.php">-->
+<!--                <img src="images/removeVolunteer.svg">-->
+<!--                <span><center>Remove Volunteer</center></span>-->
+<!--            </div>-->
 
 
 
-            <div class="dashboard-item" data-link="editVolunteer.php">
-                <img src="images/editVolunteer.png">
-                <span><center>Edit Volunteer Profile (WIP)</center></span>
-            </div>
+<!--            <div class="dashboard-item" data-link="editVolunteer.php">-->
+<!--                <img src="images/editVolunteer.png">-->
+<!--                <span><center>Edit Volunteer Profile (WIP)</center></span>-->
+<!--            </div>-->
 
 
             <div class="dashboard-item" data-link="displayCurrentVolunteers.php">
@@ -137,10 +137,10 @@ if (file_exists($announcementFile)) {
 
 
 
-            <div class="dashboard-item" data-link="personSearch.php">
-                <img src="images/person-search.svg">
-                <span><center>Search Volunteer Details</center></span>
-            </div>
+<!--            <div class="dashboard-item" data-link="personSearch.php">-->
+<!--                <img src="images/person-search.svg">-->
+<!--                <span><center>Search Volunteer Details</center></span>-->
+<!--            </div>-->
             <!-- add some sort of search capability to this -->
             <!-- could use adminViewingEvents.php as base? -->
             <div class="dashboard-item" data-link="blacklist.php">
