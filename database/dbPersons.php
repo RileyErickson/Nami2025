@@ -216,6 +216,57 @@ function fetchCurrentVolunteer() {
     return $signups;
 }
 
+function fetchCurrentBoardMembers() {
+    $con=connect();
+    $query = 'SELECT * FROM dbpersons WHERE type = "board" OR "board member"';
+    $result = mysqli_query($con,$query);
+
+    if (!$result) {
+        die('Query failed: ' . mysqli_error($con));
+    }
+    $signups = [];
+    while ($row = mysqli_fetch_assoc($result)) {
+        $signups[] = $row;
+    }
+
+    mysqli_close($con);
+    return $signups;
+}
+
+function fetchCurrentAdmins() {
+    $con=connect();
+    $query = 'SELECT * FROM dbpersons WHERE type = "admin" OR "a"';
+    $result = mysqli_query($con,$query);
+
+    if (!$result) {
+        die('Query failed: ' . mysqli_error($con));
+    }
+    $signups = [];
+    while ($row = mysqli_fetch_assoc($result)) {
+        $signups[] = $row;
+    }
+
+    mysqli_close($con);
+    return $signups;
+}
+
+function fetchEveryone() {
+    $con=connect();
+    $query = 'SELECT * FROM dbpersons';
+    $result = mysqli_query($con,$query);
+
+    if (!$result) {
+        die('Query failed: ' . mysqli_error($con));
+    }
+    $signups = [];
+    while ($row = mysqli_fetch_assoc($result)) {
+        $signups[] = $row;
+    }
+
+    mysqli_close($con);
+    return $signups;
+}
+
 /*
  * @return a Person from dbPersons table matching a particular id.
  * if not in table, return false
