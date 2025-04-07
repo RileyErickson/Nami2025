@@ -91,7 +91,9 @@
                                                 echo '<th>Reason</th> <th>Why Now</th> <th>Recovery Status</th> <th>Screener Name</th> <th>Screener Date</th>';
                                             }
 
-                                        echo '    </tr>
+                                        echo '
+                                        <th>Form Actions</th><th></th>
+                                            </tr>
                                     </thead>
                                     <tbody class="standout">';
                             $mailingList = '';
@@ -144,10 +146,16 @@
                                                 echo  '<td>' . $person['screenerName'] . '</td>';
                                                 echo  '<td>' . $person['screeningDate'] . '</td>';
                                             }
-                                            echo '
+                                            echo 
+                                            '                            <td>
+                            <a class="button" href="index.php">Approve</a> </td>
+                                                                                                   <td>
+                            <a class="button cancel" href="index.php">Reject</a> </td>
+                            
                                            </a></tr>';
                             }}
                             echo '
+
                                     </tbody>
                                 </table>
                             </div>';
