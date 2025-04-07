@@ -169,7 +169,7 @@
 
                 <input type="hidden" name="id" value="<?php echo $id; ?>">
                 <input type="submit" name="user_access_modified" value="Update">
-                <a class="button cancel" href="viewProfile.php?id=<?php echo htmlspecialchars($_GET['id']) ?>">Cancel</a>
+                <a class="button cancel" href="displayCurrentVolunteers.php">Cancel</a>
 		</form>
         </main>
     </body>

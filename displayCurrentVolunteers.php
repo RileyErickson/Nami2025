@@ -45,10 +45,13 @@ $access_level = $_SESSION['access_level']; ?>
 <body>
 <?php require_once('header.php'); ?>
 
-<h1>Current Volunteers List</h1>
+<h1 style="margin-bottom:0">Current Volunteers List</h1>
 
 <main class="general">
     <p>
+        <center><a
+                href="personSearch.php"><button class="button" style="width:30%"><?php echo 'Click here to search for a specific User' ?></button>
+        </center></a>
         <?php if (sizeof($pending) === 0):
             echo "There are currently no volunteers.";
             ?>
@@ -58,6 +61,7 @@ $access_level = $_SESSION['access_level']; ?>
             <center><b><?php echo "There are currently " . htmlspecialchars(string: sizeof($pending)) . " volunteers."; ?></b></center>
         <?php endif; ?>
     </p>
+    <p></p>
 <!--    <p>-->
 <!--        --><?php //if (sizeof($pending) === 0):
 //            echo "There are 0 pending signups awaiting resolution.";
@@ -80,6 +84,8 @@ $access_level = $_SESSION['access_level']; ?>
 <!--                    <th>Start Date</th>-->
                     <?php if ($access_level >= 2): ?>
                         <th><center>View Profile</center></th>
+                        <th><center>Edit Profile</center></th>
+                        <th><center>Change Role</center></th>
                     <?php endif; ?>
 <!--                    --><?php //if ($access_level >= 2): ?>
 <!--                        <th>Change Role</th>-->
@@ -110,7 +116,19 @@ $access_level = $_SESSION['access_level']; ?>
                         <td>
 
                             <a
-                                href="viewProfile.php?id=<?php echo urlencode($user_id); ?>"><button class="button"><?php echo 'View ',htmlspecialchars($user_id); ?></button>
+                                href="viewProfile.php?id=<?php echo urlencode($user_id); ?>"><center><button class="button" style="width:70%"><?php echo 'View ',htmlspecialchars($user_id); ?></center></button>
+                            </a>
+                        </td>
+
+                        <td>
+
+                            <a
+                                    href="editProfile.php?id=<?php echo urlencode($user_id); ?>"><center><button class="button" style="width:70%;"><?php echo 'Edit ',htmlspecialchars($user_id); ?></center></button>
+                            </a>
+                        <td>
+
+                            <a
+                                    href="modifyUserRole.php?id=<?php echo urlencode($user_id); ?>"><center><button class="button" style="width:70%;"><?php echo 'Change ',htmlspecialchars($user_id); ?></center></button>
                             </a>
                         </td>
                         <!--Actions-->
