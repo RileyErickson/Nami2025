@@ -24,6 +24,10 @@
     // Get date?
     if (isset($_SESSION['_id'])) {
         $person = retrieve_person($_SESSION['_id']);
+        if($person->get_status() == 'Inactive') {
+            header('Location: inactiveDash.php');
+            die();
+        }
 
     }
     $notRoot = $person->get_id() != 'vmsroot';
