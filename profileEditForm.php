@@ -215,11 +215,11 @@
         </fieldset>
 
         <fieldset class="section-box">
-            <legend>Volunteer Orientation</legend>
+            <legend>Screening Information</legend>
 
             <p>Please provide details about your orientation status.</p>
 
-            <label for="orientation_complete"><em>* </em>Orientation Completed</label>
+            <label for="orientation_complete"><em>* </em>Screening Completed</label>
             <div class="radio-group">
                 <?php $orientationComplete = $person->get_orientation_complete();?>
                 <input type="radio" id="orientation-complete-yes" name="orientation_complete" value="1" 
@@ -231,11 +231,11 @@
             </div>
 
             <div id="orientation-date-container" style="display: none;">
-                <label for="orientation_date">Orientation Date</label>
+                <label for="orientation_date">Screening Date</label>
                 <input type="date" id="orientation_date" name="orientation_date" 
                     value="<?php echo hsc($person->get_orientation_date()); ?>" 
                     max="<?php echo date('Y-m-d'); ?>" 
-                    placeholder="Enter orientation date">
+                    placeholder="Enter screening date">
             </div>
         </fieldset>
 
