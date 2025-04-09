@@ -54,7 +54,7 @@ $access_level = $_SESSION['access_level']; ?>
     <?php if (isset($_GET['rscSuccess'])): ?>
         <div class="happy-toast"><?php
         echo $_GET['id'];?>'s role and/or status updated successfully!</div>
-        <?php header("Refresh: 2; url=displayCurrentVolunteers.php"); ?>
+        <?php header("Refresh: 2; jenniferp161.sg-host.com/displayCurrentVolunteers.php"); ?>
 
     <?php endif ?>
     <p>
