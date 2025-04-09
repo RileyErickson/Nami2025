@@ -123,6 +123,13 @@
                         </div>
                     </a>
 
+                    <a href="hours.php" class="clickable-box">
+                        <div class="highlight">
+                            <span class="box-text">Forms Management</span>
+                            <img src="images/highlight_background.jpg" alt="highlight" />
+                        </div>
+                    </a>
+
                 </div>
 
                 <main class='dashboard'>
