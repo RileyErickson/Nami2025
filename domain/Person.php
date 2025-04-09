@@ -35,6 +35,7 @@ class Person {
 	private $street_address;
 	private $city;
 	private $state;
+    private $notes;
 	private $zip_code;
 	private $phone1;
 	private $phone1type;
@@ -230,6 +231,10 @@ class Person {
 	function get_photo_release_notes() {
 		return $this->photo_release_notes;
 	}
+
+    function get_notes() {
+        return $this->notes;
+    }
 
 	function get_type() {
 		return $this->type;

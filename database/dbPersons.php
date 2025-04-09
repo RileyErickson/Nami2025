@@ -792,7 +792,7 @@ function get_logged_hours($from, $to, $name_from, $name_to, $venue) {
     // updates the required fields of a person's account
     function update_person_required(
         $id, $first_name, $last_name, $birthday, $street_address, $city, $state,
-        $zip_code, $email, $phone1, $phone1type, $emergency_contact_first_name,
+        $notes, $zip_code, $email, $phone1, $phone1type, $emergency_contact_first_name,
         $emergency_contact_last_name, $emergency_contact_phone,
         $emergency_contact_phone_type, $emergency_contact_relation, $type,
         $school_affiliation, $tshirt_size, $how_you_heard_of_stepva,
@@ -802,7 +802,7 @@ function get_logged_hours($from, $to, $name_from, $name_to, $venue) {
     ) {
         $query = "update dbpersons set 
             first_name='$first_name', last_name='$last_name', birthday='$birthday',
-            street_address='$street_address', city='$city', state='$state',
+            street_address='$street_address', city='$city', state='$state', notes='$notes',
             zip_code='$zip_code', email='$email', phone1='$phone1', phone1type='$phone1type', 
             emergency_contact_first_name='$emergency_contact_first_name', 
             emergency_contact_last_name='$emergency_contact_last_name', 
@@ -1007,6 +1007,14 @@ function get_logged_hours($from, $to, $name_from, $name_to, $venue) {
         $query = 'UPDATE dbpersons SET notes = "' . $new_notes . '" WHERE id = "' . $id . '"';
         $result = mysqli_query($con,$query);
         mysqli_close($con);
+        return $result;
+    }
+
+    function get_notes($id){
+        $connection = connect();
+        $query = 'SELECT notes FROM dbpersons WHERE id="'.$id.'"';
+        $result = mysqli_query($connection, $query);
+        mysqli_close($connection);
         return $result;
     }
     

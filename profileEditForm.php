@@ -37,13 +37,13 @@
         '11:59 PM'
     ];
     $values = [
-        "00:00", "01:00", "02:00", "03:00", "04:00", "05:00", 
-        "06:00", "07:00", "08:00", "09:00", "10:00", "11:00", 
-        "12:00", "13:00", "14:00", "15:00", "16:00", "17:00", 
+        "00:00", "01:00", "02:00", "03:00", "04:00", "05:00",
+        "06:00", "07:00", "08:00", "09:00", "10:00", "11:00",
+        "12:00", "13:00", "14:00", "15:00", "16:00", "17:00",
         "18:00", "19:00", "20:00", "21:00", "22:00", "23:00",
         "23:59"
     ];
-    
+
     function buildSelect($name, $disabled=false, $selected=null) {
         global $times;
         global $values;
@@ -93,7 +93,7 @@
     <form class="signup-form" method="post">
         <br>
 	<p>An asterisk (<em>*</em>) indicates a required field.</p>
-    
+
         <fieldset class="section-box">
             <legend>Login Credentials</legend>
             <label>Username</label>
@@ -184,7 +184,7 @@
                 <input type="radio" id="phone-type-home" name="emergency_contact_phone_type" value="home" <?php if ($type == 'home') echo 'checked'; ?> required><label for="phone-type-home">Home</label>
                 <input type="radio" id="phone-type-work" name="emergency_contact_phone_type" value="work" <?php if ($type == 'work') echo 'checked'; ?> required><label for="phone-type-work">Work</label>
             </div>
-        
+
         </fieldset>
 
 
@@ -197,19 +197,19 @@
             <label for="training_complete"><em>* </em>Training Completed</label>
             <div class="radio-group">
                 <?php $trainingComplete = $person->get_training_complete(); ?>
-                <input type="radio" id="training-complete-yes" name="training_complete" value="1" 
+                <input type="radio" id="training-complete-yes" name="training_complete" value="1"
                     <?php if ($trainingComplete == '1') echo 'checked'; ?> required>
                 <label for="training-complete-yes">Yes</label>
-                <input type="radio" id="training-complete-no" name="training_complete" value="0" 
+                <input type="radio" id="training-complete-no" name="training_complete" value="0"
                     <?php if ($trainingComplete == '0') echo 'checked'; ?> required>
                 <label for="training-complete-no">No</label>
             </div>
 
             <div id="training-date-container" style="display: none;">
                 <label for="training_date">Training Date</label>
-                <input type="date" id="training_date" name="training_date" 
-                    value="<?php echo hsc($person->get_training_date()); ?>" 
-                    max="<?php echo date('Y-m-d'); ?>" 
+                <input type="date" id="training_date" name="training_date"
+                    value="<?php echo hsc($person->get_training_date()); ?>"
+                    max="<?php echo date('Y-m-d'); ?>"
                     placeholder="Enter training date">
             </div>
         </fieldset>
@@ -222,19 +222,19 @@
             <label for="orientation_complete"><em>* </em>Screening Completed</label>
             <div class="radio-group">
                 <?php $orientationComplete = $person->get_orientation_complete();?>
-                <input type="radio" id="orientation-complete-yes" name="orientation_complete" value="1" 
+                <input type="radio" id="orientation-complete-yes" name="orientation_complete" value="1"
                     <?php if ($orientationComplete == '1') echo 'checked'; ?> required>
                 <label for="orientation-complete-yes">Yes</label>
-                <input type="radio" id="orientation-complete-no" name="orientation_complete" value="0" 
+                <input type="radio" id="orientation-complete-no" name="orientation_complete" value="0"
                     <?php if ($orientationComplete == '0') echo 'checked'; ?> required>
                 <label for="orientation-complete-no">No</label>
             </div>
 
             <div id="orientation-date-container" style="display: none;">
                 <label for="orientation_date">Screening Date</label>
-                <input type="date" id="orientation_date" name="orientation_date" 
-                    value="<?php echo hsc($person->get_orientation_date()); ?>" 
-                    max="<?php echo date('Y-m-d'); ?>" 
+                <input type="date" id="orientation_date" name="orientation_date"
+                    value="<?php echo hsc($person->get_orientation_date()); ?>"
+                    max="<?php echo date('Y-m-d'); ?>"
                     placeholder="Enter screening date">
             </div>
         </fieldset>
@@ -247,19 +247,19 @@
             <label for="background_complete"><em>* </em>Background Check Completed</label>
             <div class="radio-group">
                 <?php $backgroundComplete = $person->get_background_complete(); ?>
-                <input type="radio" id="background-complete-yes" name="background_complete" value="1" 
+                <input type="radio" id="background-complete-yes" name="background_complete" value="1"
                     <?php if ($backgroundComplete == '1') echo 'checked'; ?> required>
                 <label for="background-complete-yes">Yes</label>
-                <input type="radio" id="background-complete-no" name="background_complete" value="0" 
+                <input type="radio" id="background-complete-no" name="background_complete" value="0"
                     <?php if ($backgroundComplete == '0') echo 'checked'; ?> required>
                 <label for="background-complete-no">No</label>
             </div>
 
             <div id="background-date-container" style="display: none;">
                 <label for="background_date">Background Check Date</label>
-                <input type="date" id="background_date" name="background_date" 
-                    value="<?php echo hsc($person->get_background_date()); ?>" 
-                    max="<?php echo date('Y-m-d'); ?>" 
+                <input type="date" id="background_date" name="background_date"
+                    value="<?php echo hsc($person->get_background_date()); ?>"
+                    max="<?php echo date('Y-m-d'); ?>"
                     placeholder="Enter background check date">
             </div>
         </fieldset>
@@ -323,14 +323,14 @@
             <div class="radio-group">
                 <?php $preferred_feedback_method = $person->get_preferred_feedback_method(); ?>
 
-                <input type="radio" id="text" name="preferred_feedback_method" value="text" <?php if ($type == 'text') echo 'checked'; ?> required>
+                <input type="radio" id="text" name="preferred_feedback_method" value="text" <?php if ($type == 'text') echo 'checked'; ?>>
                 <label for="text">Text</label>
-                
-                <input type="radio" id="email" name="preferred_feedback_method" value="email" <?php if ($type == 'email') echo 'checked'; ?> required>
+
+                <input type="radio" id="email" name="preferred_feedback_method" value="email" <?php if ($type == 'email') echo 'checked'; ?>>
                 <label for="email">Email</label>
-                
-                <input type="radio" id="no-preference" name="preferred_feedback_method" value="no-preference" 
-                <?php if ($preferred_feedback_method == 'no-preference') echo 'checked'; ?> required>
+
+                <input type="radio" id="no-preference" name="preferred_feedback_method" value="no-preference"
+                    <?php if ($preferred_feedback_method == 'no-preference') echo 'checked'; ?>>
                 <label for="no-preference">No preference</label>
             </div>
 
@@ -343,6 +343,12 @@
             <label>Are there any accomodations you may need? Anything we should keep in mind?</label>
             <input type="text" id="disability_accomodation_needs" name="disability_accomodation_needs" value="<?php echo hsc($person->get_disability_accomodation_needs()); ?>" placeholder="">
 
+        </fieldset>
+
+        <fieldset class ="section-box">
+            <legend>Admin Notes</legend>
+            <label>Notes:</label>
+            <textarea rows="15" style="background-color:white; color:black" type="text" id="notes" name="notes" placeholder=""><?php echo (get_notes($id)->fetch_assoc()['notes']); ?></textarea>
         </fieldset>
 
         <p></p>
