@@ -188,6 +188,7 @@
                 </div>
             </fieldset>
 
+            <?php if ($accessLevel >= 3) : ?>
             <fieldset class="section-box">
                 <legend>Volunteer Training</legend>
 
@@ -217,12 +218,12 @@
             </fieldset>
 
             <fieldset class="section-box">
-                <legend>Volunteer Orientation</legend>
+                <legend>Screening information</legend>
 
-                <p>Details about the volunteer's orientation status.</p>
+                <p>Details about the volunteer's screening status.</p>
 
                 <div class="field-pair">
-                    <label>Orientation Completed</label>
+                    <label>Screening Completed</label>
                     <p>
                         <?php 
                             $orientationComplete = $user->get_orientation_complete();
@@ -233,7 +234,7 @@
 
                 <?php if ($orientationComplete == '1'): ?>
                     <div class="field-pair" id="orientation-date-container">
-                        <label>Orientation Date</label>
+                        <label>Screening Date</label>
                         <p>
                             <?php 
                                 $orientationDate = $user->get_orientation_date();
@@ -271,7 +272,7 @@
                     </div>
                 <?php endif; ?>
             </fieldset>
-
+            <?php endif; ?>
 
             <fieldset class="section-box">
                 <legend>Volunteer Information</legend>
@@ -315,35 +316,35 @@
 
 
             </fieldset>
-
-            <fieldset class="section-box">
-                <legend>Emergency Contact Information</legend>
-
-                <div class="field-pair">
-                    <label>Emergency Contact First Name</label>
-                    <p><?php echo ucfirst($user->get_emergency_contact_first_name()) ?></p>
-                </div>
-
-                <div class="field-pair">
-                    <label>Emergency Contact Last Name</label>
-                    <p><?php echo ucfirst($user->get_emergency_contact_last_name()) ?></p>
-                </div>
-
-                <div class="field-pair">
-                    <label>Emergency Contact Phone</label>
-                    <p><?php echo formatPhoneNumber($user->get_emergency_contact_phone()) ?></p>
-                </div>
+<!---->
+<!--            <fieldset class="section-box">-->
+<!--                <legend>Emergency Contact Information</legend>-->
+<!---->
+<!--                <div class="field-pair">-->
+<!--                    <label>Emergency Contact First Name</label>-->
+<!--                    <p>--><?php //echo ucfirst($user->get_emergency_contact_first_name()) ?><!--</p>-->
+<!--                </div>-->
+<!---->
+<!--                <div class="field-pair">-->
+<!--                    <label>Emergency Contact Last Name</label>-->
+<!--                    <p>--><?php //echo ucfirst($user->get_emergency_contact_last_name()) ?><!--</p>-->
+<!--                </div>-->
+<!---->
+<!--                <div class="field-pair">-->
+<!--                    <label>Emergency Contact Phone</label>-->
+<!--                    <p>--><?php //echo formatPhoneNumber($user->get_emergency_contact_phone()) ?><!--</p>-->
+<!--                </div>-->
 
 <!--                <div class="field-pair">-->
 <!--                    <label>Emergency Contact Phone Type</label>-->
 <!--                    <p>--><?php //echo ucfirst($user->get_emergency_contact_phone_type()) ?><!--</p>-->
 <!--                </div>-->
 
-                <div class="field-pair">
-                    <label>Emergency Contact Relation</label>
-                    <p><?php echo ucfirst($user->get_emergency_contact_relation()) ?></p>
-                </div>
-            </fieldset>
+<!--                <div class="field-pair">-->
+<!--                    <label>Emergency Contact Relation</label>-->
+<!--                    <p>--><?php //echo ucfirst($user->get_emergency_contact_relation()) ?><!--</p>-->
+<!--                </div>-->
+<!--            </fieldset>-->
 
 
 
@@ -354,6 +355,7 @@
                 <?php endif ?>
                 <a class="button" href="volunteerReport.php?id=<?php echo htmlspecialchars($_GET['id']) ?>">View Volunteer Hours</a>
                 <a class="button cancel" href="personSearch.php">Return to User Search</a>
+                <a class="button cancel" href="index.php">Return to Dashboard</a>
             <?php else: ?>
                 <a class="button" href="changePassword.php">Change Password</a>
                 <a class="button" href="volunteerReport.php">View Volunteer Hours</a>
@@ -361,4 +363,5 @@
             <?php endif ?>
         </main>
     </body>
+    <?php require('footer.php'); ?>
 </html>

@@ -1,9 +1,9 @@
 <!-- In Our Own Voice -->
 
-<h1>NAMI Virginia In Our Own Voice Presenter Training Application</h1>
+<h1>NAMI Virginia In Our Own Voice Presenter Training application</h1>
 <main class="signup-form">
     <form class="signup-form" method="post">
-        <h2>Application</h2>
+        <h2>application</h2>
         <p>Training is provided at no cost thanks to a grant by DBHDS</p>
         <p>An asterisk (<em>*</em>) indicates a required field.</p>
 
@@ -26,8 +26,8 @@
 
             <p><i>For each question, share your motivations for this volunteer role in at least two sentences.</i></p>
 
-            <label for="reasonToBecomeIOOV">Why do you want to be a NAMI In Our Own Voice presenter?</label>
-            <input type="text" id="reasonToBecomeIOOV" name="reasonToBecomeIOOV" required>
+            <label for="reasonToBecomeioov">Why do you want to be a NAMI In Our Own Voice presenter?</label>
+            <input type="text" id="reasonToBecomeioov" name="reasonToBecomeioov" required>
 
             <label for="whyIsNowRightTime">Why is now the right time for you to volunteer in this role?</label>
             <input type="text" id="whyIsNowRightTime" name="whyIsNowRightTime" required>

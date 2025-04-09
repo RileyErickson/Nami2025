@@ -30,6 +30,7 @@
     <body>
         <?php require_once('header.php') ?>
         <h1>Submitted Form Search</h1>
+    <main>
         <form id="person-search" class="general" method="get">
             <h2>Find Volunteer/Participant</h2>
             <?php 
@@ -46,29 +47,29 @@
                      else {
                         echo "<h3>Search Results</h3>";
                     $persons = get_forms_id($role);
-                    if ($role == "F2F"){
+                    if ($role == "f2f"){
                         $formName = "Family to Family";
-                        $formVariable = "f2fApplicationID";
+                        $formVariable = "f2fapplicationID";
                     }
-                    else if ($role == "P2P"){
+                    else if ($role == "p2p"){
                         $formName = "Peer to Peer";
-                        $formVariable = "p2pApplicationID";
+                        $formVariable = "p2papplicationID";
                     }
-                    else if ($role == "IOOV"){
+                    else if ($role == "ioov"){
                         $formName = "In Our Own Voice";
-                        $formVariable = "ioovApplicationID";
+                        $formVariable = "ioovapplicationID";
                     }
-                    else if ($role == "CSG"){
+                    else if ($role == "csg"){
                         $formName = "Connection Support Group";
-                        $formVariable = "csgApplicationID";                
+                        $formVariable = "csgapplicationID";                
                     }
-                    else if ($role == "FSG"){
+                    else if ($role == "fsg"){
                         $formName = "Family Support Groups";
-                        $formVariable = "fsgApplicationID";
+                        $formVariable = "fsgapplicationID";
                     }
-                    else if ($role == "HF"){
+                    else if ($role == "hf"){
                         $formName = "Homefront";
-                        $formVariable = "hfApplicationID";
+                        $formVariable = "hfapplicationID";
                     }
                     if ($persons == NULL){  
                         echo '<div class="error-toast">Your search returned no results.</div>';;}
@@ -173,19 +174,21 @@
  
            <select id="role" name="role">
                 <option value="">Select</option>
-                <option value="F2F" <?php if (isset($role) && $role == 'F2F') echo 'F2F' ?>>F2F</option>
-                <option value="P2P" <?php if (isset($role) && $role == 'P2P') echo 'P2P' ?>>P2P</option>
-                <option value="IOOV" <?php if (isset($role) && $role == 'IOOV') echo 'IOOV' ?>>IOOV</option>
-                <option value="CSG" <?php if (isset($role) && $role == 'CSG') echo 'CSG' ?>>CSG</option>
+                <option value="f2f" <?php if (isset($role) && $role == 'f2f') echo 'f2f' ?>>f2f</option>
+                <option value="p2p" <?php if (isset($role) && $role == 'p2p') echo 'p2p' ?>>p2p</option>
+                <option value="ioov" <?php if (isset($role) && $role == 'ioov') echo 'ioov' ?>>ioov</option>
+                <option value="csg" <?php if (isset($role) && $role == 'csg') echo 'csg' ?>>csg</option>
                 
-                <option value="FSG" <?php if (isset($role) && $role == 'FSG') echo 'FSG' ?>>FSG</option>
-                <option value="HF" <?php if (isset($role) && $role == 'HF') echo 'HF' ?>>HF</option>
+                <option value="fsg" <?php if (isset($role) && $role == 'fsg') echo 'fsg' ?>>fsg</option>
+                <option value="hf" <?php if (isset($role) && $role == 'hf') echo 'hf' ?>>hf</option>
             </select>
 
 
             <div id="criteria-error" class="error hidden">You must provide at least one search criterion.</div>
             <input type="submit" value="Search">
-            <a class="button cancel" href="index.php">Return to Dashboard</a>
+            <a class="button cancel" href="index.php">Return to Home Dashboard</a>
         </form>
+    </main>
     </body>
+    <?php require('footer.php'); ?>
 </html>

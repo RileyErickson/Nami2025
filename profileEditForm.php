@@ -13,6 +13,16 @@
         $id = $_SESSION['_id'];
     }
 
+    if (isset($_SESSION['_id'])) {
+        $loggedIn = true;
+        // 0 = not logged in, 1 = standard user, 2 = manager (Admin), 3 super admin (TBI)
+        $accessLevel = $_SESSION['access_level'];
+        $isAdmin = $accessLevel >= 2;
+        $userID = $_SESSION['_id'];
+    } else {
+        header('Location: login.php');
+        die();
+    }
     $person = retrieve_person($id);
     if (!$person) {
         echo '<main class="signup-form"><p class="error-toast">That user does not exist.</p></main></body></html>';
@@ -148,13 +158,6 @@
             <label for="phone1"><em>* </em>Phone Number</label>
             <input type="tel" id="phone1" name="phone1" value="<?php echo formatPhoneNumber($person->get_phone1()); ?>" pattern="\([0-9]{3}\) [0-9]{3}-[0-9]{4}" required placeholder="Ex. (555) 555-5555">
 
-            <label><em>* </em>Phone Type</label>
-            <div class="radio-group">
-                <?php $type = $person->get_phone1type(); ?>
-                <input type="radio" id="phone-type-cellphone" name="phone1type" value="cellphone" <?php if ($type == 'cellphone') echo 'checked'; ?> required><label for="phone-type-cellphone">Cell</label>
-                <input type="radio" id="phone-type-home" name="phone1type" value="home" <?php if ($type == 'home') echo 'checked'; ?> required><label for="phone-type-home">Home</label>
-                <input type="radio" id="phone-type-work" name="phone1type" value="work" <?php if ($type == 'work') echo 'checked'; ?> required><label for="phone-type-work">Work</label>
-            </div>
 
         </fieldset>
 
@@ -184,45 +187,8 @@
         
         </fieldset>
 
-        <fieldset class="section-box">
-            <legend>Volunteer Information</legend>
 
-            <label>Account Type</label>
-            
-            <!--
-            <?php $account_type = $person->get_type()?>
-            <div class="radio-group">
-                <input type="radio" id="volunteer" name="type" value="volunteer" <?php if ($account_type == 'volunteer') echo 'checked'; ?> required><label for="type">Volunteer</label>
-                <input type="radio" id="participant" name="type" value="participant" <?php if ($account_type == 'participant') echo 'checked'; ?> required><label for="type">Participant</label>
-            </div>
-            -->
-            <input type="hidden" name="type" value="v">
-
-
-            <label for="school_affiliation"><em>* </em>School Affiliation</label>
-            <input type="text" id="school_affiliation" name="school_affiliation" value="<?php echo hsc($person->get_school_affiliation()); ?>" required placeholder="Enter your affiliated school.">
-
-            <label><em>* </em>Tshirt Size</label>
-            <div class="radio-group">
-                <?php $size = $person->get_tshirt_size(); ?>
-                <input type="radio" id="tshirt-size-xs" name="tshirt_size" value="xs" <?php if ($size == 'xs') echo 'checked'; ?> required><label for="tshirt-size-xs">XS</label>
-                <input type="radio" id="tshirt-size-s" name="tshirt_size" value="s" <?php if ($size == 's') echo 'checked'; ?> required><label for="tshirt-size-s">S</label>
-                <input type="radio" id="tshirt-size-m" name="tshirt_size" value="m" <?php if ($size == 'm') echo 'checked'; ?> required><label for="tshirt-size-m">M</label>
-                <input type="radio" id="tshirt-size-l" name="tshirt_size" value="l" <?php if ($size == 'l') echo 'checked'; ?> required><label for="tshirt-size-l">L</label>
-                <input type="radio" id="tshirt-size-xl" name="tshirt_size" value="xl" <?php if ($size == 'xl') echo 'checked'; ?> required><label for="tshirt-size-xl">XL</label>
-            </div>
-
-            <label for="photo_release"><em>* </em>Photo Release Restrictions: Can your photo be taken and used on our website and social media?</label>
-            <div class="radio-group">
-                <?php $photo_release = $person->get_photo_release()?>
-                <input type="radio" id="Restricted" name="photo_release" value="Restricted" <?php if ($photo_release == 'Restricted') echo 'checked'; ?> required><label for="photo_release">Restricted</label>
-                <input type="radio" id="Not Restricted" name="photo_release" value="Not Restricted" <?php if ($photo_release == 'Not Restricted') echo 'checked'; ?> required><label for="photo_release">Not Restricted</label>
-            </div>
-
-            <label for="photo_release_notes"><em>* </em>Photo Release Restriction Notes (or N/A)</label>
-            <input type="text" id="photo_release_notes" name="photo_release_notes" value="<?php echo hsc($person->get_photo_release_notes()); ?>" required placeholder="Do you have any specific notes about your photo release status?">
-        </fieldset>
-
+        <?php if ($accessLevel >= 3) : ?>
         <fieldset class="section-box">
             <legend>Volunteer Training</legend>
 
@@ -249,11 +215,11 @@
         </fieldset>
 
         <fieldset class="section-box">
-            <legend>Volunteer Orientation</legend>
+            <legend>Screening Information</legend>
 
             <p>Please provide details about your orientation status.</p>
 
-            <label for="orientation_complete"><em>* </em>Orientation Completed</label>
+            <label for="orientation_complete"><em>* </em>Screening Completed</label>
             <div class="radio-group">
                 <?php $orientationComplete = $person->get_orientation_complete();?>
                 <input type="radio" id="orientation-complete-yes" name="orientation_complete" value="1" 
@@ -265,11 +231,11 @@
             </div>
 
             <div id="orientation-date-container" style="display: none;">
-                <label for="orientation_date">Orientation Date</label>
+                <label for="orientation_date">Screening Date</label>
                 <input type="date" id="orientation_date" name="orientation_date" 
                     value="<?php echo hsc($person->get_orientation_date()); ?>" 
                     max="<?php echo date('Y-m-d'); ?>" 
-                    placeholder="Enter orientation date">
+                    placeholder="Enter screening date">
             </div>
         </fieldset>
 
@@ -297,7 +263,7 @@
                     placeholder="Enter background check date">
             </div>
         </fieldset>
-
+        <?php endif;?>
         <script>
             // Function to toggle the visibility and required attribute of the date inputs based on the radio buttons
             function toggleStatusDateVisibility(statusType) {

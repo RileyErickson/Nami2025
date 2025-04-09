@@ -14,7 +14,7 @@
     }
     if (isset($_SESSION['_id'])) {
         $loggedIn = true;
-        // 0 = not logged in, 1 = standard user, 2 = manager (Admin), 3 super admin (TBI)
+        // 0 = not logged in, 1 = standard user, 3 = manager (Admin), 4 super admin/boardmeber 
         $accessLevel = $_SESSION['access_level'];
         $isAdmin = $accessLevel >= 2;
         $userID = $_SESSION['_id'];
@@ -59,7 +59,7 @@
         <h1>Consumer Forms</h1>
 		<?php elseif ($accessLevel == 1): ?>
         <h1>Volunteer Forms</h1>
-		<?php elseif ($accessLevel == 2 || $accessLevel == 3): ?>
+		<?php elseif ($accessLevel == 2 || $accessLevel >= 3): ?>
         <h1>Forms</h1>
 		<?php endif ?>
 				
@@ -82,24 +82,24 @@
 
             <fieldset class="section-box">
 				
-				<?php if($accessLevel == 1 || $accessLevel == 2 || $accessLevel == 3): ?>
+				<?php if($accessLevel == 1 || $accessLevel == 2 || $accessLevel >= 3): ?>
 					<!-- Links to volunteer forms can be added here -->
 					<div>
 						<div class="field-pair">
-							<label>F2F Application</label>
+							<label>F2F application</label>
 							<p>
 								This is a consumer form. A longer description of the form to be submitted can be added here.
 								<br>
 							</p>
 							<form action="editForm.php" method="POST">
-								<input type="hidden" id="formname" name="formname" value="F2FApplication">
+								<input type="hidden" id="formname" name="formname" value="f2fapplication">
 								<?php 
 									echo "<button style=\"width:";
-									$appID = get_appID($userID, 'F2FApplication');
+									$appID = get_appID($userID, 'f2fapplication');
 									if ($appID == 0) {
-										echo "24%;\">Submit New Form";
+										echo "27%;\">Submit New Form";
 									} else {
-										echo "22%;\">Edit Submission";
+										echo "25%;\">Edit Submission";
 									}
 									echo "</button>";
 								?>
@@ -107,20 +107,20 @@
 						</div>
 						
 						<div class="field-pair">
-							<label>FSG Application</label>
+							<label>FSG application</label>
 							<p>
 								This is a volunteer form. A longer description of the form to be submitted can be added here.
 								<br>
 							</p>
 							<form action="editForm.php" method="POST">
-								<input type="hidden" id="formname" name="formname" value="FSGApplication">
+								<input type="hidden" id="formname" name="formname" value="fsgapplication">
 								<?php 
 									echo "<button style=\"width:";
-									$appID = get_appID($userID, 'FSGApplication');
+									$appID = get_appID($userID, 'fsgapplication');
 									if ($appID == 0) {
-										echo "24%;\">Submit New Form";
+										echo "27%;\">Submit New Form";
 									} else {
-										echo "22%;\">Edit Submission";
+										echo "25%;\">Edit Submission";
 									}
 									echo "</button>";
 								?>
@@ -128,20 +128,20 @@
 						</div>
 						
 						<div class="field-pair">
-							<label>HF Application</label>
+							<label>HF application</label>
 							<p>
 								This is a volunteer form. A longer description of the form to be submitted can be added here.
 								<br>
 							</p>
 							<form action="editForm.php" method="POST">
-								<input type="hidden" id="formname" name="formname" value="HFApplication">
+								<input type="hidden" id="formname" name="formname" value="hfapplication">
 								<?php 
 									echo "<button style=\"width:";
-									$appID = get_appID($userID, 'HFApplication');
+									$appID = get_appID($userID, 'hfapplication');
 									if ($appID == 0) {
-										echo "24%;\">Submit New Form";
+										echo "27%;\">Submit New Form";
 									} else {
-										echo "22%;\">Edit Submission";
+										echo "25%;\">Edit Submission";
 									}
 									echo "</button>";
 								?>
@@ -149,20 +149,20 @@
 						</div>
 
 						<div class="field-pair">
-							<label>P2P Application</label>
+							<label>P2P application</label>
 							<p>
 								This is a consumer form. A longer description of the form to be submitted can be added here.
 								<br>
 							</p>
 							<form action="editForm.php" method="POST">
-								<input type="hidden" id="formname" name="formname" value="P2PApplication">
+								<input type="hidden" id="formname" name="formname" value="p2papplication">
 								<?php 
 									echo "<button style=\"width:";
-									$appID = get_appID($userID, 'P2PApplication');
+									$appID = get_appID($userID, 'p2papplication');
 									if ($appID == 0) {
-										echo "24%;\">Submit New Form";
+										echo "27%;\">Submit New Form";
 									} else {
-										echo "22%;\">Edit Submission";
+										echo "25%;\">Edit Submission";
 									}
 									echo "</button>";
 								?>
@@ -170,20 +170,20 @@
 						</div>
 						
 						<div class="field-pair">
-							<label>IOOV Application</label>
+							<label>IOOV application</label>
 							<p>
 								This is a consumer form. A longer description of the form to be submitted can be added here.
 								<br>
 							</p>
 							<form action="editForm.php" method="POST">
-								<input type="hidden" id="formname" name="formname" value="IOOVApplication">
+								<input type="hidden" id="formname" name="formname" value="ioovapplication">
 								<?php 
 									echo "<button style=\"width:";
-									$appID = get_appID($userID, 'IOOVApplication');
+									$appID = get_appID($userID, 'ioovapplication');
 									if ($appID == 0) {
-										echo "24%;\">Submit New Form";
+										echo "27%;\">Submit New Form";
 									} else {
-										echo "22%;\">Edit Submission";
+										echo "27%;\">Submit New Form";
 									}
 									echo "</button>";
 								?>
@@ -191,20 +191,20 @@
 						</div>
 						
 						<div class="field-pair">
-							<label>CSG Application</label>
+							<label>CSG application</label>
 							<p>
 								This is a consumer form. A longer description of the form to be submitted can be added here.
 								<br>
 							</p>
 							<form action="editForm.php" method="POST">
-								<input type="hidden" id="formname" name="formname" value="CSGApplication">
+								<input type="hidden" id="formname" name="formname" value="csgapplication">
 								<?php 
 									echo "<button style=\"width:";
-									$appID = get_appID($userID, 'CSGApplication');
+									$appID = get_appID($userID, 'csgapplication');
 									if ($appID == 0) {
-										echo "24%;\">Submit New Form";
+										echo "27%;\">Submit New Form";
 									} else {
-										echo "22%;\">Edit Submission";
+										echo "25%;\">Edit Submission";
 									}
 									echo "</button>";
 								?>
@@ -213,7 +213,8 @@
 					</div>
 				<?php endif ?>
             </fieldset>
-			<a class="button cancel" href="index.php">Return to Dashboard</a>
+			<a class="button cancel" href="index.php">Return to Home Dashboard</a>
         </main>
     </body>
+	<?php require('footer.php'); ?>
 </html>

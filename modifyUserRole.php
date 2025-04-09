@@ -54,16 +54,19 @@
             $statusChange = true;
             // echo "<meta http-equiv='refresh' content='0'>";
         }
-        $new_notes = $post['s_reason'];
-        if (empty($new_notes)){
-            // echo "No new notes selected";
-        }else{
-            update_notes($id, $new_notes);
-            $notesChange = true;
-            // echo "<meta http-equiv='refresh' content='0'>";
-        }
+//        $new_notes = $post['s_reason'];
+//        if (empty($new_notes)){
+//            // echo "No new notes selected";
+//        }else{
+//            update_notes($id, $new_notes);
+//            $notesChange = true;
+//            // echo "<meta http-equiv='refresh' content='0'>";
+//        }
         if (isset($notesChange) || isset($statusChange) || isset($typeChange)) {
-            header('Location: viewProfile.php?rscSuccess&id=' . $_GET['id']);
+            header('Location: displayCurrentVolunteers.php?rscSuccess&id=' . $_GET['id']);
+            //displayCurrentVolunteers.php
+
+
             die();
         }
     }
@@ -169,7 +172,7 @@
 
                 <input type="hidden" name="id" value="<?php echo $id; ?>">
                 <input type="submit" name="user_access_modified" value="Update">
-                <a class="button cancel" href="viewProfile.php?id=<?php echo htmlspecialchars($_GET['id']) ?>">Cancel</a>
+                <a class="button cancel" href="displayCurrentVolunteers.php">Cancel</a>
 		</form>
         </main>
     </body>

@@ -75,6 +75,7 @@ mysqli_close($conn);
     <body>
         <?php require_once('header.php') ?>
         <h1>Add to Blacklist</h1>
+    <main>
     <div class="container">
         <h2>Add New Blacklisted Person</h2>
         <form method="POST">
@@ -96,11 +97,20 @@ mysqli_close($conn);
             <input type="submit" value="Blacklist">
         </form>
         
-    <a class="button cancel" href="blacklist.php" style="margin-top: .5rem">Return to Dashboard</a>; 
+    <a class="button cancel" href="blacklist.php" style="margin-top: .5rem">Return to Blacklist Dashboard</a>; 
     </div>
     
     <?php if (!empty($successMessage)) : ?>
-        <div class="success-message"> <?php echo $successMessage; ?> </div>
+        <?php 
+            if ($successMessage == "Successfully added $name to the blacklist.") {
+                $style = "green";
+            } else {
+                $style = "red";
+            }
+        ?> 
+        <div class="success-message" style="color: <?php echo $style ?>"><center> <?php echo $successMessage; ?> </center></div>
     <?php endif; ?>
+    </main>
 </body>
+<?php require('footer.php'); ?>
 </html>

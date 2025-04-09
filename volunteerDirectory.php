@@ -117,17 +117,17 @@ if (file_exists($announcementFile)) {
                 ?>
             </div>
 
-            <div class="dashboard-item" data-link="deleteVolunteer.php">
-                <img src="images/removeVolunteer.svg">
-                <span><center>Remove Volunteer</center></span>
-            </div>
+<!--            <div class="dashboard-item" data-link="deleteVolunteer.php">-->
+<!--                <img src="images/removeVolunteer.svg">-->
+<!--                <span><center>Remove Volunteer</center></span>-->
+<!--            </div>-->
 
 
 
-            <div class="dashboard-item" data-link="editVolunteer.php">
-                <img src="images/editVolunteer.png">
-                <span><center>Edit Volunteer Profile</center></span>
-            </div>
+<!--            <div class="dashboard-item" data-link="editVolunteer.php">-->
+<!--                <img src="images/editVolunteer.png">-->
+<!--                <span><center>Edit Volunteer Profile (WIP)</center></span>-->
+<!--            </div>-->
 
 
             <div class="dashboard-item" data-link="displayCurrentVolunteers.php">
@@ -137,15 +137,20 @@ if (file_exists($announcementFile)) {
 
 
 
-            <div class="dashboard-item" data-link="personSearch.php">
-                <img src="images/person-search.svg">
-                <span><center>Search Volunteer Details</center></span>
-            </div>
+<!--            <div class="dashboard-item" data-link="personSearch.php">-->
+<!--                <img src="images/person-search.svg">-->
+<!--                <span><center>Search Volunteer Details</center></span>-->
+<!--            </div>-->
             <!-- add some sort of search capability to this -->
             <!-- could use adminViewingEvents.php as base? -->
             <div class="dashboard-item" data-link="blacklist.php">
                 <img src="images/volunteerDenied.png">
-                <span><center>View Volunteer Denied List</center></span>
+                <span><center>View Volunteer Blacklist</center></span>
+            </div>
+            <div style="flex-basis: 100%; height: 0;"></div>
+            <div class="dashboard-item" onclick="location.href='index.php'" style="background-color: grey;">
+                <img src="images/logout.svg" alt="Return Home">
+                <span><center>Return to Home Dashboard</center></span>
             </div>
 
 <!--            <div class="dashboard-item" data-link="hours.php">-->
@@ -199,7 +204,7 @@ if (file_exists($announcementFile)) {
 <!--                <img src="images/viewforms.png">-->
 <!--                <span><center>View Forms</center></span>-->
 <!--            </div>-->
-<!--            <div class="dashboard-item" data-link="https://docs.google.com/document/d/18IXHfsIesFVmo1fnPSZmimUZqvEymKUG1xr3fhEaa_k/edit?tab=t.0">-->
+<!--            <div class="dashboard-item" data-link="https://docs.google.com/document/d/18IXhfsIesFVmo1fnPSZmimUZqvEymKUG1xr3fhEaa_k/edit?tab=t.0">-->
 <!--                <img src="images/staffGuide.png">-->
 <!--                <span><center>Access Volunteer Handbook</center></span>-->
 <!--            </div>-->
@@ -241,6 +246,6 @@ if (file_exists($announcementFile)) {
         </div> -->
     </div>
 </main>
-</body>
 <?php require('footer.php'); ?>
+</body>
 </html>

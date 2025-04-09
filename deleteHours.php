@@ -21,7 +21,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['delete'])) {
     $stmt->execute();
     $stmt->close();
 
-    header("Location: manageVolunteerHours.php");
+    header("Location: hours.php");
     exit();
 }
 
@@ -87,8 +87,9 @@ mysqli_close($conn);
     </style>
 </head>
 <body>
+<h1>Manage Volunteer Hours</h1>
+<main>
     <div class="container">
-        <h1>Manage Volunteer Hours</h1>
 
         <?php if (empty($volunteerHours)) : ?>
             <p class="no-logs">No volunteer hour logs available.</p>
@@ -105,7 +106,9 @@ mysqli_close($conn);
                 </div>
             <?php endforeach; ?>
         <?php endif; ?>
-        <a class="button cancel" href="hours.php" style="margin-top: .5rem">Return to Dashboard</a>
+        <a class="button cancel" href="hours.php" style="margin-top: .5rem">Return to Hours Management Dashboard</a>
     </div>
+            </main>
 </body>
+<?php require('footer.php'); ?>
 </html>

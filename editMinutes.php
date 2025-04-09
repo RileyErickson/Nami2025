@@ -32,7 +32,7 @@ $formattedDate = date("m-d-Y", strtotime($date));
 
 // Fetch minutes name
 $minutesName = "";
-$result = mysqli_query($conn, "SELECT name FROM minutes WHERE date = '$date' LIMIT 1");
+$result = mysqli_query($conn, "SELECT name FROM minutes_link WHERE date = '$date' LIMIT 1");
 if ($row = mysqli_fetch_assoc($result)) {
     $minutesName = $row['name'];
 }
@@ -66,7 +66,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['deleteKeyword'])) {
 // Delete everything associated with the date
 if ($_SERVER['REQUEST_METHOD'] == 'POST' and isset($_POST['deleteAll'])) {
     mysqli_query($conn, "DELETE FROM minutes_keywords WHERE date = '$date'");
-    mysqli_query($conn, "DELETE FROM minutes WHERE date = '$date'");
+    mysqli_query($conn, "DELETE FROM minutes_link WHERE date = '$date'");
     header("Location: index.php");
     exit();
 }
@@ -85,6 +85,7 @@ mysqli_close($conn);
         <h1>Edit Minutes for <?php echo htmlspecialchars($formattedDate); ?></h1>
         <a href="minutes.php" style="background-color: #104C9C; color: white; border: none; padding: 10px; cursor: pointer; border-radius: 5px; text-decoration: none; margin-bottom: 20px; align-self: flex-start;">Back to Minutes</a>
         <div style="background: white; padding: 20px; border-radius: 10px; box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1); width: 400px; text-align: center; margin-bottom: 20px;">
+            <main>
             <strong>Document:</strong> <?php echo htmlspecialchars($minutesName); ?>
             <!-- Add Keyword -->
             <form method="POST">
@@ -106,7 +107,9 @@ mysqli_close($conn);
             <form method="POST">
                 <input type="submit" name="deleteAll" style="background-color: red; border: none; padding: 5px 10px; cursor: pointer; color: white; border-radius: 5px;" value="Delete Minutes (CANNOT BE UNDONE)">
             </form>
+            </main>
         </div>
     </div>
 </body>
+<?php require('footer.php'); ?>
 </html>

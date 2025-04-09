@@ -1,5 +1,5 @@
 
-<!-- General Volunteer Application -->
+<!-- General Volunteer application -->
 
 <h1>Volunteer Application</h1>
 <main class="signup-form">
@@ -221,3 +221,4 @@
     </form>
     
 </main>
+

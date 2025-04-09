@@ -98,12 +98,13 @@ mysqli_close($conn);
 
                 <input type="submit" value="Submit Log">
             </form>
-          <a class="button cancel" href="hours.php" style="margin-top: .5rem">Return to Dashboard</a>
+          <a class="button cancel" href="hours.php" style="margin-top: .5rem">Return to Hours Management Dashboard</a>
             <?php if (!empty($message)) : ?>
-                <p><?php echo htmlspecialchars($message); ?></p>
+                <br><p><?php echo htmlspecialchars($message); ?></p>
             <?php endif; ?>
         </div>
     </main>
 
 </body>
+<?php require('footer.php'); ?>
 </html>

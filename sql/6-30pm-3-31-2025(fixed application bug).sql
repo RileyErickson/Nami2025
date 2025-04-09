@@ -2,10 +2,10 @@
 -- version 5.2.1
 -- https://www.phpmyadmin.net/
 --
--- Host: localhost
--- Generation Time: Mar 31, 2025 at 03:23 PM
--- Server version: 10.4.28-MariaDB
--- PHP Version: 8.2.4
+-- Host: 127.0.0.1
+-- Generation Time: Apr 05, 2025 at 11:14 PM
+-- Server version: 10.4.32-MariaDB
+-- PHP Version: 8.2.12
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -64,16 +64,17 @@ INSERT INTO `dbanimals` (`id`, `odhs_id`, `name`, `breed`, `age`, `gender`, `not
 -- --------------------------------------------------------
 
 --
--- Table structure for table `dbCSGApplication`
+-- Table structure for table `dbcsgapplication`
 --
 
-CREATE TABLE `dbCSGApplication` (
+CREATE TABLE `dbcsgapplication` (
   `csgApplicationID` int(11) NOT NULL,
   `reasonToBecomeCSG` text NOT NULL,
   `whyIsNowRightTime` text NOT NULL,
   `statusInRecoveryJourney` text NOT NULL,
   `screenerName` text NOT NULL,
   `screeningDate` date NOT NULL,
+  `approved` tinyint(1) NOT NULL DEFAULT 0,
   `id` varchar(256) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
@@ -213,61 +214,89 @@ INSERT INTO `dbevents` (`id`, `name`, `date`, `startTime`, `endTime`, `descripti
 -- --------------------------------------------------------
 
 --
--- Table structure for table `dbF2FApplication`
+-- Table structure for table `dbf2fapplication`
 --
 
-CREATE TABLE `dbF2FApplication` (
+CREATE TABLE `dbf2fapplication` (
   `f2fApplicationID` int(11) NOT NULL,
   `reasonToBecomeF2F` text NOT NULL,
   `whyIsNowRightTime` text NOT NULL,
   `screenerName` text NOT NULL,
   `screeningDate` date NOT NULL,
+  `approved` tinyint(1) NOT NULL DEFAULT 0,
   `id` varchar(256) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `dbFSGApplication`
+-- Table structure for table `dbformmanagement`
 --
 
-CREATE TABLE `dbFSGApplication` (
+CREATE TABLE `dbformmanagement` (
+  `formid` int(11) NOT NULL,
+  `application` varchar(30) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+  `isOpen` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `dbformmanagement`
+--
+
+INSERT INTO `dbformmanagement` (`formid`, `application`, `isOpen`) VALUES
+(1, 'f2f', 1),
+(2, 'fsg', 1),
+(3, 'hf', 1),
+(4, 'p2p', 1),
+(5, 'ioov', 1),
+(6, 'csg', 1);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `dbfsgapplication`
+--
+
+CREATE TABLE `dbfsgapplication` (
   `fsgApplicationID` int(11) NOT NULL,
   `reasonToBecomeFSG` text NOT NULL,
   `whyIsNowRightTime` text NOT NULL,
   `screenerName` text NOT NULL,
   `screeningDate` date NOT NULL,
+  `approved` tinyint(1) NOT NULL DEFAULT 0,
   `id` varchar(256) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `dbHFApplication`
+-- Table structure for table `dbhfapplication`
 --
 
-CREATE TABLE `dbHFApplication` (
+CREATE TABLE `dbhfapplication` (
   `hfApplicationID` int(11) NOT NULL,
   `reasonToBecomeHF` text NOT NULL,
   `whyIsNowRightTime` text NOT NULL,
   `screenerName` text NOT NULL,
   `screeningDate` date NOT NULL,
+  `approved` tinyint(1) NOT NULL DEFAULT 0,
   `id` varchar(256) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `dbIOOVApplication`
+-- Table structure for table `dbioovapplication`
 --
 
-CREATE TABLE `dbIOOVApplication` (
+CREATE TABLE `dbioovapplication` (
   `ioovApplicationID` int(11) NOT NULL,
   `reasonToBecomeIOOV` text NOT NULL,
   `whyIsNowRightTime` text NOT NULL,
   `statusInRecoveryJourney` text NOT NULL,
   `screenerName` text NOT NULL,
   `screeningDate` date NOT NULL,
+  `approved` tinyint(1) NOT NULL DEFAULT 0,
   `id` varchar(256) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
@@ -446,18 +475,26 @@ INSERT INTO `dbmessages` (`id`, `senderID`, `recipientID`, `title`, `body`, `tim
 -- --------------------------------------------------------
 
 --
--- Table structure for table `dbP2PApplication`
+-- Table structure for table `dbp2papplication`
 --
 
-CREATE TABLE `dbP2PApplication` (
+CREATE TABLE `dbp2papplication` (
   `p2pApplicationID` int(11) NOT NULL,
   `reasonToBecomeP2P` text NOT NULL,
   `whyIsNowRightTime` text NOT NULL,
   `statusInRecoveryJourney` text NOT NULL,
   `screenerName` text NOT NULL,
   `screeningDate` date NOT NULL,
-  `id` varchar(256) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL
+  `id` varchar(256) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+  `approved` tinyint(1) NOT NULL DEFAULT 0
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `dbp2papplication`
+--
+
+INSERT INTO `dbp2papplication` (`p2pApplicationID`, `reasonToBecomeP2P`, `whyIsNowRightTime`, `statusInRecoveryJourney`, `screenerName`, `screeningDate`, `id`, `approved`) VALUES
+(1, 'My reason', 'my time', 'Recovered', 'name2', '2020-02-22', 'vmsroot', 0);
 
 -- --------------------------------------------------------
 
@@ -519,7 +556,7 @@ INSERT INTO `dbpersonhours` (`personID`, `eventID`, `start_time`, `end_time`) VA
 
 CREATE TABLE `dbpersons` (
   `id` varchar(256) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
-  `start_date` text DEFAULT current_timestamp(),
+  `start_date` date DEFAULT NULL,
   `venue` text DEFAULT NULL,
   `first_name` text NOT NULL,
   `last_name` text DEFAULT NULL,
@@ -610,6 +647,8 @@ INSERT INTO `dbpersons` (`id`, `start_date`, `venue`, `first_name`, `last_name`,
 ('peter@gmail.com', '2024-01-22', 'portland', 'Peter', 'Polack', '1345 Strattford St.', 'Mineola', 'VA', '12345', '1234567890', 'cellphone', '', '', '1968-09-09', 'peter@gmail.com', 'Mom', '1234567890', 'Mom', 'admin', 'Active', '', '$2y$10$j5xJ6GWaBhnb45aktS.kruk05u./TsAhEoCI3VRlNs0SRGrIqz.B6', '', 'Male', '', '', '', '', '', '', '', '', '', 0, '', '', '', 0, '', 0, '', 0, '', '', 0, 0, 0, 0, 0, 0, 0, '', '', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
 ('polack@um.edu', '2024-01-22', 'portland', 'Jennifer', 'Polack', '15 Wallace Farms Lane', 'Fredericksburg', 'VA', '22406', '1234567890', 'cellphone', '', '', '1970-05-01', 'polack@um.edu', 'Mom', '1234567890', 'Mom', 'admin', 'Active', '', '$2y$10$mp18j4WqhlQo7MTeS/9kt.i08n7nbt0YMuRoAxtAy52BlinqPUE4C', '', 'Female', '', '', '', '', '', '', '', '', '', 0, '', '', '', 0, '', 0, '', 0, '', '', 0, 0, 0, 0, 0, 0, 0, '', '', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
 ('polack@umw.edu', '2025-01-09', 'n/a', 'Jennifer', 'ADMIN', '15 Wallace Farms Lane', 'Fredericksburg', 'VA', '22406', '5402959700', 'cellphone', '5402959700', 'cellphone', '1970-05-01', 'polack@umw.edu', 'Jennifer', 'n/a', 'Me', 'volunteer', 'Active', 'n/a', '$2y$10$CxMpQDWPyURnla9pb8FvveQSRrMBU7.zAB.ZbdHwK1P/suPuwcy0O', 'n/a', 'gender', 'l', '', 'sensory_sensitivities', '', 'UMW', 'race', 'No preference', '', '', 0, 'Polack', 'Restricted', 'NA', 0, '', 0, '', 0, '', '', 0, 0, 0, 0, 0, 0, 0, '', '', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
+('RileyErickson23', NULL, NULL, 'Riley', 'Erickson', '8481 den circle', 'King George', 'VA', '22485', '3606310776', NULL, NULL, NULL, NULL, 'mommaduck36@gmail.com', NULL, NULL, NULL, 'participant', 'pending', NULL, '$2y$10$mcvK0zUCjNrQs8P3BmO7tu/rmNy3VqcZEqWaUr3vkCr7Q2i2Kd1SG', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'verbal', NULL, NULL, 0, NULL, NULL, NULL, 0, NULL, 0, NULL, 0, NULL, '', NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'a', NULL, 'no_text', 'a a a', 'group', 'self', 'visual', 'intro', 'no', 'no', 'no', 'yes'),
+('RileyErickson23!@', NULL, NULL, 'Riley', 'Erickson', '8481 den circle', 'King George', 'VA', '22485', '3606310776', NULL, NULL, NULL, NULL, 'mommaduck36@gmail.com', NULL, NULL, NULL, 'participant', 'pending', NULL, '$2y$10$zRNBlPLxQhAa8FcD583SmOirqGU8xLjEJyH962DmUB9b.NMp4MZeS', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'verbal', NULL, NULL, 0, NULL, NULL, NULL, 0, NULL, 0, NULL, 0, NULL, '', NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'asa', NULL, 'yes_text', 'a b c', 'group', 'self', 'audiotory', 'extro', 'no', 'no', 'no', 'no'),
 ('s', '2024-11-18', 'n/a', 'a', 'hj', 'f', 'f', 'VA', '12333', '1231231234', 'home', '1231231234', 'cellphone', '2000-12-20', 'jf@gmail.com', 'e', 'n/a', 'e', 'volunteer', 'Active', 'n/a', '$2y$10$7ml7KedmERvRYpflzuMAHOsXdssqzMo5FidkOtekjj9R6u1OdTXqy', 'n/a', 'gender', 's', '', 'sensory_sensitivities', '', 's', 'race', '', '', '', 0, 'e', 'Restricted', 's', 0, '', 0, '', 0, '', '', 0, 0, 0, 0, 0, 0, 0, '', '', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
 ('SaraDowd', '2025-01-13', 'n/a', 'Sara', 'Dowd', '11 Barlow House Court', 'Stafford', 'VA', '22554', '8582549611', 'cellphone', '8582548568', 'cellphone', '1978-01-23', 'sarazonadowd@gmail.com', 'Daniel', 'n/a', 'Spouse', 'volunteer', 'Active', 'n/a', '$2y$10$BQ4n2HGpgxfaFnBf0HexveU8I0ppdINNXvhZdynQyOiaitOnP6dw6', 'n/a', 'gender', 'm', '', 'sensory_sensitivities', '', 'n/a', 'race', 'email', '', '', 0, 'Dowd', 'Not Restricted', 'n/a', 1, '', 1, '', 1, '', '', 0, 0, 0, 0, 0, 0, 0, '', '', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
 ('someInfo2', '2024-11-24', 'n/a', 'nah', 'whywouldi', '0', '0', 'VA', '00000', '0000000000', 'work', '0000000000', 'work', '0001-01-01', '0@0.o', 'nah', 'n/a', 'a', 'volunteer', 'Active', 'n/a', '$2y$10$umJj4HXb5tpj79rc4Vj8hu5wCK7BSjMEDdtX7sfdGjMqjt5.ap3bq', 'n/a', 'gender', 'm', '', 'sensory_sensitivities', '', 'why would i be', 'race', '', '', '', 0, 'whywouldi', 'Not Restricted', 'a', 0, '', 0, '', 0, '', '', 0, 0, 0, 0, 0, 0, 0, '', '', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
@@ -622,7 +661,7 @@ INSERT INTO `dbpersons` (`id`, `start_date`, `venue`, `first_name`, `last_name`,
 ('tom@gmail.com', '2024-01-22', 'portland', 'tom', 'tom', '1345 Strattford St.', 'Mineola', 'NY', '12345', '1234567890', 'home', '', '', '1920-02-02', 'tom@gmail.com', 'Dad', '9876543210', 'Father', 'admin', 'Active', '', '$2y$10$1Zcj7n/prdkNxZjxTK1zUOF7391byZvsXkJcN8S8aZL57sz/OfxP.', '', 'Male', '', '', '', '', '', '', '', '', '', 0, '', '', '', 0, '', 0, '', 0, '', '', 0, 0, 0, 0, 0, 0, 0, '', '', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
 ('username', '2024-11-18', 'n/a', 'cool', 'cool', 'weqwe', 'qewq', 'VA', '12312', '1231231234', 'home', '1231232134', 'cellphone', '2024-11-01', 'cool@gmail.com', 'cool', 'n/a', 'cool', 'v', 'Inactive', 'n/a', '$2y$10$yz35FMhhRl.hVIyjhvASJeQ.sp0lc7hzQQJJRBHH00spfTOlQJ4Cy', 'n/a', 'gender', 'm', '', 'sensory_sensitivities', '', 'w', 'race', 'email', '', '', 0, 'cool', 'Not Restricted', 'super awesome', 0, '', 0, '', 0, '', '', 0, 0, 0, 0, 0, 0, 0, '', '', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
 ('usernameusername', '2024-12-09', 'n/a', 'Noah', 'Stafford', 'My address', 'City', 'VA', '22405', '1231231234', 'cellphone', '1231231234', 'cellphone', '2024-12-01', 'email@gmail.com', 'Contact', 'n/a', 'Mom', 'volunteer', 'Active', 'n/a', '$2y$10$uGbO0uD4CFwN0ewoqGG8T.9PT.1F8pOBSJVOKXkvNSlRSjAANMhOK', 'n/a', 'gender', 'xs', '', 'sensory_sensitivities', '', 'N/A', 'race', 'No preference', '', '', 0, 'Lastname', 'Not Restricted', 'N/A', 0, '', 0, '', 0, '', '', 0, 0, 0, 0, 0, 0, 0, '', '', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
-('vmsroot', 'N/A', 'portland', 'vmsroot', '', 'N/A', 'N/A', 'VA', 'N/A', '', 'N/A', 'N/A', 'N/A', 'N/A', 'vmsroot', 'N/A', 'N/A', 'N/A', '', 'N/A', 'N/A', '$2y$10$.3p8xvmUqmxNztEzMJQRBesLDwdiRU3xnt/HOcJtsglwsbUk88VTO', '', '', '', '', '', '', '', '', '', '', '', 0, '', '', '', 0, '', 0, '', 0, '', '', 0, 0, 0, 0, 0, 0, 0, '', '', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
+('vmsroot', '0000-00-00', 'portland', 'vmsroot', '', 'N/A', 'N/A', 'VA', 'N/A', '', 'N/A', 'N/A', 'N/A', 'N/A', 'vmsroot', 'N/A', 'N/A', 'N/A', '', 'N/A', 'N/A', '$2y$10$.3p8xvmUqmxNztEzMJQRBesLDwdiRU3xnt/HOcJtsglwsbUk88VTO', '', '', '', '', '', '', '', '', '', '', '', 0, '', '', '', 0, '', 0, '', 0, '', '', 0, 0, 0, 0, 0, 0, 0, '', '', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
 ('work', '2024-12-10', 'n/a', 'a', 'a', 'a', 'a', 'VA', '11111', '1231231234', 'cellphone', '1231231234', 'cellphone', '2024-12-04', 'a@gmail.com', 'a', 'n/a', 'a', 'volunteer', 'Active', 'n/a', '$2y$10$ChUa935f6QE8RtHI4p2vX.WtCeoVPPYQhgVNFfgnvLPo0mVJGXbCi', 'n/a', 'gender', 's', '', 'sensory_sensitivities', '', 'a', 'race', 'No preference', '', '', 0, 'a', 'Restricted', 'a', 0, '', 0, '', 0, '', '', 0, 0, 0, 0, 0, 0, 0, '', '', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL);
 
 --
@@ -636,9 +675,9 @@ ALTER TABLE `dbanimals`
   ADD PRIMARY KEY (`id`);
 
 --
--- Indexes for table `dbCSGApplication`
+-- Indexes for table `dbcsgapplication`
 --
-ALTER TABLE `dbCSGApplication`
+ALTER TABLE `dbcsgapplication`
   ADD PRIMARY KEY (`csgApplicationID`),
   ADD KEY `id` (`id`);
 
@@ -663,37 +702,43 @@ ALTER TABLE `dbevents`
   ADD PRIMARY KEY (`id`);
 
 --
--- Indexes for table `dbF2FApplication`
+-- Indexes for table `dbf2fapplication`
 --
-ALTER TABLE `dbF2FApplication`
+ALTER TABLE `dbf2fapplication`
   ADD PRIMARY KEY (`f2fApplicationID`),
   ADD KEY `id` (`id`);
 
 --
--- Indexes for table `dbFSGApplication`
+-- Indexes for table `dbformmanagement`
 --
-ALTER TABLE `dbFSGApplication`
+ALTER TABLE `dbformmanagement`
+  ADD PRIMARY KEY (`formid`);
+
+--
+-- Indexes for table `dbfsgapplication`
+--
+ALTER TABLE `dbfsgapplication`
   ADD PRIMARY KEY (`fsgApplicationID`),
   ADD KEY `id` (`id`);
 
 --
--- Indexes for table `dbHFApplication`
+-- Indexes for table `dbhfapplication`
 --
-ALTER TABLE `dbHFApplication`
+ALTER TABLE `dbhfapplication`
   ADD PRIMARY KEY (`hfApplicationID`),
   ADD KEY `id` (`id`);
 
 --
--- Indexes for table `dbIOOVApplication`
+-- Indexes for table `dbioovapplication`
 --
-ALTER TABLE `dbIOOVApplication`
+ALTER TABLE `dbioovapplication`
   ADD PRIMARY KEY (`ioovApplicationID`),
   ADD KEY `id` (`id`);
 
 --
--- Indexes for table `dbP2PApplication`
+-- Indexes for table `dbp2papplication`
 --
-ALTER TABLE `dbP2PApplication`
+ALTER TABLE `dbp2papplication`
   ADD PRIMARY KEY (`p2pApplicationID`),
   ADD KEY `id` (`id`);
 
@@ -721,9 +766,9 @@ ALTER TABLE `dbanimals`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
--- AUTO_INCREMENT for table `dbCSGApplication`
+-- AUTO_INCREMENT for table `dbcsgapplication`
 --
-ALTER TABLE `dbCSGApplication`
+ALTER TABLE `dbcsgapplication`
   MODIFY `csgApplicationID` int(11) NOT NULL AUTO_INCREMENT;
 
 --
@@ -739,43 +784,49 @@ ALTER TABLE `dbevents`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=110;
 
 --
--- AUTO_INCREMENT for table `dbF2FApplication`
+-- AUTO_INCREMENT for table `dbf2fapplication`
 --
-ALTER TABLE `dbF2FApplication`
+ALTER TABLE `dbf2fapplication`
   MODIFY `f2fApplicationID` int(11) NOT NULL AUTO_INCREMENT;
 
 --
--- AUTO_INCREMENT for table `dbFSGApplication`
+-- AUTO_INCREMENT for table `dbformmanagement`
 --
-ALTER TABLE `dbFSGApplication`
+ALTER TABLE `dbformmanagement`
+  MODIFY `formid` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+
+--
+-- AUTO_INCREMENT for table `dbfsgapplication`
+--
+ALTER TABLE `dbfsgapplication`
   MODIFY `fsgApplicationID` int(11) NOT NULL AUTO_INCREMENT;
 
 --
--- AUTO_INCREMENT for table `dbHFApplication`
+-- AUTO_INCREMENT for table `dbhfapplication`
 --
-ALTER TABLE `dbHFApplication`
+ALTER TABLE `dbhfapplication`
   MODIFY `hfApplicationID` int(11) NOT NULL AUTO_INCREMENT;
 
 --
--- AUTO_INCREMENT for table `dbIOOVApplication`
+-- AUTO_INCREMENT for table `dbioovapplication`
 --
-ALTER TABLE `dbIOOVApplication`
+ALTER TABLE `dbioovapplication`
   MODIFY `ioovApplicationID` int(11) NOT NULL AUTO_INCREMENT;
 
 --
--- AUTO_INCREMENT for table `dbP2PApplication`
+-- AUTO_INCREMENT for table `dbp2papplication`
 --
-ALTER TABLE `dbP2PApplication`
-  MODIFY `p2pApplicationID` int(11) NOT NULL AUTO_INCREMENT;
+ALTER TABLE `dbp2papplication`
+  MODIFY `p2pApplicationID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- Constraints for dumped tables
 --
 
 --
--- Constraints for table `dbCSGApplication`
+-- Constraints for table `dbcsgapplication`
 --
-ALTER TABLE `dbCSGApplication`
+ALTER TABLE `dbcsgapplication`
   ADD CONSTRAINT `dbcsgapplication_ibfk_1` FOREIGN KEY (`id`) REFERENCES `dbpersons` (`id`);
 
 --
@@ -792,33 +843,33 @@ ALTER TABLE `dbeventpersons`
   ADD CONSTRAINT `FKpersonID` FOREIGN KEY (`userID`) REFERENCES `dbpersons` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
--- Constraints for table `dbF2FApplication`
+-- Constraints for table `dbf2fapplication`
 --
-ALTER TABLE `dbF2FApplication`
+ALTER TABLE `dbf2fapplication`
   ADD CONSTRAINT `dbf2fapplication_ibfk_1` FOREIGN KEY (`id`) REFERENCES `dbpersons` (`id`);
 
 --
--- Constraints for table `dbFSGApplication`
+-- Constraints for table `dbfsgapplication`
 --
-ALTER TABLE `dbFSGApplication`
+ALTER TABLE `dbfsgapplication`
   ADD CONSTRAINT `dbfsgapplication_ibfk_1` FOREIGN KEY (`id`) REFERENCES `dbpersons` (`id`);
 
 --
--- Constraints for table `dbHFApplication`
+-- Constraints for table `dbhfapplication`
 --
-ALTER TABLE `dbHFApplication`
+ALTER TABLE `dbhfapplication`
   ADD CONSTRAINT `dbhfapplication_ibfk_1` FOREIGN KEY (`id`) REFERENCES `dbpersons` (`id`);
 
 --
--- Constraints for table `dbIOOVApplication`
+-- Constraints for table `dbioovapplication`
 --
-ALTER TABLE `dbIOOVApplication`
+ALTER TABLE `dbioovapplication`
   ADD CONSTRAINT `dbioovapplication_ibfk_1` FOREIGN KEY (`id`) REFERENCES `dbpersons` (`id`);
 
 --
--- Constraints for table `dbP2PApplication`
+-- Constraints for table `dbp2papplication`
 --
-ALTER TABLE `dbP2PApplication`
+ALTER TABLE `dbp2papplication`
   ADD CONSTRAINT `dbp2papplication_ibfk_1` FOREIGN KEY (`id`) REFERENCES `dbpersons` (`id`);
 
 --

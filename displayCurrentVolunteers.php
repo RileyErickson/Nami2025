@@ -28,6 +28,9 @@ error_reporting(E_ALL);
 require_once('database/dbPersons.php');
 
 $pending = fetchCurrentVolunteer();
+$boardMembers = fetchCurrentBoardMembers();
+$admins = fetchCurrentAdmins();
+$allMembers = fetchEveryone();
 $access_level = $_SESSION['access_level']; ?>
 
 <!DOCTYPE html>
@@ -45,9 +48,64 @@ $access_level = $_SESSION['access_level']; ?>
 <body>
 <?php require_once('header.php'); ?>
 
-<h1>Current Volunteers List</h1>
+<h1 style="margin-bottom:0">Current Member List</h1>
 
 <main class="general">
+    <?php if (isset($_GET['rscSuccess'])): ?>
+        <div class="happy-toast"><?php
+        echo $_GET['id'];?>'s role and/or status updated successfully!</div>
+        <?php header("Refresh: 2; jenniferp161.sg-host.com/displayCurrentVolunteers.php"); ?>
+
+    <?php endif ?>
+    <p>
+        <center><a
+                href="personSearch.php"><button class="button" style="width:30%"><?php echo 'Click here to search for a specific User' ?></button>
+        </center></a>
+        <?php if (sizeof($pending) === 0): ?>
+    <b><?php
+            echo "<div style=\"text-align:center\">";
+            echo "There are currently no volunteers.";
+        ?></b>
+        <?php elseif (sizeof($pending) === 1): ?>
+        <b><?php
+            echo "<div style=\"text-align:center\">";
+            echo "There is 1 volunteer."; ?></b>
+        <?php else: ?>
+            <b><?php
+                    echo "<div style=\"text-align:center\">";
+                    echo "There are currently " . htmlspecialchars(string: sizeof($pending)) . " volunteers."; ?></b>
+        <?php endif; ?>
+        <?php if (sizeof($boardMembers) === 0): ?>
+        <b><?php
+            echo "<div style=\"text-align:center\">";
+            echo "There are currently no board members.";
+            ?></b>
+        <?php elseif (sizeof($boardMembers) === 1): ?>
+            <b><?php
+            echo "<div style=\"text-align:center\">";
+                echo "There is 1 board member."; ?></b>
+        <?php else: ?>
+
+            <b><?php
+                echo "<div style=\"text-align:center\">";
+                echo "There are currently " . htmlspecialchars(string: sizeof($boardMembers)) . " board members."; ?></b>
+        <?php endif; ?>
+        <?php if (sizeof($admins) === 0): ?>
+                <b><?php
+            echo "<div style=\"text-align:center\">";
+            echo "There are currently no admins.";
+                    ?></b>
+        <?php elseif (sizeof($admins) === 1): ?>
+                    <b><?php
+            echo "<div style=\"text-align:center\">";
+                        echo "There is 1 admin."; ?></b>
+        <?php else: ?>
+            <b><?php
+                    echo "<div style=\"text-align:center\">";
+                    echo "There are currently " . htmlspecialchars(string: sizeof($admins)) . " admins."; ?></b>
+        <?php endif; ?>
+    </p>
+    <br>
 
 <!--    <p>-->
 <!--        --><?php //if (sizeof($pending) === 0):
@@ -60,7 +118,7 @@ $access_level = $_SESSION['access_level']; ?>
 <!--        --><?php //endif; ?>
 <!--    </p>-->
 
-    <?php if (count(value: $pending) > 0): ?>
+    <?php if (count(value: $allMembers) > 0): ?>
         <div class="table-wrapper">
             <table class="general">
                 <thead>
@@ -68,9 +126,12 @@ $access_level = $_SESSION['access_level']; ?>
                     <th>User ID</th>
                     <th>First Name</th>
                     <th>Last Name</th>
+                    <th>Role</th>
 <!--                    <th>Start Date</th>-->
                     <?php if ($access_level >= 2): ?>
-                        <th>View Profile</th>
+                        <th><center>View Profile</center></th>
+                        <th><center>Edit Profile</center></th>
+                        <th><center>Change Role</center></th>
                     <?php endif; ?>
 <!--                    --><?php //if ($access_level >= 2): ?>
 <!--                        <th>Change Role</th>-->
@@ -78,12 +139,12 @@ $access_level = $_SESSION['access_level']; ?>
                 </tr>
                 </thead>
                 <tbody>
-                <?php for ($x = 0; $x < sizeof($pending); $x++): ?>
-                    <h2><?php $name = $pending[$x]['first_name']; ?></h2>
+                <?php for ($x = 0; $x < sizeof($allMembers); $x++): ?>
+                    <h2><?php $name = $allMembers[$x]['first_name']; ?></h2>
 
                     <?php
                     #$event = $pending[$x]['first_name'];
-                    $user_id = $pending[$x]['id'];
+                    $user_id = $allMembers[$x]['id'];
 
                     //foreach ($events as $event):
                     #$user_info = ($event);
@@ -92,7 +153,8 @@ $access_level = $_SESSION['access_level']; ?>
                     <tr>
                         <td><?php echo htmlspecialchars($user_id); ?></td>
                         <td><?php echo htmlspecialchars($name); ?></td>
-                        <td><?php echo htmlspecialchars($pending[$x]['last_name']); ?></td>
+                        <td><?php echo htmlspecialchars($allMembers[$x]['last_name']); ?></td>
+                        <td><?php echo htmlspecialchars($allMembers[$x]['type']); ?></td>
 <!--                        <td>-->
 <!--                            --><?php //echo htmlspecialchars($pending[$x]['start_date']); ?>
 <!--                        </td>-->
@@ -101,7 +163,19 @@ $access_level = $_SESSION['access_level']; ?>
                         <td>
 
                             <a
-                                href="viewProfile.php?id=<?php echo urlencode($user_id); ?>"><button class="button"><?php echo 'View ',htmlspecialchars($user_id); ?></button>
+                                href="viewProfile.php?id=<?php echo urlencode($user_id); ?>"><center><button class="button""><?php echo 'View ',htmlspecialchars($name); ?></center></button>
+                            </a>
+                        </td>
+
+                        <td>
+
+                            <a
+                                    href="editProfile.php?id=<?php echo urlencode($user_id); ?>"><center><button class="button""><?php echo 'Edit ',htmlspecialchars($name); ?></center></button>
+                            </a>
+                        <td>
+
+                            <a
+                                    href="modifyUserRole.php?id=<?php echo urlencode($user_id); ?>"><center><button class="button""><?php echo 'Change ',htmlspecialchars($name); ?></center></button>
                             </a>
                         </td>
                         <!--Actions-->
@@ -114,10 +188,10 @@ $access_level = $_SESSION['access_level']; ?>
         </div>
     <?php endif ?>
 
-    <a class="button cancel" href="index.php">Return to Dashboard</a>
+    <a class="button cancel" href="volunteerDirectory.php">Return to Volunteer Management Dashboard</a>
 </main>
 
 
 </body>
-
+<?php require('footer.php'); ?>
 </html>

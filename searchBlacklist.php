@@ -79,7 +79,7 @@ mysqli_close($conn);
     <body>
         <?php require_once('header.php') ?>
         <h1>Search Blacklist</h1>
-    
+    <main>
     <div class="container">
         <h2>Search Blacklist</h2>
         <form method="POST">
@@ -90,7 +90,7 @@ mysqli_close($conn);
             <input type="submit" name="search" value="Search" >
             <input type="submit" name="clear" value="Clear Search" style="margin-top: .5rem">
         </form>
-        <a class="button cancel" href="blacklist.php" style="margin-top: .5rem">Return to Dashboard</a>; 
+        <a class="button cancel" href="blacklist.php" style="margin-top: .5rem">Return to Blacklist Dashboard</a>; 
     </div>
     
     <?php if (!empty($searchResults)) : ?>
@@ -111,5 +111,7 @@ mysqli_close($conn);
             <p>No records found.</p>
         </div>
     <?php endif; ?>
+    </main>
 </body>
+<?php require('footer.php'); ?>
 </html>

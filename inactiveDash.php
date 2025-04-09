@@ -1,4 +1,5 @@
 <?php
+
     // Template for new VMS pages. Base your new page on this one
 
     // Make session information accessible, allowing us to associate
@@ -15,26 +16,20 @@
         $accessLevel = $_SESSION['access_level'];
         $userID = $_SESSION['_id'];
     }
-    // admin-only access
-    if ($accessLevel < 2) {
-        header('Location: index.php');
-        die();
-    }
+    
 ?>
 <!DOCTYPE html>
 <html>
     <head>
         <?php require_once('universal.inc') ?>
-        <title>STEPVA | Edit Volunteer</title>
+        <title>NAMI | Inactive Account</title>
     </head>
     <body>
-        <?php require_once('header.php') ?>
-        <h1>Edit Volunteer</h1>
-        <main>
-        <form>
-            <a class="button cancel" href="volunteerDirectory.php">Return to Volunteer Management Dashboard</a>
-        </form>
-        </main>
+        <?php
+        require_once('header.php') ?>
+        <h1>Your account is inactive</h1>
     </body>
-    <?php require('footer.php'); ?>
 </html>
+<?php
+die();
+?>

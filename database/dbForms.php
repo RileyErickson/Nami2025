@@ -11,34 +11,34 @@ include_once('dbPersons.php');
 
 
 // Creates a new application for any of the 6 form tables.
-// $application MUST be formatted like "P2PApplication", "FSGApplication", "F2FApplication", "HFApplication", "IOOVApplication", and "CSGApplication"
+// $application MUST be formatted like "p2papplication", "fsgapplication", "f2fapplication", "hfapplication", "ioovapplication", and "csgapplication"
 function create_application($application, $personID, $reasontobecome, $whyisnowrighttime, $statusinrecoveryjourney, $screenername, $screeningdate) {
 	
     $con=connect();
 	
 	switch ($application) { //necessary to query the reasontobecome variable
-		case "F2FApplication":
-			$formattedName = "F2F";
+		case "f2fapplication":
+			$formattedName = "f2f";
 			$tableName = "dbf2fapplication";
 			break;
-		case "P2PApplication":
-			$formattedName = "P2P";
+		case "p2papplication":
+			$formattedName = "p2p";
 			$tableName = "dbp2papplication";
 			break;
-		case "IOOVApplication":
-			$formattedName = "IOOV";
+		case "ioovapplication":
+			$formattedName = "ioov";
 			$tableName = "dbioovapplication";
 			break;
-		case "CSGApplication":
-			$formattedName = "CSG";
+		case "csgapplication":
+			$formattedName = "csg";
 			$tableName = "dbcsgapplication";
 			break;
-		case "FSGApplication":
-			$formattedName = "FSG";
+		case "fsgapplication":
+			$formattedName = "fsg";
 			$tableName = "dbfsgapplication";
 			break;
-		case "HFApplication":
-			$formattedName = "HF";
+		case "hfapplication":
+			$formattedName = "hf";
 			$tableName = "dbhfapplication";
 			break;
 	}
@@ -73,28 +73,28 @@ function get_reasontobecome($appID, $application) {
 	}
 	
 	switch ($application) { //necessary to query the reasontobecome variable
-		case "F2FApplication":
-			$formattedName = "F2F";
+		case "f2fapplication":
+			$formattedName = "f2f";
 			$tableName = "dbf2fapplication";
 			break;
-		case "P2PApplication":
-			$formattedName = "P2P";
+		case "p2papplication":
+			$formattedName = "p2p";
 			$tableName = "dbp2papplication";
 			break;
-		case "IOOVApplication":
-			$formattedName = "IOOV";
+		case "ioovapplication":
+			$formattedName = "ioov";
 			$tableName = "dbioovapplication";
 			break;
-		case "CSGApplication":
-			$formattedName = "CSG";
+		case "csgapplication":
+			$formattedName = "csg";
 			$tableName = "dbcsgapplication";
 			break;
-		case "FSGApplication":
-			$formattedName = "FSG";
+		case "fsgapplication":
+			$formattedName = "fsg";
 			$tableName = "dbfsgapplication";
 			break;
-		case "HFApplication":
-			$formattedName = "HF";
+		case "hfapplication":
+			$formattedName = "hf";
 			$tableName = "dbhfapplication";
 			break;
 	}
@@ -196,29 +196,29 @@ function reject_form($id, $type){
 function get_forms_id($type){
 	//We should be passed the abbreviation of one of the forms. If it is one of them, add it to the Database variable. All of the databases have their own
 	//name for the id variable, so save that to Select.
-	if ($type == "F2F"){
+	if ($type == "f2f"){
 		$database = "dbf2fapplication";
-		$select = "f2fApplicationID";
+		$select = "f2fapplicationID";
 	}
-	if ($type == "P2P"){
+	if ($type == "p2p"){
 		$database = "dbp2papplication";
-		$select = "p2pApplicationID";
+		$select = "p2papplicationID";
 	}
-	if ($type == "IOOV"){
+	if ($type == "ioov"){
 		$database = "dbioovapplication";
-		$select = "ioovApplicationID";
+		$select = "ioovapplicationID";
 	}
-	if ($type == "CSG"){
+	if ($type == "csg"){
 		$database = "dbcsgapplication";
-		$select = "csgApplicationID";
+		$select = "csgapplicationID";
 	}
-	if ($type == "FSG"){
+	if ($type == "fsg"){
 		$database = "dbfsgapplication";
-		$select = "fsgApplicationID";
+		$select = "fsgapplicationID";
 	}
-	if ($type == "HF"){
+	if ($type == "hf"){
 		$database = "dbhfapplication";
-		$select = "hfApplicationID";
+		$select = "hfapplicationID";
 	}
 	//Pull from the database using connect() and mysqli_query(). Should be all ints.
 	$query="SELECT * FROM ". $database;
@@ -384,23 +384,23 @@ function get_personID($appID, $application) {
 function update_reasontobecome($id, $application, $reason) {
 	
 	switch ($application) {
-		case "F2FApplication":
-			$formattedName = "F2F";
+		case "f2fapplication":
+			$formattedName = "f2f";
 			break;
-		case "P2PApplication":
-			$formattedName = "P2P";
+		case "p2papplication":
+			$formattedName = "p2p";
 			break;
-		case "IOOVApplication":
-			$formattedName = "IOOV";
+		case "ioovapplication":
+			$formattedName = "ioov";
 			break;
-		case "CSGApplication":
-			$formattedName = "CSG";
+		case "csgapplication":
+			$formattedName = "csg";
 			break;
-		case "FSGApplication":
-			$formattedName = "FSG";
+		case "fsgapplication":
+			$formattedName = "fsg";
 			break;
-		case "HFApplication":
-			$formattedName = "HF";
+		case "hfapplication":
+			$formattedName = "hf";
 			break;
 	}
 	
@@ -464,6 +464,47 @@ function update_screeningdate($id, $application, $date) {
 	mysqli_close($con);
 	
 	return $date;
+}
+
+// updates a user's screening date in the corresponding form, returns the screening date 
+function isFormOpen($application) {
+	
+	switch ($application) {
+		case "f2fapplication":
+			$formattedName = "f2f";
+			break;
+		case "p2papplication":
+			$formattedName = "p2p";
+			break;
+		case "ioovapplication":
+			$formattedName = "ioov";
+			break;
+		case "csgapplication":
+			$formattedName = "csg";
+			break;
+		case "fsgapplication":
+			$formattedName = "fsg";
+			break;
+		case "hfapplication":
+			$formattedName = "hf";
+			break;
+	}
+	
+	$con=connect();
+	$query="SELECT isopen FROM dbformmanagement WHERE application='" . $formattedName . "';";
+	
+    $result = mysqli_query($con,$query);
+	
+	if (!(mysqli_num_rows($result) === 0)) {
+		$result = $result->fetch_array();
+		$open = $result[0];
+	} else {
+		$open = 0;
+	}
+	
+	mysqli_close($con);
+	
+	return $open;
 }
 
 ?>

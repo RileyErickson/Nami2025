@@ -76,4 +76,5 @@ $conn = connect();
         <a href="minutes.php" class="back-button">Back to Minutes</a>
     </div>
 </body>
+<?php require('footer.php'); ?>
 </html>

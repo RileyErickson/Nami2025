@@ -1,9 +1,9 @@
 <!-- Family Support Group -->
 
-<h1>NAMI Virginia Family Support Group Facilitator Training Application</h1>
+<h1>NAMI Virginia Family Support Group Facilitator Training application</h1>
 <main class="signup-form">
     <form class="signup-form" method="post">
-        <h2>Application</h2>
+        <h2>application</h2>
         <p>Training is provided at no cost thanks to a grant by DBHDS</p>
         <p>An asterisk (<em>*</em>) indicates a required field.</p>
 
@@ -41,8 +41,8 @@
 
             <p><i>For each question, share your motivations for this volunteer role in at least two sentences.</i></p>
 
-            <label for="reasonToBecomeFSG">Why do you want to be a NAMI Family Support Group Facilitator?</label>
-            <input type="text" id="reasonToBecomeFSG" name="reasonToBecomeFSG" required>
+            <label for="reasonToBecomefsg">Why do you want to be a NAMI Family Support Group Facilitator?</label>
+            <input type="text" id="reasonToBecomefsg" name="reasonToBecomefsg" required>
 
             <label for="whyIsNowRightTime">Why is now the right time for you to volunteer in this role?</label>
             <input type="text" id="whyIsNowRightTime" name="whyIsNowRightTime" required>

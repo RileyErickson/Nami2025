@@ -43,23 +43,23 @@
     require_once('database/dbForms.php');
 	
 	switch ($formname) {
-		case "F2FApplication":
-			$formattedName = "F2F";
+		case "f2fapplication":
+			$formattedName = "f2f";
 			break;
-		case "P2PApplication":
-			$formattedName = "P2P";
+		case "p2papplication":
+			$formattedName = "p2p";
 			break;
-		case "IOOVApplication":
-			$formattedName = "IOOV";
+		case "ioovapplication":
+			$formattedName = "ioov";
 			break;
-		case "CSGApplication":
-			$formattedName = "CSG";
+		case "csgapplication":
+			$formattedName = "csg";
 			break;
-		case "FSGApplication":
-			$formattedName = "FSG";
+		case "fsgapplication":
+			$formattedName = "fsg";
 			break;
-		case "HFApplication":
-			$formattedName = "HF";
+		case "hfapplication":
+			$formattedName = "hf";
 			break;
 	}
 
@@ -89,7 +89,7 @@
 		unset($_POST['screenername']);
 		unset($_POST['screeningdate']);
 		
-		$message = "Application updated!";
+		$message = "application updated!";
 		$toast = "happy";
 	} else if (isset($_POST['submitted'])) {
 		/* new application creation */
@@ -106,7 +106,7 @@
 		unset($_POST['screenername']);
 		unset($_POST['screeningdate']);
 		
-		$message = "Application created!";
+		$message = "application created!";
 		$toast = "happy";
 	}
 	
@@ -131,6 +131,12 @@
 		</h1>
 		
 		<?php 
+			if (isFormOpen($formname) == 0) {
+				echo "<div class=\"error-toast\"> Submissions for this form are closed, please contact an administrator if you believe you are seeing this page in error.</div>";
+				echo "</main></body></html>";
+				die();
+			}
+		
 			if (isset($message)) {
 				echo "<div class=\"" . $toast ."-toast\">" . $message . "</div>";
 			}
@@ -141,7 +147,7 @@
 			
 				<fieldset class="section-box">
 					<legend>
-						<?php echo $formattedName; ?> Application
+						<?php echo $formattedName; ?> application
 					</legend>
 					
 					<form action="" method="POST">
@@ -151,7 +157,7 @@
 						<label>Why is now the right time?</label>
 						<input type="text" name="whyisnowrighttime" value="<?php echo get_whyisnowrighttime($appID, $formname); ?>"><br>
 					
-						<?php if ($formname != 'FSGApplication' && $formname != 'HFApplication' && $formname != 'F2FApplication') {
+						<?php if ($formname != 'fsgapplication' && $formname != 'hfapplication' && $formname != 'f2fapplication') {
 							echo "<label>Status in recovery journey?</label>";
 							echo "<input type=\"text\" name=\"statusinrecoveryjourney\" value=\"" . get_statusinrecoveryjourney($appID, $formname) . "\"><br>";
 						}
@@ -173,7 +179,7 @@
 
 						<?php 
 						
-						if ($formname == 'FSGApplication') {
+						if ($formname == 'fsgapplication') {
 
 							echo "<br>";
 							echo "<legend>NAMI Family Support Group Program Eligibility Checklist</legend>";
@@ -189,7 +195,7 @@
 
 						}
 
-						if ($formname == 'HFApplication') {
+						if ($formname == 'hfapplication') {
 
 							echo "<br>";
 							echo "<legend>NAMI Homefront Program Eligibility Checklist</legend>";
@@ -204,7 +210,7 @@
 
 						}
 
-						if ($formname == 'CSGApplication') {
+						if ($formname == 'csgapplication') {
 
 							echo "<br>";
 							echo "<legend>NAMI Connection Support Group Program Eligibility Checklist</legend>";
@@ -222,7 +228,7 @@
 
 						}
 
-						if ($formname == 'P2PApplication') {
+						if ($formname == 'p2papplication') {
 
 							echo "<br>";
 							echo "<legend>NAMI Peer-to-Peer Program Eligibility Checklist</legend>";
@@ -239,7 +245,7 @@
 
 						}
 
-						if ($formname == 'IOOVApplication') {
+						if ($formname == 'ioovapplication') {
 
 							echo "<br>";
 							echo "<legend>NAMI In Our Own Voice Program Eligibility Checklist</legend>";
@@ -255,7 +261,7 @@
 
 						}
 
-						if ($formname == 'F2FApplication') {
+						if ($formname == 'f2fapplication') {
 
 							echo "<br>";
 							echo "<legend>NAMI Family-to-Family Program Eligibility Checklist</legend>";
@@ -275,7 +281,7 @@
 						
 						<input type="submit">
 						
-						<a class="button cancel" href="viewForms.php" style="margin-top: .5rem">Return to Dashboard Without Saving</a>
+						<a class="button cancel" href="viewForms.php" style="margin-top: .5rem">Return to Forms Dashboard Without Saving</a>
 					</form>
 					
 				</fieldset>
@@ -283,4 +289,5 @@
 			<?php //endif ?>
         </main>
     </body>
+	<?php require('footer.php'); ?>
 </html>
