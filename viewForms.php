@@ -213,7 +213,8 @@
 					</div>
 				<?php endif ?>
             </fieldset>
-			<a class="button cancel" href="index.php">Return to Dashboard</a>
+			<a class="button cancel" href="index.php">Return to Home Dashboard</a>
         </main>
     </body>
+	<?php require('footer.php'); ?>
 </html>

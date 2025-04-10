@@ -152,6 +152,9 @@
         $how_you_heard_of_stepva = isset($args['how_you_heard_of_stepva']) ? $args['how_you_heard_of_stepva'] :0;
         $background_complete = isset($args['background_complete']) ? $args['background_complete'] : 0;
         $background_date = validateDate($args['background_date']);
+        debug_to_console($args['notes']);
+        $notes = $args['notes'];
+        debug_to_console($notes);
         if (!$background_date) {
             $errors = true;
             // echo 'bad background date';
@@ -161,7 +164,7 @@
         }
         
         $result = update_person_required(
-            $id, $first_name, $last_name, $birthday, $street_address, $city, $state,
+            $id, $first_name, $last_name, $birthday, $street_address, $city, $state, $notes,
             $zip_code, $email, $phone1, $phone1type, $emergency_contact_first_name,
             $emergency_contact_last_name, $emergency_contact_phone,
             $emergency_contact_phone_type, $emergency_contact_relation, $type,
@@ -195,4 +198,5 @@
         require_once('profileEditForm.php');
     ?>
 </body>
+<?php require('footer.php'); ?>
 </html>

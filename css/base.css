@@ -349,7 +349,9 @@ main:not(.login):not(.calendar-view):not(.dashboard) {
 }
 
 /* Form Controls */
-
+/*textarea {*/
+/*    height:auto;*/
+/*}*/
 input[type=text], input[type=password], input[type=date], input[type=email], input[type=number], 
 input[type=tel], select, textarea, .pseudo-input, .pseudo-input-disabled {
     border: var(--text-field-border);
@@ -788,7 +790,7 @@ form.signup-form > fieldset > label {
 }
 
 form.signup-form textarea {
-    height: 7rem;
+    height: auto;
 }
 
 form.signup-form em {

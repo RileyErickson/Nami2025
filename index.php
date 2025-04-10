@@ -24,6 +24,10 @@
     // Get date?
     if (isset($_SESSION['_id'])) {
         $person = retrieve_person($_SESSION['_id']);
+        if($person->get_status() == 'Inactive') {
+            header('Location: inactiveDash.php');
+            die();
+        }
 
     }
     $notRoot = $person->get_id() != 'vmsroot';
@@ -115,6 +119,13 @@
                     <a href="hours.php" class="clickable-box">
                         <div class="highlight">
                             <span class="box-text">Hours Management</span>
+                            <img src="images/highlight_background.jpg" alt="highlight" />
+                        </div>
+                    </a>
+
+                    <a href="hours.php" class="clickable-box">
+                        <div class="highlight">
+                            <span class="box-text">Forms Management</span>
                             <img src="images/highlight_background.jpg" alt="highlight" />
                         </div>
                     </a>

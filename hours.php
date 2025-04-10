@@ -22,31 +22,34 @@ $conn = connect();
     <?php require_once('header.php'); ?>
 
     <h1>Hours Management</h1>
-
+    <main>
     <div id="dashboard">
         <div class="dashboard-item" onclick="location.href='logHours.php'">
             <img src="images/create-report.svg" alt="Log Hours">
-            <span>Log Hours</span>
+            <span><center>Log Hours</center></span>
         </div>
         <div class="dashboard-item" onclick="location.href='deleteHours.php'">
             <img src="images/delete.svg" alt="Delete Hours">
-            <span>Delete Hours</span>
+            <span><center>Delete Hours</center></span>
         </div>
         <div class="dashboard-item" onclick="location.href='approveHours.php'">
             <img src="images/volunteer-history.svg" alt="Approve Hours">
-            <span>Approve Hours</span>
+            <span><center>Approve Hours</center></span>
         </div>
         <div class="dashboard-item" onclick="location.href='viewHours.php'">
             <img src="images/search.svg" alt="View Hours">
-            <span>View Hours</span>
+            <span><center>View Hours</center></span>
         </div>
-        <div class="dashboard-item" onclick="location.href='index.php'">
+        <div style="flex-basis: 100%; height: 0;"></div>
+        <div class="dashboard-item" onclick="location.href='index.php'" style="background-color: grey;">
             <img src="images/logout.svg" alt="Return Home">
-            <span>Return Home</span>
+            <span><center>Return to Home Dashboard</center></span>
         </div>
-    </div>
 
+    </div>
+    </main>
 </body>
+<?php require('footer.php'); ?>
 </html>
 
 <?php mysqli_close($conn); ?>
