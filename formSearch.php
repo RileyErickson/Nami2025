@@ -42,34 +42,34 @@
                     //var_dump($args);
                     $role = $args['role'];
                     if (!($role)) {
-                        echo '<div class="error-toast">At least one search criterion is required.</div>';
+                        echo '<div class="error-toast">The "Form Type" criterion is required.</div>';
                     }
                      else {
                         echo "<h3>Search Results</h3>";
                     $persons = get_forms_id($role);
                     if ($role == "f2f"){
                         $formName = "Family to Family";
-                        $formVariable = "f2fapplicationID";
+                        $formVariable = "f2fApplicationID";
                     }
                     else if ($role == "p2p"){
                         $formName = "Peer to Peer";
-                        $formVariable = "p2papplicationID";
+                        $formVariable = "p2pApplicationID";
                     }
                     else if ($role == "ioov"){
                         $formName = "In Our Own Voice";
-                        $formVariable = "ioovapplicationID";
+                        $formVariable = "ioovApplicationID";
                     }
                     else if ($role == "csg"){
                         $formName = "Connection Support Group";
-                        $formVariable = "csgapplicationID";                
+                        $formVariable = "csgApplicationID";                
                     }
                     else if ($role == "fsg"){
                         $formName = "Family Support Groups";
-                        $formVariable = "fsgapplicationID";
+                        $formVariable = "fsgApplicationID";
                     }
                     else if ($role == "hf"){
                         $formName = "Homefront";
-                        $formVariable = "hfapplicationID";
+                        $formVariable = "hfApplicationID";
                     }
                     if ($persons == NULL){  
                         echo '<div class="error-toast">Your search returned no results.</div>';;}
@@ -108,39 +108,39 @@
                                             ;
 
                                             
-                                            if ($role=="F2F"){
+                                            if ($role=="f2f"){
                                                 echo  '<td>' . $person['reasonToBecomeF2F'] . '</td>';
                                                 echo  '<td>' . $person['whyIsNowRightTime'] . '</td>';
                                                 echo  '<td>' . $person['screenerName'] . '</td>';
                                                 echo  '<td>' . $person['screeningDate'] . '</td>';
                                             }
-                                            else if ($role=="FSG"){
+                                            else if ($role=="fsg"){
                                                 echo  '<td>' . $person['reasonToBecomeFSG'] . '</td>';
                                                 echo  '<td>' . $person['whyIsNowRightTime'] . '</td>';
                                                 echo  '<td>' . $person['screenerName'] . '</td>';
                                                 echo  '<td>' . $person['screeningDate'] . '</td>';
                                             }
-                                            else if ($role=="HF"){
+                                            else if ($role=="hf"){
                                                 echo  '<td>' . $person['reasonToBecomeHF'] . '</td>';
                                                 echo  '<td>' . $person['whyIsNowRightTime'] . '</td>';
                                                 echo  '<td>' . $person['screenerName'] . '</td>';
                                                 echo  '<td>' . $person['screeningDate'] . '</td>';
                                             }
-                                            else if ($role=="P2P"){
+                                            else if ($role=="p2p"){
                                                 echo  '<td>' . $person['reasonToBecomeP2P'] . '</td>';
                                                 echo  '<td>' . $person['whyIsNowRightTime'] . '</td>';
                                                 echo  '<td>' . $person['statusInRecoveryJourney'] . '</td>';
                                                 echo  '<td>' . $person['screenerName'] . '</td>';
                                                 echo  '<td>' . $person['screeningDate'] . '</td>';
                                             }
-                                            else if ($role=="IOOV"){
+                                            else if ($role=="ioov"){
                                                 echo  '<td>' . $person['reasonToBecomeIOOV'] . '</td>';
                                                 echo  '<td>' . $person['whyIsNowRightTime'] . '</td>';
                                                 echo  '<td>' . $person['statusInRecoveryJourney'] . '</td>';
                                                 echo  '<td>' . $person['screenerName'] . '</td>';
                                                 echo  '<td>' . $person['screeningDate'] . '</td>';
                                             }
-                                            else if ($role=="CSG"){	
+                                            else if ($role=="csg"){	
                                                 echo  '<td>' . $person['reasonToBecomeCSG'] . '</td>';
                                                 echo  '<td>' . $person['whyIsNowRightTime'] . '</td>';
                                                 echo  '<td>' . $person['statusInRecoveryJourney'] . '</td>';
@@ -149,7 +149,7 @@
                                             }
                                             echo 
                                             '                            <td>
-                            <a class="button" href="index.php">Approve</a> </td>
+                            <button onclick="approve_form('.$person['id'].','.$role.')">Approve</a> </td>
                                                                                                    <td>
                             <a class="button cancel" href="index.php">Reject</a> </td>
                             
@@ -183,7 +183,12 @@
                 <option value="hf" <?php if (isset($role) && $role == 'hf') echo 'hf' ?>>hf</option>
             </select>
 
-
+            <label for="Status">Form Status</label>
+            <select id="status" name="status">
+            <option value="">Select</option>
+                <option value="approved" <?php if (isset($role) && $role == 'approved') echo 'approved' ?>>Approved</option>
+                <option value="denied" <?php if (isset($role) && $role == 'denied') echo 'denied' ?>>Denied</option>
+                </select>
             <div id="criteria-error" class="error hidden">You must provide at least one search criterion.</div>
             <input type="submit" value="Search">
             <a class="button cancel" href="index.php">Return to Home Dashboard</a>

@@ -90,7 +90,7 @@ mysqli_close($conn);
             <input type="submit" name="search" value="Search" >
             <input type="submit" name="clear" value="Clear Search" style="margin-top: .5rem">
         </form>
-        <a class="button cancel" href="blacklist.php" style="margin-top: .5rem">Return to Blacklist Dashboard</a>; 
+        <a class="button cancel" href="blacklist.php" style="margin-top: .5rem">Return to Blacklist Dashboard</a>
     </div>
     
     <?php if (!empty($searchResults)) : ?>
@@ -108,7 +108,7 @@ mysqli_close($conn);
         <?php endforeach; ?>
     <?php else : ?>
         <div class="container">
-            <p>No records found.</p>
+        <div class="error-toast">No entries found.</div>
         </div>
     <?php endif; ?>
     </main>

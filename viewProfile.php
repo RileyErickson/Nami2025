@@ -287,11 +287,11 @@
 
 
 
-                <div class="field-pair">
+  <!--              <div class="field-pair">
                 <label>Permissions Level</label>
                     <p><?php echo ucfirst($user->get_type() ?: "Not specified") ?></p>
                 </div>
-                
+                -->
 
 
                 <div class="field-pair">

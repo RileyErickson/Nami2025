@@ -142,22 +142,22 @@ function get_all($type){
 }
 
 function approve_form($id, $type){
-	if ($type == "F2F"){
+	if ($type == "F2F" || $type == "f2f"){
 		$database = "dbf2fapplication";
 	}
-	if ($type == "P2P"){
+	if ($type == "P2P"|| $type == "p2p"){
 		$database = "dbp2papplication";
 	}
-	if ($type == "IOOV"){
+	if ($type == "IOOV"|| $type == "ioov"){
 		$database = "dbioovapplication";
 	}
-	if ($type == "CSG"){
+	if ($type == "CSG" || $type == "csg"){
 		$database = "dbcsgapplication";
 	}
-	if ($type == "FSG"){
+	if ($type == "FSG" || $type == "fsg" ){
 		$database = "dbfsgapplication";
 	}
-	if ($type == "HF"){
+	if ($type == "HF" || $type == "hf"){
 		$database = "dbhfapplication";
 	}
 	$query = "UPDATE ". $database ." SET 'approved'='1' WHERE 'id'=".$id;
