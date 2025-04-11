@@ -131,6 +131,11 @@
                             <i class="fa-solid fa-list"></i>
                             <span>View Forms</span>
                         </div>
+						
+						<div class="dashboard-item" data-link="createForm.php">
+							<img src="images/viewforms.png">
+							<span><center>Create Forms</center></span>
+						</div>
 
                         <div class="dashboard-item" data-link="formSearch.php">
                             <img src="images/emailList.png">
