@@ -130,20 +130,21 @@
         $permission_array['blacklist.php'] = 2;
         $permission_array['searchblacklist.php'] = 2;
         $permission_array['addminutes.php'] = 2;
-	$permission_array['editminutes.php'] = 2;
+		$permission_array['editminutes.php'] = 2;
         $permission_array['searchminutes.php'] = 2;
         $permission_array['minutes.php'] = 2;
-	$permission_array['selectminutes.php'] = 2;
+		$permission_array['selectminutes.php'] = 2;
     	$permission_array['pending_volunteers.php'] = 2;
     	$permission_array['hours.php'] = 2;
-	$permission_array['loghours.php'] = 1;
-	$permission_array['approvehours.php'] = 2;
-	$permission_array['viewhours.php'] = 1;
-	$permission_array['announcement.php'] = 2;
-	$permission_array['deletehours.php'] = 2;
-    $permission_array['formsearch.php'] = 2;
-    $permission_array['volunteerdirectory.php'] = 2;
-    $permission_array['displaycurrentvolunteers.php'] = 2;
+		$permission_array['loghours.php'] = 1;
+		$permission_array['approvehours.php'] = 2;
+		$permission_array['viewhours.php'] = 1;
+		$permission_array['announcement.php'] = 2;
+		$permission_array['deletehours.php'] = 2;
+		$permission_array['formsearch.php'] = 2;
+		$permission_array['volunteerdirectory.php'] = 2;
+		$permission_array['displaycurrentvolunteers.php'] = 2;
+		$permission_array['createform.php'] = 2;
 
 	// LOWERCASE
 
