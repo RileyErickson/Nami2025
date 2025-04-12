@@ -140,7 +140,7 @@
 
                         <div class="dashboard-item" data-link="viewForms.php">
                             <i class="fa-solid fa-list"></i>
-                            <span>View Forms</span>
+                            <span><center>View Forms</center></span>
                         </div>
 						
 						<div class="dashboard-item" data-link="createForm.php">
@@ -150,7 +150,7 @@
 
                         <div class="dashboard-item" data-link="formSearch.php">
                             <img src="images/emailList.png">
-                            <span>Search Forms</span>
+                            <span><center>Search Forms</center></span>
                         </div>
 
 <!--                    <div class="dashboard-item" data-link="register.php">-->
@@ -230,7 +230,7 @@
 		    
 		                <div class="dashboard-item" data-link="announcement.php">
                             <img src="images/volunteer-history.svg">
-                            <span><center>Announcements</center></span>
+                            <span><center>Post a Message</center></span>
                         </div>
 
                         <div class="dashboard-item" data-link="changePassword.php">

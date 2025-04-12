@@ -172,10 +172,8 @@
         echo('<span id="nav-top"><span class="logo"><a class="navbar-brand" href="' . $path . 'index.php"><img class="nami-logo" src="images/logoLong.jpg"></a>');
         //echo('<a class="navbar-brand" id="vms-logo"> NAMI Rappahannock Volunteer </a></span><img id="menu-toggle" src="images/menu.png"></span>');
 
-        echo('<ul>');
         //echo " <br><b>"."Gwyneth's Gift Homebase"."</b>|"; //changed: 'Homebase' to 'Gwyneth's Gift Homebase'
 
-        echo('<li><a class="nav-link active" aria-current="page" href="' . $path . 'index.php"><img class="home-logo" src="images/home.svg" alt="home"></a></li>');
         echo('</div>');
         //echo('<span class="nav-divider">|</span>');
 
@@ -221,6 +219,7 @@
         echo('<div class="nav-right">');
          //echo('<span class="nav-divider">|</span>');
          if ($_SESSION['access_level'] <= 3) {
+         echo('<li><a class="nav-link active" aria-current="page" href="' . $path . 'index.php"><img class="home-logo" src="images/home.svg" alt="home"></a></li>');
          echo('<li class="nav-item dropdown">');
          echo('<a class="nav-link dropdown-toggle" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><img class="person-logo" src="images/account.svg" alt="account"></a>');
          echo('<div class="dropdown-menu">');
