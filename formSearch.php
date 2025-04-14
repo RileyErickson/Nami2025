@@ -9,17 +9,20 @@
     $loggedIn = false;
     $accessLevel = 0;
     $userID = null;
+
     if (isset($_SESSION['_id'])) {
         $loggedIn = true;
         // 0 = not logged in, 1 = standard user, 2 = manager (Admin), 3 super admin (TBI)
         $accessLevel = $_SESSION['access_level'];
         $userID = $_SESSION['_id'];
     }
+
     // admin-only access
     if ($accessLevel < 2) {
         header('Location: index.php');
         die();
     }
+
 ?>
 <!DOCTYPE html>
 <html>
@@ -34,15 +37,22 @@
         <form id="person-search" class="general" method="get">
             <h2>Find Volunteer/Participant</h2>
             <?php 
+            require_once('database/dbForms.php');
+                    if (isset($_GET['formType'])){
+                        approve_form($_GET["formNumber"],$_GET["formType"]);
+                        echo '<div class="happy-toast">The '.$_GET["formType"].' form has been approved!</div>';
+                    }
                 if (isset($_GET['role'])) {
                     require_once('include/input-validation.php');
-                    require_once('database/dbForms.php');
+                    
                     $args = sanitize($_GET);
                     $required = ['role'];
                     //var_dump($args);
                     $role = $args['role'];
                     if (!($role)) {
-                        echo '<div class="error-toast">The "Form Type" criterion is required.</div>';
+                            if (!isset($_GET['formType'])){
+                                echo '<div class="error-toast">The "Form Type" criterion is required.</div>';   
+                            }
                     }
                      else {
                         echo "<h3>Search Results</h3>";
@@ -119,12 +129,14 @@
                                                 echo  '<td>' . $person['whyIsNowRightTime'] . '</td>';
                                                 echo  '<td>' . $person['screenerName'] . '</td>';
                                                 echo  '<td>' . $person['screeningDate'] . '</td>';
+                                                
                                             }
                                             else if ($role=="hf"){
                                                 echo  '<td>' . $person['reasonToBecomeHF'] . '</td>';
                                                 echo  '<td>' . $person['whyIsNowRightTime'] . '</td>';
                                                 echo  '<td>' . $person['screenerName'] . '</td>';
                                                 echo  '<td>' . $person['screeningDate'] . '</td>';
+
                                             }
                                             else if ($role=="p2p"){
                                                 echo  '<td>' . $person['reasonToBecomeP2P'] . '</td>';
@@ -146,14 +158,22 @@
                                                 echo  '<td>' . $person['statusInRecoveryJourney'] . '</td>';
                                                 echo  '<td>' . $person['screenerName'] . '</td>';
                                                 echo  '<td>' . $person['screeningDate'] . '</td>';
+
                                             }
-                                            echo 
-                                            '                            <td>
-                            <button onclick="approve_form('.$person['id'].','.$role.')">Approve</a> </td>
-                                                                                                   <td>
-                            <a class="button cancel" href="index.php">Reject</a> </td>
-                            
-                                           </a></tr>';
+                                            
+                                            echo '
+                                            <td> 
+                                                <form method="GET" action="formApprove.php">
+                                                <input type="hidden" name="formNumber" value="'.$person[$formVariable].'">
+                                                <input type="hidden" name="formType" value="'.$role.'">
+                                                <input type="submit"/>
+                                                </form>
+                                            
+                                            </td>';
+                                            
+                                            
+                                            
+                                           echo '</a></tr>';
                             }}
                             echo '
 

@@ -144,27 +144,34 @@ function get_all($type){
 function approve_form($id, $type){
 	if ($type == "F2F" || $type == "f2f"){
 		$database = "dbf2fapplication";
+		$application="f2fapplication";
 	}
 	if ($type == "P2P"|| $type == "p2p"){
 		$database = "dbp2papplication";
+		$application="p2papplication";
 	}
 	if ($type == "IOOV"|| $type == "ioov"){
 		$database = "dbioovapplication";
+		$application="ioovapplication";
 	}
 	if ($type == "CSG" || $type == "csg"){
 		$database = "dbcsgapplication";
+		$application="csgapplication";
 	}
 	if ($type == "FSG" || $type == "fsg" ){
 		$database = "dbfsgapplication";
+		$application="fsgapplication";
 	}
 	if ($type == "HF" || $type == "hf"){
 		$database = "dbhfapplication";
+		$application="hfapplication";
 	}
-	$query = "UPDATE ". $database ." SET 'approved'='1' WHERE 'id'=".$id;
+//	$query="UPDATE db" . $database . " SET reasonToBecome" . $formattedName . "= '" . $reason . "' WHERE ". $application . "ID='" . $id . "';";
+	$query = "UPDATE ". $database ." SET approved='TRUE' WHERE ".$application."id=".$id.";";
 	$con=connect();
 	$result = mysqli_query($con,$query);
+	mysqli_close($con);
 	return;
-
 }
 function reject_form($id, $type){
 	if ($type == "F2F"){
@@ -405,7 +412,7 @@ function update_reasontobecome($id, $application, $reason) {
 	}
 	
 	$con=connect();
-	$query="UPDATE db" . $application . " SET reasonToBecome" . $formattedName . "= '" . $reason . "' WHERE ". $application . "ID='" . $id . "';";
+	$query="UPDATE db" . $application . " SET reasonToBecome" . $formattedName . "= '" . $reason . "', APPROVED=0 WHERE ". $application . "ID='" . $id . "';";
 	
     $result = mysqli_query($con,$query);
 	
@@ -418,7 +425,7 @@ function update_reasontobecome($id, $application, $reason) {
 function update_whyisnowrighttime($id, $application, $time) {
 	
 	$con=connect();
-	$query="UPDATE db" . $application . " SET whyIsNowRightTime = '" . $time . "' WHERE ". $application . "ID='" . $id . "';";
+	$query="UPDATE db" . $application . " SET whyIsNowRightTime = '" . $time . "', APPROVED=0 WHERE ". $application . "ID='" . $id . "';";
 	
     $result = mysqli_query($con,$query);
 	
@@ -431,7 +438,7 @@ function update_whyisnowrighttime($id, $application, $time) {
 function update_statusinrecoveryjourney($id, $application, $status) {
 	
 	$con=connect();
-	$query="UPDATE db" . $application . " SET statusInRecoveryJourney = '" . $status . "' WHERE ". $application . "ID='" . $id . "';";
+	$query="UPDATE db" . $application . " SET statusInRecoveryJourney = '" . $status . "', APPROVED=0 WHERE ". $application . "ID='" . $id . "';";
 	
     $result = mysqli_query($con,$query);
 	
@@ -444,7 +451,7 @@ function update_statusinrecoveryjourney($id, $application, $status) {
 function update_screenername($id, $application, $name) {
 	
 	$con=connect();
-	$query="UPDATE db" . $application . " SET screenerName = '" . $name . "' WHERE ". $application . "ID='" . $id . "';";
+	$query="UPDATE db" . $application . " SET screenerName = '" . $name . "', APPROVED=0 WHERE ". $application . "ID='" . $id . "';";
 	
     $result = mysqli_query($con,$query);
 	
@@ -457,7 +464,7 @@ function update_screenername($id, $application, $name) {
 function update_screeningdate($id, $application, $date) {
 	
 	$con=connect();
-	$query="UPDATE db" . $application . " SET screeningDate = '" . $date . "' WHERE ". $application . "ID='" . $id . "';";
+	$query="UPDATE db" . $application . " SET screeningDate = '" . $date . "', APPROVED=0 WHERE ". $application . "ID='" . $id . "';";
 	
     $result = mysqli_query($con,$query);
 	
