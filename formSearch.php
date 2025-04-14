@@ -60,7 +60,14 @@
                     }
                      else {
                         echo "<h3>Search Results</h3>";
-                    $persons = get_forms_id($role);
+                    if (!isset($_GET['status'])){
+                        $status="*";
+                    }
+                    else{
+                        $status=$_GET['status'];
+                    }
+                        $persons = get_forms_id($role,$status);
+                    
                     if ($role == "f2f"){
                         $formName = "Family to Family";
                         $formVariable = "f2fApplicationID";
@@ -164,7 +171,7 @@
                                                 echo  '<td>' . $person['screeningDate'] . '</td>';
 
                                             }
-                                            if ($person['approved'] == 0){
+                                            if ($person['approved'] == 0 || $person['approved'] == 'R'){
                                             echo '
                                             <td> 
                                                 <form method="GET" action="formApprove.php">
@@ -217,6 +224,7 @@
             <option value="">Select</option>
                 <option value="approved" <?php if (isset($role) && $role == 'approved') echo 'approved' ?>>Approved</option>
                 <option value="denied" <?php if (isset($role) && $role == 'denied') echo 'denied' ?>>Denied</option>
+                <option value="pending" <?php if (isset($role) && $role == 'pending') echo 'pending' ?>>Pending</option>
                 </select>
             <div id="criteria-error" class="error hidden">You must provide at least one search criterion.</div>
             <input type="submit" value="Search">

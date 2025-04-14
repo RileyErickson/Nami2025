@@ -199,7 +199,7 @@ function unapprove_form($id, $type){
 		$application="hfapplication";
 	}
 //	$query="UPDATE db" . $database . " SET reasonToBecome" . $formattedName . "= '" . $reason . "' WHERE ". $application . "ID='" . $id . "';";
-	$query = "UPDATE ". $database ." SET approved='0' WHERE ".$application."id=".$id.";";
+	$query = "UPDATE ". $database ." SET approved='R' WHERE ".$application."id=".$id.";";
 	$con=connect();
 	$result = mysqli_query($con,$query);
 	mysqli_close($con);
@@ -207,7 +207,7 @@ function unapprove_form($id, $type){
 }
 
 
-function get_forms_id($type){
+function get_forms_id($type,$status){
 	//We should be passed the abbreviation of one of the forms. If it is one of them, add it to the Database variable. All of the databases have their own
 	//name for the id variable, so save that to Select.
 	if ($type == "f2f"){
@@ -234,8 +234,23 @@ function get_forms_id($type){
 		$database = "dbhfapplication";
 		$select = "hfapplicationID";
 	}
+	if ($status == "approved"){
+		$statusFormatted="TRUE";
+	}
+	else if ($status == "pending"){
+		$statusFormatted="0";
+	}
+	else if ($status == "denied"){
+		$statusFormatted="R";
+	}
+
 	//Pull from the database using connect() and mysqli_query(). Should be all ints.
-	$query="SELECT * FROM ". $database;
+	if (isset($statusFormatted)){
+		$query="SELECT * FROM ". $database." WHERE approved=\"".$statusFormatted."\"";
+	}
+	else{
+		$query="SELECT * FROM ". $database;
+	}
 	$con=connect();
 	$result = mysqli_query($con,$query);
 	//Make the results a list. If there is a size of 0, return null.
