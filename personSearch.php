@@ -49,7 +49,7 @@
                     $role = $args['role'];
                     $status = $args['status'];
                     if (!($name || $id || $phone || $zip || $role || $status || FALSE)) {
-                        echo '<div class="error-toast">At least one search criterion is required.</div>';
+                        echo '<div class="error-toast">At least <b>one search criterion is required.</b></div>';
                     } else if (!valueConstrainedTo($role, ['admin', 'participant', 'superadmin', 'volunteer', 'board', 'donator', ''])) {
                         echo '<div class="error-toast">The system did not understand your request.</div>';
                     } else if (!valueConstrainedTo($status, ['Active', 'Inactive', ''])) {

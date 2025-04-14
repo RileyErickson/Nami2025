@@ -228,10 +228,10 @@
                             <span><center>Announcements</center></span>
                         </div>
 
-                        <div class="dashboard-item" data-link="changePassword.php">
-                            <img src="images/change-password.svg">
-                            <span><center>Change Password</center></span>
-                        </div>
+<!--                        <div class="dashboard-item" data-link="changePassword.php">-->
+<!--                            <img src="images/change-password.svg">-->
+<!--                            <span><center>Change Password</center></span>-->
+<!--                        </div>-->
                     
                     </div>
                 
@@ -281,9 +281,9 @@
                                 <img src="images/view-calendar.svg">
                                 <span><center>View Calendar</center></span>
                             </div>
-                            <div class="dashboard-item" data-link="changePassword.php">
-                                <img src="images/change-password.svg">
-                                <span><center>Change Password</center></span>
+<!--                            <div class="dashboard-item" data-link="changePassword.php">-->
+<!--                                <img src="images/change-password.svg">-->
+<!--                                <span><center>Change Password</center></span>-->
                             </div>
                         </div>
                     </main>
@@ -326,10 +326,10 @@
                                 <img src="images/view-calendar.svg">
                                 <span><center>View Calendar</center></span>
                             </div>
-                            <div class="dashboard-item" data-link="changePassword.php">
-                                <img src="images/change-password.svg">
-                                <span><center>Change Password</center></span>
-                            </div>
+<!--                            <div class="dashboard-item" data-link="changePassword.php">-->
+<!--                                <img src="images/change-password.svg">-->
+<!--                                <span><center>Change Password</center></span>-->
+<!--                            </div>-->
 
                         </div>
                     </main>
