@@ -173,30 +173,37 @@ function approve_form($id, $type){
 	mysqli_close($con);
 	return;
 }
-function reject_form($id, $type){
-	if ($type == "F2F"){
+function unapprove_form($id, $type){
+	if ($type == "F2F" || $type == "f2f"){
 		$database = "dbf2fapplication";
+		$application="f2fapplication";
 	}
-	if ($type == "P2P"){
+	if ($type == "P2P"|| $type == "p2p"){
 		$database = "dbp2papplication";
+		$application="p2papplication";
 	}
-	if ($type == "IOOV"){
+	if ($type == "IOOV"|| $type == "ioov"){
 		$database = "dbioovapplication";
+		$application="ioovapplication";
 	}
-	if ($type == "CSG"){
+	if ($type == "CSG" || $type == "csg"){
 		$database = "dbcsgapplication";
+		$application="csgapplication";
 	}
-	if ($type == "FSG"){
+	if ($type == "FSG" || $type == "fsg" ){
 		$database = "dbfsgapplication";
+		$application="fsgapplication";
 	}
-	if ($type == "HF"){
+	if ($type == "HF" || $type == "hf"){
 		$database = "dbhfapplication";
+		$application="hfapplication";
 	}
-	$query = "DELETE FROM ". $database ." WHERE 'id'=".$id;
+//	$query="UPDATE db" . $database . " SET reasonToBecome" . $formattedName . "= '" . $reason . "' WHERE ". $application . "ID='" . $id . "';";
+	$query = "UPDATE ". $database ." SET approved='0' WHERE ".$application."id=".$id.";";
 	$con=connect();
 	$result = mysqli_query($con,$query);
+	mysqli_close($con);
 	return;
-
 }
 
 

@@ -42,6 +42,10 @@
                         approve_form($_GET["formNumber"],$_GET["formType"]);
                         echo '<div class="happy-toast">The '.$_GET["formType"].' form has been approved!</div>';
                     }
+                    else if (isset($_GET['unformType'])){
+                        unapprove_form($_GET["unformNumber"],$_GET["unformType"]);
+                        echo '<div class="happy-toast">The '.$_GET["unformType"].' form has been unapproved!</div>';
+                    }
                 if (isset($_GET['role'])) {
                     require_once('include/input-validation.php');
                     
@@ -50,7 +54,7 @@
                     //var_dump($args);
                     $role = $args['role'];
                     if (!($role)) {
-                            if (!isset($_GET['formType'])){
+                            if (!isset($_GET['formType']) && !isset($_GET['unformType'])){
                                 echo '<div class="error-toast">The "Form Type" criterion is required.</div>';   
                             }
                     }
@@ -160,19 +164,27 @@
                                                 echo  '<td>' . $person['screeningDate'] . '</td>';
 
                                             }
-                                            
+                                            if ($person['approved'] == 0){
                                             echo '
                                             <td> 
                                                 <form method="GET" action="formApprove.php">
                                                 <input type="hidden" name="formNumber" value="'.$person[$formVariable].'">
                                                 <input type="hidden" name="formType" value="'.$role.'">
-                                                <input type="submit"/>
+                                                <input type="submit" value="Approve">
                                                 </form>
                                             
                                             </td>';
+                                        }
+                                        else{
+                                            echo '                                            <td> 
+                                                <form method="GET" action="formApprove.php">
+                                                <input type="hidden" name="unformNumber" value="'.$person[$formVariable].'">
+                                                <input type="hidden" name="unformType" value="'.$role.'">
+                                                <input type="submit" value="Unapprove">
+                                                </form>
                                             
-                                            
-                                            
+                                            </td>';
+                                        }
                                            echo '</a></tr>';
                             }}
                             echo '
@@ -181,9 +193,6 @@
                                 </table>
                             </div>';
 
-                        //} else {
-                        //    echo '<div class="error-toast">Your search returned no results.</div>';
-                        //}
                     }}
                     echo '<h3>Search Again</h3>';
                 }
