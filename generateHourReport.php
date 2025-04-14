@@ -51,7 +51,11 @@ $pdf->SetFont('Arial','',12);
 $today = date('F j, Y');
 $paragraph = "$fName $lName has worked a total of $totalHours hours as of $today. "
            . "Your dedication and hard work are invaluable to our community. Thank you for making a difference!";
-$pdf->MultiCell(0, 8, utf8_decode($paragraph), 0, 'C');
+//siteground no likey
+//$pdf->MultiCell(0, 8, utf8_decode($paragraph), 0, 'C');
+//siteground likey
+$pdf->MultiCell(0, 8, mb_convert_encoding($paragraph, 'ISO-8859-1', 'UTF-8'), 0, 'C');
+
 $pdf->Ln(10);
 
 // --- Table: Volunteer Hour Breakdown ---
