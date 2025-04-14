@@ -23,11 +23,11 @@ $conn = connect();
     <main>
         <div id="dashboard">
         <?php if ($_SESSION['access_level'] >= 2): ?>
-            <div class="dashboard-item" onclick="location.href='viewdonors.php'">
+            <div class="dashboard-item" onclick="location.href='viewDonors.php'">
                 <img src="images/search.svg" alt="View Donors">
                 <span><center>View Donors</center></span>
             </div>
-            <div class="dashboard-item" onclick="location.href='adddonors.php'">
+            <div class="dashboard-item" onclick="location.href='addDonors.php'">
                 <img src="images/search.svg" alt="Add Donor">
                 <span><center>Add Donor</center></span>
             </div>
