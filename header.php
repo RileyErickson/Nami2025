@@ -145,6 +145,12 @@
 		$permission_array['volunteerdirectory.php'] = 2;
 		$permission_array['displaycurrentvolunteers.php'] = 2;
 		$permission_array['createform.php'] = 2;
+        $permission_array['sendmessages.php'] = 2;
+        $permission_array['emailmanager.php'] = 2;
+        $permission_array['adddonors.php'] = 2;
+        $permission_array['viewdonors.php'] = 2;
+        $permission_array['donormanager.php'] = 2;
+
 
 	// LOWERCASE
 
