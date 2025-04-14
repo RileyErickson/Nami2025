@@ -30,8 +30,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         // Connect to the database
         $conn = connect();
 
-        // Query to get the total number of rows in dbPersons
-        $query = "SELECT COUNT(*) AS total FROM dbPersons";
+        // Query to get the total number of rows in dbpersons
+        $query = "SELECT COUNT(*) AS total FROM dbpersons";
         $result = mysqli_query($conn, $query);
         if ($result) {
             $row = mysqli_fetch_assoc($result);
@@ -45,7 +45,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $id = $first_name . "_" . $totalRows . "_" . $last_name;
 
         // Prepare the SQL statement to insert a new donor record with the calculated id
-        $stmt = $conn->prepare("INSERT INTO dbPersons (id, first_name, last_name, phone1, email, start_date, type) VALUES (?, ?, ?, ?, ?, ?, ?)");
+        $stmt = $conn->prepare("INSERT INTO dbpersons (id, first_name, last_name, phone1, email, start_date, type) VALUES (?, ?, ?, ?, ?, ?, ?)");
         if ($stmt === false) {
             $error = "Failed to prepare statement: " . htmlspecialchars($conn->error);
         } else {
