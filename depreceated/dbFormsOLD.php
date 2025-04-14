@@ -12,48 +12,108 @@ include_once('dbPersons.php');
 
 // Creates a new application for any of the 6 form tables.
 // $application MUST be formatted like "p2papplication", "fsgapplication", "f2fapplication", "hfapplication", "ioovapplication", and "csgapplication"
-
-function getForms() {
+function create_application($application, $personID, $reasontobecome, $whyisnowrighttime, $statusinrecoveryjourney, $screenername, $screeningdate) {
 	
     $con=connect();
 	
-	$query = "SELECT formname FROM formmanager;";
+	switch ($application) { //necessary to query the reasontobecome variable
+		case "f2fapplication":
+			$formattedName = "f2f";
+			$tableName = "dbf2fapplication";
+			break;
+		case "p2papplication":
+			$formattedName = "p2p";
+			$tableName = "dbp2papplication";
+			break;
+		case "ioovapplication":
+			$formattedName = "ioov";
+			$tableName = "dbioovapplication";
+			break;
+		case "csgapplication":
+			$formattedName = "csg";
+			$tableName = "dbcsgapplication";
+			break;
+		case "fsgapplication":
+			$formattedName = "fsg";
+			$tableName = "dbfsgapplication";
+			break;
+		case "hfapplication":
+			$formattedName = "hf";
+			$tableName = "dbhfapplication";
+			break;
+	}
+	
+	if ($statusinrecoveryjourney != NULL) {
+		$query = "INSERT INTO db" . $application . "(reasonToBecome" . $formattedName . ", whyIsNowRightTime, statusInRecoveryJourney, screenerName, screeningDate, id) VALUES ('"
+			. $reasontobecome . "', '"
+			. $whyisnowrighttime . "', '"
+			. $statusinrecoveryjourney . "', '"
+			. $screenername . "', '"
+			. $screeningdate . "', '"
+			. $personID . "');";
+	} else {
+		$query = "INSERT INTO db" . $application . "(reasonToBecome" . $formattedName . ", whyIsNowRightTime, screenerName, screeningDate, id)  VALUES ('"
+			. $reasontobecome . "', '"
+			. $whyisnowrighttime . "', '"
+			. $screenername . "', '"
+			. $screeningdate . "', '"
+			. $personID . "');";
+	}
 	
     $result = mysqli_query($con,$query);
+	
+    mysqli_close($con);
+}
+
+// returns a user's reason from the corresponding form
+function get_reasontobecome($appID, $application) {
+	
+	if ($appID == "") {
+		return "";
+	}
+	
+	switch ($application) { //necessary to query the reasontobecome variable
+		case "f2fapplication":
+			$formattedName = "f2f";
+			$tableName = "dbf2fapplication";
+			break;
+		case "p2papplication":
+			$formattedName = "p2p";
+			$tableName = "dbp2papplication";
+			break;
+		case "ioovapplication":
+			$formattedName = "ioov";
+			$tableName = "dbioovapplication";
+			break;
+		case "csgapplication":
+			$formattedName = "csg";
+			$tableName = "dbcsgapplication";
+			break;
+		case "fsgapplication":
+			$formattedName = "fsg";
+			$tableName = "dbfsgapplication";
+			break;
+		case "hfapplication":
+			$formattedName = "hf";
+			$tableName = "dbhfapplication";
+			break;
+	}
+	
+	$con=connect();
+	$query="SELECT reasonToBecome" . $formattedName . " FROM " . $tableName . " WHERE ". $application . "ID='" . $appID . "';";
+	
+    $result = mysqli_query($con,$query);
+	
 	if (!(mysqli_num_rows($result) === 0)) {
-		return mysqli_fetch_array($result, MYSQLI_NUM);
+		$result = $result->fetch_array();
+		$reason = $result[0];
 	} else {
-		return 0;
+		$reason = null;
 	}
 	
 	mysqli_close($con);
 	
 	return $reason;
-}
-
-function get_all($type){
-	if ($type == "F2F"){
-		$database = "dbf2fapplication";
-	}
-	if ($type == "P2P"){
-		$database = "dbp2papplication";
-	}
-	if ($type == "IOOV"){
-		$database = "dbioovapplication";
-	}
-	if ($type == "CSG"){
-		$database = "dbcsgapplication";
-	}
-	if ($type == "FSG"){
-		$database = "dbfsgapplication";
-	}
-	if ($type == "HF"){
-		$database = "dbhfapplication";
-	}
-	$query="SELECT * FROM ". $database;
-	$con=connect();
-	$result = mysqli_query($con,$query);
-	return $result;
 }
 function get_forms_id($type){
 	//We should be passed the abbreviation of one of the forms. If it is one of them, add it to the Database variable. All of the databases have their own
