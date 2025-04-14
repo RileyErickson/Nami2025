@@ -66,7 +66,7 @@ function emailBoardMember(string $fromUser, string $subject, string $body): arra
  * Send emails to all donors.
  */
 function emailDonor(string $fromUser, string $subject, string $body): array {
-    $list = getEmailsByType('donator');
+    $list = getEmailsByType('donor');
     return sendEmails($list, $fromUser, $subject, $body);
 }
 
