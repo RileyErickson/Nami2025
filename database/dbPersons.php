@@ -252,7 +252,7 @@ function fetchCurrentAdmins() {
 
 function fetchEveryone() {
     $con=connect();
-    $query = 'SELECT * FROM dbpersons';
+    $query = 'SELECT * FROM dbpersons WHERE id != "vmsroot"';
     $result = mysqli_query($con,$query);
 
     if (!$result) {
