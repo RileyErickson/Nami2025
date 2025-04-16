@@ -234,7 +234,7 @@
 <!--                --><?php //endif ?>
 
                 <!-- FOR BOARD ONLY -->
-                <?php elseif ($_SESSION['access_level'] >= 4) : ?>
+                <?php elseif ($_SESSION['access_level'] >= 2) : ?>
 
                     <main class='dashboard'>
                         <div id="dashboard">
@@ -286,7 +286,21 @@
 
                 <?php elseif ($notRoot) : ?>
                     <main class='dashboard'>
+
+                        <div class="top-bar">
+
+                            <a href="hours.php" class="clickable-box">
+                                <div class="highlight">
+                                    <span class="box-text">Hours Management</span>
+                                    <img src="images/highlight_background.jpg" alt="highlight" />
+                                </div>
+                            </a>
+
+                        </div>
+
                         <div id="dashboard">
+
+
                             <div class="dashboard-item" data-link="viewForms.php">
                                 <img src="images/viewforms.png">
                                 <span><center>View Forms</center></span>
@@ -308,10 +322,10 @@
                             <!--                                <i class="fa-solid fa-list"></i>-->
                             <!--                                <span><center>My Upcoming Events</center></span>-->
                             <!--                            </div>-->
-                            <div class="dashboard-item" data-link="volunteerReport.php">
-                                <img src="images/volunteer-history.svg">
-                                <span><center>View Volunteering Report</center></span>
-                            </div>
+<!--                            <div class="dashboard-item" data-link="volunteerReport.php">-->
+<!--                                <img src="images/volunteer-history.svg">-->
+<!--                                <span><center>View Volunteering Report</center></span>-->
+<!--                            </div>-->
                             <!--                            <div class="dashboard-item" data-link="editHours.php">-->
                             <!--                                <img src="images/add-person.svg">-->
                             <!--                                <span><center>View & Change My Event Hours</center></span>-->

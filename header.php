@@ -136,7 +136,7 @@
         $permission_array['minutes.php'] = 2;
 		$permission_array['selectminutes.php'] = 2;
     	$permission_array['pending_volunteers.php'] = 2;
-    	$permission_array['hours.php'] = 2;
+    	$permission_array['hours.php'] = 1;
 		$permission_array['loghours.php'] = 1;
 		$permission_array['approvehours.php'] = 2;
 		$permission_array['viewhours.php'] = 1;
