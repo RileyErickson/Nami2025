@@ -117,7 +117,7 @@ mysqli_close($conn);
             </div>
 
             <?php if (empty($volunteerHours)) : ?>
-                <p class="no-logs">No volunteer hours to display.</p>
+                <p class="no-logs"><div class="error-toast">No volunteer hours to display.</div></p>
             <?php else : ?>
                 <?php foreach ($volunteerHours as $entry) : ?>
                     <div class="log-container">

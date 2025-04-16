@@ -77,7 +77,7 @@ mysqli_close($conn);
     <div class="container">
     <main>
         <?php if (empty($pendingLogs)) : ?>
-            <p class="no-logs">No pending logs to review.</p>
+            <p class="no-logs"><div class="error-toast">No pending logs to review.</div></p>
         <?php else : ?>
             <?php foreach ($pendingLogs as $log) : ?>
                 <div class="log-container">

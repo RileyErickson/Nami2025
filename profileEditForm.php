@@ -321,12 +321,12 @@
 
             <label>What is your preferred contact method?</label>
             <div class="radio-group">
-                <?php $preferred_feedback_method = $person->get_preferred_feedback_method(); ?>
+                <?php $preferred_feedback_method = $person->get_preferred_feedback_method();?>
 
-                <input type="radio" id="text" name="preferred_feedback_method" value="text" <?php if ($type == 'text') echo 'checked'; ?>>
+                <input type="radio" id="text" name="preferred_feedback_method" value="text" <?php if ($preferred_feedback_method == 'text') echo 'checked'; ?>checked>
                 <label for="text">Text</label>
 
-                <input type="radio" id="email" name="preferred_feedback_method" value="email" <?php if ($type == 'email') echo 'checked'; ?>>
+                <input type="radio" id="email" name="preferred_feedback_method" value="email" <?php if ($preferred_feedback_method == 'email') echo 'checked'; ?>>
                 <label for="email">Email</label>
 
                 <input type="radio" id="no-preference" name="preferred_feedback_method" value="no-preference"
@@ -345,11 +345,16 @@
 
         </fieldset>
 
+
+        <?php
+        //debug_to_console($_SESSION['access_level']);
+        if ($_SESSION['access_level'] >= 3) : ?>
         <fieldset class ="section-box">
             <legend>Admin Notes</legend>
             <label>Notes:</label>
             <textarea rows="15" style="background-color:white; color:black" type="text" id="notes" name="notes" placeholder=""><?php echo (get_notes($id)->fetch_assoc()['notes']); ?></textarea>
         </fieldset>
+        <?php endif?>
 
         <p></p>
         <p></p>

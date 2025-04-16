@@ -59,14 +59,16 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $stmt->bind_param("ssssi", $firstName, $lastName, $date, $what, $hours);
 
         if ($stmt->execute()) {
-            $message = "Log successfully submitted!";
+            $variableForToastDisplay = TRUE;
+         //echo  "<div class=\"happy-toast\">Log successfully submitted!</div>";
         } else {
-            $message = "Error submitting log: " . $conn->error;
+            $variableForToastDisplay = FALSE;
+           // echo  "<div class=\"error-toast\">Error submitting log.</div>";
         }
 
         $stmt->close();
     } else {
-        $message = "All fields are required.";
+        echo  "<div class=\"error-toast\">All fields are required.</div>";
     }
 }
 
@@ -83,6 +85,16 @@ mysqli_close($conn);
 </head>
 <body>
     <h1>Log Volunteer Hours</h1>
+    <?php
+        if (isset($variableForToastDisplay)){
+            if ($variableForToastDisplay == TRUE){
+                echo  "<div class=\"happy-toast\">Log successfully submitted!</div>";
+            }
+            if ($variableForToastDisplay == FALSE){
+                 echo  "<div class=\"error-toast\">Error submitting log.</div>";
+            }
+        }
+    ?>
     <main class="dashboard">
         <div>
             <p><strong>Logged in as:</strong> <?php echo htmlspecialchars($firstName . ' ' . $lastName); ?></p>

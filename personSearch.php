@@ -95,7 +95,17 @@
                                             <td><a href="tel:' . $person->get_phone1() . '">' . formatPhoneNumber($person->get_phone1()) .  '</td>
                                             <td>' . $person->get_email() . '</td>
                                             <td>' . $person->get_zip_code() . '</td>
-                                            <td>' . ucfirst($person->get_type()) . '</td>
+                                            <td>';
+                                             if (ucfirst($person->get_type()) == "Donator"){
+                                                echo "Donar";
+                                             }  
+                                            else if (ucfirst($person->get_type()) == "Volunteer" || ucfirst($person->get_type()) == "V"){
+                                                echo "Applicant";
+                                             }  
+                                             else 
+                                             {
+                                                echo ucfirst($person->get_type());}
+                                             echo '</td>
                                             <td>' . ucfirst($person->get_status()) . '</td>
                                             <td><a href="viewProfile.php?id=' . $person->get_id() . '">Profile</a></td>
                                             <td><a href="modifyUserRole.php?id=' . $person->get_id() . '">Edit Permissions</a></td>
@@ -129,12 +139,12 @@
  
            <select id="role" name="role">
                 <option value="">Any</option>
-                <option value="volunteer" <?php if (isset($role) && $role == 'volunteer') echo 'selected' ?>>Volunteer</option>
+                <option value="volunteer" <?php if (isset($role) && $role == 'volunteer') echo 'selected' ?>>Applicant</option>
                 <option value="participant" <?php if (isset($role) && $role == 'participant') echo 'participant' ?>>Participant</option>
                 <option value="admin" <?php if (isset($role) && $role == 'admin') echo 'admin' ?>>Admin</option>
                 <option value="board" <?php if (isset($role) && $role == 'board') echo 'board' ?>>Board Member</option>
                 
-                <option value="donator" <?php if (isset($role) && $role == 'donator') echo 'donator' ?>>Donator</option>
+                <option value="donator" <?php if (isset($role) && $role == 'donator') echo 'donator' ?>>Donar</option>
             </select>
   
           <label for="status">Archive Status</label>
