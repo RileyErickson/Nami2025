@@ -53,9 +53,9 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         $insertQuery = "INSERT INTO blacklisted (name, date, reason) VALUES ('$name', '$date', '$reason')";
         
         if (mysqli_query($conn, $insertQuery)) {
-            $successMessage = "Successfully added $name to the blacklist.";
+            $variableForToastDisplay = TRUE;
         } else {
-            $successMessage = "Error adding to blacklist: " . mysqli_error($conn);
+            $variableForToastDisplay = FALSE;
         }
     } else {
         $successMessage = "All fields are required.";
@@ -72,9 +72,20 @@ mysqli_close($conn);
         <title>NAMI Rappahannock | Add Blacklist</title>
        
     </head>
+
     <body>
         <?php require_once('header.php') ?>
         <h1>Add to Blacklist</h1>
+        <?php
+        if (isset($variableForToastDisplay)){
+            if ($variableForToastDisplay == TRUE){
+                echo  "<div class=\"happy-toast\">Successfully added $name to the blacklist.</div>";
+            }
+            if ($variableForToastDisplay == FALSE){
+                echo "<div class=\"error-toast\">Error adding to the blacklist.</div>";
+            }
+        }
+    ?>
     <main>
     <div class="container">
         <h2>Add New Blacklisted Person</h2>
