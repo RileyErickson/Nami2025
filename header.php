@@ -130,20 +130,27 @@
         $permission_array['blacklist.php'] = 2;
         $permission_array['searchblacklist.php'] = 2;
         $permission_array['addminutes.php'] = 2;
-	$permission_array['editminutes.php'] = 2;
+		$permission_array['editminutes.php'] = 2;
         $permission_array['searchminutes.php'] = 2;
         $permission_array['minutes.php'] = 2;
-	$permission_array['selectminutes.php'] = 2;
+		$permission_array['selectminutes.php'] = 2;
     	$permission_array['pending_volunteers.php'] = 2;
     	$permission_array['hours.php'] = 2;
-	$permission_array['loghours.php'] = 1;
-	$permission_array['approvehours.php'] = 2;
-	$permission_array['viewhours.php'] = 1;
-	$permission_array['announcement.php'] = 2;
-	$permission_array['deletehours.php'] = 2;
-    $permission_array['formsearch.php'] = 2;
-    $permission_array['volunteerdirectory.php'] = 2;
-    $permission_array['displaycurrentvolunteers.php'] = 2;
+		$permission_array['loghours.php'] = 1;
+		$permission_array['approvehours.php'] = 2;
+		$permission_array['viewhours.php'] = 1;
+		$permission_array['announcement.php'] = 2;
+		$permission_array['deletehours.php'] = 2;
+		$permission_array['formsearch.php'] = 2;
+		$permission_array['volunteerdirectory.php'] = 2;
+		$permission_array['displaycurrentvolunteers.php'] = 2;
+		$permission_array['createform.php'] = 2;
+        $permission_array['sendmessages.php'] = 2;
+        $permission_array['emailmanager.php'] = 2;
+        $permission_array['adddonors.php'] = 2;
+        $permission_array['viewdonors.php'] = 2;
+        $permission_array['donormanager.php'] = 2;
+
 
 	// LOWERCASE
 
@@ -171,10 +178,8 @@
         echo('<span id="nav-top"><span class="logo"><a class="navbar-brand" href="' . $path . 'index.php"><img class="nami-logo" src="images/logoLong.jpg"></a>');
         //echo('<a class="navbar-brand" id="vms-logo"> NAMI Rappahannock Volunteer </a></span><img id="menu-toggle" src="images/menu.png"></span>');
 
-        echo('<ul>');
         //echo " <br><b>"."Gwyneth's Gift Homebase"."</b>|"; //changed: 'Homebase' to 'Gwyneth's Gift Homebase'
 
-        echo('<li><a class="nav-link active" aria-current="page" href="' . $path . 'index.php"><img class="home-logo" src="images/home.svg" alt="home"></a></li>');
         echo('</div>');
         //echo('<span class="nav-divider">|</span>');
 
@@ -220,6 +225,7 @@
         echo('<div class="nav-right">');
          //echo('<span class="nav-divider">|</span>');
          if ($_SESSION['access_level'] <= 3) {
+         echo('<li><a class="nav-link active" aria-current="page" href="' . $path . 'index.php"><img class="home-logo" src="images/home.svg" alt="home"></a></li>');
          echo('<li class="nav-item dropdown">');
          echo('<a class="nav-link dropdown-toggle" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><img class="person-logo" src="images/account.svg" alt="account"></a>');
          echo('<div class="dropdown-menu">');

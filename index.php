@@ -123,6 +123,13 @@
                         </div>
                     </a>
 
+                    <a href="hours.php" class="clickable-box">
+                        <div class="highlight">
+                            <span class="box-text">Forms Management</span>
+                            <img src="images/highlight_background.jpg" alt="highlight" />
+                        </div>
+                    </a>
+
                 </div>
 
                 <main class='dashboard'>
@@ -133,12 +140,17 @@
 
                         <div class="dashboard-item" data-link="viewForms.php">
                             <i class="fa-solid fa-list"></i>
-                            <span>View Forms</span>
+                            <span><center>View Forms</center></span>
                         </div>
+						
+						<div class="dashboard-item" data-link="createForm.php">
+							<img src="images/viewforms.png">
+							<span><center>Create Forms</center></span>
+						</div>
 
                         <div class="dashboard-item" data-link="formSearch.php">
                             <img src="images/emailList.png">
-                            <span>Search Forms</span>
+                            <span><center>Search Forms</center></span>
                         </div>
 
 <!--                    <div class="dashboard-item" data-link="register.php">-->
@@ -202,9 +214,9 @@
                             <span><center>Generate Reports</center></span>
                         </div>
 
-                        <div class="dashboard-item" data-link="emailList.php">
+                        <div class="dashboard-item" data-link="emailManager.php">
                             <img src="images/emailList.png">
-                            <span><center>Email List Generation</center></span>
+                            <span><center>Email</center></span>
                         </div>
 
                         <div class="dashboard-item" data-link="minutes.php">
@@ -215,16 +227,20 @@
 <!--                            <img src="images/csv.png">-->
 <!--                            <span><center>Download CSV Data File</center></span>-->
 <!--                        </div>-->
-		    
-		                <div class="dashboard-item" data-link="announcement.php">
+		                 <div class="dashboard-item" data-link="donorManager.php">
+                            <img src="images/default-profile-picture.svg">
+                            <span><center>Manage Donor List</center></span>
+                        </div>
+		               
+                        <div class="dashboard-item" data-link="announcement.php">
                             <img src="images/volunteer-history.svg">
-                            <span><center>Announcements</center></span>
+                            <span><center>Post a Message</center></span>
                         </div>
 
-                        <div class="dashboard-item" data-link="changePassword.php">
-                            <img src="images/change-password.svg">
-                            <span><center>Change Password</center></span>
-                        </div>
+<!--                        <div class="dashboard-item" data-link="changePassword.php">-->
+<!--                            <img src="images/change-password.svg">-->
+<!--                            <span><center>Change Password</center></span>-->
+<!--                        </div>-->
                     
                     </div>
                 
@@ -274,9 +290,9 @@
                                 <img src="images/view-calendar.svg">
                                 <span><center>View Calendar</center></span>
                             </div>
-                            <div class="dashboard-item" data-link="changePassword.php">
-                                <img src="images/change-password.svg">
-                                <span><center>Change Password</center></span>
+<!--                            <div class="dashboard-item" data-link="changePassword.php">-->
+<!--                                <img src="images/change-password.svg">-->
+<!--                                <span><center>Change Password</center></span>-->
                             </div>
                         </div>
                     </main>
@@ -319,10 +335,10 @@
                                 <img src="images/view-calendar.svg">
                                 <span><center>View Calendar</center></span>
                             </div>
-                            <div class="dashboard-item" data-link="changePassword.php">
-                                <img src="images/change-password.svg">
-                                <span><center>Change Password</center></span>
-                            </div>
+<!--                            <div class="dashboard-item" data-link="changePassword.php">-->
+<!--                                <img src="images/change-password.svg">-->
+<!--                                <span><center>Change Password</center></span>-->
+<!--                            </div>-->
 
                         </div>
                     </main>

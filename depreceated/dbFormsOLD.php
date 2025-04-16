@@ -12,117 +12,110 @@ include_once('dbPersons.php');
 
 // Creates a new application for any of the 6 form tables.
 // $application MUST be formatted like "p2papplication", "fsgapplication", "f2fapplication", "hfapplication", "ioovapplication", and "csgapplication"
-
-function getForms() {
+function create_application($application, $personID, $reasontobecome, $whyisnowrighttime, $statusinrecoveryjourney, $screenername, $screeningdate) {
 	
     $con=connect();
 	
-	$query = "SELECT formname FROM formmanager;";
+	switch ($application) { //necessary to query the reasontobecome variable
+		case "f2fapplication":
+			$formattedName = "f2f";
+			$tableName = "dbf2fapplication";
+			break;
+		case "p2papplication":
+			$formattedName = "p2p";
+			$tableName = "dbp2papplication";
+			break;
+		case "ioovapplication":
+			$formattedName = "ioov";
+			$tableName = "dbioovapplication";
+			break;
+		case "csgapplication":
+			$formattedName = "csg";
+			$tableName = "dbcsgapplication";
+			break;
+		case "fsgapplication":
+			$formattedName = "fsg";
+			$tableName = "dbfsgapplication";
+			break;
+		case "hfapplication":
+			$formattedName = "hf";
+			$tableName = "dbhfapplication";
+			break;
+	}
+	
+	if ($statusinrecoveryjourney != NULL) {
+		$query = "INSERT INTO db" . $application . "(reasonToBecome" . $formattedName . ", whyIsNowRightTime, statusInRecoveryJourney, screenerName, screeningDate, id) VALUES ('"
+			. $reasontobecome . "', '"
+			. $whyisnowrighttime . "', '"
+			. $statusinrecoveryjourney . "', '"
+			. $screenername . "', '"
+			. $screeningdate . "', '"
+			. $personID . "');";
+	} else {
+		$query = "INSERT INTO db" . $application . "(reasonToBecome" . $formattedName . ", whyIsNowRightTime, screenerName, screeningDate, id)  VALUES ('"
+			. $reasontobecome . "', '"
+			. $whyisnowrighttime . "', '"
+			. $screenername . "', '"
+			. $screeningdate . "', '"
+			. $personID . "');";
+	}
 	
     $result = mysqli_query($con,$query);
+	
+    mysqli_close($con);
+}
+
+// returns a user's reason from the corresponding form
+function get_reasontobecome($appID, $application) {
+	
+	if ($appID == "") {
+		return "";
+	}
+	
+	switch ($application) { //necessary to query the reasontobecome variable
+		case "f2fapplication":
+			$formattedName = "f2f";
+			$tableName = "dbf2fapplication";
+			break;
+		case "p2papplication":
+			$formattedName = "p2p";
+			$tableName = "dbp2papplication";
+			break;
+		case "ioovapplication":
+			$formattedName = "ioov";
+			$tableName = "dbioovapplication";
+			break;
+		case "csgapplication":
+			$formattedName = "csg";
+			$tableName = "dbcsgapplication";
+			break;
+		case "fsgapplication":
+			$formattedName = "fsg";
+			$tableName = "dbfsgapplication";
+			break;
+		case "hfapplication":
+			$formattedName = "hf";
+			$tableName = "dbhfapplication";
+			break;
+	}
+	
+	$con=connect();
+	$query="SELECT reasonToBecome" . $formattedName . " FROM " . $tableName . " WHERE ". $application . "ID='" . $appID . "';";
+	
+    $result = mysqli_query($con,$query);
+	
 	if (!(mysqli_num_rows($result) === 0)) {
-		return mysqli_fetch_array($result, MYSQLI_NUM);
+		$result = $result->fetch_array();
+		$reason = $result[0];
 	} else {
-		return 0;
+		$reason = null;
 	}
 	
 	mysqli_close($con);
 	
 	return $reason;
 }
-
-function get_all($type){
-	if ($type == "F2F"){
-		$database = "dbf2fapplication";
-	}
-	if ($type == "P2P"){
-		$database = "dbp2papplication";
-	}
-	if ($type == "IOOV"){
-		$database = "dbioovapplication";
-	}
-	if ($type == "CSG"){
-		$database = "dbcsgapplication";
-	}
-	if ($type == "FSG"){
-		$database = "dbfsgapplication";
-	}
-	if ($type == "HF"){
-		$database = "dbhfapplication";
-	}
-	$query="SELECT * FROM ". $database;
-	$con=connect();
-	$result = mysqli_query($con,$query);
-	return $result;
-}
-
-function approve_form($id, $type){
-	if ($type == "F2F" || $type == "f2f"){
-		$database = "dbf2fapplication";
-		$application="f2fapplication";
-	}
-	if ($type == "P2P"|| $type == "p2p"){
-		$database = "dbp2papplication";
-		$application="p2papplication";
-	}
-	if ($type == "IOOV"|| $type == "ioov"){
-		$database = "dbioovapplication";
-		$application="ioovapplication";
-	}
-	if ($type == "CSG" || $type == "csg"){
-		$database = "dbcsgapplication";
-		$application="csgapplication";
-	}
-	if ($type == "FSG" || $type == "fsg" ){
-		$database = "dbfsgapplication";
-		$application="fsgapplication";
-	}
-	if ($type == "HF" || $type == "hf"){
-		$database = "dbhfapplication";
-		$application="hfapplication";
-	}
-//	$query="UPDATE db" . $database . " SET reasonToBecome" . $formattedName . "= '" . $reason . "' WHERE ". $application . "ID='" . $id . "';";
-	$query = "UPDATE ". $database ." SET approved='TRUE' WHERE ".$application."id=".$id.";";
-	$con=connect();
-	$result = mysqli_query($con,$query);
-	mysqli_close($con);
-	return;
-}
-function unapprove_form($id, $type){
-	if ($type == "F2F" || $type == "f2f"){
-		$database = "dbf2fapplication";
-		$application="f2fapplication";
-	}
-	if ($type == "P2P"|| $type == "p2p"){
-		$database = "dbp2papplication";
-		$application="p2papplication";
-	}
-	if ($type == "IOOV"|| $type == "ioov"){
-		$database = "dbioovapplication";
-		$application="ioovapplication";
-	}
-	if ($type == "CSG" || $type == "csg"){
-		$database = "dbcsgapplication";
-		$application="csgapplication";
-	}
-	if ($type == "FSG" || $type == "fsg" ){
-		$database = "dbfsgapplication";
-		$application="fsgapplication";
-	}
-	if ($type == "HF" || $type == "hf"){
-		$database = "dbhfapplication";
-		$application="hfapplication";
-	}
-//	$query="UPDATE db" . $database . " SET reasonToBecome" . $formattedName . "= '" . $reason . "' WHERE ". $application . "ID='" . $id . "';";
-	$query = "UPDATE ". $database ." SET approved='R' WHERE ".$application."id=".$id.";";
-	$con=connect();
-	$result = mysqli_query($con,$query);
-	mysqli_close($con);
-	return;
-}
-
-
-function get_forms_id($type,$status){
+function get_forms_id($type){
 	//We should be passed the abbreviation of one of the forms. If it is one of them, add it to the Database variable. All of the databases have their own
 	//name for the id variable, so save that to Select.
 	if ($type == "f2f"){
@@ -149,23 +142,8 @@ function get_forms_id($type,$status){
 		$database = "dbhfapplication";
 		$select = "hfapplicationID";
 	}
-	if ($status == "approved"){
-		$statusFormatted="TRUE";
-	}
-	else if ($status == "pending"){
-		$statusFormatted="0";
-	}
-	else if ($status == "denied"){
-		$statusFormatted="R";
-	}
-
 	//Pull from the database using connect() and mysqli_query(). Should be all ints.
-	if (isset($statusFormatted)){
-		$query="SELECT * FROM ". $database." WHERE approved=\"".$statusFormatted."\"";
-	}
-	else{
-		$query="SELECT * FROM ". $database;
-	}
+	$query="SELECT * FROM ". $database;
 	$con=connect();
 	$result = mysqli_query($con,$query);
 	//Make the results a list. If there is a size of 0, return null.
@@ -349,7 +327,7 @@ function update_reasontobecome($id, $application, $reason) {
 	}
 	
 	$con=connect();
-	$query="UPDATE db" . $application . " SET reasonToBecome" . $formattedName . "= '" . $reason . "', APPROVED=0 WHERE ". $application . "ID='" . $id . "';";
+	$query="UPDATE db" . $application . " SET reasonToBecome" . $formattedName . "= '" . $reason . "' WHERE ". $application . "ID='" . $id . "';";
 	
     $result = mysqli_query($con,$query);
 	
@@ -362,7 +340,7 @@ function update_reasontobecome($id, $application, $reason) {
 function update_whyisnowrighttime($id, $application, $time) {
 	
 	$con=connect();
-	$query="UPDATE db" . $application . " SET whyIsNowRightTime = '" . $time . "', APPROVED=0 WHERE ". $application . "ID='" . $id . "';";
+	$query="UPDATE db" . $application . " SET whyIsNowRightTime = '" . $time . "' WHERE ". $application . "ID='" . $id . "';";
 	
     $result = mysqli_query($con,$query);
 	
@@ -375,7 +353,7 @@ function update_whyisnowrighttime($id, $application, $time) {
 function update_statusinrecoveryjourney($id, $application, $status) {
 	
 	$con=connect();
-	$query="UPDATE db" . $application . " SET statusInRecoveryJourney = '" . $status . "', APPROVED=0 WHERE ". $application . "ID='" . $id . "';";
+	$query="UPDATE db" . $application . " SET statusInRecoveryJourney = '" . $status . "' WHERE ". $application . "ID='" . $id . "';";
 	
     $result = mysqli_query($con,$query);
 	
@@ -388,7 +366,7 @@ function update_statusinrecoveryjourney($id, $application, $status) {
 function update_screenername($id, $application, $name) {
 	
 	$con=connect();
-	$query="UPDATE db" . $application . " SET screenerName = '" . $name . "', APPROVED=0 WHERE ". $application . "ID='" . $id . "';";
+	$query="UPDATE db" . $application . " SET screenerName = '" . $name . "' WHERE ". $application . "ID='" . $id . "';";
 	
     $result = mysqli_query($con,$query);
 	
@@ -401,7 +379,7 @@ function update_screenername($id, $application, $name) {
 function update_screeningdate($id, $application, $date) {
 	
 	$con=connect();
-	$query="UPDATE db" . $application . " SET screeningDate = '" . $date . "', APPROVED=0 WHERE ". $application . "ID='" . $id . "';";
+	$query="UPDATE db" . $application . " SET screeningDate = '" . $date . "' WHERE ". $application . "ID='" . $id . "';";
 	
     $result = mysqli_query($con,$query);
 	

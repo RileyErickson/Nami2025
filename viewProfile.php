@@ -316,36 +316,29 @@
 
 
             </fieldset>
-<!---->
-<!--            <fieldset class="section-box">-->
-<!--                <legend>Emergency Contact Information</legend>-->
-<!---->
-<!--                <div class="field-pair">-->
-<!--                    <label>Emergency Contact First Name</label>-->
-<!--                    <p>--><?php //echo ucfirst($user->get_emergency_contact_first_name()) ?><!--</p>-->
-<!--                </div>-->
-<!---->
-<!--                <div class="field-pair">-->
-<!--                    <label>Emergency Contact Last Name</label>-->
-<!--                    <p>--><?php //echo ucfirst($user->get_emergency_contact_last_name()) ?><!--</p>-->
-<!--                </div>-->
-<!---->
-<!--                <div class="field-pair">-->
-<!--                    <label>Emergency Contact Phone</label>-->
-<!--                    <p>--><?php //echo formatPhoneNumber($user->get_emergency_contact_phone()) ?><!--</p>-->
-<!--                </div>-->
+            <?php
+            //debug_to_console($_SESSION['access_level']);
+            if ($_SESSION['access_level'] >= 3) : ?>
+            <fieldset class="section-box">
+                <legend>Admin Notes</legend>
 
-<!--                <div class="field-pair">-->
-<!--                    <label>Emergency Contact Phone Type</label>-->
-<!--                    <p>--><?php //echo ucfirst($user->get_emergency_contact_phone_type()) ?><!--</p>-->
-<!--                </div>-->
+            <div class="field-pair">
+                <label>Admin Notes</label>
+                <p><?php
+                    $row = get_notes($id)->fetch_assoc();
+                    //print_r (get_notes($id)->fetch_assoc());
+                    //echo $row['notes'];
+                    ?>
+                    <textarea disabled rows="15" style="background-color:white; color:black"><?php echo (get_notes($id)->fetch_assoc()['notes']); ?></textarea>
+                </p>
+            <?php endif?>
 
-<!--                <div class="field-pair">-->
-<!--                    <label>Emergency Contact Relation</label>-->
-<!--                    <p>--><?php //echo ucfirst($user->get_emergency_contact_relation()) ?><!--</p>-->
-<!--                </div>-->
-<!--            </fieldset>-->
 
+            </div>
+
+
+
+        </fieldset>
 
 
             <a class="button" href="editProfile.php<?php if ($id != $userID) echo '?id=' . $id ?>">Edit Profile</a>
