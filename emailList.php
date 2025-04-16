@@ -128,6 +128,8 @@
                                 </tr>';
                     }
                 }
+
+                echo '</table> </div>';
             }
             else{
                 echo "Either there are no emails with the selected parameters, or you have yet to make a selection.";
