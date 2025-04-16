@@ -55,7 +55,8 @@ mysqli_close($conn);
             float: left;
         }
         #content {
-            margin-left: 210px;
+            margin-left: 10%;
+            margin-right: 10%;
         }
         .container {
             background: white;
