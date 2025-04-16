@@ -30,11 +30,6 @@
         $id = $userID;
     }
     require_once('database/dbPersons.php');
-    if (isset($_GET['removePic'])) {
-      if ($_GET['removePic'] === 'true') {
-        remove_profile_picture($id);
-      }
-    }
 
     $user = retrieve_person($id);
     $viewingOwnProfile = $id == $userID;
@@ -66,16 +61,7 @@
         ?>
         <h1>View Profile</h1>
         <main class="general">
-        <?php
-            if (isset($_GET['picsuccess'])) {
-              $picsuccess = $_GET['picsuccess'];
-              if ($picsuccess === 'True') {
-                echo '<div class="happy-toast">Profile Picture Updated Successfully!</div>';
-              } else if ($picsuccess === 'False') {
-                echo '<div class="error-toast">There was an error updating the Profile Picture!</div>';
-              }
-            }
-        ?>
+
             <?php if ($id == 'vmsroot'): ?>
                 <div class="error-toast">The root user does not have a profile.</div>
                 </main></body></html>
@@ -84,9 +70,6 @@
                 <div class="error-toast">User does not exist!</div>
                 </main></body></html>
                 <?php die() ?>
-            <?php endif ?>
-            <?php if (isset($_GET['editSuccess'])): ?>
-                <div class="happy-toast">Profile updated successfully!</div>
             <?php endif ?>
             <?php if (isset($_GET['rscSuccess'])): ?>
                 <div class="happy-toast">User's role and/or status updated successfully!</div>
