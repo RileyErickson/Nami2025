@@ -51,7 +51,6 @@
                     
                     $args = sanitize($_GET);
                     $required = ['role'];
-                    //var_dump($args);
                     $role = $args['role'];
                     if (!($role)) {
                             if (!isset($_GET['formType']) && !isset($_GET['unformType'])){
@@ -97,8 +96,7 @@
                     else{
                         require_once('include/output.php');
                         if (count($persons) > 0) {
-                            echo '
-                            <div class="table-wrapper">
+                            echo '<div class="table-wrapper">
                                 <table class="general">
                                     <thead>
                                         <tr>
