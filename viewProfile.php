@@ -316,6 +316,9 @@
 
 
             </fieldset>
+            <?php
+            //debug_to_console($_SESSION['access_level']);
+            if ($_SESSION['access_level'] >= 3) : ?>
             <fieldset class="section-box">
                 <legend>Admin Notes</legend>
 
@@ -328,6 +331,7 @@
                     ?>
                     <textarea disabled rows="15" style="background-color:white; color:black"><?php echo (get_notes($id)->fetch_assoc()['notes']); ?></textarea>
                 </p>
+            <?php endif?>
 
 
             </div>
