@@ -35,7 +35,7 @@
         <h1>Submitted Form Search</h1>
     <main>
         <form id="person-search" class="general" method="get">
-            <h2>Find Volunteer/Participant</h2>
+            <h2>Find Form</h2>
             <?php 
             require_once('database/dbForms.php');
                     if (isset($_GET['formType'])){

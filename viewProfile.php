@@ -89,7 +89,7 @@
             <?php else : ?>
                 <p>Click <a href="volunteerReport.php?id=<?php echo $user->get_id() ?>">here</a> to view <?php echo $user->get_first_name() ?> <?php echo $user->get_last_name() ?>'s volunteering report.</p>
             <?php endif ?>
-
+            
             <fieldset class="section-box">
                 <legend>Personal Information</legend>
                 
