@@ -46,7 +46,7 @@
                         unapprove_form($_GET["unformNumber"],$_GET["unformType"]);
                         echo '<div class="happy-toast">The '.$_GET["unformType"].' form has been unapproved!</div>';
                     }
-                if (isset($_GET['role'])) {
+                    if (isset($_GET['role'])) {
                     require_once('include/input-validation.php');
                     
                     $args = sanitize($_GET);
@@ -93,7 +93,7 @@
                         $formVariable = "hfApplicationID";
                     }
                     if ($persons == NULL){  
-                        echo '<div class="error-toast">Your search returned no results.</div>';;}
+                        echo '<div class="error-toast">Your search returned no results.</div>';}
                     else{
                         require_once('include/output.php');
                         if (count($persons) > 0) {
@@ -104,7 +104,6 @@
                                         <tr>
                                             <th>Name</th>
                                             <th>Username</th>
-                                            <th>Form Number</th>
                                             <th>Form</th>';
                                             if ($role=="F2F" OR  $role=="FSG" OR  $role=="HF"){
                                                 echo '<th>Reason</th> <th>Why Now</th> <th>Screener Name</th> <th>Screener Date</th>';
@@ -114,6 +113,7 @@
                                             }
 
                                         echo '
+                                       <th>Form Status </th>;
                                         <th>Form Actions</th><th></th>
                                             </tr>
                                     </thead>
@@ -125,7 +125,7 @@
                                         <tr>
                                             <td>'.get_name_from_id($person['id']).'</td>
                                             <td>' . $person['id'] . '</td>
-                                            <td>' . $person[$formVariable] . '</td> <td>' . $formName . '</td>'
+                                            <td>' . $formName . '</td>'
                                             ;
 
                                             
@@ -172,6 +172,12 @@
 
                                             }
                                             if ($person['approved'] == 0 || $person['approved'] == 'R'){
+                                                if ($person['approved'] == 0){
+                                                    echo '<td> Pending </td> ';
+                                                }
+                                                else{
+                                                    echo '<td> Rejected </td>';
+                                                }
                                             echo '
                                             <td> 
                                                 <form method="GET" action="formApprove.php">
@@ -183,6 +189,7 @@
                                             </td>';
                                         }
                                         else{
+                                            echo '<td> Approved </td>';
                                             echo '                                            <td> 
                                                 <form method="GET" action="formApprove.php">
                                                 <input type="hidden" name="unformNumber" value="'.$person[$formVariable].'">
