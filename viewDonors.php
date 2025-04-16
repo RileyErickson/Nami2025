@@ -5,6 +5,8 @@ ini_set("display_errors", 1);
 error_reporting(E_ALL);
 
 // Include database connection and header/footer
+require_once('universal.inc');
+
 require_once('database/dbinfo.php');
 require_once('header.php');
 
