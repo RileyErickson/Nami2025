@@ -40,12 +40,16 @@
 
     $user = retrieve_person($id);
     $viewingOwnForms = $id == $userID;
-	if (!(isset($mode))) {
-		$mode = "view";
-	} else {
+	if (isset($_POST['mode'])) {
 		$mode = $_POST['mode'];
 	}
 	
+	// create a new form on submission
+	if (isset($_POST['create'])) {
+		$numquestions = $_POST['numquestions'];
+		$formname = $_POST['formname'];
+		addForm($formname);
+	}
 ?>
 <!DOCTYPE html>
 <html>
@@ -75,10 +79,10 @@
 		?>
 		
 		<main class="general">
+			<?php
+			if (!(isset($mode))) {?>
 			
 			<!-- VIEWING CREATED FORMS -->
-			<?php
-			if ($mode == "view") {?>
 				<fieldset class="section-box">
 					<legend>
 						Current Forms:
@@ -101,14 +105,78 @@
 					
 					<form action="createForm.php" method="POST" style="margin-top:10px;">
 						<input type="hidden" id="mode" name="mode" value="create">
-						<button style="width:24%; align-self:center;">Create New Form</button>
+						<input type="submit" value="Create New Form">
 					</form>
-				</fieldset
+					
+				</fieldset>
 			<?php
 			} else if ($mode == "create") {?>
 			
+			<!-- NEW FORM SETUP -->
+				<fieldset class="section-box">
+					<legend>
+						Create Form:
+					</legend>
+					
+					<form action="createForm.php" method="POST" style="margin-top:10px;">
+						<!-- go back to view page after creating a new form -->
+						<input type="hidden" id="mode" name="mode" value="edit"> 
+						
+						<label>Form Title: </label>
+						<input type="text" id="formname" name="formname">
+						
+						<label>Number of Questions: </label>
+						<select name="numquestions" id="numquestions" style="margin-bottom:40px;">
+							<option value="1">1</option>
+							<option value="2">2</option>
+							<option value="3">3</option>
+							<option value="4">4</option>
+							<option value="5">5</option>
+							<option value="6">6</option>
+							<option value="7">7</option>
+							<option value="8">8</option>
+							<option value="9">9</option>
+							<option value="10">10</option>
+						</select>
+						
+						<input type="Make New Form">
+					</form>
+				</fieldset>
+			<?php
+			} else if ($mode == "edit") {
+			?>
 			
-			<!-- CREATING NEW FORM -->
+			<!-- EDITING FORM -->
+				<fieldset class="section-box">
+					<legend>
+						Editing Form: 
+						<?php
+						if (isset($_POST['formname'])) {
+							$formname = $_POST['formname'];
+							echo $formname;
+						}
+						?>
+					</legend>
+					
+					<form action="createForm.php" method="POST" style="margin-top:10px;">
+						<!-- go back to view page after creating a new form -->
+						<input type="hidden" id="mode" name="mode" value="view">
+						<input type="hidden" id="createform" name="createform" value="true">
+						<!-- ensure name gets passed to creation -->
+						<input type="hidden" id="formname" name="formname" value="<?php echo $formname; ?>">
+							<?php
+								if (isset($_POST['numquestions'])) {
+									$numquestions = $_POST['numquestions'];
+								}
+								
+								for ($i=0; $i < $numquestions; $i++) {
+									echo "<label>Question " . $i . ":</label>";
+									echo "<input type=\"text\" id=\"" . $i . "\" name=\"" . $i . "\">";
+								}
+							?>
+						<input type="submit" value="Submit New Form">
+					</form>
+				</fieldset>
 			<?php
 			}
 			?>

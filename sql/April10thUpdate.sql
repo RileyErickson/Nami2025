@@ -388,19 +388,6 @@ INSERT INTO `dbpendingsignups` (`username`, `eventname`, `role`, `notes`) VALUES
 -- --------------------------------------------------------
 
 --
--- Table structure for table `dbformmanagement`
---
-CREATE TABLE `dbformmanagement` (
-	`formid` int AUTO_INCREMENT NOT NULL,
-	`application` varchar(30) COLLATE utf8mb4_unicode_ci NOT NULL,
-	`isOpen` int NOT NULL,
-	
-	PRIMARY KEY (formid)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;	
-
--- --------------------------------------------------------
-
---
 -- Table structure for table `dbpersonhours`
 --
 CREATE TABLE `dbpersonhours` (
