@@ -45,10 +45,38 @@
 	}
 	
 	// create a new form on submission
-	if (isset($_POST['create'])) {
-		$numquestions = $_POST['numquestions'];
-		$formname = $_POST['formname'];
-		addForm($formname);
+	if (isset($_POST['createform'])) {
+		if (isset($_POST['numquestions'])) {
+			$numquestions = $_POST['numquestions'];
+		}
+		if (isset($_POST['formname'])) {
+			$formname = $_POST['formname'];
+		}
+		$formnameclean = str_replace(' ', '', $formname);
+		$formnameclean = strtolower($formnameclean);
+		
+		$errorcount = 0;
+		
+		[$toast, $message] = addForm($formnameclean, $formname);
+		if ($toast == "error") {
+				$errorcount++;
+		}
+		
+		if ($errorcount == 0) {
+			// add questions to form
+			for ($i=1; $i<=$numquestions; $i++) {
+				[$toast, $message] = addQuestion($formnameclean, $i, $_POST[$i]);
+				if ($toast == "error") {
+					$errorcount++;
+				}
+			}
+		}
+		
+		// if all questions are added successfully
+		if ($errorcount == 0) {
+			$message = "Form edited successfully!";
+			$toast = "happy";
+		}
 	}
 ?>
 <!DOCTYPE html>
@@ -76,6 +104,10 @@
 				echo "</main></body></html>";
 				die();
 			}
+			
+			if (isset($message)) {
+				echo "<div class=\"" . $toast ."-toast\">" . $message . "</div>";
+			}
 		?>
 		
 		<main class="general">
@@ -92,11 +124,23 @@
 						<?php
 							$forms = getForms();
 							if ($forms != 0) {
+								echo "<form action=\"createForm.php\" method=\"POST\">";
 								for ($i = 0; $i < count($forms); $i++) {
+									echo "<div style=\"display:flex; flex-flow:row nowrap; justify-content:left; align-items:center; padding:5px;";
+									if ($i % 2 == 1) {
+										echo "background-color:#e9ebf5;";
+									}
+									echo "\">";
 									echo "<form action=\"editForm.php\" method=\"POST\">";
-									echo "<input type=\"hidden\" id=\"formname\" name=\"formname\" value=\"" . $forms[$i] . "\">";
-									echo "<button style=\"width:50%;\">" . $forms[$i] . "</button>";
+									echo "<input type=\"hidden\" id=\"mode\" name=\"mode\" value=\"edit\">";
+									echo "<input type=\"hidden\" id=\"numquestions\" name=\"numquestions\" value=\"" . getNumQuestions($forms[$i]) . "\">";
+									echo "<input type=\"hidden\" id=\"formnameclean\" name=\"formnameclean\" value=\"" . $forms[$i] . "\">";
+									echo "<input type=\"hidden\" id=\"formname\" name=\"formname\" value=\"" . getFormName($forms[$i]) . "\">";
+									echo getFormName($forms[$i]);
+									echo "<input type=\"submit\" value=\"Edit Form\" style=\"width:20%; margin-left: auto;\">";
+									echo "</div>";
 								}
+								echo "</form>";
 							} else {
 								echo "No forms created yet!";
 							}
@@ -139,7 +183,7 @@
 							<option value="10">10</option>
 						</select>
 						
-						<input type="Make New Form">
+						<input type="submit" value="Make New Form">
 					</form>
 				</fieldset>
 			<?php
@@ -151,9 +195,15 @@
 					<legend>
 						Editing Form: 
 						<?php
-						if (isset($_POST['formname'])) {
-							$formname = $_POST['formname'];
+						if (isset($_POST['formnameclean'])) {
+							$formnameclean = $_POST['formnameclean'];
+							$formname = getFormName($formnameclean);
 							echo $formname;
+						} else {
+							if (isset($_POST['formname'])) {
+								$formname = $_POST['formname'];
+								echo $formname;
+							}
 						}
 						?>
 					</legend>
@@ -163,18 +213,19 @@
 						<input type="hidden" id="mode" name="mode" value="view">
 						<input type="hidden" id="createform" name="createform" value="true">
 						<!-- ensure name gets passed to creation -->
-						<input type="hidden" id="formname" name="formname" value="<?php echo $formname; ?>">
+						<input type="hidden" id="formnameclean" name="formnameclean" value="<?php echo $formnameclean; ?>">
 							<?php
 								if (isset($_POST['numquestions'])) {
 									$numquestions = $_POST['numquestions'];
 								}
+								echo "<input type=\"hidden\" id=\"numquestions\" name=\"numquestions\" value=\"" . $numquestions . "\">";
 								
-								for ($i=0; $i < $numquestions; $i++) {
+								for ($i=1; $i <= $numquestions; $i++) {
 									echo "<label>Question " . $i . ":</label>";
 									echo "<input type=\"text\" id=\"" . $i . "\" name=\"" . $i . "\">";
 								}
 							?>
-						<input type="submit" value="Submit New Form">
+						<input type="submit" value="Edit Form">
 					</form>
 				</fieldset>
 			<?php
