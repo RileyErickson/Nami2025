@@ -45,10 +45,52 @@
 	}
 	
 	// create a new form on submission
-	if (isset($_POST['create'])) {
-		$numquestions = $_POST['numquestions'];
-		$formname = $_POST['formname'];
-		addForm($formname);
+	if (isset($_POST['action'])) {
+		if ($_POST['action'] == "create") {
+			if (isset($_POST['numquestions'])) {
+				$numquestions = $_POST['numquestions'];
+			}
+			if (isset($_POST['formname'])) {
+				$formname = $_POST['formname'];
+			}
+			$formnameclean = str_replace(' ', '', $formname);
+			$formnameclean = strtolower($formnameclean);
+			
+			$errorcount = 0;
+			
+			[$toast, $message] = addForm($formnameclean, $formname);
+			if ($toast == "error") {
+					$errorcount++;
+			}
+			
+			if ($errorcount == 0) {
+				// add questions to form
+				for ($i=1; $i<=$numquestions; $i++) {
+					[$toast, $message] = addQuestion($formnameclean, $i, $_POST[$i]);
+					if ($toast == "error") {
+						$errorcount++;
+					}
+				}
+			}
+			
+			// if all questions are added successfully
+			if ($errorcount == 0) {
+				$message = "Form edited successfully!";
+				$toast = "happy";
+			}
+		} else if ($_POST['action'] == "delete") {
+			if (isset($_POST['formnameclean'])) {
+				$formnameclean = $_POST['formnameclean'];
+			}
+			
+			[$toast, $message] = dropForm($formnameclean);
+			$button = "
+					<form action=\"createForm.php\" method=\"POST\" style=\"margin:10px;\">
+						<input type=\"hidden\" id=\"mode\" name=\"mode\" value=\"view\">
+						<input type=\"submit\" value=\"Return to Form Manager\">
+					</form>
+					";
+		}
 	}
 ?>
 <!DOCTYPE html>
@@ -67,7 +109,7 @@
         ?>
 		
 		<h1>
-			Form Creation
+			Form Management
 		</h1>
 		
 		<?php 
@@ -76,11 +118,15 @@
 				echo "</main></body></html>";
 				die();
 			}
+			
+			if (isset($message)) {
+				echo "<div class=\"" . $toast ."-toast\">" . $message . "</div>";
+			}
 		?>
 		
 		<main class="general">
 			<?php
-			if (!(isset($mode))) {?>
+			if (!(isset($mode)) || $mode == "view") {?>
 			
 			<!-- VIEWING CREATED FORMS -->
 				<fieldset class="section-box">
@@ -88,20 +134,42 @@
 						Current Forms:
 					</legend>
 						
-					<p>
+					<table>
 						<?php
 							$forms = getForms();
 							if ($forms != 0) {
 								for ($i = 0; $i < count($forms); $i++) {
-									echo "<form action=\"editForm.php\" method=\"POST\">";
-									echo "<input type=\"hidden\" id=\"formname\" name=\"formname\" value=\"" . $forms[$i] . "\">";
-									echo "<button style=\"width:50%;\">" . $forms[$i] . "</button>";
+									echo "<tr>";
+									
+									
+									echo "<td>";
+									echo "<form action=\"createForm.php\" method=\"POST\">";
+									echo "<input type=\"hidden\" id=\"mode\" name=\"mode\" value=\"edit\">";
+									echo "<input type=\"hidden\" id=\"numquestions\" name=\"numquestions\" value=\"" . getNumQuestions($forms[$i]) . "\">";
+									echo "<input type=\"hidden\" id=\"formnameclean\" name=\"formnameclean\" value=\"" . $forms[$i] . "\">";
+									echo "<input type=\"hidden\" id=\"formname\" name=\"formname\" value=\"" . getFormName($forms[$i]) . "\">";
+									echo getFormName($forms[$i]);
+									echo "</td>";
+									
+									echo "<td style=\"width:20%\;\">";
+									echo "<input type=\"submit\" value=\"Edit Form\">";
+									echo "</form>";
+									echo "</td>";
+									
+									echo "<td style=\"width:20%\">";
+									echo "<form action=\"createForm.php\" method=\"POST\">";
+									echo "<input type=\"hidden\" id=\"mode\" name=\"mode\" value=\"delete\">";
+									echo "<input type=\"hidden\" id=\"formnameclean\" name=\"formnameclean\" value=\"" . $forms[$i] . "\">";
+									echo "<input type=\"submit\" value=\"Delete Form\">";
+									echo "</form>";
+									echo "</td>";
+									echo "</tr>";
 								}
 							} else {
 								echo "No forms created yet!";
 							}
 						?>
-					</p>
+					</table>
 					
 					<form action="createForm.php" method="POST" style="margin-top:10px;">
 						<input type="hidden" id="mode" name="mode" value="create">
@@ -139,7 +207,7 @@
 							<option value="10">10</option>
 						</select>
 						
-						<input type="Make New Form">
+						<input type="submit" value="Make New Form">
 					</form>
 				</fieldset>
 			<?php
@@ -151,9 +219,15 @@
 					<legend>
 						Editing Form: 
 						<?php
-						if (isset($_POST['formname'])) {
-							$formname = $_POST['formname'];
+						if (isset($_POST['formnameclean'])) {
+							$formnameclean = $_POST['formnameclean'];
+							$formname = getFormName($formnameclean);
 							echo $formname;
+						} else {
+							if (isset($_POST['formname'])) {
+								$formname = $_POST['formname'];
+								echo $formname;
+							}
 						}
 						?>
 					</legend>
@@ -161,20 +235,52 @@
 					<form action="createForm.php" method="POST" style="margin-top:10px;">
 						<!-- go back to view page after creating a new form -->
 						<input type="hidden" id="mode" name="mode" value="view">
-						<input type="hidden" id="createform" name="createform" value="true">
+						<input type="hidden" id="action" name="action" value="create">
 						<!-- ensure name gets passed to creation -->
 						<input type="hidden" id="formname" name="formname" value="<?php echo $formname; ?>">
 							<?php
 								if (isset($_POST['numquestions'])) {
 									$numquestions = $_POST['numquestions'];
 								}
+								echo "<input type=\"hidden\" id=\"numquestions\" name=\"numquestions\" value=\"" . $numquestions . "\">";
 								
-								for ($i=0; $i < $numquestions; $i++) {
+								for ($i=1; $i <= $numquestions; $i++) {
 									echo "<label>Question " . $i . ":</label>";
 									echo "<input type=\"text\" id=\"" . $i . "\" name=\"" . $i . "\">";
 								}
 							?>
-						<input type="submit" value="Submit New Form">
+						<input type="submit" value="Edit Form">
+					</form>
+				</fieldset>
+			<?php
+			} else if ($mode == "delete") {
+			?>
+				<!-- DELETING A FORM -->
+				<fieldset class="section-box">
+					<legend>
+						Deleting Form: 
+						<?php
+						if (isset($_POST['formnameclean'])) {
+							$formnameclean = $_POST['formnameclean'];
+							$formname = getFormName($formnameclean);
+							echo $formname;
+						} else {
+							if (isset($_POST['formname'])) {
+								$formname = $_POST['formname'];
+								echo $formname;
+							}
+						}
+						?>
+					</legend>
+					
+					<form action="createForm.php" method="POST" style="margin-top:10px;">
+						<!-- go back to view page after deleting a new form -->
+						<input type="hidden" id="mode" name="mode" value="view">
+						<input type="hidden" id="action" name="action" value="delete">
+						<!-- ensure name gets passed to creation -->
+						<input type="hidden" id="formnameclean" name="formnameclean" value="<?php echo $formnameclean; ?>">
+						<div class=\"error-toast\">WARNING: Deleting this form will destroy all data associated with it, this action cannot be reversed.</div>
+						<input type="submit" value="Yes, I'm sure. Delete this form.">
 					</form>
 				</fieldset>
 			<?php

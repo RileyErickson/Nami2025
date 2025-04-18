@@ -536,13 +536,12 @@ INSERT INTO `dbpersons` (`id`, `start_date`, `venue`, `first_name`, `last_name`,
 --
 
 CREATE TABLE `formmanager` (
-  `managerID` int NOT NULL,
-  `originalID` int NOT NULL,
-  `formname` varchar(50)
+  `managerID` int NOT NULL AUTO_INCREMENT,
+  `formnameclean` varchar(50),
+  `isopen` int NOT NULL,
+  
+  PRIMARY KEY (`managerID`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-
-ALTER TABLE `formmanager`
-  ADD PRIMARY KEY (`managerID`);
 
 
 --
