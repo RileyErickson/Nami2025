@@ -41,8 +41,6 @@
                 </div>
             </nav>';
 
-        //      <li><a href="register.php">Register</a></li>     was at line 35
-
     } else if ($_SESSION['logged_in']) {
 
         /*         * Set our permission array.
@@ -77,7 +75,6 @@
         $permission_array['volunteerreport.php'] = 1;
         $permission_array['viewmyupcomingevents.php'] = 1;
         $permission_array['inactivedash.php'] = 1;
-        $permission_array['forms.php'] = 1;
         //pages only managers can view
         $permission_array['viewallevents.php'] = 0;
         $permission_array['personsearch.php'] = 2;
@@ -155,8 +152,6 @@
 
 	// LOWERCASE
 
-
-
         //Check if they're at a valid page for their access level.
         $current_page = strtolower(substr($_SERVER['PHP_SELF'], strrpos($_SERVER['PHP_SELF'], '/') + 1));
         $current_page = substr($current_page, strpos($current_page,"/"));
@@ -175,34 +170,62 @@
         
         //they're logged in and session variables are set.
         echo('<nav>');
-        echo('<div class="nav-left">');
-        echo('<span id="nav-top"><span class="logo"><a class="navbar-brand" href="' . $path . 'index.php"><img class="nami-logo" src="images/logoLong.jpg"></a>');
 
+        echo('<div class="nav-left">');
+        echo('<span class="logo"><a class="navbar-brand" href="' . $path . 'index.php"><img class="nami-logo" src="images/logoLong.jpg"></a></span>');
         echo('</div>');
 
         echo('<div class="nav-right">');
-         if ($_SESSION['access_level'] <= 3) {
-         echo('<li><a class="nav-link active" aria-current="page" href="' . $path . 'index.php"><img class="home-logo" src="images/home.svg" alt="home"></a></li>');
-         echo('<li class="nav-item dropdown">');
-         echo('<a class="nav-link dropdown-toggle" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><img class="person-logo" src="images/account.svg" alt="account"></a>');
-         echo('<div class="dropdown-menu">');
-         echo('<a class="dropdown-item" href="' . $path . 'viewProfile.php">View Profile</a>');
-         echo('<a class="dropdown-item" href="' . $path . 'editProfile.php">Edit Profile</a>');
-         echo('<a class="dropdown-item" href="' . $path . 'changePassword.php">Change Password</a>');
-         echo('</div>');
-         echo('</li>'); 
+            echo('<ul>');
+            if ($_SESSION['access_level'] <= 3) {
+                echo('<li><a class="nav-link active" aria-current="page" href="' . $path . 'index.php"><img class="home-logo" src="images/home.svg" alt="home"></a></li>');
+                echo('<li class="nav-item dropdown">');
+                    echo('<a class="nav-link dropdown-toggle" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><img class="person-logo" src="images/account.svg" alt="account"></a>');
+                    echo('<div class="dropdown-menu">');
+                        echo('<a class="dropdown-item" href="' . $path . 'viewProfile.php">View Profile</a>');
+                        echo('<a class="dropdown-item" href="' . $path . 'editProfile.php">Edit Profile</a>');
+                        echo('<a class="dropdown-item" href="' . $path . 'changePassword.php">Change Password</a>');
+                    echo('</div>');
+                echo('</li>'); 
+            }
 
+                echo('<li class="nav-item dropdown">');
+                    echo('<a class="nav-link dropdown-toggle" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><img class="logout-logo" src="images/logout.svg" alt="logout"></a>');
+                    echo('<div class="dropdown-menu">');
+                        echo('<a class="dropdown-item" href="' . $path . 'logout.php">Log out</a>');
+                    echo('</div>');
+                echo('</li>'); 
+         
+            echo('</ul>');
+        echo('</div>');
+         
+        echo('<div id="menu-toggle" class="menu-toggle" onclick="toggleMenu()">');
+            echo('<img src="images/menu.svg" alt="Menu" style="height: 5rem;">');
+        echo('</div>');
 
-         }
+        echo('<div class="mobile-menu" id="mobileMenu">');
+            echo('<a class="nav-link active" aria-current="page" href="' . $path . 'index.php">Home</a>');
+            echo('<div class="dropdown-category">');
+                echo('<a class="nav-link dropdown-toggle" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Manage Profile</a>');
+                echo('<div class="dropdown-menu">');
+                    echo('<a class="dropdown-item" href="' . $path . 'viewProfile.php">View Profile</a>');
+                    echo('<a class="dropdown-item" href="' . $path . 'editProfile.php">Edit Profile</a>');
+                    echo('<a class="dropdown-item" href="' . $path . 'changePassword.php">Change Password</a>');
+                echo('</div>');
+            echo('</div>');
+            echo('<div class="dropdown-category">');
+                echo('<a class="nav-link dropdown-toggle" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Logout</a>');
+                echo('<div class="dropdown-menu">');
+                    echo('<a class="dropdown-item" href="' . $path . 'logout.php">Log out</a>');
+                echo('</div>');
+            echo('</div>');
+        echo('</div>');
 
-         echo('<li class="nav-item dropdown">');
-         echo('<a class="nav-link dropdown-toggle" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><img class="logout-logo" src="images/logout.svg" alt="logout"></a>');
-         echo('<div class="dropdown-menu">');
-         echo('<a class="dropdown-item" href="' . $path . 'logout.php">Log out</a>');
-         echo('</div>');
-         echo('</li>'); 
-         echo '</ul></nav>';
-         echo('</div>');
+        echo('<script>');
+        echo('function toggleMenu() {const menu = document.getElementById(\'mobileMenu\'); menu.style.display = (menu.style.display === \'flex\') ? \'none\' : \'flex\';}');
+        echo('document.querySelectorAll(".dropdown-toggle").forEach(toggle => {toggle.addEventListener("click", function(e) {e.preventDefault();const parent = this.closest(".dropdown-category");parent.classList.toggle("open");});});');
+        echo('</script>');
+        
     }
     ?>
 </header>
