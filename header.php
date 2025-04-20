@@ -205,20 +205,10 @@
 
         echo('<div class="mobile-menu" id="mobileMenu">');
             echo('<a class="nav-link active" aria-current="page" href="' . $path . 'index.php">Home</a>');
-            echo('<div class="dropdown-category">');
-                echo('<a class="nav-link dropdown-toggle" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Manage Profile</a>');
-                echo('<div class="dropdown-menu">');
-                    echo('<a class="dropdown-item" href="' . $path . 'viewProfile.php">View Profile</a>');
-                    echo('<a class="dropdown-item" href="' . $path . 'editProfile.php">Edit Profile</a>');
-                    echo('<a class="dropdown-item" href="' . $path . 'changePassword.php">Change Password</a>');
-                echo('</div>');
-            echo('</div>');
-            echo('<div class="dropdown-category">');
-                echo('<a class="nav-link dropdown-toggle" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Logout</a>');
-                echo('<div class="dropdown-menu">');
-                    echo('<a class="dropdown-item" href="' . $path . 'logout.php">Log out</a>');
-                echo('</div>');
-            echo('</div>');
+            echo('<a class="nav-link active" aria-current="page" href="' . $path . 'viewProfile.php">View Profile</a>');
+            echo('<a class="nav-link active" aria-current="page" href="' . $path . 'editProfile.php">Edit Profile</a>');
+            echo('<a class="nav-link active" aria-current="page" href="' . $path . 'changePassword.php">Change Password</a>');
+            echo('<a class="nav-link active" aria-current="page" href="' . $path . 'logout.php">Logout</a>');
         echo('</div>');
 
         echo('<script>');
