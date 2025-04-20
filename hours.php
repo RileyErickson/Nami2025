@@ -24,13 +24,15 @@ $conn = connect();
     <h1>Hours Management</h1>
     <main>
     <div id="dashboard">
+        <?php if ($_SESSION['access_level'] >= 2) : ?>
+
         <div class="dashboard-item" onclick="location.href='logHours.php'">
             <img src="images/create-report.svg" alt="Log Hours">
             <span><center>Log Hours</center></span>
         </div>
         <div class="dashboard-item" onclick="location.href='deleteHours.php'">
             <img src="images/delete.svg" alt="Delete Hours">
-            <span><center>Delete Hours</center></span>
+            <span><center>Manage Hours</center></span>
         </div>
         <div class="dashboard-item" onclick="location.href='approveHours.php'">
             <img src="images/volunteer-history.svg" alt="Approve Hours">
@@ -45,6 +47,23 @@ $conn = connect();
             <img src="images/logout.svg" alt="Return Home">
             <span><center>Return to Home Dashboard</center></span>
         </div>
+
+        <?php elseif ($_SESSION['access_level'] == 1) : ?>
+
+            <div class="dashboard-item" onclick="location.href='logHours.php'">
+                <img src="images/create-report.svg" alt="Log Hours">
+                <span><center>Log Hours</center></span>
+            </div>
+            <div class="dashboard-item" onclick="location.href='viewHours.php'">
+                <img src="images/search.svg" alt="View Hours">
+                <span><center>View Hours</center></span>
+            </div>
+            <div style="flex-basis: 100%; height: 0;"></div>
+            <div class="dashboard-item" onclick="location.href='index.php'" style="background-color: grey;">
+                <img src="images/logout.svg" alt="Return Home">
+                <span><center>Return to Home Dashboard</center></span>
+            </div>
+        <?php endif?>
 
     </div>
     </main>

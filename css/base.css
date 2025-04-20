@@ -110,7 +110,8 @@ body {
     height: 100%;
     display: flex;
     flex-direction: column;
-    margin: 0
+    margin: 0;
+    min-height: 100vh;
 }
 
 header > img {
@@ -121,7 +122,6 @@ header > img {
 nav {
     display: flex;
     flex-direction: row;
-    align-items: center;
     padding: 1rem 2rem;
     align-items: center;
     justify-content: space-between;
@@ -129,11 +129,26 @@ nav {
     box-shadow: 0 6px 8px rgba(0, 0, 0, 0.2);
     width: 100%;
     flex-wrap: wrap;
+    background-color: var(--page-background-color);
+    max-width: 100vw;
+}
+
+.nav-top {
+    display: flex;
+    align-items: center;
+    width: 100%;
 }
 
 .nav-left {
     display: flex;
-    align-items: left;
+}
+
+.nav-right {
+    margin-left: auto;
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    flex-wrap: wrap;
 }
 
 .nami-logo {
@@ -147,19 +162,6 @@ nav {
     max-width: 100%;
 }
 
-.home-logo:hover {
-    filter: brightness(0) saturate(100%) invert(70%) sepia(20%) saturate(400%) hue-rotate(0deg);
-}
-
-.nav-right {
-    margin-left: auto;
-    margin-right: 1.5rem;
-    display: flex;
-    align-items: center;
-    gap: 1rem;
-    flex-wrap: wrap;
-}
-
 .nav-right a {
     text-decoration: none;
 }
@@ -170,20 +172,16 @@ nav {
     cursor: pointer;
 }
 
+.home-logo:hover,
 .person-logo:hover,
 .logout-logo:hover {
-    filter: brightness(0) saturate(100%) invert(70%) sepia(20%) saturate(400%) hue-rotate(0deg);
+    filter: brightness(0) saturate(100%) invert(50%) sepia(100%) saturate(700%) hue-rotate(40deg);
 }
 
 header ul > li,
 header span {
     font-size: 0.75rem;
     list-style-type: none;
-}
-
-nav {
-    background-color: var(--page-background-color);
-    max-width: 100vw;
 }
 
 nav ul {
@@ -193,11 +191,6 @@ nav ul {
     flex-wrap: wrap;
     padding: 0;
     margin: 0;
-}
-
-nav img {
-    height: 3rem;
-    max-width: 100%;
 }
 
 nav ul li a {
@@ -211,49 +204,58 @@ nav ul li a:hover {
     color: var(--accent-color);
 }
 
-/* RESPONSIVE PORTION for navigation bar*/
+#menu-toggle {
+    display: none;
+  }
+
+.mobile-menu {
+    display: none;
+    flex-direction: column;
+    width: 100%;
+    background-color: var(--page-background-color);
+    padding: 1rem 2rem;
+    box-shadow: 0 6px 8px rgba(0, 0, 0, 0.2);
+}
+
+.mobile-menu a {
+    padding: 0.75rem 0;
+    color: var(--main-color);
+    text-decoration: none;
+    font-weight: 500;
+    border-bottom: 1px solid #ccc;
+}
+
+.mobile-menu a:hover {
+    color: var(--accent-color);
+}
+
+/* RESPONSIVE PORTION for nav bar */
 @media only screen and (max-width: 1079px) {
-    nav {
-        flex-direction: column;
-        background-color: var(--page-background-color);
+    .nav-right {
+      display: none;
     }
-
-    nav ul {
-        width: 100%;
-        padding-left: 1rem;
-        display: inline-flex;
-        flex-direction: column;
-        align-items: left;
-        display: none;
-        margin-top: 1rem;
-    }
-
-    nav ul li.sub-item {
-        margin-left: 1rem;
-    }
-
+  
     #menu-toggle {
-        display: inline;
-        filter: opacity(0.25);
+        display: block !important;
     }
 
-    .nav-divider {
-        display: none;
+    #menu-toggle img:hover {
+        filter: brightness(0) saturate(100%) invert(50%) sepia(100%) saturate(700%) hue-rotate(40deg);
     }
-
-    #nav-top {
-        justify-content: space-between;
-        align-items: center;
-        width: calc(100% - 2rem);
-        display: flex;
-        margin-left: 1rem;
-        margin-right: 1rem;
+  
+    .mobile-menu {
+      display: none;
+      position: absolute;
+      top: var(--header-height);
+      left: 0;
+      width: 100%;
+      background-color: var(--page-background-color);
+      padding: 1rem 2rem;
+      flex-direction: column;
+      z-index: 1000;
+      box-shadow: 0 6px 8px rgba(0, 0, 0, 0.2);
     }
-
-    .dropdown-item {
-        display: inline;
-        color: var(--main-color);
-    }
+    
 }
 
 .top-bar {
@@ -328,7 +330,7 @@ nav ul li a:hover {
         gap: 20px;
         padding: 20px 2rem;
         align-items: stretch;
-        min-height: auto; /* Let height grow with content */
+        min-height: auto;
     }
 
     .highlight {
@@ -356,17 +358,6 @@ span.logo {
     margin-left: 1rem;
 }
 
-#menu-toggle {
-    display: none;
-    height: 1.5rem;
-}
-
-#vms-logo {
-    color: var(--main-color);
-    font-weight: 300;
-    font-size: 1.5rem;
-}
-
 /* Main Content */
 
 main:not(.login):not(.calendar-view):not(.dashboard) {
@@ -377,7 +368,7 @@ main:not(.login):not(.calendar-view):not(.dashboard) {
 /*textarea {*/
 /*    height:auto;*/
 /*}*/
-input[type=text], input[type=password], input[type=date], input[type=email], input[type=number], 
+input[type=text], input[type=password], input[type=date], input[type=email], input[type=number],
 input[type=tel], select, textarea, .pseudo-input, .pseudo-input-disabled {
     border: var(--text-field-border);
     border-radius: 0;
@@ -395,7 +386,7 @@ input[type=email]:disabled, input[type=tel]:disabled, select:disabled, textarea:
     color: var(--inactive-font-color);
 }
 
-input[type=text]:focus, input[type=password]:active, input[type=email]:focus, input[type=date]:focus, input[type=tel]:focus, input[type=number]:focus, select:active, textarea:focus {
+input[type=text]:active, input[type=password]:active, input[type=email]:focus, input[type=date]:focus, input[type=tel]:focus, input[type=number]:focus, select:active, textarea:focus {
     outline: var(--text-field-border);
 }
 
@@ -734,7 +725,8 @@ main.dashboard > p {
     filter: invert(1) grayscale(1) brightness(2);
 }
 
-.dashboard-item:hover img {
+.dashboard-item:hover img,
+.dashboard-item:hover i {
     animation: bounce 0.5s ease-out; 
 }
 

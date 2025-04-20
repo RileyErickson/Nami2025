@@ -125,7 +125,7 @@ class Person {
 		}
 
         elseif ($type == 'board'){
-            $this->access_level = 4;
+            $this->access_level = 2;
 			//needed to change to 4 for index.php to render correctly since admin is 3+ and boardmembers are admin 
             //debug_to_console('board test');
         }
