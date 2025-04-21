@@ -148,6 +148,7 @@
         $permission_array['adddonors.php'] = 2;
         $permission_array['viewdonors.php'] = 2;
         $permission_array['donormanager.php'] = 2;
+        $permission_array['forms.php'] = 1;
 
 
 	// LOWERCASE
