@@ -13,6 +13,17 @@ include_once('dbPersons.php');
 // Creates a new application for any of the 6 form tables.
 // $application MUST be formatted like "p2papplication", "fsgapplication", "f2fapplication", "hfapplication", "ioovapplication", and "csgapplication"
 
+
+//Used in 'formsearch'. Checks if there is a form by that name in the manager. Returns the manager ID if so.
+function findFormFromName($search){
+	$con=connect();
+	$query = "SELECT `managerID` AND 'originalID' FROM `formmanager` WHERE `formname` = '".$search."';";
+	$result = mysqli_query($con,$query);
+	mysqli_close($con);
+	return $result;
+
+}
+
 function getForms() {
 	
     $con=connect();
