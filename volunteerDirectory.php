@@ -44,6 +44,7 @@ if (file_exists($announcementFile)) {
 }
 ?>
 <h1>Volunteer Management Dashboard</h1>
+...
 <main class='dashboard'>
 
     <?php if (isset($_GET['pcSuccess'])): ?>
@@ -61,6 +62,16 @@ if (file_exists($announcementFile)) {
     <?php elseif (isset($_GET['registerSuccess'])): ?>
         <div class="happy-toast">Volunteer registered successfully!</div>
     <?php endif ?>
+    <div style="overflow-x:auto;">
+        <div id="dashboard">
+            <!-- all your <div class="dashboard-item"> cards stay here exactly as before -->
+            ...
+        </div>
+    </div>
+
+</main>
+...
+
 <!--    <p>Welcome back, --><?php //echo $person->get_first_name() ?><!--!</p>-->
 <!--    <p>Today is --><?php //echo date('l, F j, Y'); ?><!--.</p>-->
     <div id="dashboard">
