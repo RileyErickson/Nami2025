@@ -116,8 +116,12 @@ $access_level = $_SESSION['access_level']; ?>
                         <td><?php echo htmlspecialchars($name); ?></td>
                         <td><?php echo htmlspecialchars($pending[$x]['last_name']); ?></td>
                         <td>
-                                  <!--  <?php echo htmlspecialchars($pending[$x]['start_date']); ?> -->
-                                  <?php echo htmlspecialchars((string)$variable, ENT_QUOTES, 'UTF-8'); ?>
+                                    <?php
+                                    if ($pending[$x]['start_date'] == NULL){
+                                        echo 'No date listed!';
+                                    }else {
+                                        echo htmlspecialchars($pending[$x]['start_date']);
+                                    }?>
                         </td>
 <!--                        <td>--><?php //echo htmlspecialchars($position_label); ?><!--</td>-->
                         <!-- Demographic -->

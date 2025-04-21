@@ -113,6 +113,8 @@
                 echo '<p>Your form submission contained unexpected input.</p>';
                 die();
             }
+
+            $start_date = date("Y-m-d");
             
             $newVol = new GenVol(
                 $first_name, $last_name, $phone1, $contact_method, $email, 
@@ -120,7 +122,7 @@
                 $primary_role, $work_best, $learning_method, $introOrExtro,
                 $family_with_mental_illness, $involvement_in_nami,
                 $interest, $active_paying_nami_affiliate, $if_not_are_willing,
-                $choice_nami_affiliate, $username, $password, $may_text
+                $choice_nami_affiliate, $username, $password, $may_text, $start_date
             );
             $result = add_genVol($newVol);
             if (!$result) {
