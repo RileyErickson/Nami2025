@@ -28,6 +28,8 @@ class GenVol{
     private $may_text;
     private $access_level;
 
+    private $start_date;
+
 
 // this is a constructor for building a person based on application
     function __construct(
@@ -36,7 +38,7 @@ class GenVol{
                     $primary_role, $work_best, $learning_method, $introOrExtro,
                     $family_with_mental_illness, $involvement_in_nami,
                     $interest, $active_paying_nami_affiliate, $if_not_are_willing,
-                    $choice_nami_affiliate, $username, $password, $may_text
+                    $choice_nami_affiliate, $username, $password, $may_text, $start_date
                     ){
         $this->access_level = 0;
         $this->first_name = $first_name;
@@ -62,6 +64,7 @@ class GenVol{
         $this->username = $username;
         $this->password = $password;
         $this->may_text = $may_text;
+        $this->start_date = $start_date;
     }
 
     // the getters for the general volunteer
@@ -152,6 +155,10 @@ class GenVol{
 
     function get_may_text(){
         return $this->may_text;
+    }
+
+    function get_start_date(){
+        return $this->start_date;
     }
 
 }

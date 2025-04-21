@@ -54,7 +54,8 @@ function add_genVol($genVol){
             password, 
             type, 
             status, 
-            archived) 
+            archived,
+            start_date) 
              VALUES (
                 "'. $genVol->get_first_name() .'", 
                 "'. $genVol->get_last_name() .'",
@@ -81,7 +82,8 @@ function add_genVol($genVol){
                 "'. $genVol->get_password() .'",
                 "participant",
                 "pending",
-                "0"
+                "0",
+                "'. $genVol->get_start_date() .'"
                 );');
                 mysqli_close($con);
                 return true;
