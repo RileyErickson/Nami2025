@@ -67,6 +67,20 @@ class Person {
     private $hobbies;
     private $professional_experience;
     private $disability_accomodation_needs;
+
+    private $strengths;
+    private $primary_role;
+    private $work_best;
+    private $learning_method;
+    private $introOrExtro;
+    private $family_with_mental_illness;
+    private $involvement_in_nami;
+    private $interest;
+    private $active_paying_nami_affiliate;
+    private $if_not_are_willing;
+    private $choice_nami_affiliate;
+    private $may_text;
+
 	
 
 	/*
@@ -79,7 +93,9 @@ class Person {
 						$emergency_contact_relation, $tshirt_size, $school_affiliation, $photo_release, $photo_release_notes, $type, $status, $archived,
 						$how_you_heard_of_stepva, $preferred_feedback_method, $hobbies, $professional_experience, $disability_accomodation_needs, 
 						$training_complete, $training_date, $orientation_complete,
-						$orientation_date, $background_complete, $background_date
+						$orientation_date, $background_complete, $background_date, $strengths,
+                        $primary_role, $work_best, $learning_method, $introOrExtro, $family_with_mental_illness, $involvement_in_nami,
+                        $interest, $active_paying_nami_affiliate, $if_not_are_willing, $choice_nami_affiliate, $may_text
 						) {
 		$this->id = $id; // (username)
 		$this->password = $password;
@@ -117,6 +133,19 @@ class Person {
         $this->orientation_date = $orientation_date;
 		$this->background_complete = $background_complete;
         $this->background_date = $background_date;
+        $this->strengths = $strengths;
+        $this->primary_role = $primary_role;
+        $this->work_best = $work_best;
+        $this->learning_method = $learning_method;
+        $this->introOrExtro = $introOrExtro;
+        $this->family_with_mental_illness = $family_with_mental_illness;
+        $this->involvement_in_nami = $involvement_in_nami;
+        $this->interest = $interest;
+        $this->active_paying_nami_affiliate = $active_paying_nami_affiliate;
+        $this->if_not_are_willing = $if_not_are_willing;
+        $this->choice_nami_affiliate = $choice_nami_affiliate;
+        $this->may_text = $may_text;
+        $this->start_date = $start_date;
 
 		// access_level = 1 for users, and = 3 for admin
 		if ($type == 'admin' ) {
@@ -295,5 +324,53 @@ class Person {
 	function get_background_date() {
 		return $this->background_date;
 	}
+
+    function get_strengths() {
+        return $this->strengths;
+    }
+
+    function get_primary_role(){
+        return $this->primary_role;
+    }
+
+    function get_work_best(){
+        return $this->work_best;
+    }
+
+    function get_learning_method(){
+        return $this->learning_method;
+    }
+
+    function get_introOrExtro(){
+        return $this->introOrExtro;
+    }
+
+    function get_family_with_mental_illness(){
+        return $this->family_with_mental_illness;
+    }
+
+    function get_involvement_in_nami(){
+        return $this->involvement_in_nami;
+    }
+
+    function get_interest(){
+        return $this->interest;
+    }
+
+    function get_active_paying_nami_affiliate(){
+        return $this->active_paying_nami_affiliate;
+    }
+
+    function get_if_not_are_willing(){
+        return $this->if_not_are_willing;
+    }
+
+    function get_choice_nami_affiliate(){
+        return $this->choice_nami_affiliate;
+    }
+
+    function get_may_text(){
+        return $this->may_text;
+    }
 
 }

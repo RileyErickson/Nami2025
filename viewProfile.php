@@ -258,6 +258,69 @@
                                 </div>
                             <?php endif; ?>
                         </fieldset>
+                    <?php
+                    //debug_to_console($_SESSION['access_level']);
+                    if ($_SESSION['access_level'] >= 3) : ?>
+                        <?php if ($user->get_strengths() != NULL) : ?>
+                        <fieldset class="section-box">
+                            <legend>Volunteer Application</legend>
+                            <div class="field-pair">
+                                <label>Strength and Weaknesses</label>
+                                <p><?php echo $user->get_strengths()?></p>
+                            </div>
+                            <div class="field-pair">
+                                <label>Primary Roles</label>
+                                <p><?php
+                                    echo $user->get_primary_role() ?></p>
+                            </div>
+                            <div class="field-pair">
+                                <label>Work Best</label>
+                                <p><?php echo $user->get_work_best() ?></p>
+                            </div>
+                            <div class="field-pair">
+                                <label>Learning new information</label>
+                                <p><?php echo $user->get_learning_method() ?></p>
+                            </div>
+                            <div class="field-pair">
+                                <label>Social Attitude</label>
+                                <p><?php echo $user->get_introOrExtro() ?></p>
+                            </div>
+                            <div class="field-pair">
+                                <label>Mental Illness</label>
+                                <p><?php echo $user->get_family_with_mental_illness() ?></p>
+                            </div>
+                            <div class="field-pair">
+                                <label>Why involvement in NAMI</label>
+                                <p><?php echo $user->get_involvement_in_nami() ?></p>
+                            </div>
+                            <div class="field-pair">
+                                <label>Interest in NAMI Department</label>
+                                <p><?php
+                                    $flag1 = false;
+                                    echo $user->get_interest();
+                                    if (strtoupper($user->get_interest()) == 'YES'){
+                                        $flag1 = true;
+                                    }else{
+                                        $flag1 = false;
+                                    }?></p>
+                            </div>
+                            <?php if($flag1 == true) : ?>
+                                <div class="field-pair">
+                                    <label>If they are an active paying member</label>
+                                    <p><?php echo $user->get_active_paying_nami_affiliate() ?></p>
+                                </div>
+                                <div class="field-pair">
+                                    <label>If they are willing to pay</label>
+                                    <p><?php echo $user->get_if_not_are_willing() ?></p>
+                                </div>
+                                <div class="field-pair">
+                                    <label>Which NAMI affiliate do they want to join</label>
+                                    <p><?php echo $user->get_choice_nami_affiliate() ?></p>
+                                </div>
+                            <?php endif;?>
+
+                        </fieldset>
+                        <?php endif;?>
                         <?php endif; ?>
                         </td>
                     </tr>
@@ -265,9 +328,7 @@
             </table>
                                 
 
-                        <?php
-                        //debug_to_console($_SESSION['access_level']);
-                        if ($_SESSION['access_level'] >= 3) : ?>
+
                         <fieldset class="section-box">
                             <legend>Admin Notes</legend>
 
