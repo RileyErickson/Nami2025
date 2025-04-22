@@ -101,7 +101,7 @@
                     <p>There are no volunteer hours to report.</p>
                 <?php endif ?>
                 <?php if ($viewingSelf): ?>
-                    <a class="button cancel no-print" href="viewProfile.php">Return to Profile</a>
+                    <a class="button cancel no-print" href="index.php">Return to Dashboard</a>
                 <?php else: ?>
                     <a class="button cancel no-print" href="viewProfile.php?id=<?php echo htmlspecialchars($_GET['id']) ?>">Return to Profile</a>
                 <?php endif ?>

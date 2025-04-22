@@ -98,6 +98,23 @@
         </fieldset>
 
         <fieldset class="section-box">
+            <legend>Emergency Contact Information</legend>
+
+            <p>The following information is for your chosen emergency contact.</p>
+            <label for="emergency_contact_first_name"><em>* </em>Emergency Contact First Name</label>
+            <input type="text" id="emergency_contact_first_name" name="emergency_contact_first_name" required placeholder="Enter your emergency contact's first name">
+
+            <label for="emergency_contact_last_name"><em>* </em>Emergency Contact Last Name</label>
+            <input type="text" id="emergency_contact_last_name" name="emergency_contact_last_name" required placeholder="Enter your emergency contact's last name">
+
+            <label for="emergency_contact_relation"><em>* </em>Emergency Contact Relation</label>
+            <input type="text" id="emergency_contact_relation" name="emergency_contact_relation" required placeholder="Enter relation to your emergency contact">
+
+            <label for="emergency_contact_phone"><em>* </em>Best number to reach emergency contact?</label>
+            <input type="tel" id="emergency_contact_phone" name="emergency_contact_phone" pattern="\([0-9]{3}\) [0-9]{3}-[0-9]{4}" required placeholder="Ex. (555) 555-5555">
+        </fieldset>
+
+        <fieldset class="section-box">
             <legend>NAMIRAPP Specific Questions</legend>
 
             <p>The following information will help us get a better understanding of who you are and why you may be a good fit to volunteer at NAMIRAPP.</p>
@@ -106,48 +123,48 @@
 
             <p><em>* </em>The list below shows the primary roles of our volunteers in NAMIRAPP. Please select the role that would be the best fit for you from the list below</p>
             <div class="radio-group">
-                <input type="radio" id="primary_role_group" name="primary_role" value="group" required><label for="primary_role_group">Overseeing a Group</label><br>
-                <input type="radio" id="primary_role_marketing" name="primary_role" value="marketing" required><label for="primary_role_marketing">Social Media and/or Marketing</label><br>
-                <input type="radio" id="primary_role_presenting" name="primary_role" value="presenting" required><label for="primary_role_presenting">Presenting to a Group or Public Speaking</label><br>
-                <input type="radio" id="primary_role_organizing" name="primary_role" value="organizing" required><label for="primary_role_organizing">Organizing Community or Holiday Events</label><br>
-                <input type="radio" id="primary_role_fundraising" name="primary_role" value="fundraising" required><label for="primary_role_fundraising">Fundraising</label><br>
-                <input type="radio" id="primary_role_managing" name="primary_role" value="managing" required><label for="primary_role_managing">Managing a Team</label><br>
-                <input type="radio" id="primary_role_teaching" name="primary_role" value="teaching" required><label for="primary_role_teaching">Teaching a Class</label><br>
-                <input type="radio" id="primary_role_helping" name="primary_role" value="helping" required><label for="primary_role_helping">Helping Members of the Community via Phone Calls or Emails</label><br>
-                <input type="radio" id="primary_role_charting" name="primary_role" value="charting" required><label for="primary_role_charting">Charting Legislation or Policies Impacting Mental Health</label>
+                <input type="radio" id="primary_role_group" name="primary_role" value="Group" required><label for="primary_role_group">Overseeing a Group</label><br>
+                <input type="radio" id="primary_role_marketing" name="primary_role" value="Marketing" required><label for="primary_role_marketing">Social Media and/or Marketing</label><br>
+                <input type="radio" id="primary_role_presenting" name="primary_role" value="Presenting" required><label for="primary_role_presenting">Presenting to a Group or Public Speaking</label><br>
+                <input type="radio" id="primary_role_organizing" name="primary_role" value="Organizing" required><label for="primary_role_organizing">Organizing Community or Holiday Events</label><br>
+                <input type="radio" id="primary_role_fundraising" name="primary_role" value="Fundraising" required><label for="primary_role_fundraising">Fundraising</label><br>
+                <input type="radio" id="primary_role_managing" name="primary_role" value="Managing" required><label for="primary_role_managing">Managing a Team</label><br>
+                <input type="radio" id="primary_role_teaching" name="primary_role" value="Teaching" required><label for="primary_role_teaching">Teaching a Class</label><br>
+                <input type="radio" id="primary_role_helping" name="primary_role" value="Helping" required><label for="primary_role_helping">Helping Members of the Community via Phone Calls or Emails</label><br>
+                <input type="radio" id="primary_role_charting" name="primary_role" value="Charting" required><label for="primary_role_charting">Charting Legislation or Policies Impacting Mental Health</label>
             </div>
 
             <label><em>* </em>Do you work best:</label>
             <div class="radio-group">
-                <input type="radio" id="work_best_self" name="work_best" value="self" required><label for="work_best_self">As a self starter (able to take off on your own)</label><br>
-                <input type="radio" id="work_best_shadow" name="work_best" value="shadow" required><label for="work_best_shadow">Shadowing someone until you understand the role</label><br>
-                <input type="radio" id="work_best_unsure" name="work_best" value="unsure" required><label for="work_best_unsure">Not sure / Never thought of it</label><br>
+                <input type="radio" id="work_best_self" name="work_best" value="By myself" required><label for="work_best_self">As a self starter (able to take off on your own)</label><br>
+                <input type="radio" id="work_best_shadow" name="work_best" value="Shadow" required><label for="work_best_shadow">Shadowing someone until you understand the role</label><br>
+                <input type="radio" id="work_best_unsure" name="work_best" value="Unsure" required><label for="work_best_unsure">Not sure / Never thought of it</label><br>
             </div>
 
             <label><em>* </em>Which form of communication fits best as your preference to communicate to others?</label>
             <div class="radio-group">
-                <input type="radio" id="communication_verbal" name="communication" value="verbal" required><label for="communication_verbal">Verbal</label>
-                <input type="radio" id="communication_written" name="communication" value="written" required><label for="communication_written">Written</label>
-                <input type="radio" id="communication_either" name="communication" value="either" required><label for="communication_either">Either</label>
+                <input type="radio" id="communication_verbal" name="communication" value="Verbal" required><label for="communication_verbal">Verbal</label>
+                <input type="radio" id="communication_written" name="communication" value="Written" required><label for="communication_written">Written</label>
+                <input type="radio" id="communication_either" name="communication" value="Either" required><label for="communication_either">Either</label>
             </div>
 
             <label><em>* </em>How do you best learn new information?</label>
             <div class="radio-group">
-                <input type="radio" id="learning_visual" name="learning" value="visual" required><label for="learning_visual">Visuals</label>
-                <input type="radio" id="learning_audiotory" name="learning" value="audiotory" required><label for="learning_audiotory">Audiotory</label>
-                <input type="radio" id="learning_kinesthetic" name="learning" value="kinesthetic" required><label for="learning_kinesthetic">Kinesthetic (hands on)</label>
+                <input type="radio" id="learning_visual" name="learning" value="Visuals" required><label for="learning_visual">Visuals</label>
+                <input type="radio" id="learning_audiotory" name="learning" value="Audiotory" required><label for="learning_audiotory">Audiotory</label>
+                <input type="radio" id="learning_kinesthetic" name="learning" value="Kinesthetic" required><label for="learning_kinesthetic">Kinesthetic (hands on)</label>
             </div>
 
             <label><em>* </em>Do you consider yourself to be:</label>
             <div class="radio-group">
-                <input type="radio" id="personality_intro" name="personality" value="intro" required><label for="personality_intro">Introverted</label>
-                <input type="radio" id="personality_extro" name="personality" value="extro" required><label for="personality_extro">Extroverted</label>
+                <input type="radio" id="personality_intro" name="personality" value="Introverted" required><label for="personality_intro">Introverted</label>
+                <input type="radio" id="personality_extro" name="personality" value="Extroverted" required><label for="personality_extro">Extroverted</label>
             </div>
             
             <label><em>* </em>Do you or someone in your immediate family suffer from mental illness?</label>
             <div class="radio-group">
-                <input type="radio" id="mental_illness_yes" name="mental_illness" value="yes" required><label for="mental_illness_yes">Yes</label>
-                <input type="radio" id="mental_illness_no" name="mental_illness" value="no" required><label for="mental_illness_no">No</label>
+                <input type="radio" id="mental_illness_yes" name="mental_illness" value="Yes" required><label for="mental_illness_yes">Yes</label>
+                <input type="radio" id="mental_illness_no" name="mental_illness" value="No" required><label for="mental_illness_no">No</label>
             </div>
 
             <label for="why_volunteer"><em>* </em>Why do you want to volunteer with NAMI Rappahannock or an organization in the mental health sector? if you have an impactful story, please elaborate!</label>
@@ -155,24 +172,24 @@
 
             <label for="additional_interest"><em>* </em>Are you interested in volunteering as any of the following: Family Support Group Facilitator, Connection Support Group Facilitator, Peer-to-Peer Teacher, In Our Own Voice Presenter, Homefront Teacher, Family-to-Family Teacher</label>
             <div class="radio-group">
-                <input type="radio" id="additional_interest_yes" name="additional_interest" value="yes" required><label for="additional_interest_yes">Yes</label>
-                <input type="radio" id="additional_interest_no" name="additional_interest" value="no" required><label for="additional_interest_no">No</label>
+                <input type="radio" id="additional_interest_yes" name="additional_interest" value="Yes" required><label for="additional_interest_yes">Yes</label>
+                <input type="radio" id="additional_interest_no" name="additional_interest" value="No" required><label for="additional_interest_no">No</label>
             </div>
 
             <fieldset class="section-box" id="additional_info_section" style="display: none;">
             <label for="activePayingNamiAffiliate"><em>* </em>Are you an active, dues-paying member of a local NAMI affiliate?</label>
             <div class="radio-group">
-                <input type="radio" id="activePayingNamiAffiliate_yes" name="activePayingNamiAffiliate" value="yes"><label for="activePayingNamiAffiliate_yes">Yes</label>
-                <input type="radio" id="activePayingNamiAffiliate_no" name="activePayingNamiAffiliate" value="no"><label for="activePayingNamiAffiliate_no">No</label>
+                <input type="radio" id="activePayingNamiAffiliate_yes" name="activePayingNamiAffiliate" value="Yes"><label for="activePayingNamiAffiliate_yes">Yes</label>
+                <input type="radio" id="activePayingNamiAffiliate_no" name="activePayingNamiAffiliate" value="No"><label for="activePayingNamiAffiliate_no">No</label>
             </div>
 
             <label for="ifNotAreWilling"><em>* </em>If not, are you willing to join?</label>
             <div class="radio-group">
-                <input type="radio" id="ifNotAreWilling_yes" name="ifNotAreWilling" value="yes"><label for="ifNotAreWilling_yes">Yes</label>
-                <input type="radio" id="ifNotAreWilling_no" name="ifNotAreWilling" value="no"><label for="ifNotAreWilling_no">No</label>
+                <input type="radio" id="ifNotAreWilling_yes" name="ifNotAreWilling" value="Yes"><label for="ifNotAreWilling_yes">Yes</label>
+                <input type="radio" id="ifNotAreWilling_no" name="ifNotAreWilling" value="No"><label for="ifNotAreWilling_no">No</label>
             </div>
 
-            <label for="choiceNamiAffiliate"><em>* </em>Which NAMI affiliate are you a member of (or planning to join)?</p>
+            <label for="choiceNamiAffiliate"><em>* </em>Which NAMI affiliate are you a member of (or planning to join)?</label>
             <input type="text" id="choiceNamiAffiliate" name="choiceNamiAffiliate">
             </fieldset>
 

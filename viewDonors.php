@@ -5,6 +5,8 @@ ini_set("display_errors", 1);
 error_reporting(E_ALL);
 
 // Include database connection and header/footer
+require_once('universal.inc');
+
 require_once('database/dbinfo.php');
 require_once('header.php');
 
@@ -14,7 +16,7 @@ $conn = connect();
 // Process deletion if a delete button was clicked
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['delete_id'])) {
     $delete_id = $_POST['delete_id'];
-    $stmt = $conn->prepare("DELETE FROM dbPersons WHERE id = ?");
+    $stmt = $conn->prepare("DELETE FROM dbpersons WHERE id = ?");
     if ($stmt) {
         $stmt->bind_param("s", $delete_id);
         if ($stmt->execute()) {
@@ -39,7 +41,7 @@ $order = (isset($_GET['order']) && strtolower($_GET['order']) === 'desc')
 
 // Build the query to retrieve donors (including the primary key id for deletion)
 $sql = "SELECT id, first_name, last_name, phone1, email, start_date 
-        FROM dbPersons 
+        FROM dbpersons 
         WHERE type = 'donor' 
         ORDER BY $orderby $order";
 $result = mysqli_query($conn, $sql);
