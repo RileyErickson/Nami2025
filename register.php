@@ -72,7 +72,12 @@
             $emergency_contact_first_name = $args['emergency_contact_first_name'];
             $emergency_contact_last_name = $args['emergency_contact_last_name'];
             $emergency_contact_relation = $args['emergency_contact_relation'];
-            $emergency_contact_phone = $args['emergency_contact_phone'];
+
+            $emergency_contact_phone = validateAndFilterPhoneNumber($args['emergency_contact_phone']);
+            if (!$emergency_contact_phone) {
+                $errors = true;
+                echo 'bad phone';
+            }
 
             $strengths = $args['strengths_and_weaknesses'];
             $primary_role = $args['primary_role'];
@@ -123,7 +128,7 @@
                 $primary_role, $work_best, $learning_method, $introOrExtro,
                 $family_with_mental_illness, $involvement_in_nami,
                 $interest, $active_paying_nami_affiliate, $if_not_are_willing,
-                $choice_nami_affiliate, $username, $password, $may_text, $start_date,
+                $choice_nami_affiliate, $username, $password, $may_text,
                 $emergency_contact_first_name, $emergency_contact_last_name, $emergency_contact_relation, $emergency_contact_phone
             );
             $result = add_genVol($newVol);

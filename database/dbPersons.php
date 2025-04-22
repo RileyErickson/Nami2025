@@ -54,7 +54,12 @@ function add_genVol($genVol){
             password, 
             type, 
             status, 
-            archived) 
+            archived,
+            emergency_contact_first_name,
+            emergency_contact_last_name,
+            emergency_contact_relation,
+            emergency_contact_phone
+            ) 
              VALUES (
                 "'. $genVol->get_first_name() .'", 
                 "'. $genVol->get_last_name() .'",
@@ -81,7 +86,11 @@ function add_genVol($genVol){
                 "'. $genVol->get_password() .'",
                 "participant",
                 "pending",
-                "0"
+                "0",
+                "'. $genVol->get_emergency_contact_first_name() .'",
+                "'. $genVol->get_emergency_contact_last_name() .'",
+                "'. $genVol->get_emergency_contact_relation() .'",
+                "'. $genVol->get_emergency_contact_phone() .'"
                 );');
                 mysqli_close($con);
                 return true;

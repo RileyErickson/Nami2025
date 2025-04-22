@@ -45,7 +45,7 @@ class GenVol{
                     $primary_role, $work_best, $learning_method, $introOrExtro,
                     $family_with_mental_illness, $involvement_in_nami,
                     $interest, $active_paying_nami_affiliate, $if_not_are_willing,
-                    $choice_nami_affiliate, $username, $password, $may_text, $start_date,
+                    $choice_nami_affiliate, $username, $password, $may_text,
                     $emergency_contact_first_name, $emergency_contact_last_name,
                     $emergency_contact_relation, $emergency_contact_phone
                     ){
@@ -73,7 +73,6 @@ class GenVol{
         $this->username = $username;
         $this->password = $password;
         $this->may_text = $may_text;
-        $this->start_date = $start_date;
         $this->emergency_contact_first_name = $emergency_contact_first_name;
         $this->emergency_contact_last_name = $emergency_contact_last_name;
         $this->emergency_contact_relation = $emergency_contact_relation;
