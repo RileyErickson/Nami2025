@@ -4,7 +4,8 @@
 
     // Author: Lauren Knight
     // Description: Registration page for new volunteers
-
+    session_cache_expire(30);
+    session_start();
     require_once('include/input-validation.php');
 ?>
 
@@ -16,6 +17,7 @@
 
 </head>
 <body>
+    
     <?php
         require_once('header.php');
         require_once('domain/Person.php');
@@ -50,6 +52,7 @@
             $email = validateEmail($email);
             if (!$email) {
                 $errors = true;
+                ECHO '<div class="error-toast">ERROR: Improper Email</div>';
                 echo 'bad email';
             }
 
@@ -121,6 +124,8 @@
                 echo '<p>Your form submission contained unexpected input.</p>';
                 die();
             }
+
+            $start_date = date("Y-m-d");
             
             $newVol = new GenVol(
                 $first_name, $last_name, $phone1, $contact_method, $email, 
@@ -133,7 +138,9 @@
             );
             $result = add_genVol($newVol);
             if (!$result) {
-                echo '<p>That username is already in use.</p>';
+                echo '<h1>Volunteer Application</h1>';
+                echo '<main class="signup-form">';
+                echo '<p class="error-toast">That username is already in use! <a href="http://localhost/php/project/register.php">Try again?</a></p></main>';
             } else {
                 /*if ($loggedIn) {
                     echo '<script>document.location = "index.php?registerSuccess";</script>';

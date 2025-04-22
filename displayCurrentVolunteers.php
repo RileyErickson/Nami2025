@@ -119,8 +119,10 @@ $access_level = $_SESSION['access_level']; ?>
 <!--    </p>-->
 
     <?php if (count(value: $allMembers) > 0): ?>
+    <div style="overflow-x:auto;">
         <div class="table-wrapper">
             <table class="general">
+
                 <thead>
                 <tr>
                     <th>User ID</th>

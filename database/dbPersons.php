@@ -589,7 +589,20 @@ function make_a_person($result_row) {
         $result_row['orientation_complete'],
         $result_row['orientation_date'],
         $result_row['background_complete'],
-        $result_row['background_date']
+        $result_row['background_date'],
+        $result_row['strengths'],
+        $result_row['primaryRole'],
+        $result_row['workBest'],
+        $result_row['learningMethod'],
+        $result_row['introOrExtro'],
+        $result_row['familyWithMentalIllness'],
+        $result_row['involvementInNami'],
+        $result_row['interest'],
+        $result_row['activePayingNamiAffiliate'],
+        $result_row['ifNotAreWilling'],
+        $result_row['choiceNamiAffiliate'],
+        $result_row['mayText']
+//        $result_row['start_date']
     );
 
     return $thePerson;

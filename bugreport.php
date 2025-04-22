@@ -39,55 +39,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
 <head>
     <?php require('universal.inc'); ?>
     <title>Report a Bug</title>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            margin: 0;
-            padding: 20px;
-        }
-        .container {
-            max-width: 600px;
-            margin: 40px auto;
-            padding: 20px;
-            border: 1px solid #ddd;
-            border-radius: 8px;
-            box-shadow: 0 0 10px rgba(0,0,0,0.1);
-        }
-        h1 {
-            font-size: 32px;
-            text-align: center;
-            margin-bottom: 20px;
-        }
-        form {
-            max-width: 500px;
-            margin: 0 auto;
-        }
-        label {
-            display: block;
-            margin: 15px 0 5px;
-            font-size: 18px;
-        }
-        input, textarea {
-            width: 100%;
-            padding: 10px;
-            font-size: 16px;
-            box-sizing: border-box;
-        }
-        textarea {
-            resize: vertical;
-            min-height: 80px;
-        }
-        button {
-            margin-top: 20px;
-            padding: 12px 24px;
-            background-color: #0c499c;
-            color: #fff;
-            border: none;
-            cursor: pointer;
-            font-size: 18px;
-            border-radius: 5px;
-        }
-    </style>
+
 </head>
 <body>
     <?php require('header.php'); ?>
@@ -110,7 +62,9 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
             <textarea name="expected" id="expected" required></textarea>
 
             <button type="submit">Submit Bug Report</button>
+            <a class="button cancel" href="index.php" style="margin-top: .5rem">Return to Home Dashboard</a>
         </form>
+        
     </div>
 </body>
 </html>

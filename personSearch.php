@@ -67,10 +67,10 @@
                                         <tr>
                                             <th>First</th>
                                             <th>Last</th>
-                                            <th>Username</th>
+                                            <!--<th>Username</th>-->
                                             <th>Phone Number</th>
                                              <th>Email</th>
-											<th>Zip Code</th>
+											<!--<th>Zip Code</th>-->
                                             <th>Role</th>
                                             <th>Archive Status</th>
                                             <th>Profile</th>
@@ -91,10 +91,10 @@
                                         <tr>
                                             <td>' . $person->get_first_name() . '</td>
                                             <td>' . $person->get_last_name() . '</td>
-                                            <td><a href="mailto:' . $person->get_id() . '">' . $person->get_id() . '</a></td>
+                                            <!--<td><a href="mailto:' . $person->get_id() . '">' . $person->get_id() . '</a></td>-->
                                             <td><a href="tel:' . $person->get_phone1() . '">' . formatPhoneNumber($person->get_phone1()) .  '</td>
                                             <td>' . $person->get_email() . '</td>
-                                            <td>' . $person->get_zip_code() . '</td>
+                                            <!--<td>' . $person->get_zip_code() . '</td>-->
                                             <td>';
                                              if (ucfirst($person->get_type()) == "Donator"){
                                                 echo "Donar";
