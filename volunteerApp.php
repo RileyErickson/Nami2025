@@ -98,6 +98,23 @@
         </fieldset>
 
         <fieldset class="section-box">
+            <legend>Emergency Contact Information</legend>
+
+            <p>The following information is for your chosen emergency contact.</p>
+            <label for="emergency_contact_first_name"><em>* </em>Emergency Contact First Name</label>
+            <input type="text" id="emergency_contact_first_name" name="emergency_contact_first_name" required placeholder="Enter your emergency contact's first name">
+
+            <label for="emergency_contact_last_name"><em>* </em>Emergency Contact Last Name</label>
+            <input type="text" id="emergency_contact_last_name" name="emergency_contact_last_name" required placeholder="Enter your emergency contact's last name">
+
+            <label for="emergency_contact_relation"><em>* </em>Emergency Contact Relation</label>
+            <input type="text" id="emergency_contact_relation" name="emergency_contact_relation" required placeholder="Enter relation to your emergency contact">
+
+            <label for="emergency_contact_phone"><em>* </em>Best number to reach emergency contact?</label>
+            <input type="tel" id="emergency_contact_phone" name="emergency_contact_phone" pattern="\([0-9]{3}\) [0-9]{3}-[0-9]{4}" required placeholder="Ex. (555) 555-5555">
+        </fieldset>
+
+        <fieldset class="section-box">
             <legend>NAMIRAPP Specific Questions</legend>
 
             <p>The following information will help us get a better understanding of who you are and why you may be a good fit to volunteer at NAMIRAPP.</p>
