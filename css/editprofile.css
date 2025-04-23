@@ -872,9 +872,8 @@ table.general th, table.general td {
 
 .field-pair p {
     max-width: 75%;
-    word-wrap:break-word;
-    line-break: anywhere;
-    white-space: initial;
+    word-break: keep-all;
+    white-space: wrap;
     margin: 0;
 }
 
