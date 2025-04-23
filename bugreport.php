@@ -1,4 +1,6 @@
 <?php
+session_cache_expire(30);
+session_start();
 if ($_SERVER["REQUEST_METHOD"] === "POST") {
     // Retrieve form data
     $date     = $_POST["date"] ?? "";

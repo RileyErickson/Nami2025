@@ -16,7 +16,7 @@
  */
 include_once('dbinfo.php');
 include_once(dirname(__FILE__).'/../domain/Person.php');
-
+include_once('email.php');
 /*
 * add a general volunteer
 */
@@ -54,12 +54,7 @@ function add_genVol($genVol){
             password, 
             type, 
             status, 
-            archived,
-            emergency_contact_first_name,
-            emergency_contact_last_name,
-            emergency_contact_relation,
-            emergency_contact_phone
-            ) 
+            archived) 
              VALUES (
                 "'. $genVol->get_first_name() .'", 
                 "'. $genVol->get_last_name() .'",
@@ -86,11 +81,7 @@ function add_genVol($genVol){
                 "'. $genVol->get_password() .'",
                 "participant",
                 "pending",
-                "0",
-                "'. $genVol->get_emergency_contact_first_name() .'",
-                "'. $genVol->get_emergency_contact_last_name() .'",
-                "'. $genVol->get_emergency_contact_relation() .'",
-                "'. $genVol->get_emergency_contact_phone() .'"
+                "0"
                 );');
                 mysqli_close($con);
                 return true;
@@ -589,20 +580,7 @@ function make_a_person($result_row) {
         $result_row['orientation_complete'],
         $result_row['orientation_date'],
         $result_row['background_complete'],
-        $result_row['background_date'],
-        $result_row['strengths'],
-        $result_row['primaryRole'],
-        $result_row['workBest'],
-        $result_row['learningMethod'],
-        $result_row['introOrExtro'],
-        $result_row['familyWithMentalIllness'],
-        $result_row['involvementInNami'],
-        $result_row['interest'],
-        $result_row['activePayingNamiAffiliate'],
-        $result_row['ifNotAreWilling'],
-        $result_row['choiceNamiAffiliate'],
-        $result_row['mayText']
-//        $result_row['start_date']
+        $result_row['background_date']
     );
 
     return $thePerson;
@@ -1450,6 +1428,15 @@ function get_logged_hours($from, $to, $name_from, $name_to, $venue) {
         $query = 'UPDATE dbpersons SET type="volunteer", status="Active" WHERE id="' . $id . '"';
         $result = mysqli_query($connection, $query);
         $result = boolval($result);
+        $query  = 'SELECT email FROM dbpersons WHERE id="' . $id . '"';
+        $emailresult = mysqli_query($connection, $query);        //  add this line
+        $data   = mysqli_fetch_assoc($emailresult);
+        $email  = $data['email'];
+        if($result){
+            if(!sendApproval($email,$id)){
+                $result = false;
+            }
+        }
         mysqli_close($connection);
         return $result;
     }

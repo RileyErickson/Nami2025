@@ -25,7 +25,7 @@ $conn = connect();
     <main>
         <div id="dashboard">
         <?php if ($_SESSION['access_level'] >= 2): ?>
-            <div class="dashboard-item" onclick="location.href='EmailList.php'">
+            <div class="dashboard-item" onclick="location.href='emailList.php'">
                 <img src="images/search.svg" alt="List Emails">
                 <span><center>List Emails</center></span>
             </div>

@@ -1,14 +1,11 @@
 <?php
-// Start session and enable error reporting
 session_start();
 ini_set("display_errors", 0);
 error_reporting(E_ALL & ~E_NOTICE & ~E_WARNING);
 
-// Include database connection
 include_once('database/dbinfo.php');
 $conn = connect();
 
-// Check if 'minutes_keywords' table exists, create it if it doesn't
 $checkTableExists = mysqli_query($conn, "SHOW TABLES LIKE 'minutes_keywords'");
 if (mysqli_num_rows($checkTableExists) == 0) {
     $createQuery = "CREATE TABLE minutes_keywords (
@@ -21,7 +18,6 @@ if (mysqli_num_rows($checkTableExists) == 0) {
     }
 }
 
-// Get date from URL
 $date = $_GET['date'] ?? "";
 if (empty($date)) {
     header("Location: selectMinutes.php");
@@ -30,32 +26,36 @@ if (empty($date)) {
 $date = mysqli_real_escape_string($conn, $date);
 $formattedDate = date("m-d-Y", strtotime($date));
 
-// Fetch minutes name
 $minutesName = "";
 $result = mysqli_query($conn, "SELECT name FROM minutes_link WHERE date = '$date' LIMIT 1");
 if ($row = mysqli_fetch_assoc($result)) {
     $minutesName = $row['name'];
 }
 
-// Fetch existing keywords
 $keywords = [];
 $result = mysqli_query($conn, "SELECT * FROM minutes_keywords WHERE date = '$date'");
 while ($row = mysqli_fetch_assoc($result)) {
     $keywords[] = $row;
 }
 
-// Add keyword
+$errorMessage = "";
+
 if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['addKeyword'])) {
     $keyword = trim($_POST['keyword']);
     if (!empty($keyword)) {
         $keyword = mysqli_real_escape_string($conn, $keyword);
-        mysqli_query($conn, "INSERT INTO minutes_keywords (date, keyword) VALUES ('$date', '$keyword')");
-        header("Location: editMinutes.php?date=$date");
-        exit();
+
+        $checkKeyword = mysqli_query($conn, "SELECT 1 FROM minutes_keywords WHERE date = '$date' AND keyword = '$keyword' LIMIT 1");
+        if (mysqli_num_rows($checkKeyword) > 0) {
+            $errorMessage = "Keyword already exists for this date.";
+        } else {
+            mysqli_query($conn, "INSERT INTO minutes_keywords (date, keyword) VALUES ('$date', '$keyword')");
+            header("Location: editMinutes.php?date=$date");
+            exit();
+        }
     }
 }
 
-// Remove keyword
 if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['deleteKeyword'])) {
     $keywordId = mysqli_real_escape_string($conn, $_POST['keywordId']);
     mysqli_query($conn, "DELETE FROM minutes_keywords WHERE id = '$keywordId'");
@@ -63,7 +63,6 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['deleteKeyword'])) {
     exit();
 }
 
-// Delete everything associated with the date
 if ($_SERVER['REQUEST_METHOD'] == 'POST' and isset($_POST['deleteAll'])) {
     mysqli_query($conn, "DELETE FROM minutes_keywords WHERE date = '$date'");
     mysqli_query($conn, "DELETE FROM minutes_link WHERE date = '$date'");
@@ -85,14 +84,22 @@ mysqli_close($conn);
         <h1>Edit Minutes for <?php echo htmlspecialchars($formattedDate); ?></h1>
         <a href="minutes.php" style="background-color: #104C9C; color: white; border: none; padding: 10px; cursor: pointer; border-radius: 5px; text-decoration: none; margin-bottom: 20px; align-self: flex-start;">Back to Minutes</a>
         <div style="background: white; padding: 20px; border-radius: 10px; box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1); width: 400px; text-align: center; margin-bottom: 20px;">
-            <main>
-            <strong>Document:</strong> <?php echo htmlspecialchars($minutesName); ?>
-            <!-- Add Keyword -->
-            <form method="POST">
+            <strong>Link:</strong>
+            <?php if (!empty($minutesName)): ?>
+                <a href="<?php echo htmlspecialchars($minutesName); ?>" target="_blank">Open Minutes</a>
+            <?php else: ?>
+                <em>No link available</em>
+            <?php endif; ?>
+
+            <form method="POST" style="margin-top: 20px;">
                 <input type="text" name="keyword" placeholder="Enter new keyword" required>
                 <input type="submit" name="addKeyword" style="background-color: #104C9C; color: white; padding: 10px; border-radius: 5px; cursor: pointer;" value="Add Keyword">
             </form>
-            <!-- Keyword List -->
+
+            <?php if (!empty($errorMessage)): ?>
+                <p style="color: red; margin-top: 10px;"><?php echo $errorMessage; ?></p>
+            <?php endif; ?>
+
             <h3>Keywords</h3>
             <?php foreach ($keywords as $keyword) : ?>
                 <div style="display: flex; justify-content: space-between; align-items: center; padding: 10px; border: 1px solid #ccc; border-radius: 5px; margin-bottom: 5px;">
@@ -103,11 +110,10 @@ mysqli_close($conn);
                     </form>
                 </div>
             <?php endforeach; ?>
-            <!-- Delete Everything -->
-            <form method="POST">
+
+            <form method="POST" style="margin-top: 20px;">
                 <input type="submit" name="deleteAll" style="background-color: red; border: none; padding: 5px 10px; cursor: pointer; color: white; border-radius: 5px;" value="Delete Minutes (CANNOT BE UNDONE)">
             </form>
-            </main>
         </div>
     </div>
 </body>
