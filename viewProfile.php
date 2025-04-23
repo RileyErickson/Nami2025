@@ -156,7 +156,58 @@
                                     <?php endif; ?>
                             </fieldset>
 
+                           
                             <fieldset class="section-box">
+                                <legend>Volunteer Background Check</legend>
+                            <p>Details about the volunteer's background check status.</p>
+                            <div class="field-pair">
+                                <label>Background Check Completed</label>
+                                <p>
+                                    <?php 
+                                        $backgroundComplete = $user->get_background_complete();
+                                        echo ($backgroundComplete == '1') ? 'Yes' : 'No'; 
+                                    ?>
+                                </p>
+                            </div>
+                            <?php if ($backgroundComplete == '1'): ?>
+                                <div class="field-pair" id="background-date-container">
+                                    <label>Background Check Date</label>
+                                    <p>
+                                        <?php 
+                                            $backgroundDate = $user->get_background_date();
+                                            echo $backgroundDate ? date('d/m/Y', strtotime($backgroundDate)) : 'Not Provided';
+                                        ?>
+                                    </p>
+                                </div>
+                            <?php endif; ?>
+                        </fieldset>
+                        <fieldset class="section-box">
+                                <legend>Screening information</legend>
+                                <p>Details about the volunteer's screening status.</p>
+                                <div class="field-pair">
+                                    <label>Screening Completed</label>
+                                    <p>
+                                    <?php 
+                                        $orientationComplete = $user->get_orientation_complete();
+                                        echo ($orientationComplete == '1') ? 'Yes' : 'No'; 
+                                    ?>
+                                    </p>
+                                </div>
+                                <?php if ($orientationComplete == '1'): ?>
+                                <div class="field-pair" id="orientation-date-container">
+                                    <label>Screening Date</label>
+                                        <p>
+                                        <?php 
+                                            $orientationDate = $user->get_orientation_date();
+                                            echo $orientationDate ? date('d/m/Y', strtotime($orientationDate)) : 'Not Provided';
+                                        ?>
+                                        </p>
+                                </div>
+                                <?php endif; ?>
+                            </fieldset>
+                        </td>
+                        <td>
+                        <fieldset class="section-box">
                                 <legend>Volunteer Information</legend>
                                     <div class="field-pair">
                                        <label>Accommodations</label>
@@ -175,8 +226,6 @@
                                         <p><?php echo ucfirst($user->get_how_you_heard_of_stepva() ?: "Not specified") ?></p>
                                     </div>
                             </fieldset>
-                        </td>
-                        <td>
                             <fieldset class="section-box">
                                 <legend>Contact Information</legend>
 
@@ -207,57 +256,16 @@
                                     <label>Phone Number</label>
                                     <p><a href="tel:<?php 
                                         echo $user->get_emergency_contact_phone()
-                                        ?>"><?php echo formatPhoneNumber($user->get_emergency_contact_phone()) ?></a> <!--(<?php echo ucfirst($user->get_emergency_contact_phone_type()) ?>)--></p>
+                                        ?>"><?php 
+                                        if ($user->get_emergency_contact_phone() != NULL){
+                                            echo formatPhoneNumber($user->get_emergency_contact_phone());}
+                                         ?> </a> <?php 
+                                        if ($user->get_emergency_contact_phone_type() != NULL){
+                                            echo ucfirst($user->get_emergency_contact_phone_type());} ?> </p>
                                 </div>
                             </fieldset>
-                            <fieldset class="section-box">
-                                <legend>Screening information</legend>
-                                <p>Details about the volunteer's screening status.</p>
-                                <div class="field-pair">
-                                    <label>Screening Completed</label>
-                                    <p>
-                                    <?php 
-                                        $orientationComplete = $user->get_orientation_complete();
-                                        echo ($orientationComplete == '1') ? 'Yes' : 'No'; 
-                                    ?>
-                                    </p>
-                                </div>
-                                <?php if ($orientationComplete == '1'): ?>
-                                <div class="field-pair" id="orientation-date-container">
-                                    <label>Screening Date</label>
-                                        <p>
-                                        <?php 
-                                            $orientationDate = $user->get_orientation_date();
-                                            echo $orientationDate ? date('d/m/Y', strtotime($orientationDate)) : 'Not Provided';
-                                        ?>
-                                        </p>
-                                </div>
-                                <?php endif; ?>
-                            </fieldset>
-                            <fieldset class="section-box">
-                                <legend>Volunteer Background Check</legend>
-                            <p>Details about the volunteer's background check status.</p>
-                            <div class="field-pair">
-                                <label>Background Check Completed</label>
-                                <p>
-                                    <?php 
-                                        $backgroundComplete = $user->get_background_complete();
-                                        echo ($backgroundComplete == '1') ? 'Yes' : 'No'; 
-                                    ?>
-                                </p>
-                            </div>
-                            <?php if ($backgroundComplete == '1'): ?>
-                                <div class="field-pair" id="background-date-container">
-                                    <label>Background Check Date</label>
-                                    <p>
-                                        <?php 
-                                            $backgroundDate = $user->get_background_date();
-                                            echo $backgroundDate ? date('d/m/Y', strtotime($backgroundDate)) : 'Not Provided';
-                                        ?>
-                                    </p>
-                                </div>
-                            <?php endif; ?>
-                        </fieldset>
+                            
+                           
                     <?php
                     //debug_to_console($_SESSION['access_level']);
                     if ($_SESSION['access_level'] >= 3) : ?>
