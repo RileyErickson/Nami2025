@@ -139,8 +139,8 @@
  
            <select id="role" name="role">
                 <option value="">Any</option>
-                <option value="volunteer" <?php if (isset($role) && $role == 'volunteer') echo 'selected' ?>>Applicant</option>
-                <option value="participant" <?php if (isset($role) && $role == 'participant') echo 'participant' ?>>Participant</option>
+
+                <option value="volunteer" <?php if (isset($role) && $role == 'volunteer') echo 'volunteer' ?>>volunteer</option>
                 <option value="admin" <?php if (isset($role) && $role == 'admin') echo 'admin' ?>>Admin</option>
                 <option value="board" <?php if (isset($role) && $role == 'board') echo 'board' ?>>Board Member</option>
                 
