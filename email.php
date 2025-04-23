@@ -144,4 +144,30 @@ function sendVerification(string $emailAddress): bool {
     return $result[$emailAddress] ?? false;
 }
 
+
+
+/**
+ * Send an account approval email to the given address.
+ *
+ * @param string $emailAddress  The recipient’s email address.
+ * @param string $id            The user’s account name or ID.
+ * @return bool                 True on success, false on failure.
+ */
+function sendApproval(string $emailAddress, string $id): bool {
+    // Subject line for the approval email
+    $subject = "Your NAMIRAPP Account Is Approved";
+
+    // Email body
+    $body = "Congrats, your NAMIRAPP account is approved. We hope we can do great work together!\n\n"
+          . "Your account name is: {$id}" . " \n Trouble logging in? Contact info@namirapp.org for help.\n\n";
+
+    // Use your existing sendEmails helper to deliver this message
+    $results = sendEmails([$emailAddress], "noreply", $subject, $body);
+
+    // Return the boolean result for this address
+    return $results[$emailAddress] ?? false;
+}
+
+
+
 ?>
