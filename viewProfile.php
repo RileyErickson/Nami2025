@@ -156,25 +156,7 @@
                                     <?php endif; ?>
                             </fieldset>
 
-                            <fieldset class="section-box">
-                                <legend>Volunteer Information</legend>
-                                    <div class="field-pair">
-                                       <label>Accommodations</label>
-                                        <p><?php echo ucfirst($user->get_disability_accomodation_needs() ?: "Not specified") ?></p>
-                                    </div>
-                                    <div class="field-pair">
-                                        <label>Professional Experience</label>
-                                        <p><?php echo ucfirst($user->get_professional_experience() ?: "Not specified") ?></p>
-                                    </div>
-                                    <div class="field-pair">
-                                        <label>Hobbies</label>
-                                        <p><?php echo ucfirst($user->get_hobbies() ?: "Not specified") ?></p>
-                                    </div>
-                                    <div class="field-pair">
-                                        <label>How You Heard of NAMI Rappahannock</label>
-                                        <p><?php echo ucfirst($user->get_how_you_heard_of_stepva() ?: "Not specified") ?></p>
-                                    </div>
-                            </fieldset>
+                           
                             <fieldset class="section-box">
                                 <legend>Volunteer Background Check</legend>
                             <p>Details about the volunteer's background check status.</p>
@@ -225,6 +207,25 @@
                             </fieldset>
                         </td>
                         <td>
+                        <fieldset class="section-box">
+                                <legend>Volunteer Information</legend>
+                                    <div class="field-pair">
+                                       <label>Accommodations</label>
+                                        <p><?php echo ucfirst($user->get_disability_accomodation_needs() ?: "Not specified") ?></p>
+                                    </div>
+                                    <div class="field-pair">
+                                        <label>Professional Experience</label>
+                                        <p><?php echo ucfirst($user->get_professional_experience() ?: "Not specified") ?></p>
+                                    </div>
+                                    <div class="field-pair">
+                                        <label>Hobbies</label>
+                                        <p><?php echo ucfirst($user->get_hobbies() ?: "Not specified") ?></p>
+                                    </div>
+                                    <div class="field-pair">
+                                        <label>How You Heard of NAMI Rappahannock</label>
+                                        <p><?php echo ucfirst($user->get_how_you_heard_of_stepva() ?: "Not specified") ?></p>
+                                    </div>
+                            </fieldset>
                             <fieldset class="section-box">
                                 <legend>Contact Information</legend>
 
