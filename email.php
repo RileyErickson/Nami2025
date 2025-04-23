@@ -116,4 +116,32 @@ function sendEmails(array $emails, string $fromUser, string $subject, string $bo
     return $results;
 }
 
+/**
+ * Send a verification code email to the given address and store it in the database.
+ */
+function sendVerification(string $emailAddress): bool {
+    include_once('database/dbinfo.php');
+    $conn = connect();
+
+    $code = str_pad(random_int(0, 999999), 6, '0', STR_PAD_LEFT);
+
+    // Insert code into verification table
+    $stmt = $conn->prepare("INSERT INTO verification (email, code, confirmed) VALUES (?, ?, false)");
+    $stmt->bind_param("ss", $emailAddress, $code);
+    $success = $stmt->execute();
+    $stmt->close();
+    $conn->close();
+
+    if (!$success) {
+        return false;
+    }
+
+    // Use sendEmails to deliver the verification message
+    $subject = "NAMIRAPP VERIFICATION CODE";
+    $body = "Your code to submit an application is {$code}.";
+    $result = sendEmails([$emailAddress], "noreply", $subject, $body);
+
+    return $result[$emailAddress] ?? false;
+}
+
 ?>
