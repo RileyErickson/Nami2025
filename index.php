@@ -219,7 +219,7 @@
 		               
                         <div class="dashboard-item" data-link="announcement.php">
                             <img src="images/volunteer-history.svg">
-                            <span><center>Post a Message</center></span>
+                            <span><center>Announcements</center></span>
                         </div>
 
 <!--                        <div class="dashboard-item" data-link="changePassword.php">-->
