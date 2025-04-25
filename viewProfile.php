@@ -76,7 +76,7 @@
             <?php endif ?>
             <?php if ($viewingOwnProfile): ?>
                 <h2>Your Profile 
-                    <a href="editProfile.php" title="Edit Profile" class="edit-icon">
+                    <a href="editProfile.php" title="Edit Profile" class="edit-icon"  style="margin-top: .5rem">
                         <i class="fas fa-pencil-alt"></i>
                     </a>
                 </h2>
@@ -362,15 +362,15 @@
             <a class="button" href="editProfile.php<?php if ($id != $userID) echo '?id=' . $id ?>">Edit Profile</a>
             <?php if ($id != $userID): ?>
                 <?php if (($accessLevel == 2 && $user->get_access_level() == 1) || $accessLevel >= 3): ?>
-                    <a class="button" href="resetPassword.php?id=<?php echo htmlspecialchars($_GET['id']) ?>">Reset Password</a>
+                    <a class="button" href="resetPassword.php?id=<?php echo htmlspecialchars($_GET['id']) ?>"  style="margin-top: .5rem">Reset Password</a>
                 <?php endif ?>
-                <a class="button" href="volunteerReport.php?id=<?php echo htmlspecialchars($_GET['id']) ?>">View Volunteer Hours</a>
-                <a class="button cancel" href="personSearch.php">Return to User Search</a>
-                <a class="button cancel" href="index.php">Return to Dashboard</a>
+                <a class="button" href="volunteerReport.php?id=<?php echo htmlspecialchars($_GET['id']) ?>"  style="margin-top: .5rem">View Volunteer Hours</a>
+                <a class="button cancel" href="personSearch.php"  style="margin-top: .5rem" >Return to User Search</a>
+                <a class="button cancel" href="index.php"  style="margin-top: .5rem" >Return to Dashboard</a>
             <?php else: ?>
-                <a class="button" href="changePassword.php">Change Password</a>
-                <a class="button" href="volunteerReport.php">View Volunteer Hours</a>
-                <a class="button cancel" href="index.php">Return to Dashboard</a>
+                <a class="button" href="changePassword.php"  style="margin-top: .5rem" >Change Password</a>
+                <a class="button" href="volunteerReport.php"  style="margin-top: .5rem">View Volunteer Hours</a>
+                <a class="button cancel" href="index.php"  style="margin-top: .5rem">Return to Dashboard</a>
             <?php endif ?>
         </main>
     </body>
