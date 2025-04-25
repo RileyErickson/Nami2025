@@ -157,11 +157,11 @@ $access_level = $_SESSION['access_level']; ?>
                         <td><?php echo htmlspecialchars($name); ?></td>
                         <td><?php echo htmlspecialchars($allMembers[$x]['last_name']); ?></td>
                         <td><?php 
-                            if ($allMembers[$x]['type'] == "donator"){
-                                echo "Donar";
+                            if ($allMembers[$x]['type'] == "donor"){
+                                echo "Donor";
                             }  
                             else if ($allMembers[$x]['type'] == "volunteer" || $allMembers[$x]['type'] == "v"){
-                                echo "Applicant";
+                                echo "volunteer";
                             }  
                             else if ($allMembers[$x]['type'] == "admin" ){
                                 echo "Admin";
