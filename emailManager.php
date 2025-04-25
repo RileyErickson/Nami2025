@@ -25,14 +25,22 @@ $conn = connect();
     <main>
         <div id="dashboard">
         <?php if ($_SESSION['access_level'] >= 2): ?>
+<<<<<<< HEAD
+<<<<<<< Updated upstream
+            <div class="dashboard-item" onclick="location.href='EmailList.php'">
+=======
+            <div class="dashboard-item" onclick="location.href='sendMessages.php'">
+                
+                <img src="images/emailsend.svg" alt="Send Email">
+                <span><center>Send Email</center></span>
+            </div>
             <div class="dashboard-item" onclick="location.href='emailList.php'">
+>>>>>>> Stashed changes
+=======
+            <div class="dashboard-item" onclick="location.href='emailList.php'">
+>>>>>>> f58ef376184eab8bfae01c5ada0bbb1a8f875cb9
                 <img src="images/search.svg" alt="List Emails">
                 <span><center>List Emails</center></span>
-            </div>
-            <div class="dashboard-item" onclick="location.href='sendMessages.php'">
-                <!-- TODO: Change the .svg icon for send messages -->
-                <img src="images/search.svg" alt="Send Email">
-                <span><center>Send Email</center></span>
             </div>
             <div style="flex-basis: 100%; height: 0;"></div>
             <div class="dashboard-item" onclick="location.href='index.php'" style="background-color: grey;">

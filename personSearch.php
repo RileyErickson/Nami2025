@@ -97,7 +97,7 @@
                                             <!--<td>' . $person->get_zip_code() . '</td>-->
                                             <td>';
                                              if (ucfirst($person->get_type()) == "Donator"){
-                                                echo "Donar";
+                                                echo "Donor";
                                              }  
                                             else if (ucfirst($person->get_type()) == "Volunteer" || ucfirst($person->get_type()) == "V"){
                                                 echo "Applicant";
