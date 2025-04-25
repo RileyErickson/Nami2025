@@ -23,6 +23,9 @@
         }
     }
 ?>
+<?php
+session_start();
+?>
 
 <!DOCTYPE html>
 <html>
@@ -32,7 +35,7 @@
 </head>
 <body>
     <?php
-        //require_once('header.php');
+        require_once('header.php');
         require_once('domain/Person.php');
         require_once('database/dbPersons.php');
         require_once('domain/GenVol.php');

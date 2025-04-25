@@ -22,26 +22,7 @@
     //Log-in security
     //If they aren't logged in, display our log-in form.
     $showing_login = false;
-    if (!isset($_SESSION['logged_in'])) {
-        echo '
-            <nav>
-                <div class="nav-left">
-                    <span id="nav-top"><span class="logo"><img class="nami-logo" src="images/logoLong.jpg"></span>
-                </div>
-                <div class="nav-right">
-                    <ul>
-                        <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><img class="logout-logo" src="images/logout.svg" alt="logout"></a>
-                        <div class="dropdown-menu">
-                            <a class="dropdown-item" href="login.php">Log in</a>
-                        </div>
-                        </li>
-                    </ul>
-                </div>
-            </nav>';
-
-    } else if ($_SESSION['logged_in']) {
-
+    if (isset($_SESSION['logged_in']) && $_SESSION['logged_in'] === true) {
         /*         * Set our permission array.
          * anything a guest can do, a volunteer and manager can also do
          * anything a volunteer can do, a manager can do.
@@ -148,10 +129,7 @@
         $permission_array['viewdonors.php'] = 2;
         $permission_array['donormanager.php'] = 2;
         $permission_array['forms.php'] = 1;
-	$permission_array['bugreport.php'] = 1;
-
-
-
+	    $permission_array['bugreport.php'] = 1;
 
 	// LOWERCASE
 
@@ -320,6 +298,69 @@
         echo('<script>');
         echo('function toggleMenu() {const menu = document.getElementById(\'mobileMenu\'); menu.style.display = (menu.style.display === \'flex\') ? \'none\' : \'flex\';}');
         echo('</script>');
+        
+    } else {
+        
+        echo '
+        <style>
+
+            nav {
+                display: flex;
+                flex-direction: row;
+                padding: 1rem 2rem;
+                justify-content: space-between;
+                height: var(--header-height);
+                box-shadow: 0 6px 8px rgba(0, 0, 0, 0.2);
+                width: 100%;
+                background-color: var(--page-background-color);
+                max-width: 100vw;
+            }
+
+            .nav-left,
+            .nav-right {
+                display: flex;
+            }
+
+            .nami-logo {
+                height: 5rem;
+                max-width: 100%;
+            }
+
+            .logout-logo {
+                height: 2.5rem;
+                cursor: pointer;
+            }
+
+            .logout-logo:hover {
+                filter: brightness(0) saturate(100%) invert(60%) sepia(100%) saturate(500%) hue-rotate(25deg);
+            }
+
+            nav ul {
+                display: inline-flex;
+                flex-direction: row;
+                gap: 1rem;
+            }
+
+            nav ul li a:hover {
+                color: var(--accent-color);
+            }
+
+        </style>
+            <nav>
+                <div class="nav-left">
+                    <span class="logo"><a class="navbar-brand" href="login.php"><img class="nami-logo" src="images/logoLong.jpg"></a></span>
+                </div>
+                <div class="nav-right">
+                    <ul>
+                        <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><img class="logout-logo" src="images/logout.svg" alt="logout"></a>
+                        <div class="dropdown-menu">
+                            <a class="dropdown-item" href="login.php">Log in</a>
+                        </div>
+                        </li>
+                    </ul>
+                </div>
+            </nav>';
         
     }
     ?>
