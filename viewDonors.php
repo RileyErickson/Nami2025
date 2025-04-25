@@ -20,7 +20,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['delete_id'])) {
     if ($stmt) {
         $stmt->bind_param("s", $delete_id);
         if ($stmt->execute()) {
-            $message = "Donor deleted successfully.";
+            $message = "<div class=\"happy-toast\">Donor deleted successfully!</div>";
         } else {
             $error = "Error deleting donor: " . $stmt->error;
         }
@@ -49,7 +49,9 @@ $result = mysqli_query($conn, $sql);
 <!DOCTYPE html>
 <html>
 <head>
+<?php require_once('universal.inc') ?>
     <title>Donors List | NAMI Rappahannock</title>
+    
     <style>
         body { 
             font-family: Arial, sans-serif; 
@@ -57,7 +59,7 @@ $result = mysqli_query($conn, $sql);
         }
         h1 { 
             text-align: center; 
-            margin-top: 2em;
+
         }
         table { 
             width: 80%; 
@@ -91,10 +93,11 @@ $result = mysqli_query($conn, $sql);
     </style>
 </head>
 <body>
+<?php require_once('header.php') ?>
     <h1>Donors List</h1>
-    <?php if (isset($message)): ?>
-        <p class="message"><?php echo htmlspecialchars($message); ?></p>
-    <?php endif; ?>
+    <?php if (isset($message)):
+        echo $message;
+     endif; ?>
     <?php if (isset($error)): ?>
         <p class="error"><?php echo htmlspecialchars($error); ?></p>
     <?php endif; ?>
@@ -150,8 +153,11 @@ $result = mysqli_query($conn, $sql);
                 }
                 ?>
             </tbody>
+            
         </table>
+        <a class="button cancel" href="donorManager.php">Return to Dashboard</a>
     </main>
+
     <?php require_once('footer.php'); ?>
 </body>
 </html>
