@@ -18,7 +18,7 @@ $createMinutesTableQuery = "CREATE TABLE IF NOT EXISTS minutes_link (
 if (!mysqli_query($conn, $createMinutesTableQuery)) {
     echo "Error creating table: " . mysqli_error($conn);
 }
-$checkTableExists = 
+
 if (!mysqli_num_rows(mysqli_query($conn, "SHOW TABLES LIKE 'minutes_keywords'"))) {
     $createQuery = "CREATE TABLE minutes_keywords (
         id INT AUTO_INCREMENT PRIMARY KEY,
