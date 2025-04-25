@@ -5,7 +5,25 @@ error_reporting(E_ALL);
 
 include_once('database/dbinfo.php');
 $conn = connect();
-
+$createMinutesTableQuery = "CREATE TABLE IF NOT EXISTS minutes_link (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    name VARCHAR(255) NOT NULL,
+    date DATE NOT NULL
+)";
+if (!mysqli_query($conn, $createMinutesTableQuery)) {
+    echo "Error creating table: " . mysqli_error($conn);
+}
+$checkTableExists = mysqli_query($conn, "SHOW TABLES LIKE 'minutes_keywords'");
+if (mysqli_num_rows($checkTableExists) == 0) {
+    $createQuery = "CREATE TABLE minutes_keywords (
+        id INT AUTO_INCREMENT PRIMARY KEY,
+        date DATE NOT NULL,
+        keyword VARCHAR(255) NOT NULL
+    )";
+    if (!mysqli_query($conn, $createQuery)) {
+        die("Error creating keywords table: " . mysqli_error($conn));
+    }
+}
 $keywordQuery = "SELECT DISTINCT keyword FROM minutes_keywords ORDER BY keyword ASC";
 $keywordsResult = mysqli_query($conn, $keywordQuery);
 $keywords = [];

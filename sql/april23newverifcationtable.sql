@@ -32,7 +32,11 @@ CREATE TABLE `blacklisted` (
   `name` varchar(255) NOT NULL,
   `date` date NOT NULL,
   `reason` text NOT NULL
+<<<<<<< HEAD
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+=======
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+>>>>>>> f58ef376184eab8bfae01c5ada0bbb1a8f875cb9
 
 -- --------------------------------------------------------
 
@@ -581,7 +585,11 @@ CREATE TABLE `minutes_keywords` (
   `id` int NOT NULL,
   `date` date NOT NULL,
   `keyword` varchar(255) NOT NULL
+<<<<<<< HEAD
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+=======
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+>>>>>>> f58ef376184eab8bfae01c5ada0bbb1a8f875cb9
 
 --
 -- Dumping data for table `minutes_keywords`
@@ -600,7 +608,11 @@ CREATE TABLE `minutes_link` (
   `id` int NOT NULL,
   `name` varchar(255) NOT NULL,
   `date` date NOT NULL
+<<<<<<< HEAD
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+=======
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+>>>>>>> f58ef376184eab8bfae01c5ada0bbb1a8f875cb9
 
 --
 -- Dumping data for table `minutes_link`
@@ -622,7 +634,11 @@ CREATE TABLE `pendingHourLogs` (
   `date` date NOT NULL,
   `what` text NOT NULL,
   `hours` int NOT NULL
+<<<<<<< HEAD
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+=======
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+>>>>>>> f58ef376184eab8bfae01c5ada0bbb1a8f875cb9
 
 -- --------------------------------------------------------
 
@@ -636,7 +652,11 @@ CREATE TABLE `verification` (
   `code` varchar(6) NOT NULL,
   `confirmed` tinyint(1) DEFAULT '0',
   `created_at` timestamp NULL DEFAULT CURRENT_TIMESTAMP
+<<<<<<< HEAD
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+=======
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+>>>>>>> f58ef376184eab8bfae01c5ada0bbb1a8f875cb9
 
 -- --------------------------------------------------------
 
@@ -650,7 +670,11 @@ CREATE TABLE `volunteerHours` (
   `l_name` varchar(255) NOT NULL,
   `date` date NOT NULL,
   `hours` int NOT NULL
+<<<<<<< HEAD
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+=======
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+>>>>>>> f58ef376184eab8bfae01c5ada0bbb1a8f875cb9
 
 --
 -- Indexes for dumped tables
