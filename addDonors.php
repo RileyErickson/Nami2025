@@ -53,7 +53,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         } else {
             $stmt->bind_param("sssssss", $id, $first_name, $last_name, $phone1, $email, $start_date, $type);
             if ($stmt->execute()) {
-                $success = "Donor added successfully!";
+                
+                $success = "<div class=\"happy-toast\">Donor added successfully!</div>";
             } else {
                 $error = "Error inserting donor: " . htmlspecialchars($stmt->error);
             }
@@ -82,10 +83,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         input, button { width: 100%; padding: 0.5em; margin-bottom: 1em; }
         .error { color: red; }
         .success { color: green; }
+        <?php require_once('universal.inc') ?>
     </style>
 </head>
 <body>
-    <h1 style="text-align: center;">Add Donor</h1>
+    <h1>Add Donor</h1>
     <main>
         <?php if ($error): ?>
             <div class="error"><?php echo $error; ?></div>
@@ -111,6 +113,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             <input type="date" id="start_date" name="start_date" value="<?php echo htmlspecialchars($_POST['start_date'] ?? ''); ?>">
 
             <button type="submit">Add Donor</button>
+            <a class="button cancel" href="donorManager.php">Return to Dashboard</a>
         </form>
     </main>
     <?php require_once('footer.php'); ?>
