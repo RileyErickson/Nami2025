@@ -55,8 +55,8 @@
 }
 ?>
         <br>
-        <p style="font-size: 45px; color: #0c499c; text-align: center; padding-left: 50px"><b>Welcome back, <?php echo $person->get_first_name() ?>!</b></p>
-        <p  style="font-size: 20px;  color: #0c499c; text-align: center; padding-left: 50px">Today is <?php echo date('l, F j, Y'); ?>.</p>
+        <p style="font-size: 45px; color: #0c499c; text-align: center;"><b>Welcome back, <?php echo $person->get_first_name() ?>!</b></p>
+        <p  style="font-size: 20px;  color: #0c499c; text-align: center;">Today is <?php echo date('l, F j, Y'); ?>.</p>
 
         <br>
 
