@@ -177,14 +177,6 @@
             <label for="emergency_contact_phone"><em>* </em>Phone Number</label>
             <input type="tel" id="emergency_contact_phone" name="emergency_contact_phone" value="<?php echo formatPhoneNumber($person->get_emergency_contact_phone()); ?>" pattern="\([0-9]{3}\) [0-9]{3}-[0-9]{4}" required placeholder="Ex. (555) 555-5555">
 
-            <label><em>* </em>Phone Type</label>
-            <div class="radio-group">
-                <?php $type = $person->get_emergency_contact_phone_type(); ?>
-                <input type="radio" id="phone-type-cellphone" name="emergency_contact_phone_type" value="cellphone" <?php if ($type == 'cellphone') echo 'checked'; ?> required><label for="phone-type-cellphone">Cell</label>
-                <input type="radio" id="phone-type-home" name="emergency_contact_phone_type" value="home" <?php if ($type == 'home') echo 'checked'; ?> required><label for="phone-type-home">Home</label>
-                <input type="radio" id="phone-type-work" name="emergency_contact_phone_type" value="work" <?php if ($type == 'work') echo 'checked'; ?> required><label for="phone-type-work">Work</label>
-            </div>
-
         </fieldset>
 
 

@@ -50,6 +50,7 @@ session_start();
             // Your existing validations...
             $first_name = $args['first_name'];
             $last_name  = $args['last_name'];
+            $birthday = $args['birthday'];
 
             $phone1 = validateAndFilterPhoneNumber($args['phone']);
             if (!$phone1) {
@@ -97,6 +98,16 @@ session_start();
             $active_paying_nami_affiliate = $args['activePayingNamiAffiliate'] ?? 'no';
             $if_not_are_willing           = $args['ifNotAreWilling']       ?? 'no';
             $choice_nami_affiliate        = $args['choiceNamiAffiliate'];
+
+            $emergency_contact_first_name = $args['emergency_contact_first_name'];
+            $emergency_contact_last_name = $args['emergency_contact_last_name'];
+
+            $emergency_contact_phone = validateAndFilterPhoneNumber($args['emergency_contact_phone']);
+            if (!$emergency_contact_phone) {
+                $errors = true;
+                echo 'bad phone';
+            }
+            $emergency_contact_relation = $args['emergency_contact_relation'];
 
             $username = $args['username'];
 
@@ -147,7 +158,8 @@ session_start();
                 $family_with_mental_illness, $involvement_in_nami,
                 $interest, $active_paying_nami_affiliate, $if_not_are_willing,
                 $choice_nami_affiliate, $username, $password, $may_text,
-                $emergency_contact_first_name, $emergency_contact_last_name, $emergency_contact_relation, $emergency_contact_phone
+                $emergency_contact_first_name, $emergency_contact_last_name, $emergency_contact_relation, $emergency_contact_phone,
+                $birthday
             );
             $result = add_genVol($newVol);
             if (!$result) {
