@@ -17,7 +17,17 @@ mysqli_query($conn, "CREATE TABLE IF NOT EXISTS volunteerHours (
     date DATE NOT NULL,
     hours INT NOT NULL
 )");
+mysqli_query($conn,"CREATE TABLE IF NOT EXISTS pendingHourLogs (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    first_name VARCHAR(255) NOT NULL,
+    last_name VARCHAR(255) NOT NULL,
+    date DATE NOT NULL,
+    what TEXT NOT NULL,
+    hours INT NOT NULL
+)");
 
+
+if (!isset($newTable)){
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $log_id = intval($_POST['log_id']);
 
@@ -53,7 +63,7 @@ $pendingLogs = [];
 $result = mysqli_query($conn, "SELECT * FROM pendingHourLogs ORDER BY date DESC");
 while ($row = mysqli_fetch_assoc($result)) {
     $pendingLogs[] = $row;
-}
+}}
 mysqli_close($conn);
 ?>
 <!DOCTYPE html>
@@ -77,7 +87,7 @@ mysqli_close($conn);
     <div class="container">
     <main>
         <?php if (empty($pendingLogs)) : ?>
-            <p class="no-logs">No pending logs to review.</p>
+            <p class="no-logs"><div class="error-toast">No pending logs to review.</div></p>
         <?php else : ?>
             <?php foreach ($pendingLogs as $log) : ?>
                 <div class="log-container">

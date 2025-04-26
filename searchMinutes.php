@@ -1,14 +1,29 @@
 <?php
-// Start session and enable error reporting
 session_start();
 ini_set("display_errors", 1);
 error_reporting(E_ALL);
 
-// Include database connection
 include_once('database/dbinfo.php');
 $conn = connect();
-
-// Fetch all unique keywords for sidebar
+$createMinutesTableQuery = "CREATE TABLE IF NOT EXISTS minutes_link (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    name VARCHAR(255) NOT NULL,
+    date DATE NOT NULL
+)";
+if (!mysqli_query($conn, $createMinutesTableQuery)) {
+    echo "Error creating table: " . mysqli_error($conn);
+}
+$checkTableExists = mysqli_query($conn, "SHOW TABLES LIKE 'minutes_keywords'");
+if (mysqli_num_rows($checkTableExists) == 0) {
+    $createQuery = "CREATE TABLE minutes_keywords (
+        id INT AUTO_INCREMENT PRIMARY KEY,
+        date DATE NOT NULL,
+        keyword VARCHAR(255) NOT NULL
+    )";
+    if (!mysqli_query($conn, $createQuery)) {
+        die("Error creating keywords table: " . mysqli_error($conn));
+    }
+}
 $keywordQuery = "SELECT DISTINCT keyword FROM minutes_keywords ORDER BY keyword ASC";
 $keywordsResult = mysqli_query($conn, $keywordQuery);
 $keywords = [];
@@ -16,15 +31,12 @@ while ($row = mysqli_fetch_assoc($keywordsResult)) {
     $keywords[] = $row['keyword'];
 }
 
-// Initialize variables
 $selectedKeywords = $_GET['keywords'] ?? [];
-$sortOrder = $_GET['sort'] ?? 'ASC'; // Default sort order
+$sortOrder = $_GET['sort'] ?? 'ASC';
 
-// Start with a basic query to fetch all dates and links
 $searchQuery = "SELECT date, name AS link FROM minutes_link ORDER BY date $sortOrder";
 
 if (!empty($selectedKeywords)) {
-    // Apply keyword filter if provided
     $keywordFilter = "'" . implode("','", array_map(function($keyword) use ($conn) { 
         return mysqli_real_escape_string($conn, $keyword); 
     }, $selectedKeywords)) . "'";
@@ -41,7 +53,6 @@ while ($row = mysqli_fetch_assoc($result)) {
     $minutesResults[] = $row;
 }
 
-// Close the database connection
 mysqli_close($conn);
 ?>
 <!DOCTYPE html>
@@ -52,10 +63,10 @@ mysqli_close($conn);
     <style>
         #sidebar {
             width: 200px;
-            float: left;
+            margin-right: 20px;
         }
         #content {
-            margin-left: 210px;
+            flex: 1;
         }
         .container {
             background: white;
@@ -73,57 +84,62 @@ mysqli_close($conn);
             text-decoration: none;
             color: black;
         }
+        .keyword-box {
+            background-color: #f5f5f5;
+            border: 1px solid #ccc;
+            padding: 5px 10px;
+            margin-bottom: 8px;
+            border-radius: 5px;
+        }
     </style>
 </head>
 <body>
     <?php require_once('header.php') ?>
     <h1>Search Minutes</h1>
-    <div id="sidebar" class="container">
-        <h3>Select Keywords</h3>
-        <form action="searchMinutes.php" method="GET">
-            <?php foreach ($keywords as $keyword): ?>
-                <div>
-                    <input type="checkbox" name="keywords[]" value="<?php echo htmlspecialchars($keyword); ?>" 
-                        <?php echo in_array($keyword, $selectedKeywords) ? 'checked' : ''; ?>>
-                    <?php echo htmlspecialchars($keyword); ?>
-                </div>
-            <?php endforeach; ?>
-            <input type="submit" value="Search">
-        </form>
-    </div>
-    <div id="content">
-        <div class="container">
-            <h3>Sort Results</h3>
+    <div style="display: flex;">
+        <div id="sidebar" class="container">
+            <h3>Select Keywords</h3>
             <form action="searchMinutes.php" method="GET">
-                <!-- Include keywords in the sort form to preserve filter settings -->
-                <?php foreach ($selectedKeywords as $keyword): ?>
-                    <input type="hidden" name="keywords[]" value="<?php echo htmlspecialchars($keyword); ?>">
+                <?php foreach ($keywords as $keyword): ?>
+                    <div class="keyword-box">
+                        <input type="checkbox" name="keywords[]" value="<?php echo htmlspecialchars($keyword); ?>" 
+                            <?php echo in_array($keyword, $selectedKeywords) ? 'checked' : ''; ?>>
+                        <?php echo htmlspecialchars($keyword); ?>
+                    </div>
                 <?php endforeach; ?>
-                <input type="radio" name="sort" value="ASC" <?php echo $sortOrder === 'ASC' ? 'checked' : ''; ?>> Ascending
-                <input type="radio" name="sort" value="DESC" <?php echo $sortOrder === 'DESC' ? 'checked' : ''; ?>> Descending
-                <input type="submit" value="Sort">
+                <input type="submit" value="Search">
             </form>
         </div>
-        <div class="container">
-            <h3>Minutes Results</h3>
-            <?php if (!empty($minutesResults)): ?>
-                <ul style="padding-left: 0;">
-                    <?php foreach ($minutesResults as $minutes): ?>
-                        <li class="clickable">
-                            <!-- Assuming 'link' is the URL to open, and it's not empty -->
-                            <a href="<?php echo htmlspecialchars($minutes['link']); ?>" target="_blank" class="clickable">
-                                <?php echo htmlspecialchars($minutes['date']); ?>
-                            </a>
-                        </li>
+        <div id="content">
+            <div class="container">
+                <h3>Sort Results</h3>
+                <form action="searchMinutes.php" method="GET">
+                    <?php foreach ($selectedKeywords as $keyword): ?>
+                        <input type="hidden" name="keywords[]" value="<?php echo htmlspecialchars($keyword); ?>">
                     <?php endforeach; ?>
-                </ul>
-            <?php else: ?>
-                <p>No results found.</p>
-            <?php endif; ?>
+                    <input type="radio" name="sort" value="ASC" <?php echo $sortOrder === 'ASC' ? 'checked' : ''; ?>> Ascending
+                    <input type="radio" name="sort" value="DESC" <?php echo $sortOrder === 'DESC' ? 'checked' : ''; ?>> Descending
+                    <input type="submit" value="Sort">
+                </form>
+            </div>
+            <div class="container">
+                <h3>Minutes Results</h3>
+                <?php if (!empty($minutesResults)): ?>
+                    <ul style="padding-left: 0;">
+                        <?php foreach ($minutesResults as $minutes): ?>
+                            <li class="clickable">
+                                <a href="editMinutes.php?date=<?php echo urlencode($minutes['date']); ?>" class="clickable">
+                                    <?php echo htmlspecialchars($minutes['date']); ?>
+                                </a>
+                            </li>
+                        <?php endforeach; ?>
+                    </ul>
+                <?php else: ?>
+                    <p>No results found.</p>
+                <?php endif; ?>
+            </div>
         </div>
     </div>
 </body>
 <?php require('footer.php'); ?>
 </html>
-
-        

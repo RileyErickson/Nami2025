@@ -860,6 +860,7 @@ table.general th, table.general td {
 
 /* Field pair styling to keep label and paragraph close */
 .field-pair {
+
     margin-bottom: 15px; /* space between each field pair */
 }
 
@@ -870,6 +871,9 @@ table.general th, table.general td {
 }
 
 .field-pair p {
+    max-width: 75%;
+    word-break: keep-all;
+    white-space: wrap;
     margin: 0;
 }
 

@@ -130,7 +130,7 @@
                         // Provides drop down of the role types to select and change the role
 			//other than the person's current role type is displayed
             if ($accessLevel == 3) {
-				$roles = array('volunteer' => 'Volunteer', 'participant' => 'Participant', 'admin' => 'Admin','board' => 'Board Member','donator' => 'Donator');
+				$roles = array('volunteer' => 'Applicant', 'participant' => 'Participant', 'admin' => 'Admin','board' => 'Board Member','donator' => 'Donar');
                 echo '<label for="role">Change Role</label><select id="role" class="form-select-sm" name="s_role">' ;
                 // echo '<option value="" SELECTED></option>' ;
                 $currentRole = $thePerson->get_type()[0];

@@ -19,6 +19,17 @@ if (!mysqli_query($conn, $createMinutesTableQuery)) {
     echo "Error creating table: " . mysqli_error($conn);
 }
 
+if (!mysqli_num_rows(mysqli_query($conn, "SHOW TABLES LIKE 'minutes_keywords'"))) {
+    $createQuery = "CREATE TABLE minutes_keywords (
+        id INT AUTO_INCREMENT PRIMARY KEY,
+        date DATE NOT NULL,
+        keyword VARCHAR(255) NOT NULL
+    )";
+    if (!mysqli_query($conn, $createQuery)) {
+        die("Error creating keywords table: " . mysqli_error($conn));
+    }
+}
+
 $message = "";
 
 // Handle link upload

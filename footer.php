@@ -9,7 +9,7 @@
     </div>
     <div class="right">
         <div class="contact-info">
-            <div>Contact us here: <br> namirappahannock2020@gmail.com</div>
+            <div>Contact us here: <br> info@namirapp.org</div>
             <div><a href="bugreport.php" class="bug-link">Report a bug</a></div>
         </div>
     </div>
@@ -25,6 +25,7 @@
     font-size: 16px;
     color: #fff;
     flex-shrink: 0;
+    margin-top: auto;
 }
 
 .footer .left {
@@ -46,6 +47,7 @@
 .footer .image-links a:hover {
     font-weight: bold;
     animation: bounce 0.5s ease;
+    filter: brightness(0) saturate(100%) invert(50%) sepia(100%) saturate(700%) hue-rotate(40deg);
 }
 
 .footer .right {
@@ -68,6 +70,50 @@
 
 .footer .bug-link:hover {
     font-weight: bold;
+    animation: bounce 0.5s ease;
+    filter: brightness(0) saturate(100%) invert(50%) sepia(100%) saturate(700%) hue-rotate(40deg);
+}
+
+.footer .main-image {
+    max-width: 100%;
+    height: auto;
+}
+
+@media (max-width: 768px) {
+  .footer {
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    padding: 30px 20px;
+  }
+
+  .footer .left {
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    padding-bottom: 20px;
+  }
+
+  .footer .image-links {
+    align-items: center;
+  }
+
+  .footer .main-image {
+    width: 200px !important; /* Force the image to be larger */
+    height: auto !important; /* Ensure aspect ratio is preserved */
+  }
+
+  .footer .right {
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+  }
+
+  .footer .contact-info {
+    text-align: center;
+  }
 }
 
 @keyframes bounce {

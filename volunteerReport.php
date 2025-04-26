@@ -1,110 +1,106 @@
 <?php
-    // Template for new VMS pages. Base your new page on this one
+session_start();
+ini_set('display_errors', 1);
+error_reporting(E_ALL);
 
-    // Make session information accessible, allowing us to associate
-    // data with the logged-in user.
-    session_cache_expire(30);
-    session_start();
-    ini_set("display_errors",1);
-    error_reporting(E_ALL);
-    $loggedIn = false;
-    $accessLevel = 0;
-    $userID = null;
-    if (isset($_SESSION['_id'])) {
-        $loggedIn = true;
-        // 0 = not logged in, 1 = standard user, 2 = manager (Admin), 3 super admin (TBI)
-        $accessLevel = $_SESSION['access_level'];
-        $userID = $_SESSION['_id'];
-    }
-    if (!$loggedIn) {
-        header('Location: login.php');
-        die();
-    }
-    $isAdmin = $accessLevel >= 2;
-    require_once('database/dbPersons.php');
-    if ($isAdmin && isset($_GET['id'])) {
-        require_once('include/input-validation.php');
-        $args = sanitize($_GET);
-        $id = $args['id'];
-        $viewingSelf = $id == $userID;
-    } else {
-        $id = $_SESSION['_id'];
-        $viewingSelf = true;
-    }
-    $events = get_events_attended_by($id);
-    $volunteer = retrieve_person($id);
+require_once 'header.php';
+require_once 'universal.inc';
+require_once 'database/dbinfo.php';
+
+$conn = connect();
+
+// Get person ID from URL
+$id = isset($_GET['id']) ? trim($_GET['id']) : '';
+if ($id === '') {
+    die('Error: id parameter required.');
+}
+
+// Lookup first and last name
+$stmt = $conn->prepare(
+    "SELECT first_name, last_name FROM dbpersons WHERE id = ?"
+);
+$stmt->bind_param('s', $id);
+$stmt->execute();
+$stmt->bind_result($firstName, $lastName);
+
+if (!$stmt->fetch()) {
+    $stmt->close();
+    $conn->close();
+    die('Error: person not found.');
+}
+$stmt->close();
+
+// Fetch volunteer hours
+$stmt = $conn->prepare(
+    "SELECT date, hours
+     FROM volunteerHours
+     WHERE f_name = ? AND l_name = ?
+     ORDER BY date ASC"
+);
+$stmt->bind_param('ss', $firstName, $lastName);
+$stmt->execute();
+$result = $stmt->get_result();
+
+$hoursLog = [];
+$totalHours = 0;
+while ($row = $result->fetch_assoc()) {
+    $hoursLog[] = $row;
+    $totalHours += $row['hours'];
+}
+$stmt->close();
+$conn->close();
 ?>
 <!DOCTYPE html>
 <html>
-    <head>
-        <?php require_once('universal.inc') ?>
-        <title>NAMI Rappahannock | Volunteer History</title>
-        <link rel="stylesheet" href="css/hours-report.css">
-    </head>
-    <body>
-        <?php 
-            require_once('header.php');
-        ?>
-        <h1>Volunteer History Report</h1>
-        <main class="hours-report">
-            <?php if (!$volunteer): ?>
-                <p class="error-toast">That volunteer does not exist!</p>
-            <?php elseif ($viewingSelf): ?>
-                <h2 class="no-print">Your Volunteer Hours</h2>
+<head>
+    <meta charset="utf-8">
+    <title>Volunteer Hours: <?php echo htmlspecialchars("$firstName $lastName"); ?></title>
+    <style>
+        body { font-family: Arial, sans-serif; }
+        .container { max-width: 700px; margin: 40px auto; padding: 20px; }
+        h1 { text-align: center; margin-bottom: 30px; }
+        .box { background: #fff; padding: 30px; border-radius: 12px; box-shadow: 0 0 10px rgba(0,0,0,0.05); }
+        .total { display: flex; justify-content: space-between; align-items: center;
+                  border: 2px solid #ddd; border-radius: 10px; background: #f9f9f9;
+                  padding: 10px 20px; max-width: 300px; margin: 0 auto 25px; }
+        .total span { font-weight: bold; }
+        .entry { background: #fff; padding: 15px; border-radius: 10px;
+                  box-shadow: 0 0 10px rgba(0,0,0,0.1); margin-bottom: 15px; }
+        .download { display: block; margin: 30px auto 0; background: #4CAF50;
+                     color: #fff; padding: 10px 18px; text-decoration: none;
+                     border-radius: 5px; font-size: 15px; text-align: center; }
+        .none { text-align: center; font-style: italic; margin-top: 20px; }
+        .cancel { display: block; text-align: center; margin-top: .5rem; }
+    </style>
+</head>
+<body>
+    <h1>Volunteer Hours: <?php echo htmlspecialchars("$firstName $lastName"); ?></h1>
+    <div class="container">
+        <div class="box">
+            <div class="total">
+                <span>Total Hours</span>
+                <span><?php echo $totalHours; ?></span>
+            </div>
+
+            <?php if (empty($hoursLog)): ?>
+                <p class="none">No volunteer hours to display.</p>
             <?php else: ?>
-                <h2 class="no-print">Hours Volunteered by <?php echo $volunteer->get_first_name() . ' ' . $volunteer->get_last_name() ?></h2>
-            <?php endif ?>
-            <h2 class="print-only">Hours Volunteered by <?php echo $volunteer->get_first_name() . ' ' . $volunteer->get_last_name() ?></h2>
-            <?php if (count($events)  > 0): ?>
-                <div class="table-wrapper"><table class="general">
-                    <thead>
-                        <tr>
-                            <th>Date</th>
-                            <th>Event</th>
-                            <th></th>
-                            <th class="align-right">Hours</th>
-                        </tr>
-                    </thead>
-                    <tbody class="standout">
-                        <?php 
-                            require_once('include/output.php');
-                            $total_hours = 0;
-                            foreach ($events as $event) {
-                                $time = fetch_volunteering_hours($id, $event['id']); // get time volunteered for event (seconds)
-                                $hours = ($time/60)/60; // convert to hours
-                                if ($time == -1) {
-                                    continue; // skip events with no time volunteered
-                                }
-                                $total_hours += $hours;
-                                $date = strtotime($event['date']);
-                                $date = date('m/d/Y', $date);
-                                echo '<tr>
-                                    <td>' . $date . '</td>
-                                    <td>' . $event["name"] . '</td>
-                                    <td></td>
-                                    <td class="align-right">' . floatPrecision($hours, 2) . '</td>
-                                </tr>';
-                            }
-                            
-                            echo "<tr class='total-hours'><td></td><td></td><td class='total-hours'>Total Hours</td><td class='align-right'>" . floatPrecision($total_hours, 2) . "</td></tr>";
-                        ?>
-                    </tbody></table>
-                    <p class="print-only">I hereby certify that this volunteer has contributed the above volunteer hours to the NAMI Rappahannock organization.</p>
-                    <table id="signature-table" class="print-only">
-                        <tbody>
-                            <tr><td>Admin Signature:  ______________________________________ Date: <?php echo date('m/d/Y') ?></td></tr>
-                            <tr><td>Print Admin Name: _____________________________________</td></tr>
-                        </tbody>
-                    </table></div>
-                    <button class="no-print" onclick="window.print()" style="margin-bottom: -.5rem">Print</button>
-                <?php else: ?>
-                    <p>There are no volunteer hours to report.</p>
-                <?php endif ?>
-                <?php if ($viewingSelf): ?>
-                    <a class="button cancel no-print" href="viewProfile.php">Return to Profile</a>
-                <?php else: ?>
-                    <a class="button cancel no-print" href="viewProfile.php?id=<?php echo htmlspecialchars($_GET['id']) ?>">Return to Profile</a>
-                <?php endif ?>
-        </main>
-    </body>
+                <?php foreach ($hoursLog as $e): ?>
+                    <div class="entry">
+                        <p><strong>Date:</strong> <?php echo htmlspecialchars($e['date']); ?></p>
+                        <p><strong>Hours:</strong> <?php echo htmlspecialchars($e['hours']); ?></p>
+                    </div>
+                <?php endforeach; ?>
+            <?php endif; ?>
+
+            <a href="generateHourReportAdminView.php?id=<?php echo urlencode($id); ?>" target="_blank" class="download">
+                Download Report
+            </a>
+        </div>
+
+        <a href="hours.php" class="cancel">Return to Dashboard</a>
+    </div>
+
+    <?php require 'footer.php'; ?>
+</body>
 </html>

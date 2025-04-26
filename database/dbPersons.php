@@ -16,7 +16,7 @@
  */
 include_once('dbinfo.php');
 include_once(dirname(__FILE__).'/../domain/Person.php');
-
+include_once('email.php');
 /*
 * add a general volunteer
 */
@@ -252,7 +252,7 @@ function fetchCurrentAdmins() {
 
 function fetchEveryone() {
     $con=connect();
-    $query = 'SELECT * FROM dbpersons';
+    $query = 'SELECT * FROM dbpersons WHERE id != "vmsroot"';
     $result = mysqli_query($con,$query);
 
     if (!$result) {
@@ -792,32 +792,29 @@ function get_logged_hours($from, $to, $name_from, $name_to, $venue) {
     // updates the required fields of a person's account
     function update_person_required(
         $id, $first_name, $last_name, $birthday, $street_address, $city, $state,
-        $notes, $zip_code, $email, $phone1, $phone1type, $emergency_contact_first_name,
+        $notes, $zip_code, $email, $phone1, $emergency_contact_first_name,
         $emergency_contact_last_name, $emergency_contact_phone,
-        $emergency_contact_phone_type, $emergency_contact_relation, $type,
-        $school_affiliation, $tshirt_size, $how_you_heard_of_stepva,
+        $emergency_contact_phone_type, $emergency_contact_relation,
+        $how_you_heard_of_stepva,
         $preferred_feedback_method, $hobbies, $professional_experience,
         $disability_accomodation_needs, $training_complete, $training_date, $orientation_complete,
-        $orientation_date, $background_complete, $background_date, $photo_release, $photo_release_notes
+        $orientation_date, $background_complete, $background_date
     ) {
         $query = "update dbpersons set 
             first_name='$first_name', last_name='$last_name', birthday='$birthday',
             street_address='$street_address', city='$city', state='$state', notes='$notes',
-            zip_code='$zip_code', email='$email', phone1='$phone1', phone1type='$phone1type', 
+            zip_code='$zip_code', email='$email', phone1='$phone1',
             emergency_contact_first_name='$emergency_contact_first_name', 
             emergency_contact_last_name='$emergency_contact_last_name', 
             emergency_contact_phone='$emergency_contact_phone', 
             emergency_contact_phone_type='$emergency_contact_phone_type', 
-            emergency_contact_relation='$emergency_contact_relation', type='$type',
-            school_affiliation='$school_affiliation', tshirt_size='$tshirt_size',
+            emergency_contact_relation='$emergency_contact_relation',
             how_you_heard_of_stepva='$how_you_heard_of_stepva', preferred_feedback_method='$preferred_feedback_method',
             hobbies='$hobbies', professional_experience='$professional_experience',
             disability_accomodation_needs='$disability_accomodation_needs',
             training_complete='$training_complete', training_date='$training_date', orientation_complete='$orientation_complete',
-            orientation_date='$orientation_date', background_complete='$background_complete', background_date='$background_date',
-            photo_release='$photo_release',
-            photo_release_notes='$photo_release_notes'
-            where id='$id'";
+            orientation_date='$orientation_date', background_complete='$background_complete', background_date='$background_date'
+            WHERE id='$id'";
         $connection = connect();
         $result = mysqli_query($connection, $query);
         mysqli_commit($connection);
@@ -1431,6 +1428,15 @@ function get_logged_hours($from, $to, $name_from, $name_to, $venue) {
         $query = 'UPDATE dbpersons SET type="volunteer", status="Active" WHERE id="' . $id . '"';
         $result = mysqli_query($connection, $query);
         $result = boolval($result);
+        $query  = 'SELECT email FROM dbpersons WHERE id="' . $id . '"';
+        $emailresult = mysqli_query($connection, $query);        //  add this line
+        $data   = mysqli_fetch_assoc($emailresult);
+        $email  = $data['email'];
+        if($result){
+            if(!sendApproval($email,$id)){
+                $result = false;
+            }
+        }
         mysqli_close($connection);
         return $result;
     }

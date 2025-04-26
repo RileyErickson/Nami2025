@@ -5,8 +5,9 @@ session_start();
 ini_set("display_errors", 1);
 error_reporting(E_ALL);
 
-require_once('header.php');
+
 require_once('universal.inc');
+require_once('header.php');
 require_once('database/dbinfo.php');
 
 
@@ -92,7 +93,7 @@ mysqli_close($conn);
     <div class="container">
 
         <?php if (empty($volunteerHours)) : ?>
-            <p class="no-logs">No volunteer hour logs available.</p>
+            <p class="no-logs"><div class="error-toast">No volunteer hour logs available.</div></p>
         <?php else : ?>
             <?php foreach ($volunteerHours as $entry) : ?>
                 <div class="log-container">

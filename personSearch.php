@@ -49,7 +49,7 @@
                     $role = $args['role'];
                     $status = $args['status'];
                     if (!($name || $id || $phone || $zip || $role || $status || FALSE)) {
-                        echo '<div class="error-toast">At least one search criterion is required.</div>';
+                        echo '<div class="error-toast">At least <b>one search criterion is required.</b></div>';
                     } else if (!valueConstrainedTo($role, ['admin', 'participant', 'superadmin', 'volunteer', 'board', 'donator', ''])) {
                         echo '<div class="error-toast">The system did not understand your request.</div>';
                     } else if (!valueConstrainedTo($status, ['Active', 'Inactive', ''])) {
@@ -67,10 +67,10 @@
                                         <tr>
                                             <th>First</th>
                                             <th>Last</th>
-                                            <th>Username</th>
+                                            <!--<th>Username</th>-->
                                             <th>Phone Number</th>
                                              <th>Email</th>
-											<th>Zip Code</th>
+											<!--<th>Zip Code</th>-->
                                             <th>Role</th>
                                             <th>Archive Status</th>
                                             <th>Profile</th>
@@ -91,11 +91,21 @@
                                         <tr>
                                             <td>' . $person->get_first_name() . '</td>
                                             <td>' . $person->get_last_name() . '</td>
-                                            <td><a href="mailto:' . $person->get_id() . '">' . $person->get_id() . '</a></td>
+                                            <!--<td><a href="mailto:' . $person->get_id() . '">' . $person->get_id() . '</a></td>-->
                                             <td><a href="tel:' . $person->get_phone1() . '">' . formatPhoneNumber($person->get_phone1()) .  '</td>
                                             <td>' . $person->get_email() . '</td>
-                                            <td>' . $person->get_zip_code() . '</td>
-                                            <td>' . ucfirst($person->get_type()) . '</td>
+                                            <!--<td>' . $person->get_zip_code() . '</td>-->
+                                            <td>';
+                                             if (ucfirst($person->get_type()) == "Donator"){
+                                                echo "Donor";
+                                             }  
+                                            else if (ucfirst($person->get_type()) == "Volunteer" || ucfirst($person->get_type()) == "V"){
+                                                echo "Applicant";
+                                             }  
+                                             else 
+                                             {
+                                                echo ucfirst($person->get_type());}
+                                             echo '</td>
                                             <td>' . ucfirst($person->get_status()) . '</td>
                                             <td><a href="viewProfile.php?id=' . $person->get_id() . '">Profile</a></td>
                                             <td><a href="modifyUserRole.php?id=' . $person->get_id() . '">Edit Permissions</a></td>
@@ -129,12 +139,12 @@
  
            <select id="role" name="role">
                 <option value="">Any</option>
-                <option value="volunteer" <?php if (isset($role) && $role == 'volunteer') echo 'selected' ?>>Volunteer</option>
-                <option value="participant" <?php if (isset($role) && $role == 'participant') echo 'participant' ?>>Participant</option>
+
+                <option value="volunteer" <?php if (isset($role) && $role == 'volunteer') echo 'volunteer' ?>>volunteer</option>
                 <option value="admin" <?php if (isset($role) && $role == 'admin') echo 'admin' ?>>Admin</option>
                 <option value="board" <?php if (isset($role) && $role == 'board') echo 'board' ?>>Board Member</option>
                 
-                <option value="donator" <?php if (isset($role) && $role == 'donator') echo 'donator' ?>>Donator</option>
+                <option value="donator" <?php if (isset($role) && $role == 'donator') echo 'donator' ?>>Donar</option>
             </select>
   
           <label for="status">Archive Status</label>

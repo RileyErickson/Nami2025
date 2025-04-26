@@ -24,7 +24,7 @@ $conn = connect();
         <h1>Minutes Management</h1>
     <main>
         <div id="dashboard">
-    <?php if ($_SESSION['access_level'] >= 3): ?>
+    <?php if ($_SESSION['access_level'] >= 2): ?>
             <div class="dashboard-item" onclick="location.href='addMinutes.php'">
                 <img src="images/create-report.svg" alt="Add Minutes">
                 <span><center>Add Minutes</center></span>

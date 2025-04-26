@@ -30,9 +30,7 @@ $notRoot = $person->get_id() != 'vmsroot';
 </head>
 <body>
 <?php require('header.php'); ?>
-
 <?php
-
 $announcementFile = 'announcement.txt';
 if (file_exists($announcementFile)) {
     $announcementText = trim(file_get_contents($announcementFile));
@@ -44,8 +42,8 @@ if (file_exists($announcementFile)) {
 }
 ?>
 <h1>Volunteer Management Dashboard</h1>
-<main class='dashboard'>
 
+<!-- <main class='dashboard'> -->
     <?php if (isset($_GET['pcSuccess'])): ?>
         <div class="happy-toast">Password changed successfully!</div>
     <?php elseif (isset($_GET['deleteService'])): ?>
@@ -61,10 +59,13 @@ if (file_exists($announcementFile)) {
     <?php elseif (isset($_GET['registerSuccess'])): ?>
         <div class="happy-toast">Volunteer registered successfully!</div>
     <?php endif ?>
-<!--    <p>Welcome back, --><?php //echo $person->get_first_name() ?><!--!</p>-->
-<!--    <p>Today is --><?php //echo date('l, F j, Y'); ?><!--.</p>-->
+    <div style="overflow-x:auto;">
+        <div id="dashboard">
+            <!-- all your <div class="dashboard-item"> cards stay here exactly as before -->
+        </div>
+    </div>
+<!-- </main> -->
     <div id="dashboard">
-
         <!--                  <?php
         require_once('database/dbMessages.php');
         $unreadMessageCount = get_user_unread_count($person->get_id());
@@ -72,9 +73,7 @@ if (file_exists($announcementFile)) {
         if ($unreadMessageCount) {
             $inboxIcon = 'inbox-unread.svg';
         }
-
         ?>
-
                 <div class="dashboard-item" data-link="inbox.php">
                     <img src="images/<?php echo $inboxIcon ?>">
                     <span>Notifications<?php
@@ -83,12 +82,10 @@ if (file_exists($announcementFile)) {
         }
         ?></span>
                 </div>
-
                 <div class="dashboard-item" data-link="viewAllEvents.php">
                     <img src="images/new-event.svg">
                     <span>Sign-Up for Event</span>
                 </div> -->
-
         <!-- ADMIN ONLY -->
         <?php if ($_SESSION['access_level'] >= 2): ?>
 
@@ -96,13 +93,10 @@ if (file_exists($announcementFile)) {
 <!--                <i class="fa-solid fa-list"></i>-->
 <!--                <span>View Forms</span>-->
 <!--            </div>-->
-
             <div class="dashboard-item" data-link="register.php">
                 <img src="images/add-person.svg">
                 <span>Register Volunteer</span>
             </div>
-
-
             <!--Pending Volunteers-->
             <div class="dashboard-item" data-link="pending_volunteers.php">
                 <i class="fa-solid fa-users"></i>
@@ -116,27 +110,18 @@ if (file_exists($announcementFile)) {
                 }
                 ?>
             </div>
-
 <!--            <div class="dashboard-item" data-link="deleteVolunteer.php">-->
 <!--                <img src="images/removeVolunteer.svg">-->
 <!--                <span><center>Remove Volunteer</center></span>-->
 <!--            </div>-->
-
-
-
 <!--            <div class="dashboard-item" data-link="editVolunteer.php">-->
 <!--                <img src="images/editVolunteer.png">-->
 <!--                <span><center>Edit Volunteer Profile (WIP)</center></span>-->
 <!--            </div>-->
-
-
             <div class="dashboard-item" data-link="displayCurrentVolunteers.php">
                 <img src="images/person-search.svg">
                 <span><center>Display Current Volunteers</center></span>
             </div>
-
-
-
 <!--            <div class="dashboard-item" data-link="personSearch.php">-->
 <!--                <img src="images/person-search.svg">-->
 <!--                <span><center>Search Volunteer Details</center></span>-->

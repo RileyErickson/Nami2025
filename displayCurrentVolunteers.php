@@ -119,8 +119,10 @@ $access_level = $_SESSION['access_level']; ?>
 <!--    </p>-->
 
     <?php if (count(value: $allMembers) > 0): ?>
+    <div style="overflow-x:auto;">
         <div class="table-wrapper">
             <table class="general">
+
                 <thead>
                 <tr>
                     <th>User ID</th>
@@ -154,7 +156,21 @@ $access_level = $_SESSION['access_level']; ?>
                         <td><?php echo htmlspecialchars($user_id); ?></td>
                         <td><?php echo htmlspecialchars($name); ?></td>
                         <td><?php echo htmlspecialchars($allMembers[$x]['last_name']); ?></td>
-                        <td><?php echo htmlspecialchars($allMembers[$x]['type']); ?></td>
+                        <td><?php 
+                            if ($allMembers[$x]['type'] == "donor"){
+                                echo "Donor";
+                            }  
+                            else if ($allMembers[$x]['type'] == "volunteer" || $allMembers[$x]['type'] == "v"){
+                                echo "volunteer";
+                            }  
+                            else if ($allMembers[$x]['type'] == "admin" ){
+                                echo "Admin";
+                            }
+                            else if ($allMembers[$x]['type'] == "board" ){
+                                echo "Board Member";
+                            }
+                            else{ echo $allMembers[$x]['type'];}
+ ?></td>
 <!--                        <td>-->
 <!--                            --><?php //echo htmlspecialchars($pending[$x]['start_date']); ?>
 <!--                        </td>-->

@@ -5,6 +5,28 @@ session_start();
 ini_set("display_errors", 1);
 error_reporting(E_ALL);
 
+
+
+// Include database connection
+include_once('database/dbinfo.php');
+
+// Connect to database
+$conn = connect();
+
+// Create 'blacklisted' table if it does not exist
+$createTableQuery = "CREATE TABLE IF NOT EXISTS blacklisted (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    name VARCHAR(255) NOT NULL,
+    date DATE NOT NULL,
+    reason TEXT NOT NULL
+)";
+
+if (!mysqli_query($conn, $createTableQuery)) {
+    echo "Error creating table: " . mysqli_error($conn);
+}
+
+$successMessage = "";
+
 // Default values
 $loggedIn = false;
 $accessLevel = 0;
@@ -90,7 +112,7 @@ mysqli_close($conn);
             <input type="submit" name="search" value="Search" >
             <input type="submit" name="clear" value="Clear Search" style="margin-top: .5rem">
         </form>
-        <a class="button cancel" href="blacklist.php" style="margin-top: .5rem">Return to Blacklist Dashboard</a>; 
+        <a class="button cancel" href="blacklist.php" style="margin-top: .5rem">Return to Blacklist Dashboard</a>
     </div>
     
     <?php if (!empty($searchResults)) : ?>
@@ -108,7 +130,7 @@ mysqli_close($conn);
         <?php endforeach; ?>
     <?php else : ?>
         <div class="container">
-            <p>No records found.</p>
+        <div class="error-toast">No entries found.</div>
         </div>
     <?php endif; ?>
     </main>
