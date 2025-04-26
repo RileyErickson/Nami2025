@@ -990,3 +990,6 @@ img.profile-pic {
 .field-pair p {
     margin: 0;
 }
+
+
+tr:nth-child(even) {background-color: #e9ebf5;}

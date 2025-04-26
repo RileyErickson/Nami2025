@@ -15,11 +15,11 @@ function getForms() {
 	
     $con=connect();
 	
-	$query = "SELECT formnameclean FROM formmanager;";
+	$query = "SELECT `formnameclean` FROM `formmanager`;";
 	
     $result = mysqli_query($con,$query);
 	if (!(mysqli_num_rows($result) === 0)) {
-		return mysqli_fetch_array($result, MYSQLI_NUM);
+		return $result;
 	} else {
 		return 0;
 	}
@@ -39,6 +39,8 @@ function getFormName($formnameclean) {
     $result = mysqli_query($con,$query);
 	$names = mysqli_fetch_array($result, MYSQLI_NUM);
 	
+	mysqli_close($con);
+	
 	return $names[0];
 }
 
@@ -52,6 +54,8 @@ function getNumQuestions($formnameclean) {
     $result = mysqli_query($con,$query);
 	$num = mysqli_fetch_array($result, MYSQLI_NUM);
 	$num = $num[0] - 1;
+	
+	mysqli_close($con);
 	
 	return $num;
 }
@@ -94,6 +98,37 @@ function addForm($formnameclean, $formname) {
 	}
 }
 
+function createAnswerTable($formnameclean, $numquestions) {
+	
+    $con=connect();
+	
+	$query = "
+		CREATE TABLE " . $formnameclean . "responses (
+		`answerid` int AUTO_INCREMENT,
+		`id` varchar(256) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+		
+		PRIMARY KEY (answerid)
+		) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+	";
+	
+	if (!mysqli_query($con,$query)) {
+		return ["error", "Error creating answer table."];
+	} else {
+		for ($i = 1; $i <= $numquestions; $i++) {
+			$query = "
+				ALTER TABLE " . $formnameclean . "responses
+				  ADD `" . $i . "` varchar(350);
+			";
+			$result = mysqli_query($con,$query);
+			if (!$result) {
+				return ["error", "Error formatting answer table."];
+			}
+		}
+	}
+	
+	return ["happy", "Form deleted successfully."];
+}
+
 // Deletes a form from the database
 function dropForm($formnameclean) {
 	
@@ -108,20 +143,23 @@ function dropForm($formnameclean) {
 		if (!mysqli_query($con,$query)) {
 			return ["error", "Error deleting form."];
 		} else {
-			return ["error", "Form deleted successfully."];
+			$query = "DROP TABLE " . $formnameclean . "responses;";
+			if (!mysqli_query($con,$query)) {
+				return ["error", "Error deleting form."];
+			} else {
+				return ["happy", "Form deleted successfully."];
+			}
 		}
 	}
 }
 
 // Adds questions to a Form
-function addQuestion($formnameclean, $questionnum, $question) {
+function addQuestion($formnameclean, $formname, $questionnum, $question) {
 	
     $con=connect();
 	
 	$query = "SELECT formname FROM " . $formnameclean . ";";
     $result = mysqli_query($con,$query);
-	$formname = mysqli_fetch_array($result, MYSQLI_NUM);
-	$formname = $formname[0];
 	
 	$query = "
 		ALTER TABLE " . $formnameclean . "
@@ -134,8 +172,8 @@ function addQuestion($formnameclean, $questionnum, $question) {
 		// store question
 		$query = "
 			UPDATE " . $formnameclean . "
-			SET `" . $questionnum . "` = '" . $question . "'
-			WHERE formname = ' . $formname . ';
+			SET `" . $questionnum . "`='" . $question . "'
+			WHERE formname = '" . $formname . "';
 		";
 		
 		if (!mysqli_query($con,$query)) {

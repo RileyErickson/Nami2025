@@ -66,16 +66,21 @@
 			if ($errorcount == 0) {
 				// add questions to form
 				for ($i=1; $i<=$numquestions; $i++) {
-					[$toast, $message] = addQuestion($formnameclean, $i, $_POST[$i]);
+					[$toast, $message] = addQuestion($formnameclean, $formname, $i, $_POST[$i]);
 					if ($toast == "error") {
 						$errorcount++;
 					}
 				}
 			}
 			
-			// if all questions are added successfully
+			[$toast, $message] = createAnswerTable($formnameclean, $numquestions);
+			if ($toast == "error") {
+					$errorcount++;
+			}
+			
+			// if everything gets done
 			if ($errorcount == 0) {
-				$message = "Form edited successfully!";
+				$message = "Form created successfully!";
 				$toast = "happy";
 			}
 		} else if ($_POST['action'] == "delete") {
@@ -137,29 +142,29 @@
 					<table>
 						<?php
 							$forms = getForms();
-							if ($forms != 0) {
-								for ($i = 0; $i < count($forms); $i++) {
+							if ($forms->num_rows !== 0) {
+								while ($row = mysqli_fetch_array($forms, MYSQLI_NUM)) {
 									echo "<tr>";
 									
 									
-									echo "<td>";
+									echo "<td style=\"padding:10px; width:60%;\">";
 									echo "<form action=\"createForm.php\" method=\"POST\">";
 									echo "<input type=\"hidden\" id=\"mode\" name=\"mode\" value=\"edit\">";
-									echo "<input type=\"hidden\" id=\"numquestions\" name=\"numquestions\" value=\"" . getNumQuestions($forms[$i]) . "\">";
-									echo "<input type=\"hidden\" id=\"formnameclean\" name=\"formnameclean\" value=\"" . $forms[$i] . "\">";
-									echo "<input type=\"hidden\" id=\"formname\" name=\"formname\" value=\"" . getFormName($forms[$i]) . "\">";
-									echo getFormName($forms[$i]);
+									echo "<input type=\"hidden\" id=\"numquestions\" name=\"numquestions\" value=\"" . getNumQuestions($row[0]) . "\">";
+									echo "<input type=\"hidden\" id=\"formnameclean\" name=\"formnameclean\" value=\"" . $row[0] . "\">";
+									echo "<input type=\"hidden\" id=\"formname\" name=\"formname\" value=\"" . getFormName($row[0]) . "\">";
+									echo getFormName($row[0]);
 									echo "</td>";
 									
-									echo "<td style=\"width:20%\;\">";
+									echo "<td style=\"padding:10px;\">";
 									echo "<input type=\"submit\" value=\"Edit Form\">";
 									echo "</form>";
 									echo "</td>";
 									
-									echo "<td style=\"width:20%\">";
+									echo "<td style=\"padding:10px;\">";
 									echo "<form action=\"createForm.php\" method=\"POST\">";
 									echo "<input type=\"hidden\" id=\"mode\" name=\"mode\" value=\"delete\">";
-									echo "<input type=\"hidden\" id=\"formnameclean\" name=\"formnameclean\" value=\"" . $forms[$i] . "\">";
+									echo "<input type=\"hidden\" id=\"formnameclean\" name=\"formnameclean\" value=\"" . $row[0] . "\">";
 									echo "<input type=\"submit\" value=\"Delete Form\">";
 									echo "</form>";
 									echo "</td>";
