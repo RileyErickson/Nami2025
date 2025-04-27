@@ -18,15 +18,10 @@ function getForms() {
 	$query = "SELECT `formnameclean` FROM `formmanager`;";
 	
     $result = mysqli_query($con,$query);
-	if (!(mysqli_num_rows($result) === 0)) {
-		return $result;
-	} else {
-		return 0;
-	}
 	
 	mysqli_close($con);
 	
-	return $reason;
+	return $result;
 }
 
 // Returns the originally formatted formname
@@ -44,24 +39,64 @@ function getFormName($formnameclean) {
 	return $names[0];
 }
 
-// Returns the number of questions in the form
+// Checks if a form exists, returns a boolean
+function checkForm($formnameclean) {
+	
+    $con=connect();
+	
+	$query = "SELECT formnameclean FROM formmanager WHERE formnameclean='" . $formnameclean ."';";
+	
+    $result = mysqli_query($con,$query);
+	
+	mysqli_close($con);
+	
+	if (mysqli_num_rows($result) == 0) {
+		return false;
+	} else {
+		return true;
+	}
+}
+
+// Returns the number of questions in a given form (Returns 0 if form doesn't exist)
 function getNumQuestions($formnameclean) {
 	
     $con=connect();
 	
-	$query = "SELECT count(*) as No_of_Column FROM information_schema.columns WHERE table_name ='" . $formnameclean ."'";
+	$query = "SELECT numquestions FROM formmanager WHERE formnameclean='" . $formnameclean ."';";
 	
     $result = mysqli_query($con,$query);
-	$num = mysqli_fetch_array($result, MYSQLI_NUM);
-	$num = $num[0] - 1;
 	
 	mysqli_close($con);
 	
-	return $num;
+	if (mysqli_num_rows($result) != 0) {
+		$row = mysqli_fetch_array($result, MYSQLI_NUM);
+		return $row[0];
+	} else {
+		return 0;
+	}
+}
+
+// Returns if the form is open or not as a boolean (always returns a 0 if form doesn't exist)
+function getOpen($formnameclean) {
+	
+    $con=connect();
+	
+	$query = "SELECT isopen FROM formmanager WHERE formnameclean='" . $formnameclean ."';";
+	
+    $result = mysqli_query($con,$query);
+	
+	mysqli_close($con);
+	
+	$row = mysqli_fetch_array($result, MYSQLI_NUM);
+	if ($row[0] == 0) {
+		return false;
+	} else {
+		return true;
+	}
 }
 
 // Adds an empty form to the database that can be populated with questions
-function addForm($formnameclean, $formname) {
+function addForm($formnameclean, $formname, $numquestions, $isopen) {
 	
     $con=connect();
 	
@@ -84,9 +119,10 @@ function addForm($formnameclean, $formname) {
 			return ["error", "Error storing form name."];
 		} else {
 			$query = "
-				INSERT INTO formmanager (formnameclean, isopen) VALUES ('"
+				INSERT INTO formmanager (formnameclean, numquestions, isopen) VALUES ('"
 				. $formnameclean . "'
-				, '1');
+				, '" . $numquestions . "'
+				, '" . $isopen . "');
 			";
 			
 			if (!mysqli_query($con,$query)) {
@@ -185,26 +221,31 @@ function addQuestion($formnameclean, $formname, $questionnum, $question) {
 }
 
 // returns a question from a number
-function getQuestion($formnameclean, $questionnum) {
+function getQuestion($formnameclean, $numquestions) {
 	
     $con=connect();
 	
-	$query = "SELECT `" . $questionnum . "` FROM " . $formnameclean . ";";
+	$query = "SELECT `" . $numquestions . "` FROM " . $formnameclean . ";";
 	
-	if (!mysqli_query($con,$query)) {
-		return ["error", "Question not found."];
+    $result = mysqli_query($con,$query);
+	
+	mysqli_close($con);
+	
+	if (mysqli_num_rows($result) != 0) {
+		$row = mysqli_fetch_array($result, MYSQLI_NUM);
+		return $row[0];
 	} else {
-		return ["happy", "Question returned."];
+		return "";
 	}
 }
 
 // Drops a question from a form
-function dropQuestion($formname, $question) {
+function dropQuestion($formnameclean, $question) {
 	
     $con=connect();
 	
 	$query = "
-		ALTER TABLE " . $formname . "
+		ALTER TABLE " . $formnameclean . "
 		  DROP COLUMN " . $question . ";
 	";
 	
@@ -216,19 +257,38 @@ function dropQuestion($formname, $question) {
 }
 
 // Edits a question in a form
-function editQuestion($formname, $oldquestion, $newquestion) {
+function editQuestion($formnameclean, $formname, $questionnum, $question) {
 	
     $con=connect();
 	
 	$query = "
-		ALTER TABLE " . $formname . "
-		  RENAME COLUMN " . $oldquestion . " TO " . $newquestion . ";
+		UPDATE " . $formnameclean . "
+		SET `" . $questionnum . "`='" . $question . "'
+		WHERE formname = '" . $formname . "';
 	";
 	
 	if (!mysqli_query($con,$query)) {
 		return ["error", "Error editing question."];
 	} else {
 		return ["happy", "Question edited successfully."];
+	}
+}
+
+// Edits a question in a form
+function editOpen($formnameclean, $isopen) {
+	
+    $con=connect();
+	
+	$query = "
+		UPDATE formmanager
+		SET isopen=" . $isopen . "
+		WHERE formnameclean = '" . $formnameclean . "';
+	";
+	
+	if (!mysqli_query($con,$query)) {
+		return ["error", "Error updating submission status."];
+	} else {
+		return ["happy", "Updated submission status successfully."];
 	}
 }
 

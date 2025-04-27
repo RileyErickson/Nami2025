@@ -538,6 +538,7 @@ INSERT INTO `dbpersons` (`id`, `start_date`, `venue`, `first_name`, `last_name`,
 CREATE TABLE `formmanager` (
   `managerID` int NOT NULL AUTO_INCREMENT,
   `formnameclean` varchar(50),
+  `numquestions` int NOT NULL,
   `isopen` int NOT NULL,
   
   PRIMARY KEY (`managerID`)
