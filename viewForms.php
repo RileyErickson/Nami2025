@@ -9,11 +9,9 @@ include_once('database/dbinfo.php');
 $conn = connect();
 
 // Fetch all unique keywords for sidebar
-$formQuery = "SELECT DISTINCT application FROM dbformmanagement ORDER BY application ASC";
+$formQuery = "SELECT DISTINCT formnameclean FROM formmanager ORDER BY managerID ASC";
 $formResult = mysqli_query($conn, $formQuery);
-while ($row = mysqli_fetch_assoc($formResult)) {
-    $applications[] = $row['application'];
-}
+
 
 
 $result = mysqli_query($conn, $formQuery);
@@ -54,9 +52,32 @@ mysqli_close($conn);
     <h1>Forms</h1>
     <div id="content">
         <div class="container">
-            <h3>Form List:</h3>
+            
+            <?php
+    if (isset($formResult)){
+                    echo '
+                    <div class="table-wrapper">
+                        <table class="general">
+                            <thead>
+                                <tr>
+                                    <th><h3>Form List:</h3></th>
+                                </tr>
+                            </thead>
+                            <tbody class="standout">';
+                    foreach($formResult as $x){
+                        foreach($x as $z){
+                            echo '
+                                <tr>
+                                    <td>' . $z . '</td>
+                                </tr>';
+                    }
+                }
+
+                echo '</table> </div>';
+            } ?>
         </div>
     </div>
+
 </body>
 <?php require('footer.php'); ?>
 </html>
