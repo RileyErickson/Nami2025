@@ -15,9 +15,8 @@ function getForms() {
 	
     $con=connect();
 	
-
 	$query = "SELECT `formnameclean` FROM `formmanager`;";
-
+	
     $result = mysqli_query($con,$query);
 	
 	mysqli_close($con);
@@ -89,7 +88,7 @@ function getOpen($formnameclean) {
 	mysqli_close($con);
 	
 	$row = mysqli_fetch_array($result, MYSQLI_NUM);
-	if ($row[0] == 0) {
+	if ($row==NULL || $row[0] == 0 ) {
 		return false;
 	} else {
 		return true;

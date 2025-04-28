@@ -182,7 +182,7 @@
 					<table>
 						<?php
 							$forms = getForms();
-							if ($forms->num_rows !== 0) {
+							if ($forms !== 0 && $forms->num_rows > 0){
 								while ($row = mysqli_fetch_array($forms, MYSQLI_NUM)) {
 									echo "<tr>";
 									
@@ -300,7 +300,7 @@
 									echo "<label>Question " . $i . ":</label>";
 									echo "<input type=\"text\" id=\"" . $i . "\" name=\"" . $i . "\" value=\"";
 									// if editing a pre-existing form
-									echo getQuestion($formnameclean, $i);
+									//echo getQuestion($formnameclean, $i);
 									echo "\">";
 								}
 							?>
