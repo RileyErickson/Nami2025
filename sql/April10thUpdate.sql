@@ -388,19 +388,6 @@ INSERT INTO `dbpendingsignups` (`username`, `eventname`, `role`, `notes`) VALUES
 -- --------------------------------------------------------
 
 --
--- Table structure for table `dbformmanagement`
---
-CREATE TABLE `dbformmanagement` (
-	`formid` int AUTO_INCREMENT NOT NULL,
-	`application` varchar(30) COLLATE utf8mb4_unicode_ci NOT NULL,
-	`isOpen` int NOT NULL,
-	
-	PRIMARY KEY (formid)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;	
-
--- --------------------------------------------------------
-
---
 -- Table structure for table `dbpersonhours`
 --
 CREATE TABLE `dbpersonhours` (
@@ -549,13 +536,13 @@ INSERT INTO `dbpersons` (`id`, `start_date`, `venue`, `first_name`, `last_name`,
 --
 
 CREATE TABLE `formmanager` (
-  `managerID` int NOT NULL,
-  `originalID` int NOT NULL,
-  `formname` varchar(50)
+  `managerID` int NOT NULL AUTO_INCREMENT,
+  `formnameclean` varchar(50),
+  `numquestions` int NOT NULL,
+  `isopen` int NOT NULL,
+  
+  PRIMARY KEY (`managerID`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-
-ALTER TABLE `formmanager`
-  ADD PRIMARY KEY (`managerID`);
 
 
 --

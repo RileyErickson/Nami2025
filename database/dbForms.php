@@ -10,456 +10,287 @@ include_once('dbinfo.php');
 include_once('dbPersons.php');
 
 
-// Creates a new application for any of the 6 form tables.
-// $application MUST be formatted like "p2papplication", "fsgapplication", "f2fapplication", "hfapplication", "ioovapplication", and "csgapplication"
-
-
-//Used in 'formsearch'. Checks if there is a form by that name in the manager. Returns the manager ID if so.
-function findFormFromName($search){
-	$con=connect();
-	$query = "SELECT `managerID` AND 'formnameclean' FROM `formmanager` WHERE `formnameclean` = '".$search."';";
-	$result = mysqli_query($con,$query);
-	mysqli_close($con);
-	return $result;
-
-}
-
+// Pulls all created forms in numerical array format
 function getForms() {
 	
     $con=connect();
 	
-	$query = "SELECT formnameclean FROM formmanager;";
-	
+
+	$query = "SELECT `formnameclean` FROM `formmanager`;";
+
     $result = mysqli_query($con,$query);
-	if (!(mysqli_num_rows($result) === 0)) {
-		return mysqli_fetch_array($result, MYSQLI_NUM);
-	} else {
-		return 0;
-	}
 	
 	mysqli_close($con);
 	
-	return $reason;
-}
-
-function get_all($type){
-	if ($type == "F2F"){
-		$database = "dbf2fapplication";
-	}
-	if ($type == "P2P"){
-		$database = "dbp2papplication";
-	}
-	if ($type == "IOOV"){
-		$database = "dbioovapplication";
-	}
-	if ($type == "CSG"){
-		$database = "dbcsgapplication";
-	}
-	if ($type == "FSG"){
-		$database = "dbfsgapplication";
-	}
-	if ($type == "HF"){
-		$database = "dbhfapplication";
-	}
-	$query="SELECT * FROM ". $database;
-	$con=connect();
-	$result = mysqli_query($con,$query);
 	return $result;
 }
 
-function approve_form($id, $type){
-	if ($type == "F2F" || $type == "f2f"){
-		$database = "dbf2fapplication";
-		$application="f2fapplication";
-	}
-	if ($type == "P2P"|| $type == "p2p"){
-		$database = "dbp2papplication";
-		$application="p2papplication";
-	}
-	if ($type == "IOOV"|| $type == "ioov"){
-		$database = "dbioovapplication";
-		$application="ioovapplication";
-	}
-	if ($type == "CSG" || $type == "csg"){
-		$database = "dbcsgapplication";
-		$application="csgapplication";
-	}
-	if ($type == "FSG" || $type == "fsg" ){
-		$database = "dbfsgapplication";
-		$application="fsgapplication";
-	}
-	if ($type == "HF" || $type == "hf"){
-		$database = "dbhfapplication";
-		$application="hfapplication";
-	}
-//	$query="UPDATE db" . $database . " SET reasonToBecome" . $formattedName . "= '" . $reason . "' WHERE ". $application . "ID='" . $id . "';";
-	$query = "UPDATE ". $database ." SET approved='TRUE' WHERE ".$application."id=".$id.";";
-	$con=connect();
-	$result = mysqli_query($con,$query);
-	mysqli_close($con);
-	return;
-}
-function unapprove_form($id, $type){
-	if ($type == "F2F" || $type == "f2f"){
-		$database = "dbf2fapplication";
-		$application="f2fapplication";
-	}
-	if ($type == "P2P"|| $type == "p2p"){
-		$database = "dbp2papplication";
-		$application="p2papplication";
-	}
-	if ($type == "IOOV"|| $type == "ioov"){
-		$database = "dbioovapplication";
-		$application="ioovapplication";
-	}
-	if ($type == "CSG" || $type == "csg"){
-		$database = "dbcsgapplication";
-		$application="csgapplication";
-	}
-	if ($type == "FSG" || $type == "fsg" ){
-		$database = "dbfsgapplication";
-		$application="fsgapplication";
-	}
-	if ($type == "HF" || $type == "hf"){
-		$database = "dbhfapplication";
-		$application="hfapplication";
-	}
-//	$query="UPDATE db" . $database . " SET reasonToBecome" . $formattedName . "= '" . $reason . "' WHERE ". $application . "ID='" . $id . "';";
-	$query = "UPDATE ". $database ." SET approved='R' WHERE ".$application."id=".$id.";";
-	$con=connect();
-	$result = mysqli_query($con,$query);
-	mysqli_close($con);
-	return;
-}
-
-
-function get_forms_id($type,$status){
-	//We should be passed the abbreviation of one of the forms. If it is one of them, add it to the Database variable. All of the databases have their own
-	//name for the id variable, so save that to Select.
-	if ($type == "f2f"){
-		$database = "dbf2fapplication";
-		$select = "f2fapplicationID";
-	}
-	if ($type == "p2p"){
-		$database = "dbp2papplication";
-		$select = "p2papplicationID";
-	}
-	if ($type == "ioov"){
-		$database = "dbioovapplication";
-		$select = "ioovapplicationID";
-	}
-	if ($type == "csg"){
-		$database = "dbcsgapplication";
-		$select = "csgapplicationID";
-	}
-	if ($type == "fsg"){
-		$database = "dbfsgapplication";
-		$select = "fsgapplicationID";
-	}
-	if ($type == "hf"){
-		$database = "dbhfapplication";
-		$select = "hfapplicationID";
-	}
-	if ($status == "approved"){
-		$statusFormatted="TRUE";
-	}
-	else if ($status == "pending"){
-		$statusFormatted="0";
-	}
-	else if ($status == "denied"){
-		$statusFormatted="R";
-	}
-
-	//Pull from the database using connect() and mysqli_query(). Should be all ints.
-	if (isset($statusFormatted)){
-		$query="SELECT * FROM ". $database." WHERE approved=\"".$statusFormatted."\"";
-	}
-	else{
-		$query="SELECT * FROM ". $database;
-	}
-	$con=connect();
-	$result = mysqli_query($con,$query);
-	//Make the results a list. If there is a size of 0, return null.
-
-	if (!$result) {
-		mysqli_close($connection);
-		return [];
-	}
-	$raw = mysqli_fetch_all($result, MYSQLI_ASSOC);
-	$count = mysqli_query($con, "SELECT COUNT(*) FROM ".$database);
-	$forms = [$count];
-	$x = 0;
-	foreach ($raw as $row) {
-				$forms []= $row;
-		$x = $x+1;
-	}
+// Returns the originally formatted formname
+function getFormName($formnameclean) {
+	
+    $con=connect();
+	
+	$query = "SELECT formname FROM " . $formnameclean . ";";
+	
+    $result = mysqli_query($con,$query);
+	$names = mysqli_fetch_array($result, MYSQLI_NUM);
+	
 	mysqli_close($con);
 	
-	return $raw;
+	return $names[0];
 }
 
-// returns a user's application ID from the corresponding form
-function get_appID($pid, $application) {
+// Checks if a form exists, returns a boolean
+function checkForm($formnameclean) {
 	
-	$con=connect();
-	$query="SELECT " . $application . "ID FROM db" . $application . " WHERE id='" . $pid . "';";
+    $con=connect();
+	
+	$query = "SELECT formnameclean FROM formmanager WHERE formnameclean='" . $formnameclean ."';";
 	
     $result = mysqli_query($con,$query);
 	
-	if (!(mysqli_num_rows($result) === 0)) {
-		$result = $result->fetch_array();
-		$appid = $result[0];
+	mysqli_close($con);
+	
+	if (mysqli_num_rows($result) == 0) {
+		return false;
 	} else {
-		$appid = 0;
+		return true;
 	}
+}
+
+// Returns the number of questions in a given form (Returns 0 if form doesn't exist)
+function getNumQuestions($formnameclean) {
+	
+    $con=connect();
+	
+	$query = "SELECT numquestions FROM formmanager WHERE formnameclean='" . $formnameclean ."';";
+	
+    $result = mysqli_query($con,$query);
 	
 	mysqli_close($con);
 	
-	return $appid;
+	if (mysqli_num_rows($result) != 0) {
+		$row = mysqli_fetch_array($result, MYSQLI_NUM);
+		return $row[0];
+	} else {
+		return 0;
+	}
 }
 
-// returns a user's time reason from the corresponding form
-function get_whyisnowrighttime($id, $application) {
+// Returns if the form is open or not as a boolean (always returns a 0 if form doesn't exist)
+function getOpen($formnameclean) {
 	
-	if ($id == "") {
+    $con=connect();
+	
+	$query = "SELECT isopen FROM formmanager WHERE formnameclean='" . $formnameclean ."';";
+	
+    $result = mysqli_query($con,$query);
+	
+	mysqli_close($con);
+	
+	$row = mysqli_fetch_array($result, MYSQLI_NUM);
+	if ($row[0] == 0) {
+		return false;
+	} else {
+		return true;
+	}
+}
+
+// Adds an empty form to the database that can be populated with questions
+function addForm($formnameclean, $formname, $numquestions, $isopen) {
+	
+    $con=connect();
+	
+	$query = "
+		CREATE TABLE " . $formnameclean . " (
+		  `formname` varchar(50)
+		) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+	";
+	
+	if (!mysqli_query($con,$query)) {
+		return ["error", "Error creating table."];
+	} else {
+		// insert other values
+		$query = "
+			INSERT INTO " . $formnameclean . "
+			(formname) VALUES ('" . $formname . "');
+		";
+		
+		if (!mysqli_query($con,$query)) {
+			return ["error", "Error storing form name."];
+		} else {
+			$query = "
+				INSERT INTO formmanager (formnameclean, numquestions, isopen) VALUES ('"
+				. $formnameclean . "'
+				, '" . $numquestions . "'
+				, '" . $isopen . "');
+			";
+			
+			if (!mysqli_query($con,$query)) {
+				return ["error", "Error storing form in form manager."];
+			} else {
+				return ["happy", "Form created successfully."];
+			}
+		}
+	}
+}
+
+function createAnswerTable($formnameclean, $numquestions) {
+	
+    $con=connect();
+	
+	$query = "
+		CREATE TABLE " . $formnameclean . "responses (
+		`answerid` int AUTO_INCREMENT,
+		`id` varchar(256) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+		
+		PRIMARY KEY (answerid)
+		) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+	";
+	
+	if (!mysqli_query($con,$query)) {
+		return ["error", "Error creating answer table."];
+	} else {
+		for ($i = 1; $i <= $numquestions; $i++) {
+			$query = "
+				ALTER TABLE " . $formnameclean . "responses
+				  ADD `" . $i . "` varchar(350);
+			";
+			$result = mysqli_query($con,$query);
+			if (!$result) {
+				return ["error", "Error formatting answer table."];
+			}
+		}
+	}
+	
+	return ["happy", "Form deleted successfully."];
+}
+
+// Deletes a form from the database
+function dropForm($formnameclean) {
+	
+    $con=connect();
+	
+	$query = "DROP TABLE " . $formnameclean . ";";
+	
+	if (!mysqli_query($con,$query)) {
+		return ["error", "Error deleting form."];
+	} else {
+		$query = "DELETE FROM formmanager WHERE formnameclean = '" . $formnameclean . "';";
+		if (!mysqli_query($con,$query)) {
+			return ["error", "Error deleting form."];
+		} else {
+			$query = "DROP TABLE " . $formnameclean . "responses;";
+			if (!mysqli_query($con,$query)) {
+				return ["error", "Error deleting form."];
+			} else {
+				return ["happy", "Form deleted successfully."];
+			}
+		}
+	}
+}
+
+// Adds questions to a Form
+function addQuestion($formnameclean, $formname, $questionnum, $question) {
+	
+    $con=connect();
+	
+	$query = "SELECT formname FROM " . $formnameclean . ";";
+    $result = mysqli_query($con,$query);
+	
+	$query = "
+		ALTER TABLE " . $formnameclean . "
+		  ADD `" . $questionnum . "` varchar(350);
+	";
+	
+	if (!mysqli_query($con,$query)) {
+		return ["error", "Error creating question."];
+	} else {
+		// store question
+		$query = "
+			UPDATE " . $formnameclean . "
+			SET `" . $questionnum . "`='" . $question . "'
+			WHERE formname = '" . $formname . "';
+		";
+		
+		if (!mysqli_query($con,$query)) {
+			return ["error", "Error storing question."];
+		} else {
+			return ["happy", "Question edited successfully."];
+		}
+	}
+}
+
+// returns a question from a number
+function getQuestion($formnameclean, $numquestions) {
+	
+    $con=connect();
+	
+	$query = "SELECT `" . $numquestions . "` FROM " . $formnameclean . ";";
+	
+    $result = mysqli_query($con,$query);
+	
+	mysqli_close($con);
+	
+	if (mysqli_num_rows($result) != 0) {
+		$row = mysqli_fetch_array($result, MYSQLI_NUM);
+		return $row[0];
+	} else {
 		return "";
 	}
+}
+
+// Drops a question from a form
+function dropQuestion($formnameclean, $question) {
 	
-	$con=connect();
-	$query="SELECT whyIsNowRightTime FROM db" . $application . " WHERE ". $application . "ID='" . $id . "';";
+    $con=connect();
 	
-    $result = mysqli_query($con,$query);
+	$query = "
+		ALTER TABLE " . $formnameclean . "
+		  DROP COLUMN " . $question . ";
+	";
 	
-	if (!(mysqli_num_rows($result) === 0)) {
-		$result = $result->fetch_array();
-		$why = $result[0];
+	if (!mysqli_query($con,$query)) {
+		return ["error", "Error deleting question."];
 	} else {
-		$why = "";
+		return ["happy", "Question deleted successfully."];
 	}
-	
-	mysqli_close($con);
-	
-	return $why;
 }
 
-// returns a user's recovery status from the corresponding form
-function get_statusinrecoveryjourney($id, $application) {
+// Edits a question in a form
+function editQuestion($formnameclean, $formname, $questionnum, $question) {
 	
-	if ($id == "") {
-		return "";
-	}
+    $con=connect();
 	
-	$con=connect();
-	$query="SELECT statusInRecoveryJourney FROM db" . $application . " WHERE ". $application . "ID='" . $id . "';";
+	$query = "
+		UPDATE " . $formnameclean . "
+		SET `" . $questionnum . "`='" . $question . "'
+		WHERE formname = '" . $formname . "';
+	";
 	
-    $result = mysqli_query($con,$query);
-	
-	if (!(mysqli_num_rows($result) === 0)) {
-		$result = $result->fetch_array();
-		$status = $result[0];
+	if (!mysqli_query($con,$query)) {
+		return ["error", "Error editing question."];
 	} else {
-		$status = "";
+		return ["happy", "Question edited successfully."];
 	}
-	
-	mysqli_close($con);
-	
-	return $status;
 }
 
-// returns a user's screener name from the corresponding form
-function get_screenername($id, $application) {
+// Edits a question in a form
+function editOpen($formnameclean, $isopen) {
 	
-	if ($id == "") {
-		return "";
-	}
+    $con=connect();
 	
-	$con=connect();
-	$query="SELECT screenerName FROM db" . $application . " WHERE ". $application . "ID='" . $id . "';";
+	$query = "
+		UPDATE formmanager
+		SET isopen=" . $isopen . "
+		WHERE formnameclean = '" . $formnameclean . "';
+	";
 	
-    $result = mysqli_query($con,$query);
-	
-	if (!(mysqli_num_rows($result) === 0)) {
-		$result = $result->fetch_array();
-		$name = $result[0];
+	if (!mysqli_query($con,$query)) {
+		return ["error", "Error updating submission status."];
 	} else {
-		$name = "";
+		return ["happy", "Updated submission status successfully."];
 	}
-	
-	mysqli_close($con);
-	
-	return $name;
-}
-
-// returns a user's screening date from the corresponding form
-function get_screeningdate($id, $application) {
-	
-	if ($id == "") {
-		return " ";
-	}
-	
-	$con=connect();
-	$query="SELECT screeningDate FROM db" . $application . " WHERE ". $application . "ID='" . $id . "';";
-	
-    $result = mysqli_query($con,$query);
-	
-	if (!(mysqli_num_rows($result) === 0)) {
-		$result = $result->fetch_array();
-		$date = $result[0];
-	} else {
-		$date = "";
-	}
-	
-	mysqli_close($con);
-	
-	return $date;
-}
-
-// returns the userID of the person who filled out the corresponding application
-function get_personID($appID, $application) {
-	
-	$con=connect();
-	$query="SELECT id FROM db" . $application . " WHERE ". $application . "ID='" . $appID . "';";
-	
-    $result = mysqli_query($con,$query);
-	
-	if (!(mysqli_num_rows($result) === 0)) {
-		$result = $result->fetch_array();
-		$pid = $result[0];
-	} else {
-		$pid = "";
-	}
-	
-	mysqli_close($con);
-	
-	return $pid;
-	
-}
-
-// updates a user's reason in the corresponding form, returns the reason 
-function update_reasontobecome($id, $application, $reason) {
-	
-	switch ($application) {
-		case "f2fapplication":
-			$formattedName = "f2f";
-			break;
-		case "p2papplication":
-			$formattedName = "p2p";
-			break;
-		case "ioovapplication":
-			$formattedName = "ioov";
-			break;
-		case "csgapplication":
-			$formattedName = "csg";
-			break;
-		case "fsgapplication":
-			$formattedName = "fsg";
-			break;
-		case "hfapplication":
-			$formattedName = "hf";
-			break;
-	}
-	
-	$con=connect();
-	$query="UPDATE db" . $application . " SET reasonToBecome" . $formattedName . "= '" . $reason . "', APPROVED=0 WHERE ". $application . "ID='" . $id . "';";
-	
-    $result = mysqli_query($con,$query);
-	
-	mysqli_close($con);
-	
-	return $reason;
-}
-
-// updates a user's time reason in the corresponding form, returns the time reason 
-function update_whyisnowrighttime($id, $application, $time) {
-	
-	$con=connect();
-	$query="UPDATE db" . $application . " SET whyIsNowRightTime = '" . $time . "', APPROVED=0 WHERE ". $application . "ID='" . $id . "';";
-	
-    $result = mysqli_query($con,$query);
-	
-	mysqli_close($con);
-	
-	return $time;
-}
-
-// updates a user's recovery status in the corresponding form, returns the recovery status 
-function update_statusinrecoveryjourney($id, $application, $status) {
-	
-	$con=connect();
-	$query="UPDATE db" . $application . " SET statusInRecoveryJourney = '" . $status . "', APPROVED=0 WHERE ". $application . "ID='" . $id . "';";
-	
-    $result = mysqli_query($con,$query);
-	
-	mysqli_close($con);
-	
-	return $status;
-}
-
-// updates a user's screener name in the corresponding form, returns the screener name 
-function update_screenername($id, $application, $name) {
-	
-	$con=connect();
-	$query="UPDATE db" . $application . " SET screenerName = '" . $name . "', APPROVED=0 WHERE ". $application . "ID='" . $id . "';";
-	
-    $result = mysqli_query($con,$query);
-	
-	mysqli_close($con);
-	
-	return $name;
-}
-
-// updates a user's screening date in the corresponding form, returns the screening date 
-function update_screeningdate($id, $application, $date) {
-	
-	$con=connect();
-	$query="UPDATE db" . $application . " SET screeningDate = '" . $date . "', APPROVED=0 WHERE ". $application . "ID='" . $id . "';";
-	
-    $result = mysqli_query($con,$query);
-	
-	mysqli_close($con);
-	
-	return $date;
-}
-
-// updates a user's screening date in the corresponding form, returns the screening date 
-function isFormOpen($application) {
-	
-	switch ($application) {
-		case "f2fapplication":
-			$formattedName = "f2f";
-			break;
-		case "p2papplication":
-			$formattedName = "p2p";
-			break;
-		case "ioovapplication":
-			$formattedName = "ioov";
-			break;
-		case "csgapplication":
-			$formattedName = "csg";
-			break;
-		case "fsgapplication":
-			$formattedName = "fsg";
-			break;
-		case "hfapplication":
-			$formattedName = "hf";
-			break;
-	}
-	
-	$con=connect();
-	$query="SELECT isopen FROM dbformmanagement WHERE application='" . $formattedName . "';";
-	
-    $result = mysqli_query($con,$query);
-	
-	if (!(mysqli_num_rows($result) === 0)) {
-		$result = $result->fetch_array();
-		$open = $result[0];
-	} else {
-		$open = 0;
-	}
-	
-	mysqli_close($con);
-	
-	return $open;
 }
 
 ?>
