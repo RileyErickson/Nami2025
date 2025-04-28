@@ -17,7 +17,7 @@ include_once('dbPersons.php');
 //Used in 'formsearch'. Checks if there is a form by that name in the manager. Returns the manager ID if so.
 function findFormFromName($search){
 	$con=connect();
-	$query = "SELECT `managerID` AND 'originalID' FROM `formmanager` WHERE `formname` = '".$search."';";
+	$query = "SELECT `managerID` AND 'formnameclean' FROM `formmanager` WHERE `formnameclean` = '".$search."';";
 	$result = mysqli_query($con,$query);
 	mysqli_close($con);
 	return $result;
@@ -28,7 +28,7 @@ function getForms() {
 	
     $con=connect();
 	
-	$query = "SELECT formname FROM formmanager;";
+	$query = "SELECT formnameclean FROM formmanager;";
 	
     $result = mysqli_query($con,$query);
 	if (!(mysqli_num_rows($result) === 0)) {
