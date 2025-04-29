@@ -247,6 +247,8 @@
                     
                     </div>
 
+                    <main class="dashboard"></main>
+
                 <!-- Volunteer -->
 
                 <?php elseif ($notRoot) : ?>
