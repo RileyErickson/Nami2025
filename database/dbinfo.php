@@ -19,11 +19,9 @@ function connect() {
     $host = "localhost"; 
     $database = "dbahtngmaidjgd";
 
-    $user = "stepvadb";
-    $pass = "stepvadb";
-// might need to change to this when merging
-    //$user = "root";
-    //$pass = "";
+
+    $user = "root";
+    $pass = "";
 
     if ($_SERVER['SERVER_NAME'] == 'jenniferp161.sg-host.com') {
         $user = 'uhxi7ly4lmfqq';
