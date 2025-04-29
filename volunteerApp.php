@@ -112,7 +112,7 @@
             <label><em>* </em>Which form of communication fits best as your preference to communicate to others?</label>
             <div class="radio-group">
                 <?php
-                foreach (['verbal', 'written', 'either'] as $comm) {
+                foreach (['text', 'email', 'call'] as $comm) {
                     $checked = ($formData['communication'] ?? '') === $comm ? 'checked' : '';
                     echo "<input type='radio' id='communication_$comm' name='communication' value='$comm' required $checked><label for='communication_$comm'>" . ucfirst($comm) . "</label>";
                 }
