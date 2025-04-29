@@ -300,13 +300,15 @@
 									echo "<label>Question " . $i . ":</label>";
 									echo "<input type=\"text\" id=\"" . $i . "\" name=\"" . $i . "\" value=\"";
 									// if editing a pre-existing form
-									echo getQuestion($formnameclean, $i);
+									if (checkForm($formnameclean)) {
+										echo getQuestion($formnameclean, $i);
+									}
 									echo "\">";
 								}
 							?>
 							<label for="isopen">Submissions open?</label>
 							<label class="switch">
-							<input type="checkbox" name="isopen" id="isopen" value="1" <?php if (getOpen($formnameclean)) { echo "checked"; } ?>>
+							<input type="checkbox" name="isopen" id="isopen" value="1" <?php if (checkForm($formnameclean)) { if (getOpen($formnameclean)) { echo "checked"; } } ?>>
 							<span class="slider"></span>
 							</label>
 							
