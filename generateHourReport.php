@@ -8,7 +8,9 @@ require_once('database/dbinfo.php');
 $conn = connect();
 
 // Fetch volunteer hours from database using your original query
-$query = "SELECT f_name, l_name, date, hours FROM volunteerHours ORDER BY l_name, f_name, date ASC";
+$query = "SELECT f_name, l_name, date, hours
+          FROM volunteerHours
+          ORDER BY l_name, f_name, date ASC";
 $result = mysqli_query($conn, $query);
 
 // Fetch all rows into an array
@@ -16,7 +18,6 @@ $rows = [];
 while ($row = mysqli_fetch_assoc($result)) {
     $rows[] = $row;
 }
-
 if (empty($rows)) {
     die("No volunteer hours found.");
 }
@@ -44,24 +45,25 @@ $pdf->AddPage();
 // --- Header: Centered Logo ---
 // For an A4 page (210mm wide), center an image with width=100mm by setting x = (210-100)/2 = 55.
 $pdf->Image('images/logoLong.jpg', 55, 10, 100);
-$pdf->Ln(40); // Vertical spacing after the logo
+// Increase spacing after the logo to avoid overlap with the paragraph below
+$pdf->Ln(60);  // was 40
 
 // --- Centered Paragraph with User Info ---
 $pdf->SetFont('Arial','',12);
 $today = date('F j, Y');
 $paragraph = "$fName $lName has worked a total of $totalHours hours as of $today. "
            . "Your dedication and hard work are invaluable to our community. Thank you for making a difference!";
-//siteground no likey
-//$pdf->MultiCell(0, 8, utf8_decode($paragraph), 0, 'C');
-//siteground likey
-$pdf->MultiCell(0, 8, mb_convert_encoding($paragraph, 'ISO-8859-1', 'UTF-8'), 0, 'C');
 
+// siteground no likey
+// $pdf->MultiCell(0, 8, utf8_decode($paragraph), 0, 'C');
+// siteground likey
+$pdf->MultiCell(0, 8, mb_convert_encoding($paragraph, 'ISO-8859-1', 'UTF-8'), 0, 'C');
 $pdf->Ln(10);
 
 // --- Table: Volunteer Hour Breakdown ---
 // Define column widths for two columns: Hours and Date.
 $colHours = 40;
-$colDate = 50;
+$colDate  = 50;
 $tableWidth = $colHours + $colDate;
 $centerX = ($pdf->GetPageWidth() - $tableWidth) / 2;
 
