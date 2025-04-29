@@ -34,18 +34,18 @@ $conn = connect();
                 <span><center>Edit Minutes</center></span>
             </div>
     <?php endif?>
-    <?php if ($_SESSION['access_level'] >= 2): ?>
+    <?php if ($_SESSION['access_level'] >= 3): ?>
             <div class="dashboard-item" onclick="location.href='searchMinutes.php'">
                 <img src="images/search.svg" alt="Search Minutes">
                 <span><center>Search Minutes</center></span>
             </div>
+    <?php endif?>
             <div style="flex-basis: 100%; height: 0;"></div>
             <div class="dashboard-item" onclick="location.href='index.php'" style="background-color: grey;">
                 <img src="images/logout.svg" alt="Return Home">
                 <span><center>Return to Home Dashboard</center></span>
             </div>
         </div>
-    <?php endif?>
     </main>
 </body>
 <?php require('footer.php'); ?>
