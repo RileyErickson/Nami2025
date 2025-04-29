@@ -21,74 +21,124 @@
         die();
     }
     
+
+ini_set("display_errors", 1);
+error_reporting(E_ALL);
+
+require_once('header.php');
+require_once('universal.inc');
+require_once('database/dbinfo.php');
+
+
+$conn = connect();
+
+// Fetch all volunteer hours
+$query = "SELECT f_name, l_name, date, hours FROM volunteerHours ORDER BY l_name, f_name, date ASC";
+$result = mysqli_query($conn, $query);
+$volunteerHours = [];
+$totalHours = 0;
+
+while ($row = mysqli_fetch_assoc($result)) {
+    $volunteerHours[] = $row;
+    $totalHours += $row['hours'];
+}
+
+mysqli_close($conn);
 ?>
+
 <!DOCTYPE html>
 <html>
-    <head>
-        <?php require_once('universal.inc') ?>
-        <title>NAMI | Generate Reports</title>
-    </head>
-    <body>
-        <?php require_once('header.php') ?>
-        <h1>Generate Volunteer Reports</h1>
-        <main>
-        <form id="hours-report" class="general" method="get">
-            <h2>Generate Volunteer Report</h2>
-            <?php
-                if (isset($_GET['id'])){
-                    require_once('include/input-validation.php');
-                    require_once('database/dbPersonHours.php');
-                    $args = sanitize($_GET);
-                    $required = ['id', 'eventID', 'startEnd', 'totalHours'];
-                    if (!wereRequiredFieldsSubmitted($args, $required, true)){
-                        echo 'Missing expected form elements';
-                    }
-                    $id = $args['id'];
-                    $eventID = $args['eventID'];
-                    $startEnd = $args['startEnd'];
-                    $totalHours = $args['totalHours'];
-                    $PersonHours = getPersonHours($id);
-                    require_once('include/output.php');
-                    if (is_array($PersonHours) && count($PersonHours) > 0){
-                        require('fpdf.php');
-                        ob_start();
-                        $pdf = new FPDF();
-                        $pdf->SetFont('times','B',30);
-                        $pdf->AddPage();
-                        $pdf->Cell(60, 20, $id);
-                        $pdf->Ln();
-                        $pdf->SetFont('times','B',15);
-                        $pdf->Cell(35, 10, 'Event ID');
-                        $pdf->Cell(60, 10, 'Start Time');
-                        $pdf->Cell(60, 10, 'End Time');
-                        $pdf->Cell(45, 10, 'Total Hours');
-                        $pdf->Ln();
-                        $entire = 0;
-                        foreach($PersonHours as $p){
-                            $totTime = strtotime($p["end_time"]) - strtotime($p["start_time"]);
-                            $divTime = (int)$totTime;
-                            $divTime = $divTime / 3600;
-                            $entire += $divTime;
-                            $pdf->Cell(35, 10, $p['eventID']);
-                            $pdf->Cell(60, 10, $p['start_time']);
-                            $pdf->Cell(60, 10, $p['end_time']);
-                            $pdf->Cell(45, 10, number_format($divTime, 2));
-                            $pdf->Ln();
-                        }
-                        $pdf->Cell(140, 10, '');
-                        $pdf->Cell(15, 10, 'total: ');
-                        $pdf->Cell(45, 10, number_format($entire, 2)); 
-                        $pdf->Output();
-                    }
-                }
-            ?>
-            <p>Use the form to find hour information for a volunteer. All criteria must be filled in.</p>
-            <label for="id">Username</label>
-            <input type="text" id="id" name="id" value="<?php if (isset($id)) echo htmlspecialchars($_GET['id']) ?>" placeholder="Enter the user's username (login ID)">
-            <input type="submit" value="Generate Report">
-            <a class="button cancel" href="index.php">Return to Home Dashboard</a>
-        </form>
-            </main>
-    </body>
+<head>
+    <title>NAMI | Generate Reports</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+        }
+
+        .container {
+            max-width: 700px;
+            margin: 40px auto;
+            padding: 20px;
+        }
+
+        h1 {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        .content-box {
+            background: #fff;
+            padding: 30px;
+            border-radius: 12px;
+            box-shadow: 0 0 10px rgba(0,0,0,0.05);
+        }
+
+        .total-hours {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border: 2px solid #ddd;
+            border-radius: 10px;
+            background-color: #f9f9f9;
+            padding: 10px 20px;
+            margin-bottom: 25px;
+            max-width: 300px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .total-hours-label {
+            font-size: 18px;
+            font-weight: bold;
+        }
+
+        .total-hours-value {
+            font-size: 20px;
+            font-weight: bold;
+        }
+
+        .log-container {
+            background: #fff;
+            padding: 15px;
+            border-radius: 10px;
+            box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+            margin-bottom: 15px;
+        }
+
+        .download-button {
+            display: block;
+            margin: 30px auto 0;
+            background-color: #4CAF50;
+            color: white;
+            padding: 10px 18px;
+            text-decoration: none;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 15px;
+            text-align: center;
+        }
+
+        .no-logs {
+            text-align: center;
+            font-style: italic;
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+<h1>Generate Volunteer Hours Report</h1>
+<main>
+    <div class="container">
+        <div class="content-box">
+            <form action="generateOneReport.php" method="POST" target="_blank" style="text-align: center;">
+                <input name="volID" type="text" id="volID" required placeholder="Enter Volunteer ID" required>
+                <button type="submit" class="download-button">Download Report</button>
+            </form>
+        </div>
+        <a class="button cancel" href="index.php" style="display: block; text-align: center; margin-top: 0.5rem;">Return to Dashboard</a>
+    </div>
+</main>
+</body>
 <?php require('footer.php'); ?>
 </html>
