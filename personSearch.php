@@ -144,7 +144,7 @@
                 <option value="admin" <?php if (isset($role) && $role == 'admin') echo 'admin' ?>>Admin</option>
                 <option value="board" <?php if (isset($role) && $role == 'board') echo 'board' ?>>Board Member</option>
                 
-                <option value="donator" <?php if (isset($role) && $role == 'donator') echo 'donator' ?>>Donar</option>
+                <option value="donator" <?php if (isset($role) && $role == 'donator') echo 'donator' ?>>Donor</option>
             </select>
   
           <label for="status">Archive Status</label>
