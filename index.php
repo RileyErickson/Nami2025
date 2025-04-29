@@ -285,7 +285,6 @@
                 <!-- Volunteer -->
 
                 <?php elseif ($notRoot) : ?>
-                    <main class='dashboard'>
 
                         <div class="top-bar">
 
@@ -298,8 +297,11 @@
 
                         </div>
 
-                        <div id="dashboard">
+                        <main class='dashboard'>
 
+                        <p style="font-size: 45px; color: #0c499c; text-align: left; padding-left: 50px; padding-top: 20px; padding-right: 0px;"><b>Dashboard</b></p>
+
+                        <div id="dashboard">
 
                             <div class="dashboard-item" data-link="viewForms.php">
                                 <img src="images/viewforms.png">
@@ -340,7 +342,8 @@
 <!--                            </div>-->
 
                         </div>
-                    </main>
+                        
+                        </main>
                 <?php endif ?>
                 <!-- autoredirects home as volunteer currently -->
                 <!-- <div class="dashboard-item" data-link="editHours.php">

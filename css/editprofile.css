@@ -102,118 +102,6 @@ body {
     font-family: Montserrat;
 }
 
-header > img {
-    height: 5rem;
-}
-
-nav {
-    font-size: 2rem;
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    justify-content: center;
-    padding-top: 1rem;
-    padding-bottom: 1rem;
-    font-weight: 300;
-}
-
-header ul > li, header span {
-    font-size: 0.75rem;
-    list-style-type: none;
-}
-
-nav {
-    width: 100%;
-}
-
-nav ul {
-    display: inline-flex;
-    flex-direction: row;
-    gap: 1.5rem;
-}
-
-nav img {
-    height: 3rem;
-}
-
-nav ul li a {
-    color: var(--main-color);
-    font-weight: 500;
-    text-decoration: none;
-    transition: color .3s;
-}
-
-nav ul li a:hover {
-    color: var(--accent-color);
-}
-
-span.logo {
-    display: inline-flex;
-    flex-direction: row;
-    align-items: center;
-    margin-right: 1rem;
-}
-
-#menu-toggle {
-    display: none;
-    height: 1.5rem;
-}
-
-nav {
-    /* position: fixed; */
-    /* margin-top: -5rem; */
-    background-color: var(--page-background-color);
-    /* box-shadow: 0px 3px 1rem var(--shadow-and-border-color); */
-    border-bottom: 2px solid var(--shadow-and-border-color);
-    max-width: 100vw;
-}
-
-#vms-logo {
-    color: var(--main-color);
-    font-weight: 300;
-    font-size: 1.5rem;
-}
-
-/* Header mobile rules */
-@media only screen and (max-width: 1079px) {
-    nav {
-        flex-direction: column;
-        background-color: var(--page-background-color);
-    }
-
-    nav ul {
-        width: 100%;
-        padding-left: 1rem;
-        display: inline-flex;
-        flex-direction: column;
-        align-items: left;
-        display: none;
-        margin-top: 1rem;
-    }
-
-    nav ul li.sub-item {
-        margin-left: 1rem;
-    }
-
-    #menu-toggle {
-        display: inline;
-        filter: opacity(0.25);
-    }
-
-    .nav-divider {
-        display: none;
-    }
-
-    #nav-top {
-        justify-content: space-between;
-        align-items: center;
-        width: calc(100% - 2rem);
-        display: flex;
-        margin-left: 1rem;
-        margin-right: 1rem;
-    }
-}
-
 /* Main Content */
 
 main:not(.login):not(.calendar-view):not(.dashboard) {
@@ -821,6 +709,13 @@ table.general th, table.general td {
     padding: 1rem;
     white-space: nowrap;
 }
+
+@media (max-width: 1250px) {
+    table.general td {
+      display: block;
+      width: 100%;
+    }
+  }
 
 .standout {
     border-bottom: 3px solid var(--shadow-and-border-color);
