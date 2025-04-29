@@ -79,10 +79,7 @@ class Person {
     private $choice_nami_affiliate;
     private $may_text;
 
-    /**
-     * This is a temporary mini constructor for testing purposes. It will be expanded later.
-     * The last 12 parameters now default to empty strings so older calls still work.
-     */
+   
     function __construct(
         $id,
         $password,
@@ -120,19 +117,18 @@ class Person {
         $orientation_date,
         $background_complete,
         $background_date,
-        // now optional with defaults:
-        $strengths                    = '',
-        $primary_role                 = '',
-        $work_best                    = '',
-        $learning_method              = '',
-        $introOrExtro                 = '',
-        $family_with_mental_illness   = '',
-        $involvement_in_nami          = '',
-        $interest                     = '',
-        $active_paying_nami_affiliate = '',
-        $if_not_are_willing           = '',
-        $choice_nami_affiliate        = '',
-        $may_text                     = ''
+        $strengths,                   
+        $primary_role ,                
+        $work_best   ,          
+        $learning_method,            
+        $introOrExtro ,       
+        $family_with_mental_illness,
+        $involvement_in_nami,          
+        $interest,                     
+        $active_paying_nami_affiliate, 
+        $if_not_are_willing,          
+        $choice_nami_affiliate,       
+        $may_text                     
     ) {
         $this->id                         = $id;
         $this->password                   = $password;

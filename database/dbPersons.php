@@ -598,7 +598,20 @@ function make_a_person($result_row) {
         $result_row['orientation_complete'],
         $result_row['orientation_date'],
         $result_row['background_complete'],
-        $result_row['background_date']
+        $result_row['background_date'],
+
+        $result_row['strengths'],                   // 37
+        $result_row['primaryRole'],                 // 38
+        $result_row['workBest'],                    // 39
+        $result_row['learningMethod'],              // 40
+        $result_row['introOrExtro'],                // 41
+        $result_row['familyWithMentalIllness'],     // 42
+        $result_row['involvementInNami'],           // 43
+        $result_row['interest'],                    // 44
+        $result_row['activePayingNamiAffiliate'],   // 45
+        $result_row['ifNotAreWilling'],             // 46
+        $result_row['choiceNamiAffiliate'],         // 47
+        $result_row['mayText']                      // 48
     );
 
     return $thePerson;
@@ -1442,11 +1455,17 @@ function get_logged_hours($from, $to, $name_from, $name_to, $venue) {
         //$query = 'UPDATE dbpersons SET type="volunteer" WHERE id="'.$id.'"';
         //modify account does not like status not being set already 
         //should be safe to assume a new account is active
-        $query = 'UPDATE dbpersons SET type="volunteer", status="Active" WHERE id="' . $id . '"';
+        //$query = 'UPDATE dbpersons SET type="volunteer", status="Active" WHERE id="' . $id . '"';
+        $query = 'UPDATE dbpersons 
+                SET type="volunteer", 
+                status="Active", 
+                start_date=CURDATE() 
+                WHERE id="' . $id . '"';
         $result = mysqli_query($connection, $query);
         $result = boolval($result);
         $query  = 'SELECT email FROM dbpersons WHERE id="' . $id . '"';
-        $emailresult = mysqli_query($connection, $query);        //  add this line
+        $emailresult = mysqli_query($connection, $query);       
+
         $data   = mysqli_fetch_assoc($emailresult);
         $email  = $data['email'];
         if($result){
