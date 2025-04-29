@@ -37,6 +37,16 @@ class GenVol{
 
     private $emergency_contact_phone;
 
+    private $birthday;
+
+    private $disability_accomodation_needs;
+
+    private $professional_experience;
+
+    private $hobbies;
+
+    private $how_you_heard_of_stepva;
+
 
 // this is a constructor for building a person based on application
     function __construct(
@@ -47,7 +57,9 @@ class GenVol{
                     $interest, $active_paying_nami_affiliate, $if_not_are_willing,
                     $choice_nami_affiliate, $username, $password, $may_text,
                     $emergency_contact_first_name, $emergency_contact_last_name,
-                    $emergency_contact_relation, $emergency_contact_phone
+                    $emergency_contact_relation, $emergency_contact_phone,
+                    $birthday, $disability_accomodation_needs, $professional_experience,
+                    $hobbies, $how_you_heard_of_stepva
                     ){
         $this->access_level = 0;
         $this->first_name = $first_name;
@@ -77,6 +89,11 @@ class GenVol{
         $this->emergency_contact_last_name = $emergency_contact_last_name;
         $this->emergency_contact_relation = $emergency_contact_relation;
         $this->emergency_contact_phone = $emergency_contact_phone;
+        $this->birthday = $birthday;
+        $this->disability_accomodation_needs = $disability_accomodation_needs;
+        $this->professional_experience = $professional_experience;
+        $this->hobbies = $hobbies;
+        $this->how_you_heard_of_stepva = $how_you_heard_of_stepva;
     }
 
     // the getters for the general volunteer
@@ -186,6 +203,26 @@ class GenVol{
 
     function get_emergency_contact_phone(){
         return $this->emergency_contact_phone;
+    }
+
+    function get_birthday(){
+        return $this->birthday;
+    }
+
+    function get_disability_accomodation_needs(){  
+        return $this->disability_accomodation_needs;
+    }
+
+    function get_professional_experience(){
+        return $this->professional_experience;
+    }
+
+    function get_hobbies(){
+        return $this->hobbies;
+    }
+
+    function get_how_you_heard_of_stepva(){
+        return $this->how_you_heard_of_stepva;
     }
 
 }
