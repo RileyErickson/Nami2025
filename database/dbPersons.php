@@ -59,7 +59,12 @@ function add_genVol($genVol){
             emergency_contact_first_name,
             emergency_contact_last_name,
             emergency_contact_relation,
-            emergency_contact_phone) 
+            emergency_contact_phone,
+            disability_accomodation_needs,
+            professional_experience,
+            hobbies,
+            how_you_heard_of_stepva
+            ) 
              VALUES (
                 "'. $genVol->get_first_name() .'", 
                 "'. $genVol->get_last_name() .'",
@@ -91,7 +96,11 @@ function add_genVol($genVol){
                 "'. $genVol->get_emergency_contact_first_name() .'",
                 "'. $genVol->get_emergency_contact_last_name() .'",
                 "'. $genVol->get_emergency_contact_relation() .'",
-                "'. $genVol->get_emergency_contact_phone() .'"
+                "'. $genVol->get_emergency_contact_phone() .'",
+                "'. $genVol->get_disability_accomodation_needs() .'",
+                "'. $genVol->get_professional_experience() .'",
+                "'. $genVol->get_hobbies() .'",
+                "'. $genVol->get_how_you_heard_of_stepva() .'"
                 );');
                 mysqli_close($con);
                 return true;

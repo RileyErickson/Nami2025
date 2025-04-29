@@ -51,6 +51,10 @@ session_start();
             $first_name = $args['first_name'];
             $last_name  = $args['last_name'];
             $birthday = $args['birthday'];
+            $disability_accomodation_needs = $args['disability_accomodation_needs'];
+            $professional_experience = $args['professional_experience'];
+            $hobbies = $args['hobbies'];
+            $how_you_heard_of_stepva = $args['how_you_heard_of_stepva'];
 
             $phone1 = validateAndFilterPhoneNumber($args['phone']);
             if (!$phone1) {
@@ -159,7 +163,8 @@ session_start();
                 $interest, $active_paying_nami_affiliate, $if_not_are_willing,
                 $choice_nami_affiliate, $username, $password, $may_text,
                 $emergency_contact_first_name, $emergency_contact_last_name, $emergency_contact_relation, $emergency_contact_phone,
-                $birthday
+                $birthday, $disability_accomodation_needs, $professional_experience,
+                $hobbies, $how_you_heard_of_stepva
             );
             $result = add_genVol($newVol);
             if (!$result) {

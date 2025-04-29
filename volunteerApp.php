@@ -169,6 +169,22 @@
         </fieldset>
 
         <fieldset class="section-box">
+                <legend>Extra Information</legend>
+            <label for="disability_accomodation_needs"><em>* </em>Do you have an accomodation needs?</label>
+            <input type="text" id="disability_accomodation_needs" name="disability_accomodation_needs" required placeholder="" value="<?= htmlspecialchars($formData['disability_accomodation_needs'] ?? '') ?>">
+
+            <label for="professional_experience"><em>* </em>Do you have any professional experience?</label>
+            <input type="text" id="professional_experience" name="professional_experience" required placeholder="" value="<?= htmlspecialchars($formData['professional_experience'] ?? '') ?>">
+            
+            <label for="hobbies"><em>* </em>Do you have any hobbies?</label>
+            <input type="text" id="hobbies" name="hobbies" required placeholder="" value="<?= htmlspecialchars($formData['hobbies'] ?? '') ?>">
+
+            <label for="how_you_heard_of_stepva"><em>* </em>How did you hear about NAMI Rappahannock?</label>
+            <input type="text" id="how_you_heard_of_stepva" name="how_you_heard_of_stepva" required placeholder="" value="<?= htmlspecialchars($formData['how_you_heard_of_stepva'] ?? '') ?>">
+
+        </fieldset>
+
+        <fieldset class="section-box">
             <legend>Login Credentials</legend>
 
             <label for="username"><em>* </em>Username</label>
