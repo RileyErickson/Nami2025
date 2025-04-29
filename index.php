@@ -55,8 +55,8 @@
 }
 ?>
         <br>
-        <p style="font-size: 45px; color: #0c499c; text-align: center; padding-left: 50px"><b>Welcome back, <?php echo $person->get_first_name() ?>!</b></p>
-        <p  style="font-size: 20px;  color: #0c499c; text-align: center; padding-left: 50px">Today is <?php echo date('l, F j, Y'); ?>.</p>
+        <p style="font-size: 45px; color: #0c499c; text-align: center;"><b>Welcome back, <?php echo $person->get_first_name() ?>!</b></p>
+        <p  style="font-size: 20px;  color: #0c499c; text-align: center;">Today is <?php echo date('l, F j, Y'); ?>.</p>
 
         <br>
 
@@ -219,7 +219,7 @@
 		               
                         <div class="dashboard-item" data-link="announcement.php">
                             <img src="images/volunteer-history.svg">
-                            <span><center>Post a Message</center></span>
+                            <span><center>Announcements</center></span>
                         </div>
 
 <!--                        <div class="dashboard-item" data-link="changePassword.php">-->
@@ -285,7 +285,6 @@
                 <!-- Volunteer -->
 
                 <?php elseif ($notRoot) : ?>
-                    <main class='dashboard'>
 
                         <div class="top-bar">
 
@@ -298,8 +297,11 @@
 
                         </div>
 
-                        <div id="dashboard">
+                        <main class='dashboard'>
 
+                        <p style="font-size: 45px; color: #0c499c; text-align: left; padding-left: 50px; padding-top: 20px; padding-right: 0px;"><b>Dashboard</b></p>
+
+                        <div id="dashboard">
 
                             <div class="dashboard-item" data-link="viewForms.php">
                                 <img src="images/viewforms.png">
@@ -340,7 +342,8 @@
 <!--                            </div>-->
 
                         </div>
-                    </main>
+                        
+                        </main>
                 <?php endif ?>
                 <!-- autoredirects home as volunteer currently -->
                 <!-- <div class="dashboard-item" data-link="editHours.php">

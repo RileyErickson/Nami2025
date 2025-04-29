@@ -23,6 +23,9 @@
         }
     }
 ?>
+<?php
+session_start();
+?>
 
 <!DOCTYPE html>
 <html>
@@ -32,7 +35,7 @@
 </head>
 <body>
     <?php
-        //require_once('header.php');
+        require_once('header.php');
         require_once('domain/Person.php');
         require_once('database/dbPersons.php');
         require_once('domain/GenVol.php');
@@ -47,6 +50,11 @@
             // Your existing validations...
             $first_name = $args['first_name'];
             $last_name  = $args['last_name'];
+            $birthday = $args['birthday'];
+            $disability_accomodation_needs = $args['disability_accomodation_needs'];
+            $professional_experience = $args['professional_experience'];
+            $hobbies = $args['hobbies'];
+            $how_you_heard_of_stepva = $args['how_you_heard_of_stepva'];
 
             $phone1 = validateAndFilterPhoneNumber($args['phone']);
             if (!$phone1) {
@@ -94,6 +102,16 @@
             $active_paying_nami_affiliate = $args['activePayingNamiAffiliate'] ?? 'no';
             $if_not_are_willing           = $args['ifNotAreWilling']       ?? 'no';
             $choice_nami_affiliate        = $args['choiceNamiAffiliate'];
+
+            $emergency_contact_first_name = $args['emergency_contact_first_name'];
+            $emergency_contact_last_name = $args['emergency_contact_last_name'];
+
+            $emergency_contact_phone = validateAndFilterPhoneNumber($args['emergency_contact_phone']);
+            if (!$emergency_contact_phone) {
+                $errors = true;
+                echo 'bad phone';
+            }
+            $emergency_contact_relation = $args['emergency_contact_relation'];
 
             $username = $args['username'];
 
@@ -144,7 +162,9 @@
                 $family_with_mental_illness, $involvement_in_nami,
                 $interest, $active_paying_nami_affiliate, $if_not_are_willing,
                 $choice_nami_affiliate, $username, $password, $may_text,
-                $emergency_contact_first_name, $emergency_contact_last_name, $emergency_contact_relation, $emergency_contact_phone
+                $emergency_contact_first_name, $emergency_contact_last_name, $emergency_contact_relation, $emergency_contact_phone,
+                $birthday, $disability_accomodation_needs, $professional_experience,
+                $hobbies, $how_you_heard_of_stepva
             );
             $result = add_genVol($newVol);
             if (!$result) {

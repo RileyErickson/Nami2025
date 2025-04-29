@@ -19,6 +19,9 @@
             <label for="last_name"><em>* </em>Last Name</label>
             <input type="text" id="last_name" name="last_name" required placeholder="Enter your last name" value="<?= htmlspecialchars($formData['last_name'] ?? '') ?>">
 
+            <label for="birthday"><em>* </em>Date of Birth</label>
+            <input type="date" id="birthday" name="birthday" required placeholder="Choose your birthday" max="<?php echo date('Y-m-d'); ?>">
+
             <label for="phone"><em>* </em>Best number to reach you?</label>
             <input type="tel" id="phone" name="phone" pattern="\([0-9]{3}\) [0-9]{3}-[0-9]{4}" required placeholder="Ex. (555) 555-5555" value="<?= htmlspecialchars($formData['phone'] ?? '') ?>">
 
@@ -64,6 +67,22 @@
         </fieldset>
 
         <fieldset class="section-box">
+                <legend>Emergency Contact Information</legend>
+            <label for="emergency_contact_first_name"><em>* </em>Emergency Contact First Name</label>
+            <input type="text" id="emergency_contact_first_name" name="emergency_contact_first_name" required placeholder="Enter your emergency contact's first name" value="<?= htmlspecialchars($formData['emergency_contact_first_name'] ?? '') ?>">
+
+            <label for="emergency_contact_last_name"><em>* </em>Emergency Contact Last Name</label>
+            <input type="text" id="emergency_contact_last_name" name="emergency_contact_last_name" required placeholder="Enter your emergency contact's last name" value="<?= htmlspecialchars($formData['emergency_contact_last_name'] ?? '') ?>">
+
+            <label for="emergency_contact_relation"><em>* </em>Emergency Contact relation</label>
+            <input type="text" id="emergency_contact_relation" name="emergency_contact_relation" required placeholder="Enter your emergency contact's relation" value="<?= htmlspecialchars($formData['emergency_contact_relation'] ?? '') ?>">
+
+            <label for="emergency_contact_phone"><em>* </em>Best number to reach your emergency contact?</label>
+            <input type="tel" id="emergency_contact_phone" name="emergency_contact_phone" pattern="\([0-9]{3}\) [0-9]{3}-[0-9]{4}" required placeholder="Ex. (555) 555-5555" value="<?= htmlspecialchars($formData['emergency_contact_phone'] ?? '') ?>">
+
+        </fieldset>
+
+        <fieldset class="section-box">
             <legend>NAMIRAPP Specific Questions</legend>
 
             <label for="strengths_and_weaknesses"><em>* </em>List three strengths and three areas you could improve upon</label>
@@ -93,7 +112,7 @@
             <label><em>* </em>Which form of communication fits best as your preference to communicate to others?</label>
             <div class="radio-group">
                 <?php
-                foreach (['verbal', 'written', 'either'] as $comm) {
+                foreach (['text', 'email', 'call'] as $comm) {
                     $checked = ($formData['communication'] ?? '') === $comm ? 'checked' : '';
                     echo "<input type='radio' id='communication_$comm' name='communication' value='$comm' required $checked><label for='communication_$comm'>" . ucfirst($comm) . "</label>";
                 }
@@ -147,6 +166,22 @@
                 <label for="choiceNamiAffiliate"><em>* </em>Which NAMI affiliate?</label>
                 <input type="text" id="choiceNamiAffiliate" name="choiceNamiAffiliate" value="<?= htmlspecialchars($formData['choiceNamiAffiliate'] ?? '') ?>">
             </fieldset>
+        </fieldset>
+
+        <fieldset class="section-box">
+                <legend>Extra Information</legend>
+            <label for="disability_accomodation_needs"><em>* </em>Do you have an accomodation needs?</label>
+            <input type="text" id="disability_accomodation_needs" name="disability_accomodation_needs" required placeholder="" value="<?= htmlspecialchars($formData['disability_accomodation_needs'] ?? '') ?>">
+
+            <label for="professional_experience"><em>* </em>Do you have any professional experience?</label>
+            <input type="text" id="professional_experience" name="professional_experience" required placeholder="" value="<?= htmlspecialchars($formData['professional_experience'] ?? '') ?>">
+            
+            <label for="hobbies"><em>* </em>Do you have any hobbies?</label>
+            <input type="text" id="hobbies" name="hobbies" required placeholder="" value="<?= htmlspecialchars($formData['hobbies'] ?? '') ?>">
+
+            <label for="how_you_heard_of_stepva"><em>* </em>How did you hear about NAMI Rappahannock?</label>
+            <input type="text" id="how_you_heard_of_stepva" name="how_you_heard_of_stepva" required placeholder="" value="<?= htmlspecialchars($formData['how_you_heard_of_stepva'] ?? '') ?>">
+
         </fieldset>
 
         <fieldset class="section-box">

@@ -98,7 +98,7 @@ $conn->close();
             </a>
         </div>
 
-        <a href="hours.php" class="cancel">Return to Dashboard</a>
+        <a href="index.php" class="cancel">Return to Dashboard</a>
     </div>
 
     <?php require 'footer.php'; ?>
