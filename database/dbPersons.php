@@ -1442,11 +1442,17 @@ function get_logged_hours($from, $to, $name_from, $name_to, $venue) {
         //$query = 'UPDATE dbpersons SET type="volunteer" WHERE id="'.$id.'"';
         //modify account does not like status not being set already 
         //should be safe to assume a new account is active
-        $query = 'UPDATE dbpersons SET type="volunteer", status="Active" WHERE id="' . $id . '"';
+        //$query = 'UPDATE dbpersons SET type="volunteer", status="Active" WHERE id="' . $id . '"';
+        $query = 'UPDATE dbpersons 
+                SET type="volunteer", 
+                status="Active", 
+                start_date=CURDATE() 
+                WHERE id="' . $id . '"';
         $result = mysqli_query($connection, $query);
         $result = boolval($result);
         $query  = 'SELECT email FROM dbpersons WHERE id="' . $id . '"';
-        $emailresult = mysqli_query($connection, $query);        //  add this line
+        $emailresult = mysqli_query($connection, $query);       
+
         $data   = mysqli_fetch_assoc($emailresult);
         $email  = $data['email'];
         if($result){
