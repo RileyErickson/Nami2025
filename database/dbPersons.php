@@ -54,7 +54,17 @@ function add_genVol($genVol){
             password, 
             type, 
             status, 
-            archived) 
+            archived,
+            birthday,
+            emergency_contact_first_name,
+            emergency_contact_last_name,
+            emergency_contact_relation,
+            emergency_contact_phone,
+            disability_accomodation_needs,
+            professional_experience,
+            hobbies,
+            how_you_heard_of_stepva
+            ) 
              VALUES (
                 "'. $genVol->get_first_name() .'", 
                 "'. $genVol->get_last_name() .'",
@@ -81,7 +91,16 @@ function add_genVol($genVol){
                 "'. $genVol->get_password() .'",
                 "participant",
                 "pending",
-                "0"
+                "0",
+                "'. $genVol->get_birthday() .'",
+                "'. $genVol->get_emergency_contact_first_name() .'",
+                "'. $genVol->get_emergency_contact_last_name() .'",
+                "'. $genVol->get_emergency_contact_relation() .'",
+                "'. $genVol->get_emergency_contact_phone() .'",
+                "'. $genVol->get_disability_accomodation_needs() .'",
+                "'. $genVol->get_professional_experience() .'",
+                "'. $genVol->get_hobbies() .'",
+                "'. $genVol->get_how_you_heard_of_stepva() .'"
                 );');
                 mysqli_close($con);
                 return true;
@@ -123,7 +142,6 @@ function add_person($person) {
             $person->get_phone1() . '","' .
             $person->get_phone1type() . '","' .
             $person->get_emergency_contact_phone() . '","' .
-            $person->get_emergency_contact_phone_type() . '","' .
             $person->get_birthday() . '","' .
             $person->get_email() . '","' .
             $person->get_emergency_contact_first_name() . '","' .
@@ -580,7 +598,20 @@ function make_a_person($result_row) {
         $result_row['orientation_complete'],
         $result_row['orientation_date'],
         $result_row['background_complete'],
-        $result_row['background_date']
+        $result_row['background_date'],
+
+        $result_row['strengths'],                   // 37
+        $result_row['primaryRole'],                 // 38
+        $result_row['workBest'],                    // 39
+        $result_row['learningMethod'],              // 40
+        $result_row['introOrExtro'],                // 41
+        $result_row['familyWithMentalIllness'],     // 42
+        $result_row['involvementInNami'],           // 43
+        $result_row['interest'],                    // 44
+        $result_row['activePayingNamiAffiliate'],   // 45
+        $result_row['ifNotAreWilling'],             // 46
+        $result_row['choiceNamiAffiliate'],         // 47
+        $result_row['mayText']                      // 48
     );
 
     return $thePerson;
@@ -794,7 +825,7 @@ function get_logged_hours($from, $to, $name_from, $name_to, $venue) {
         $id, $first_name, $last_name, $birthday, $street_address, $city, $state,
         $notes, $zip_code, $email, $phone1, $emergency_contact_first_name,
         $emergency_contact_last_name, $emergency_contact_phone,
-        $emergency_contact_phone_type, $emergency_contact_relation,
+        $emergency_contact_relation,
         $how_you_heard_of_stepva,
         $preferred_feedback_method, $hobbies, $professional_experience,
         $disability_accomodation_needs, $training_complete, $training_date, $orientation_complete,
@@ -806,8 +837,7 @@ function get_logged_hours($from, $to, $name_from, $name_to, $venue) {
             zip_code='$zip_code', email='$email', phone1='$phone1',
             emergency_contact_first_name='$emergency_contact_first_name', 
             emergency_contact_last_name='$emergency_contact_last_name', 
-            emergency_contact_phone='$emergency_contact_phone', 
-            emergency_contact_phone_type='$emergency_contact_phone_type', 
+            emergency_contact_phone='$emergency_contact_phone',  
             emergency_contact_relation='$emergency_contact_relation',
             how_you_heard_of_stepva='$how_you_heard_of_stepva', preferred_feedback_method='$preferred_feedback_method',
             hobbies='$hobbies', professional_experience='$professional_experience',
@@ -1425,11 +1455,17 @@ function get_logged_hours($from, $to, $name_from, $name_to, $venue) {
         //$query = 'UPDATE dbpersons SET type="volunteer" WHERE id="'.$id.'"';
         //modify account does not like status not being set already 
         //should be safe to assume a new account is active
-        $query = 'UPDATE dbpersons SET type="volunteer", status="Active" WHERE id="' . $id . '"';
+        //$query = 'UPDATE dbpersons SET type="volunteer", status="Active" WHERE id="' . $id . '"';
+        $query = 'UPDATE dbpersons 
+                SET type="volunteer", 
+                status="Active", 
+                start_date=CURDATE() 
+                WHERE id="' . $id . '"';
         $result = mysqli_query($connection, $query);
         $result = boolval($result);
         $query  = 'SELECT email FROM dbpersons WHERE id="' . $id . '"';
-        $emailresult = mysqli_query($connection, $query);        //  add this line
+        $emailresult = mysqli_query($connection, $query);       
+
         $data   = mysqli_fetch_assoc($emailresult);
         $email  = $data['email'];
         if($result){

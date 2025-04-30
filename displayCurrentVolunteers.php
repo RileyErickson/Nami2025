@@ -2,212 +2,190 @@
 session_cache_expire(30);
 session_start();
 
-$loggedIn = false;
+$loggedIn   = false;
 $accessLevel = 0;
-$userID = null;
+$userID     = null;
+
 if (isset($_SESSION['_id'])) {
-    $loggedIn = true;
-    // 0 = not logged in, 1 = standard user, 2 = manager (Admin), 3 super admin (TBI)
+    $loggedIn    = true;
+    // 0 = not logged in, 1 = standard user, 2 = manager (Admin), 3 = super admin (TBI)
     $accessLevel = $_SESSION['access_level'];
-    $userID = $_SESSION['_id'];
+    $userID      = $_SESSION['_id'];
 }
+
 // admin-only access
 if ($accessLevel < 2) {
     header('Location: index.php');
     die();
 }
 
-#require_once('include/input-validation.php');
-#require_once('database/dbEvents.php');
 require_once('database/dbPersons.php');
-
 ini_set('display_errors', 1);
 error_reporting(E_ALL);
 
-
-require_once('database/dbPersons.php');
-
-$pending = fetchCurrentVolunteer();
+$pending      = fetchCurrentVolunteer();
 $boardMembers = fetchCurrentBoardMembers();
-$admins = fetchCurrentAdmins();
-$allMembers = fetchEveryone();
-$access_level = $_SESSION['access_level']; ?>
-
+$admins       = fetchCurrentAdmins();
+$allMembers   = fetchEveryone();
+$access_level = $_SESSION['access_level'];
+?>
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <?php require_once('universal.inc'); ?>
     <link rel="stylesheet" href="css/event.css" type="text/css" />
-
-    <title>View Event Details | <?php /*echo htmlspecialchars($event_info['name']); */ ?></title>
     <link rel="stylesheet" href="css/messages.css" />
+    <title>Current Member List</title>
 
+    <!-- Shrink-to-fit table CSS -->
+    <style>
+        .table-wrapper {
+            width: 100%;
+            overflow-x: visible;
+        }
+        table.general {
+            width: 100%;
+            table-layout: fixed;
+        }
+        table.general th,
+        table.general td {
+            white-space: normal;
+            word-wrap: break-word;
+            padding: 0.5em;
+        }
+        img, .some-large-element {
+            max-width: 100%;
+            height: auto;
+        }
+    </style>
 </head>
-
 <body>
-<?php require_once('header.php'); ?>
+    <?php require_once('header.php'); ?>
 
-<h1 style="margin-bottom:0">Current Member List</h1>
+    <h1 style="margin-bottom:0">Current Member List</h1>
 
-<main class="general">
-    <?php if (isset($_GET['rscSuccess'])): ?>
-        <div class="happy-toast"><?php
-        echo $_GET['id'];?>'s role and/or status updated successfully!</div>
-<!--        --><?php //header("Refresh: 2; jenniferp161.sg-host.com/displayCurrentVolunteers.php"); ?>
+    <main class="general">
+        <?php if (isset($_GET['rscSuccess'])): ?>
+            <div class="happy-toast">
+                <?= htmlspecialchars($_GET['id']) ?>'s role and/or status updated successfully!
+            </div>
+        <?php endif ?>
 
-    <?php endif ?>
-    <p>
-        <center><a
-                href="personSearch.php"><button class="button" style="width:30%"><?php echo 'Click here to search for a specific User' ?></button>
-        </center></a>
-        <?php if (sizeof($pending) === 0): ?>
-    <b><?php
-            echo "<div style=\"text-align:center\">";
-            echo "There are currently no volunteers.";
-        ?></b>
-        <?php elseif (sizeof($pending) === 1): ?>
-        <b><?php
-            echo "<div style=\"text-align:center\">";
-            echo "There is 1 volunteer."; ?></b>
+        <center>
+            <a href="personSearch.php">
+                <button class="button" style="width:30%">
+                    Click here to search for a specific User
+                </button>
+            </a>
+        </center>
+        <br>
+
+        <?php if (count($pending) === 0): ?>
+            <b><div style="text-align:center">There are currently no volunteers.</div></b>
+        <?php elseif (count($pending) === 1): ?>
+            <b><div style="text-align:center">There is 1 volunteer.</div></b>
         <?php else: ?>
-            <b><?php
-                    echo "<div style=\"text-align:center\">";
-                    echo "There are currently " . htmlspecialchars(string: sizeof($pending)) . " volunteers."; ?></b>
+            <b>
+                <div style="text-align:center">
+                    There are currently <?= count($pending) ?> volunteers.
+                </div>
+            </b>
         <?php endif; ?>
-        <?php if (sizeof($boardMembers) === 0): ?>
-        <b><?php
-            echo "<div style=\"text-align:center\">";
-            echo "There are currently no board members.";
-            ?></b>
-        <?php elseif (sizeof($boardMembers) === 1): ?>
-            <b><?php
-            echo "<div style=\"text-align:center\">";
-                echo "There is 1 board member."; ?></b>
+
+        <?php if (count($boardMembers) === 0): ?>
+            <b><div style="text-align:center">There are currently no board members.</div></b>
+        <?php elseif (count($boardMembers) === 1): ?>
+            <b><div style="text-align:center">There is 1 board member.</div></b>
         <?php else: ?>
-
-            <b><?php
-                echo "<div style=\"text-align:center\">";
-                echo "There are currently " . htmlspecialchars(string: sizeof($boardMembers)) . " board members."; ?></b>
+            <b>
+                <div style="text-align:center">
+                    There are currently <?= count($boardMembers) ?> board members.
+                </div>
+            </b>
         <?php endif; ?>
-        <?php if (sizeof($admins) === 0): ?>
-                <b><?php
-            echo "<div style=\"text-align:center\">";
-            echo "There are currently no admins.";
-                    ?></b>
-        <?php elseif (sizeof($admins) === 1): ?>
-                    <b><?php
-            echo "<div style=\"text-align:center\">";
-                        echo "There is 1 admin."; ?></b>
+
+        <?php if (count($admins) === 0): ?>
+            <b><div style="text-align:center">There are currently no admins.</div></b>
+        <?php elseif (count($admins) === 1): ?>
+            <b><div style="text-align:center">There is 1 admin.</div></b>
         <?php else: ?>
-            <b><?php
-                    echo "<div style=\"text-align:center\">";
-                    echo "There are currently " . htmlspecialchars(string: sizeof($admins)) . " admins."; ?></b>
+            <b>
+                <div style="text-align:center">
+                    There are currently <?= count($admins) ?> admins.
+                </div>
+            </b>
         <?php endif; ?>
-    </p>
-    <br>
 
-<!--    <p>-->
-<!--        --><?php //if (sizeof($pending) === 0):
-//            echo "There are 0 pending signups awaiting resolution.";
-//            ?>
-<!--        --><?php //elseif (sizeof($pending) === 1):
-//            echo "There is 1 pending signup awaiting resolution"; ?>
-<!--        --><?php //else: ?>
-<!--            --><?php //echo "There are " . htmlspecialchars(string: sizeof($pending)) . " pending signups awaiting resolution"; ?>
-<!--        --><?php //endif; ?>
-<!--    </p>-->
-
-    <?php if (count(value: $allMembers) > 0): ?>
-    <div style="overflow-x:auto;">
-        <div class="table-wrapper">
-            <table class="general">
-
-                <thead>
-                <tr>
-                    <th>User ID</th>
-                    <th>First Name</th>
-                    <th>Last Name</th>
-                    <th>Role</th>
-<!--                    <th>Start Date</th>-->
-                    <?php if ($access_level >= 2): ?>
-                        <th><center>View Profile</center></th>
-                        <th><center>Edit Profile</center></th>
-                        <th><center>Change Role</center></th>
-                    <?php endif; ?>
-<!--                    --><?php //if ($access_level >= 2): ?>
-<!--                        <th>Change Role</th>-->
-<!--                    --><?php //endif; ?>
-                </tr>
-                </thead>
-                <tbody>
-                <?php for ($x = 0; $x < sizeof($allMembers); $x++): ?>
-                    <h2><?php $name = $allMembers[$x]['first_name']; ?></h2>
-
-                    <?php
-                    #$event = $pending[$x]['first_name'];
-                    $user_id = $allMembers[$x]['id'];
-
-                    //foreach ($events as $event):
-                    #$user_info = ($event);
-                    $position_label = 'p';
-                    ?>
-                    <tr>
-                        <td><?php echo htmlspecialchars($user_id); ?></td>
-                        <td><?php echo htmlspecialchars($name); ?></td>
-                        <td><?php echo htmlspecialchars($allMembers[$x]['last_name']); ?></td>
-                        <td><?php 
-                            if ($allMembers[$x]['type'] == "donor"){
-                                echo "Donor";
-                            }  
-                            else if ($allMembers[$x]['type'] == "volunteer" || $allMembers[$x]['type'] == "v"){
-                                echo "volunteer";
-                            }  
-                            else if ($allMembers[$x]['type'] == "admin" ){
-                                echo "Admin";
+        <?php if (count($allMembers) > 0): ?>
+            <div class="table-wrapper">
+                <table class="general">
+                    <thead>
+                        <tr>
+                            <th>User ID</th>
+                            <th>First Name</th>
+                            <th>Last Name</th>
+                            <th>Role</th>
+                            <?php if ($access_level >= 2): ?>
+                                <th><center>View Profile</center></th>
+                                <th><center>Edit Profile</center></th>
+                                <th><center>Change Role</center></th>
+                            <?php endif; ?>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <?php foreach ($allMembers as $member): 
+                            $user_id = $member['id'];
+                            $first   = htmlspecialchars($member['first_name']);
+                            $last    = htmlspecialchars($member['last_name']);
+                            switch ($member['type']) {
+                                case 'donor':     $role = 'Donor'; break;
+                                case 'volunteer':
+                                case 'v':         $role = 'Volunteer'; break;
+                                case 'admin':     $role = 'Admin'; break;
+                                case 'board':     $role = 'Board Member'; break;
+                                default:          $role = htmlspecialchars($member['type']);
                             }
-                            else if ($allMembers[$x]['type'] == "board" ){
-                                echo "Board Member";
-                            }
-                            else{ echo $allMembers[$x]['type'];}
- ?></td>
-<!--                        <td>-->
-<!--                            --><?php //echo htmlspecialchars($pending[$x]['start_date']); ?>
-<!--                        </td>-->
-                        <!--                        <td>--><?php //echo htmlspecialchars($position_label); ?><!--</td>-->
-                        <!-- Demographic -->
-                        <td>
+                        ?>
+                            <tr>
+                                <td><?= htmlspecialchars($user_id) ?></td>
+                                <td><?= $first ?></td>
+                                <td><?= $last ?></td>
+                                <td><?= $role ?></td>
+                                <?php if ($access_level >= 2): ?>
+                                    <td>
+                                        <a href="viewProfile.php?id=<?= urlencode($user_id) ?>">
+                                            <center>
+                                                <button class="button">View <?= $first ?></button>
+                                            </center>
+                                        </a>
+                                    </td>
+                                    <td>
+                                        <a href="editProfile.php?id=<?= urlencode($user_id) ?>">
+                                            <center>
+                                                <button class="button">Edit <?= $first ?></button>
+                                            </center>
+                                        </a>
+                                    </td>
+                                    <td>
+                                        <a href="modifyUserRole.php?id=<?= urlencode($user_id) ?>">
+                                            <center>
+                                                <button class="button">Change <?= $first ?></button>
+                                            </center>
+                                        </a>
+                                    </td>
+                                <?php endif; ?>
+                            </tr>
+                        <?php endforeach; ?>
+                    </tbody>
+                </table>
+            </div>
+        <?php endif; ?>
 
-                            <a
-                                href="viewProfile.php?id=<?php echo urlencode($user_id); ?>"><center><button class="button""><?php echo 'View ',htmlspecialchars($name); ?></center></button>
-                            </a>
-                        </td>
+        <a class="button cancel" href="volunteerDirectory.php">
+            Return to Volunteer Management Dashboard
+        </a>
+    </main>
 
-                        <td>
-
-                            <a
-                                    href="editProfile.php?id=<?php echo urlencode($user_id); ?>"><center><button class="button""><?php echo 'Edit ',htmlspecialchars($name); ?></center></button>
-                            </a>
-                        <td>
-
-                            <a
-                                    href="modifyUserRole.php?id=<?php echo urlencode($user_id); ?>"><center><button class="button""><?php echo 'Change ',htmlspecialchars($name); ?></center></button>
-                            </a>
-                        </td>
-                        <!--Actions-->
-
-                    </tr>
-
-                <?php endfor ?>
-                </tbody>
-            </table>
-        </div>
-    <?php endif ?>
-
-    <a class="button cancel" href="volunteerDirectory.php">Return to Volunteer Management Dashboard</a>
-</main>
-
-
+    <?php require('footer.php'); ?>
 </body>
-<?php require('footer.php'); ?>
 </html>

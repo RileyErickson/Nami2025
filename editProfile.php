@@ -41,7 +41,7 @@
             'first_name', 'last_name', 'birthday', 'street_address', 'city', 'state',
             'zip_code', 'email', 'phone1', 'phone1type', 'emergency_contact_first_name',
             'emergency_contact_last_name', 'emergency_contact_phone',
-            'emergency_contact_phone_type', 'emergency_contact_relation'
+            'emergency_contact_relation'
         );
         $errors = false;
         if (!wereRequiredFieldsSubmitted($args, $required)) {
@@ -114,11 +114,7 @@
             // echo 'bad e-contact phone';
         }
 
-        $emergency_contact_phone_type = $args['emergency_contact_phone_type'];
-        if (!valueConstrainedTo($emergency_contact_phone_type, array('cellphone', 'home', 'work'))) {
-            $errors = true;
-            // echo 'bad phone type';
-        }
+
 
         $emergency_contact_relation = $args['emergency_contact_relation'];
 
@@ -166,7 +162,7 @@
             $id, $first_name, $last_name, $birthday, $street_address, $city, $state, $notes,
             $zip_code, $email, $phone1, $emergency_contact_first_name,
             $emergency_contact_last_name, $emergency_contact_phone,
-            $emergency_contact_phone_type, $emergency_contact_relation,
+             $emergency_contact_relation,
             $how_you_heard_of_stepva,
             $preferred_feedback_method, $hobbies, $professional_experience,
             $disability_accomodation_needs, $training_complete, $training_date,

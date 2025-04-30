@@ -236,56 +236,22 @@
                 <!-- FOR BOARD ONLY -->
                 <?php elseif ($_SESSION['access_level'] >= 2) : ?>
 
-                    <main class='dashboard'>
-                        <div id="dashboard">
-                            <div class="dashboard-item" data-link="minutes.php">
-                                <img src="images/minutes.svg">
-                                <span><center>Minutes</center></span>
-                            </div>
-                            <div class="dashboard-item" data-link="viewForms.php">
-                                <img src="images/viewforms.png">
-                                <span><center>View Forms</center></span>
-                            </div>
-                            <div class="dashboard-item" data-link="https://docs.google.com/document/d/18IXhfsIesFVmo1fnPSZmimUZqvEymKUG1xr3fhEaa_k/edit?tab=t.0">
-                                <img src="images/staffGuide.png">
-                                <span><center>Access Volunteer Handbook</center></span>
-                            </div>
+                    <div class="top-bar">
 
-                            <div class="dashboard-item" data-link="viewProfile.php">
-                                <img src="images/view-profile.svg">
-                                <span><center>View Profile</center></span>
-                            </div>
-                            <div class="dashboard-item" data-link="editProfile.php">
-                                <img src="images/manage-account.svg">
-                                <span><center>Edit Profile</center></span>
-                            </div>
-                            <!--                            <div class="dashboard-item" data-link="viewMyUpcomingEvents.php">-->
-                            <!--                                <i class="fa-solid fa-list"></i>-->
-                            <!--                                <span><center>My Upcoming Events</center></span>-->
-                            <!--                            </div>-->
-                            <div class="dashboard-item" data-link="volunteerReport.php">
-                                <img src="images/volunteer-history.svg">
-                                <span><center>View Volunteering Report</center></span>
-                            </div>
-                            <!--                            <div class="dashboard-item" data-link="editHours.php">-->
-                            <!--                                <img src="images/add-person.svg">-->
-                            <!--                                <span><center>View & Change My Event Hours</center></span>-->
-                            <!--                            </div>-->
-                            <div class="dashboard-item" data-link="https://www.namirapp.org/#calendar">
-                                <img src="images/view-calendar.svg">
-                                <span><center>View Calendar</center></span>
-                            </div>
-<!--                            <div class="dashboard-item" data-link="changePassword.php">-->
-<!--                                <img src="images/change-password.svg">-->
-<!--                                <span><center>Change Password</center></span>-->
-                            </div>
+                        <a href="minutes.php" class="clickable-box">
+                        <div class="highlight">
+                            <span class="box-text">Minutes Management</span>
+                            <img src="images/highlight_background.jpg" alt="highlight" />
                         </div>
-                    </main>
+                        </a>
+                    
+                    </div>
+
+                    <main class="dashboard"></main>
 
                 <!-- Volunteer -->
 
                 <?php elseif ($notRoot) : ?>
-                    <main class='dashboard'>
 
                         <div class="top-bar">
 
@@ -298,8 +264,11 @@
 
                         </div>
 
-                        <div id="dashboard">
+                        <main class='dashboard'>
 
+                        <p style="font-size: 45px; color: #0c499c; text-align: left; padding-left: 50px; padding-top: 20px; padding-right: 0px;"><b>Dashboard</b></p>
+
+                        <div id="dashboard">
 
                             <div class="dashboard-item" data-link="viewForms.php">
                                 <img src="images/viewforms.png">
@@ -340,7 +309,8 @@
 <!--                            </div>-->
 
                         </div>
-                    </main>
+                        
+                        </main>
                 <?php endif ?>
                 <!-- autoredirects home as volunteer currently -->
                 <!-- <div class="dashboard-item" data-link="editHours.php">
