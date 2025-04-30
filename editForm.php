@@ -44,22 +44,22 @@
 	
 	switch ($formname) {
 		case "f2fapplication":
-			$formattedName = "f2f";
+			$formattedName = "F2F";
 			break;
 		case "p2papplication":
-			$formattedName = "p2p";
+			$formattedName = "P2P";
 			break;
 		case "ioovapplication":
-			$formattedName = "ioov";
+			$formattedName = "IooV";
 			break;
 		case "csgapplication":
-			$formattedName = "csg";
+			$formattedName = "CSG";
 			break;
 		case "fsgapplication":
-			$formattedName = "fsg";
+			$formattedName = "FSG";
 			break;
 		case "hfapplication":
-			$formattedName = "hf";
+			$formattedName = "HF";
 			break;
 	}
 
@@ -69,10 +69,17 @@
 	$appID = get_appID($userID, $formname);
 	
 	/* setting values for editing */
-	if (isset($_POST['submitted']) && ($_POST['reasontobecome'] == "" || $_POST['whyisnowrighttime'] == "" || $_POST['statusinrecoveryjourney'] == "" || $_POST['screeningdate'] == "")) {
+
+	
+	if (isset($_POST['submitted']) && isset($_POST['statusinrecoveryjourney']) && ($_POST['reasontobecome'] == "" || $_POST['whyisnowrighttime'] == "" || $_POST['statusinrecoveryjourney'] == "" || $_POST['screeningdate'] == "")) {
 		$message = "All fields are required.";
 		$toast = "error";
-	} else if ($appID != 0 && isset($_POST['submitted'])) {
+	}
+	else if ((isset($_POST['submitted']) && ($_POST['reasontobecome'] == "" || $_POST['whyisnowrighttime'] == ""  || $_POST['screeningdate'] == ""))){
+		$message = "All fields are required.";
+		$toast = "error";
+	}
+	else if ($appID != 0 && isset($_POST['submitted'])) {
 		/* update old application */
 		update_reasontobecome($appID, $formname, $_POST['reasontobecome']);
 		update_whyisnowrighttime($appID, $formname, $_POST['whyisnowrighttime']);
@@ -89,7 +96,7 @@
 		unset($_POST['screenername']);
 		unset($_POST['screeningdate']);
 		
-		$message = "application updated!";
+		$message = "Application updated!";
 		$toast = "happy";
 	} else if (isset($_POST['submitted'])) {
 		/* new application creation */
@@ -106,9 +113,10 @@
 		unset($_POST['screenername']);
 		unset($_POST['screeningdate']);
 		
-		$message = "application created!";
+		$message = "Application created!";
 		$toast = "happy";
 	}
+
 	
 ?>
 <!DOCTYPE html>

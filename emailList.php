@@ -64,10 +64,10 @@
             if (isset($_POST['donator'])){
                 if ($addedAny==FALSE){
                     $addedAny=TRUE;
-                    $query = $query . " AND (type='donator'";
+                    $query = $query . " AND (type='donor'";
                 }
                 else{
-                    $query = $query . " OR type='donator'";
+                    $query = $query . " OR type='donor'";
                 }
             }
             $query = $query . ")";

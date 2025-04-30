@@ -28,10 +28,6 @@ $conn = connect();
             <img src="images/account.png"></img>
             <span><center>View Forms</center></span>
         </div>
-		<div class="dashboard-item" data-link="createForm.php">
-			<img src="images/viewforms.png">
-			<span><center>Create Forms</center></span>
-		</div>
         <div class="dashboard-item" data-link="formSearch.php">
             <img src="images/emailList.png">
             <span><center>Search Forms</center></span>
