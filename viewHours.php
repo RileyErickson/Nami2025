@@ -1,19 +1,31 @@
 <?php
 
-session_start();
-
+session_cache_expire(30);
+    session_start();
 ini_set("display_errors", 1);
 error_reporting(E_ALL);
 
-require_once('header.php');
-require_once('universal.inc');
-require_once('database/dbinfo.php');
 
+require_once('database/dbinfo.php');
+require_once('database/dbpersons.php');
+require_once('domain/Person.php');
 
 $conn = connect();
 
 // Fetch all volunteer hours
-$query = "SELECT f_name, l_name, date, hours FROM volunteerHours ORDER BY l_name, f_name, date ASC";
+ 
+$query = "
+  SELECT vh.f_name,
+         vh.l_name,
+         vh.date,
+         vh.hours
+  FROM volunteerHours AS vh
+  JOIN dbpersons   AS dp
+    ON vh.f_name = dp.first_name
+   AND vh.l_name = dp.last_name
+  WHERE dp.id = '{$_SESSION['_id']}'
+  ORDER BY vh.date ASC
+";
 $result = mysqli_query($conn, $query);
 $volunteerHours = [];
 $totalHours = 0;
@@ -28,7 +40,9 @@ mysqli_close($conn);
 
 <!DOCTYPE html>
 <html>
+
 <head>
+    <?php require_once('universal.inc'); ?>
     <title>Volunteer Hours</title>
     <style>
         body {
@@ -107,6 +121,7 @@ mysqli_close($conn);
     </style>
 </head>
 <body>
+<?php require_once('header.php'); ?>
 <h1>Volunteer Hours</h1>
 <main>
     <div class="container">
