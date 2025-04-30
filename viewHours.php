@@ -7,7 +7,7 @@ error_reporting(E_ALL);
 
 
 require_once('database/dbinfo.php');
-require_once('database/dbpersons.php');
+//require_once('database/dbpersons.php');
 require_once('domain/Person.php');
 
 $conn = connect();
