@@ -6,8 +6,7 @@ ini_set("display_errors", 1);
 error_reporting(E_ALL);
 
 
-require_once('universal.inc');
-require_once('header.php');
+
 require_once('database/dbinfo.php');
 
 
@@ -25,7 +24,8 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['delete'])) {
     header("Location: hours.php");
     exit();
 }
-
+require_once('universal.inc');
+require_once('header.php');
 // Fetch all volunteer hours, sorted by date (most recent first), then by first name alphabetically
 
 $query = "SELECT id, f_name, l_name, date, hours FROM volunteerHours ORDER BY date DESC, f_name ASC";
