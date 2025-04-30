@@ -35,7 +35,7 @@
         <h1>Submitted Form Search</h1>
     <main>
         <form id="person-search" class="general" method="get">
-            <h2>Find Form</h2>
+            <h2>Find Volunteer/Participant</h2>
             <?php 
             require_once('database/dbForms.php');
                     if (isset($_GET['formType'])){
@@ -51,34 +51,67 @@
                     
                     $args = sanitize($_GET);
                     $required = ['role'];
-                    $formname = $args['role'];
-                    if (!($formname)) {
+                    //var_dump($args);
+                    $role = $args['role'];
+                    if (!($role)) {
                             if (!isset($_GET['formType']) && !isset($_GET['unformType'])){
                                 echo '<div class="error-toast">The "Form Type" criterion is required.</div>';   
                             }
                     }
                      else {
                         echo "<h3>Search Results</h3>";
-                    if (!isset($_GET['status'])){
+                    if (!isset($_GET['status']) || $_GET['status'] == ""){
                         $status="*";
                     }
                     else{
                         $status=$_GET['status'];
                     }
-                      //  $persons = get_forms_id($role,$status);
+                        $persons = get_forms_id($role,$status);
                     
-                    $formID = findFormFromName($formname);
-                    $formIDnew=mysqli_fetch_assoc($formID);
-                    if (!isset($formIDnew['managerID'])){  
+                    if ($role == "f2f"){
+                        $formName = "Family to Family";
+                        $formVariable = "f2fApplicationID";
+                    }
+                    else if ($role == "p2p"){
+                        $formName = "Peer to Peer";
+                        $formVariable = "p2pApplicationID";
+                    }
+                    else if ($role == "ioov"){
+                        $formName = "In Our Own Voice";
+                        $formVariable = "ioovApplicationID";
+                    }
+                    else if ($role == "csg"){
+                        $formName = "Connection Support Group";
+                        $formVariable = "csgApplicationID";                
+                    }
+                    else if ($role == "fsg"){
+                        $formName = "Family Support Groups";
+                        $formVariable = "fsgApplicationID";
+                    }
+                    else if ($role == "hf"){
+                        $formName = "Homefront";
+                        $formVariable = "hfApplicationID";
+                    }
+                    if ($persons == NULL){  
                         echo '<div class="error-toast">Your search returned no results.</div>';}
                     else{
                         require_once('include/output.php');
-/*                        if (count($persons) > 0) {
-                            echo '<div class="table-wrapper">
+                        if (count($persons) > 0) {
+                            echo '
+                            <div class="table-wrapper">
                                 <table class="general">
                                     <thead>
-                                        <tr>';
-                                           
+                                        <tr>
+                                            <th>Name</th>
+                                            <th>Username</th>
+                                            <th>Form</th>';
+                                            if ($role=="F2F" OR  $role=="FSG" OR  $role=="HF"){
+                                                echo '<th>Reason</th> <th>Why Now</th> <th>Screener Name</th> <th>Screener Date</th>';
+                                            }
+                                            else {
+                                                echo '<th>Reason</th> <th>Why Now</th> <th>Recovery Status</th> <th>Screener Name</th> <th>Screener Date</th>';
+                                            }
+
                                         echo '
                                        <th>Form Status </th>;
                                         <th>Form Actions</th><th></th>
@@ -96,6 +129,48 @@
                                             ;
 
                                             
+                                            if ($role=="f2f"){
+                                                echo  '<td>' . $person['reasonToBecomeF2F'] . '</td>';
+                                                echo  '<td>' . $person['whyIsNowRightTime'] . '</td>';
+                                                echo  '<td>' . $person['screenerName'] . '</td>';
+                                                echo  '<td>' . $person['screeningDate'] . '</td>';
+                                            }
+                                            else if ($role=="fsg"){
+                                                echo  '<td>' . $person['reasonToBecomeFSG'] . '</td>';
+                                                echo  '<td>' . $person['whyIsNowRightTime'] . '</td>';
+                                                echo  '<td>' . $person['screenerName'] . '</td>';
+                                                echo  '<td>' . $person['screeningDate'] . '</td>';
+                                                
+                                            }
+                                            else if ($role=="hf"){
+                                                echo  '<td>' . $person['reasonToBecomeHF'] . '</td>';
+                                                echo  '<td>' . $person['whyIsNowRightTime'] . '</td>';
+                                                echo  '<td>' . $person['screenerName'] . '</td>';
+                                                echo  '<td>' . $person['screeningDate'] . '</td>';
+
+                                            }
+                                            else if ($role=="p2p"){
+                                                echo  '<td>' . $person['reasonToBecomeP2P'] . '</td>';
+                                                echo  '<td>' . $person['whyIsNowRightTime'] . '</td>';
+                                                echo  '<td>' . $person['statusInRecoveryJourney'] . '</td>';
+                                                echo  '<td>' . $person['screenerName'] . '</td>';
+                                                echo  '<td>' . $person['screeningDate'] . '</td>';
+                                            }
+                                            else if ($role=="ioov"){
+                                                echo  '<td>' . $person['reasonToBecomeIOOV'] . '</td>';
+                                                echo  '<td>' . $person['whyIsNowRightTime'] . '</td>';
+                                                echo  '<td>' . $person['statusInRecoveryJourney'] . '</td>';
+                                                echo  '<td>' . $person['screenerName'] . '</td>';
+                                                echo  '<td>' . $person['screeningDate'] . '</td>';
+                                            }
+                                            else if ($role=="csg"){	
+                                                echo  '<td>' . $person['reasonToBecomeCSG'] . '</td>';
+                                                echo  '<td>' . $person['whyIsNowRightTime'] . '</td>';
+                                                echo  '<td>' . $person['statusInRecoveryJourney'] . '</td>';
+                                                echo  '<td>' . $person['screenerName'] . '</td>';
+                                                echo  '<td>' . $person['screeningDate'] . '</td>';
+
+                                            }
                                             if ($person['approved'] == 0 || $person['approved'] == 'R'){
                                                 if ($person['approved'] == 0){
                                                     echo '<td> Pending </td> ';
@@ -132,14 +207,24 @@
                                 </table>
                             </div>';
 
-                    */}}
+                    }}
                     echo '<h3>Search Again</h3>';
                 }
             ?>
             <p>Use the form below to find a volunteer or participant. At least one search criterion is required.</p>
-			<label for="role">Form Type</label>
-           <input type="text" name="role"><br>
 
+			<label for="role">Form Type</label>
+ 
+           <select id="role" name="role">
+                <option value="">Select</option>
+                <option value="f2f" <?php if (isset($role) && $role == 'f2f') echo 'f2f' ?>>f2f</option>
+                <option value="p2p" <?php if (isset($role) && $role == 'p2p') echo 'p2p' ?>>p2p</option>
+                <option value="ioov" <?php if (isset($role) && $role == 'ioov') echo 'ioov' ?>>ioov</option>
+                <option value="csg" <?php if (isset($role) && $role == 'csg') echo 'csg' ?>>csg</option>
+                
+                <option value="fsg" <?php if (isset($role) && $role == 'fsg') echo 'fsg' ?>>fsg</option>
+                <option value="hf" <?php if (isset($role) && $role == 'hf') echo 'hf' ?>>hf</option>
+            </select>
 
             <label for="Status">Form Status</label>
             <select id="status" name="status">
@@ -150,7 +235,7 @@
                 </select>
             <div id="criteria-error" class="error hidden">You must provide at least one search criterion.</div>
             <input type="submit" value="Search">
-            <a class="button cancel" href="forms.php">Return to Home Dashboard</a>
+            <a class="button cancel" href="index.php">Return to Home Dashboard</a>
         </form>
     </main>
     </body>
